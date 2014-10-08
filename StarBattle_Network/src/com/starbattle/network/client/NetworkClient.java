@@ -30,11 +30,11 @@ public class NetworkClient {
 		client.addListener(new ThreadedListener(new Listener() {
 
 			public void connected(Connection connection) {
-				connectionController.connected();
+				connectionController.connected(connection);
 			}
 
 			public void disconnected(Connection connection) {
-				connectionController.disconnected();
+				connectionController.disconnected(connection);
 			}
 
 			public void received(Connection connection, Object object) {

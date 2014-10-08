@@ -18,9 +18,9 @@ public class PlayerContainer {
 		player.put(connection.getPlayerName(), new Player(connection));
 	}
 	
-	public void logoutPlayer(Player player)
+	public void logoutPlayer(String playerName)
 	{
-		this.player.remove(player);
+		this.player.remove(playerName);
 	}
 	
 	public HashMap<String, Player> getPlayer() {

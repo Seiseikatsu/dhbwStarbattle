@@ -15,25 +15,24 @@ public class MainServerManager {
 
 	public MainServerManager(NetworkServer server) {
 		this.server = server;
-		playerContainer=new PlayerContainer();
-		playerManager=new PlayerManager(server.getSendConnection(),playerContainer);
+		playerContainer = new PlayerContainer();
+		playerManager = new PlayerManager(server.getSendConnection(), playerContainer);
 	}
 
 	public ConnectionListener createListener() {
 		return new ConnectionListener() {
 
 			@Override
-			public void onDisconnect() {
+			public void onDisconnect(Connection connection) {
 				// TODO Auto-generated method stub
-				System.out.println("Main Server disconnected, Shut down...");
-				server.close();
-				System.exit(0);
+				clientDisconnected(connection);
 			}
 
 			@Override
-			public void onConnect() {
+			public void onConnect(Connection connection) {
 				// TODO Auto-generated method stub
-				System.out.println("Main Server online!");
+				clientConnected(connection);
+
 			}
 
 			@Override
@@ -43,17 +42,22 @@ public class MainServerManager {
 			}
 		};
 	}
-	
-	private void receivedObject(Connection connection, Object object)
-	{
-		PlayerConnection player=(PlayerConnection)connection;
-		if(object instanceof NP_Login)
-		{
-			playerManager.tryLogin(player, (NP_Login)object);
-		}
-		else if(object instanceof NP_Register)
-		{
-			playerManager.tryRegister(player, (NP_Register)object);
+
+	private void clientConnected(Connection connection) {
+		System.out.println("New Client connected to Server!");
+	}
+
+	private void clientDisconnected(Connection connection) {
+		//remove from login player list
+		playerManager.logoutPlayer((PlayerConnection)connection);
+	}
+
+	private void receivedObject(Connection connection, Object object) {
+		PlayerConnection player = (PlayerConnection) connection;
+		if (object instanceof NP_Login) {
+			playerManager.tryLogin(player, (NP_Login) object);
+		} else if (object instanceof NP_Register) {
+			playerManager.tryRegister(player, (NP_Register) object);
 		}
 	}
 }

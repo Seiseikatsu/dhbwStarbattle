@@ -5,9 +5,9 @@ import com.esotericsoftware.kryonet.Connection;
 public interface ConnectionListener {
 
 	
-	public void onConnect();
+	public void onConnect(Connection connection);
 	
-	public void onDisconnect();
+	public void onDisconnect(Connection connection);
 	
 	public void onReceive(Connection connection, Object message);
 	

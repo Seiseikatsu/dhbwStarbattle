@@ -37,13 +37,13 @@ public class ClientConnectionController {
 			}
 			
 			@Override
-			public void onDisconnect() {
+			public void onDisconnect(Connection connection) {
 				// TODO Auto-generated method stub
 				System.out.println("Client disconnected!");
 			}
 			
 			@Override
-			public void onConnect() {
+			public void onConnect(Connection connection) {
 				// TODO Auto-generated method stub
 				System.out.println("Client connected!");
 			}
@@ -59,14 +59,14 @@ public class ClientConnectionController {
 		listener.onReceive(connection, message);
 	}
 	
-	public void connected()
+	public void connected(Connection connection)
 	{
-		listener.onConnect();
+		listener.onConnect(connection);
 	}
 	
-	public void disconnected()
+	public void disconnected(Connection connection)
 	{
-		listener.onDisconnect();
+		listener.onDisconnect(connection);
 	}
 		
 	public void setListener(ConnectionListener listener) {

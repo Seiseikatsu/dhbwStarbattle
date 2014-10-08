@@ -29,11 +29,11 @@ public class NetworkServer {
 
 		server.addListener(new Listener() {
 			public void disconnected(Connection c) {
-				connectionController.disconnected();
+				connectionController.disconnected(c);
 			}
 
 			public void connected(Connection c) {
-				connectionController.connected();
+				connectionController.connected(c);
 			}
 
 			public void received(Connection connection, Object message) {
