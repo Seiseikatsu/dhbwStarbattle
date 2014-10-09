@@ -1,6 +1,7 @@
 package com.starbattle.client.views;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.window.ContentView;
 
 public class LoginView extends ContentView {
@@ -23,21 +25,26 @@ public class LoginView extends ContentView {
 	private JButton registerButton=new JButton("Create Account");
 	private JTextField username=new JTextField(20);
 	private JPasswordField password=new JPasswordField(20);
+	private JLabel errorText=new JLabel("",JLabel.CENTER);
 	
-	public LoginView() {
+	public LoginView(NetworkConnection connection) {
 		
 		username.setText("TimoTester");
 		password.setText("test123");
 		
+		errorText.setForeground(new Color(200,0,0));
 		view.setLayout(new BorderLayout());
-		view.add(new JLabel("Login"),BorderLayout.NORTH);
+		JLabel title=new JLabel("Login",JLabel.CENTER);
+		title.setFont(title.getFont().deriveFont(20f));
+		view.add(title,BorderLayout.NORTH);
 		
 		JPanel block=new JPanel();
-		block.setLayout(new GridLayout(4, 1));
+		block.setLayout(new GridLayout(5, 1));
 		block.add(new JLabel("Username"));
 		block.add(username);
 		block.add(new JLabel("Password"));
 		block.add(password);
+		block.add(errorText);
 		view.add(block,BorderLayout.CENTER);
 		
 		JPanel footer=new JPanel();
@@ -56,7 +63,7 @@ public class LoginView extends ContentView {
 
 	@Override
 	protected void initView() {
-
+		
 	}
 
 	@Override

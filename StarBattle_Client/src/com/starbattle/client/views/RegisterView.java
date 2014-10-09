@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.window.ContentView;
 
 public class RegisterView extends ContentView{
@@ -15,11 +16,13 @@ public class RegisterView extends ContentView{
 
 	private JButton backButton=new JButton("Back");
 	
-	public  RegisterView() {
+	public  RegisterView(NetworkConnection connection) {
 		// TODO Auto-generated constructor stub
 		
 		view.setLayout(new BorderLayout());
-		view.add(new JLabel("Create new Account"),BorderLayout.NORTH);
+		JLabel title=new JLabel("Register",JLabel.CENTER);
+		title.setFont(title.getFont().deriveFont(20f));
+		view.add(title,BorderLayout.NORTH);
 		
 		view.add(backButton,BorderLayout.SOUTH);
 		
