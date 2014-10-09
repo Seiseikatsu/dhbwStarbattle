@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 public abstract class ContentView {
 
-	protected JPanel view=new JPanel();
+	protected ContentPanel view=new ContentPanel();
 	private ViewChangeListener listener;
 	
 	protected abstract void initView();

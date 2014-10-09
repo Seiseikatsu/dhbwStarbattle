@@ -10,14 +10,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.connection.RegistrationListener;
+import com.starbattle.client.layout.LoginModel;
+import com.starbattle.client.resource.ResourceLoader;
 import com.starbattle.client.window.ContentView;
 import com.starbattle.network.client.SendServerConnection;
 import com.starbattle.network.connection.objects.NP_Login;
@@ -29,42 +30,35 @@ public class LoginView extends ContentView {
 	
 	private JButton loginButton = new JButton("Login");
 	private JButton registerButton = new JButton("Create Account");
-	private JTextField username = new JTextField(20);
-	private JPasswordField password = new JPasswordField(20);
-	private JLabel errorText = new JLabel("", JLabel.CENTER);
+	private LoginModel loginModel=new LoginModel("TimoTester","test123");
 	private SendServerConnection sendConnection;
 
 	public LoginView(NetworkConnection connection) {
 
 		sendConnection = connection.getSendConnection();
 		connection.setRegistrationListener(new Registration());
-		username.setText("TimoTester");
-		password.setText("test123");
+		
+		view.setBackgroundImage(ResourceLoader.loadImage("loginBackground.jpg"));
 
-		errorText.setForeground(new Color(200, 0, 0));
 		view.setLayout(new BorderLayout());
-		JLabel title = new JLabel("Login", JLabel.CENTER);
-		title.setFont(title.getFont().deriveFont(20f));
-		view.add(title, BorderLayout.NORTH);
-
-		JPanel block = new JPanel();
-		block.setLayout(new GridLayout(5, 1));
-		block.add(new JLabel("Username"));
-		block.add(username);
-		block.add(new JLabel("Password"));
-		block.add(password);
-		block.add(errorText);
-		view.add(block, BorderLayout.CENTER);
-
-		KeyEnter keyEnter = new KeyEnter();
-		username.addKeyListener(keyEnter);
-		password.addKeyListener(keyEnter);
-
+		
+		loginModel.addKeyListener(new KeyEnter());
+		
+		JLabel title=new JLabel(ResourceLoader.loadIcon("title.png"));
+		view.add(title,BorderLayout.NORTH);
+		
 		JPanel footer = new JPanel();
 		footer.setLayout(new FlowLayout());
+		footer.setOpaque(false);
 		footer.add(registerButton);
 		footer.add(loginButton);
-		view.add(footer, BorderLayout.SOUTH);
+				
+		JPanel block=new JPanel();
+		block.setLayout(new BorderLayout());
+		block.setOpaque(false);
+		block.add(loginModel.getView(),BorderLayout.NORTH);
+		block.add(footer,BorderLayout.SOUTH);
+		view.add(block, BorderLayout.SOUTH);
 
 		// change to register view on button click
 		registerButton.addActionListener(new ActionListener() {
@@ -81,8 +75,8 @@ public class LoginView extends ContentView {
 	}
 
 	private void tryLogin() {
-		String name = username.getText();
-		String password = this.password.getText();
+		String name = loginModel.getUserName();
+		String password = loginModel.getPassword();
 
 		NP_Login login = new NP_Login();
 		login.playerName = name;
@@ -101,7 +95,7 @@ public class LoginView extends ContentView {
 		@Override
 		public void registrationFailed(String error) {
 			// TODO Auto-generated method stub
-			errorText.setText(error);
+			loginModel.setErrorText(error);
 		}
 	}
 
@@ -125,6 +119,7 @@ public class LoginView extends ContentView {
 
 	@Override
 	protected void initView() {
+		loginModel.setErrorText("");
 		resizeWindow(windowSize);
 	}
 

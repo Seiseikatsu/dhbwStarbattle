@@ -1,5 +1,6 @@
 package com.starbattle.client.window;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.HashMap;
 
@@ -15,6 +16,7 @@ public class WindowContent extends JPanel{
 	public WindowContent(GameWindow window)
 	{
 		this.window=window;
+		this.setLayout(new BorderLayout());
 	}
 	
 	public void createView(ContentView view)
@@ -38,7 +40,7 @@ public class WindowContent extends JPanel{
 	{
 		view.initView();
 		this.removeAll();
-		this.add(view.getView());
+		this.add(view.getView(),BorderLayout.CENTER);
 		this.revalidate();
 		this.repaint();
 	}

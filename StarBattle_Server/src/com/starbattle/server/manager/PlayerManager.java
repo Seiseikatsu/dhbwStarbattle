@@ -31,6 +31,7 @@ public class PlayerManager {
 		String name = login.playerName;
 		String password = login.password;
 		LoginState loginState = accountManager.canLogin(name, password);
+		String errorText=loginState.getText();
 		if (loginState == LoginState.Login_Ok) {
 			// check if player is not already connected
 			if (!playerContainer.playerConnected(name)) {
@@ -38,10 +39,11 @@ public class PlayerManager {
 				loginPlayer(player, name);
 				return;
 			}
+			errorText="Player is already logged in!";
 		}
 
 		// error case
-		sendAnswer(player, false, loginState.getText());
+		sendAnswer(player, false, errorText);
 	}
 
 	public void tryRegister(PlayerConnection player, NP_Register register) {
