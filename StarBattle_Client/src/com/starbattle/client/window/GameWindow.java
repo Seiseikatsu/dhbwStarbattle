@@ -15,6 +15,7 @@ public class GameWindow {
 		updateSize(size);
 		content = new WindowContent(this);
 		window.setContentPane(content);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 	}
 

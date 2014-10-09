@@ -23,7 +23,7 @@ public abstract class ContentView {
 	
 	public void resizeWindow(Dimension newSize)
 	{
-		
+		listener.resizeWindow(newSize);
 	}
 	
 	public void setViewChangeListener(ViewChangeListener listener) {

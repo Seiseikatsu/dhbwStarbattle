@@ -26,13 +26,6 @@ public class PlayerManager {
 		accountManager = new TestAccountManager();
 	}
 	
-	public void logoutPlayer(PlayerConnection player)
-	{
-		if(player.isConnected())
-		{//if its connected, remove player object from accountlist
-			playerContainer.logoutPlayer(player.getPlayerName());
-		}
-	}
 
 	public void tryLogin(PlayerConnection player, NP_Login login) {
 		String name = login.playerName;
@@ -76,8 +69,19 @@ public class PlayerManager {
 		player.setPlayerName(name);
 		playerContainer.loginPlayer(player);
 		//send no response string, just open-game-command to true
+		System.out.println("Player login: "+name);
 		sendAnswer(player, true, null);
 	}
+	
+	public void logoutPlayer(PlayerConnection player)
+	{
+		if(player.isConnected())
+		{//if its connected, remove player object from accountlist
+			playerContainer.logoutPlayer(player.getPlayerName());
+			System.out.println("Player logout: "+player.getPlayerName());
+		}
+	}
+
 
 	private void sendAnswer(PlayerConnection player, boolean login, String text) {
 		NP_StartAnswer answer = new NP_StartAnswer();

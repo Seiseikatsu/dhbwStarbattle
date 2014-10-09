@@ -24,31 +24,32 @@ public class MainServerManager {
 
 			@Override
 			public void onDisconnect(Connection connection) {
-				// TODO Auto-generated method stub
+				
 				clientDisconnected(connection);
 			}
 
 			@Override
 			public void onConnect(Connection connection) {
-				// TODO Auto-generated method stub
+				
 				clientConnected(connection);
 
 			}
 
 			@Override
 			public void onReceive(Connection connection, Object object) {
-				// TODO Auto-generated method stub
+				
 				receivedObject(connection, object);
 			}
 		};
 	}
 
 	private void clientConnected(Connection connection) {
-		System.out.println("New Client connected to Server!");
+		System.out.println("New Client ("+connection.getID()+") connected to Server!");
 	}
 
 	private void clientDisconnected(Connection connection) {
 		//remove from login player list
+		System.out.println("Lost Connection to Client "+connection.getID());
 		playerManager.logoutPlayer((PlayerConnection)connection);
 	}
 
@@ -58,6 +59,9 @@ public class MainServerManager {
 			playerManager.tryLogin(player, (NP_Login) object);
 		} else if (object instanceof NP_Register) {
 			playerManager.tryRegister(player, (NP_Register) object);
+		} else if (object instanceof NP_Logout)
+		{
+			playerManager.logoutPlayer(player);
 		}
 	}
 }

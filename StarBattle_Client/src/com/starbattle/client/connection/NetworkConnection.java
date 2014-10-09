@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.starbattle.network.client.NetworkClient;
+import com.starbattle.network.client.SendServerConnection;
 import com.starbattle.network.connection.ConnectionListener;
 
 public class NetworkConnection {
@@ -23,6 +24,11 @@ public class NetworkConnection {
 
 	public void setRegistrationListener(RegistrationListener listener) {
 		networkObjectResolver.setRegistrationListener(listener);
+	}
+	
+	public SendServerConnection getSendConnection()
+	{
+		return client.getSendConnection();
 	}
 
 	private class Listener implements ConnectionListener {
