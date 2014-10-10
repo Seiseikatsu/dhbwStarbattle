@@ -5,6 +5,7 @@ import com.starbattle.mapeditor.tiles.TilePlacement;
 public abstract class MapLayer  {
 
 	protected String name,resource;
+	protected boolean isVisible=true;
 	
 	public abstract void clear();
 	
@@ -20,5 +21,18 @@ public abstract class MapLayer  {
 	
 	public String getResource() {
 		return resource;
+	}
+	
+	public boolean isVisible() {
+		return isVisible;
+	}
+	
+	public void toggleVisibility()
+	{
+		isVisible=!isVisible;
+	}
+	
+	public void setVisible(boolean isVisible) {
+		this.isVisible = isVisible;
 	}
 }

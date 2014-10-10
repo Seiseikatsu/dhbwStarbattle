@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.annotation.Resource;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,10 +25,14 @@ public class LayerComponent {
 
 	private MapLayer layer;
 	private JButton view = new JButton();
-
+	private JButton showAndHide=createButton("eye.png");
+	private ImageIcon visible,hidden;
+	
 	public LayerComponent(MapLayer layer, LayerListener listener) {
 		this.layer = layer;
 		initLayout(listener);
+		visible=ResourceLoader.loadIcon("eye.png");
+		hidden=ResourceLoader.loadIcon("eye_close.png");
 	}
 
 	private void initLayout(final LayerListener listener) {
@@ -43,7 +48,6 @@ public class LayerComponent {
 		block.add(name, BorderLayout.NORTH);
 		JLabel resource = new JLabel(layer.getResource());
 		resource.setForeground(new Color(0, 150, 0));
-		block.add(resource, BorderLayout.SOUTH);
 		block.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 5));
 		view.add(block, BorderLayout.CENTER);
 
@@ -56,14 +60,30 @@ public class LayerComponent {
 		control.setLayout(new BorderLayout());
 		JButton up = createButton("arrow_up.png");
 		JButton down = createButton("arrow_down.png");
+		
 		JButton edit = createButton("cog.png");
+		
 
+		JPanel settings=new JPanel();
+		settings.setLayout(new VerticalLayout());
+	
+		settings.add(showAndHide);
+		if(layer instanceof GameLayer )
+		{
+		//cant edit game layer	
+		}
+		else
+		{
+		settings.add(edit);
+		block.add(resource, BorderLayout.SOUTH);
+		}
 		JPanel move = new JPanel();
 		move.setLayout(new VerticalLayout());
 		move.add(up);
 		move.add(down);
-		control.add(edit, BorderLayout.WEST);
+		control.add(settings, BorderLayout.WEST);
 		control.add(move, BorderLayout.EAST);
+		
 		view.add(control, BorderLayout.EAST);
 
 		up.addActionListener(new ActionListener() {
@@ -77,7 +97,26 @@ public class LayerComponent {
 				listener.moveLayer(layer, true);
 			}
 		});
+		
+		showAndHide.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				layer.toggleVisibility();
+				if(layer.isVisible())
+				{
+					showAndHide.setIcon(visible);
+				}
+				else
+				{
+					showAndHide.setIcon(hidden);
+				}
+			}
+		});
 
+		view.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listener.selectLayer(layer);
+			}
+		});
 	}
 
 	private JButton createButton(String icon) {

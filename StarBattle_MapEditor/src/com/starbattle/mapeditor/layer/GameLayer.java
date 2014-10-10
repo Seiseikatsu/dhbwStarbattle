@@ -7,7 +7,7 @@ public class GameLayer extends MapLayer{
 	
 	public GameLayer() {
 		name="Game Layer";
-		resource="";
+		resource="gameTiles.png";
 	}
 	
 	@Override
@@ -33,5 +33,7 @@ public class GameLayer extends MapLayer{
 		// TODO Auto-generated method stub
 		
 	}
+	
+
 
 }

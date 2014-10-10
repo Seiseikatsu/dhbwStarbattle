@@ -21,6 +21,7 @@ public class Map implements Serializable {
 	public Map(Dimension size) {
 		
 		addLayer(new GameLayer()); // add game layer per default
+		addLayer(new TiledLayer("grass_main.png"));
 		setSize(size);		
 	}
 	

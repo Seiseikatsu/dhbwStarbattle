@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class MapTextureLoader {
 
 	
-	private static HashMap<String,Image> textures=new HashMap<String,Image>();
+	private static HashMap<String,SpriteSheet> textures=new HashMap<String,SpriteSheet>();
 	
 	public static void loadTextures()
 	{
@@ -18,9 +18,14 @@ public class MapTextureLoader {
 			{
 			String name=file.getName();
 			Image texture=ResourceLoader.loadImage(file);
-			textures.put(name, texture);
+			textures.put(name, new SpriteSheet(texture));
 			}
 		}
+	}
+	
+	public static HashMap<String, SpriteSheet> getSpriteSheets()
+	{
+		return textures;
 	}
 	
 	public static String[] getMapresNames()

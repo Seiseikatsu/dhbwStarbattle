@@ -69,11 +69,13 @@ public class ResourceLoader {
 		return new ImageIcon(loadImage(icon, width, height));
 	}
 
-	public static Image cutImage(Image image, int x, int y, int width,
-			int height) {
-		return frame.createImage(new FilteredImageSource(image.getSource(),
-				new CropImageFilter(x, y, width, height)));
+	public static Image cutImage(Image source, int x, int y, int w, int h)
+	{
+		BufferedImage bf=new BufferedImage(w,h,BufferedImage.TYPE_INT_ARGB);
+		bf.getGraphics().drawImage(source,-x,-y,null);
+		return bf;
 	}
+	
 
 	public static void writeObjectFile(Object object, File file) throws Exception {
 		ObjectOutputStream o = null;
