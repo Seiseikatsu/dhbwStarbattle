@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import javax.swing.UIManager;
 
 import com.starbattle.mapeditor.gui.MainPanel;
+import com.starbattle.mapeditor.resource.MapTextureLoader;
+import com.starbattle.mapeditor.window.LoadingWindow;
 import com.starbattle.mapeditor.window.WindowContainer;
 
 public class StarbattleMapEditor {
@@ -16,6 +18,14 @@ public class StarbattleMapEditor {
 	
 	public StarbattleMapEditor()
 	{
+		LoadingWindow loadingWindow=new LoadingWindow();
+		loadingWindow.open();
+		WindowContainer window=new WindowContainer(new Dimension(1000,600), "Map Editor");
+		window.setView(new MainPanel());
+		
+		//load map textures
+		MapTextureLoader.loadTextures();
+		
 		 try {
 	         UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 	      }
@@ -23,8 +33,7 @@ public class StarbattleMapEditor {
 	         e.printStackTrace();
 	      }
 
-		WindowContainer window=new WindowContainer(new Dimension(1000,600), "Map Editor");
-		window.setView(new MainPanel());
+		loadingWindow.close();
 		window.open();
 	}
 	

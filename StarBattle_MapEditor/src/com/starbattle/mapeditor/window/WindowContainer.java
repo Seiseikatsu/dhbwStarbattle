@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class WindowContainer {
 
@@ -14,7 +13,10 @@ public class WindowContainer {
 		window = new JFrame(name);
 		updateSize(size);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	
 	}
+	
+
 	
 	public void open()
 	{

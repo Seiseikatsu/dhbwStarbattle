@@ -17,22 +17,26 @@ public class Map implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private ArrayList<MapLayer> layers = new ArrayList<MapLayer>();
-
+	private Dimension size;
+	
 	public Map(Dimension size) {
 		
+		setSize(size);	
 		addLayer(new GameLayer()); // add game layer per default
 		addLayer(new TiledLayer("grass_main.png"));
-		setSize(size);		
+		
 	}
 	
 
 	public void addLayer(MapLayer layer) {
+		layer.init(size.width, size.height);
 		layers.add(layer);
 	}
 
 	private void setSize(Dimension size) {
+		this.size=size;
 		for (MapLayer layer : layers) {
-			layer.setSize(size.width, size.height);
+			layer.init(size.width, size.height);
 		}
 	}
 
@@ -78,5 +82,19 @@ public class Map implements Serializable {
 
 	public ArrayList<MapLayer> getLayers() {
 		return layers;
+	}
+	
+	public int getWidth()
+	{
+		return size.width;
+	}
+	
+	public int getHeight()
+	{
+		return size.height;
+	}
+	
+	public Dimension getSize() {
+		return size;
 	}
 }

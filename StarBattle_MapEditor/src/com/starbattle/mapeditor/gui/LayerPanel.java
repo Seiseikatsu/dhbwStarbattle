@@ -2,6 +2,7 @@ package com.starbattle.mapeditor.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,7 +14,9 @@ import javax.swing.ScrollPaneConstants;
 
 import com.starbattle.mapeditor.gui.components.LayerComponent;
 import com.starbattle.mapeditor.gui.components.RepaintListener;
+import com.starbattle.mapeditor.gui.components.TilePlacementPreview;
 import com.starbattle.mapeditor.gui.components.TilesetComponent;
+import com.starbattle.mapeditor.gui.control.TileSelection;
 import com.starbattle.mapeditor.gui.listener.LayerListener;
 import com.starbattle.mapeditor.layer.MapLayer;
 import com.starbattle.mapeditor.map.Map;
@@ -26,12 +29,18 @@ public class LayerPanel extends ContentPanel {
 	private RepaintListener repaintListener;
 	private Map map;
 	private int width = 250;
-	private TilesetComponent tileSet = new TilesetComponent();
+	private TilesetComponent tileSet;
 	private JScrollPane layerView;
 	private JPanel tilesetView=new JPanel();
-
+	private TileSelection tileSelection=new TileSelection();
+	private MapLayer selectedLayer;
+	private TilePlacementPreview tilePlacementPreview=new TilePlacementPreview();
+	
+	
 	public LayerPanel(Map map, RepaintListener repaint) {
-		this.repaintListener = repaint;
+		
+		tileSet = new TilesetComponent(tilePlacementPreview);
+		this.repaintListener = repaint;	
 		this.map = map;
 		initLayout();
 		updateLayers();
@@ -51,10 +60,14 @@ public class LayerPanel extends ContentPanel {
 
 		//init tileset view
 		tilesetView.setLayout(new BorderLayout());
-		tilesetView.add(new JScrollPane(tileSet.getView()),BorderLayout.CENTER);
+		JScrollPane jsc=new JScrollPane(tileSet.getView());
+		jsc.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		jsc.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		
+		tilesetView.add(jsc,BorderLayout.CENTER);
 		JButton closeLayerView=new JButton("Back");
 		tilesetView.add(closeLayerView,BorderLayout.NORTH);
-		tilesetView.setPreferredSize(new Dimension(400,0));	
+		tilesetView.setPreferredSize(new Dimension(256+21,0));	
 		openLayerOverview();
 		
 		closeLayerView.addActionListener(new ActionListener() {
@@ -89,6 +102,18 @@ public class LayerPanel extends ContentPanel {
 		view.revalidate();
 		view.repaint();
 	}
+	
+	public MapLayer getSelectedLayer() {
+		return selectedLayer;
+	}
+	
+	public TileSelection getTileSelection() {
+		return tileSelection;
+	}
+	
+	public TilePlacementPreview getTilePlacementPreview() {
+		return tilePlacementPreview;
+	}
 
 	private class LayerListenerImpl implements LayerListener {
 
@@ -101,7 +126,9 @@ public class LayerPanel extends ContentPanel {
 		@Override
 		public void selectLayer(MapLayer layer) {
 			layer.setVisible(true);
-			tileSet.open(layer);
+			tileSelection.reset();
+			selectedLayer=layer;
+			tileSet.open(layer,tileSelection);
 			openTilesetView();
 		}
 

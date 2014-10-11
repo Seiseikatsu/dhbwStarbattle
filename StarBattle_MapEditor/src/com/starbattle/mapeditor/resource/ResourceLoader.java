@@ -25,12 +25,9 @@ public class ResourceLoader {
 
 	private static Image notFound = new BufferedImage(1, 1,
 			BufferedImage.TYPE_INT_RGB);
-	private static JFrame frame;
 	
-	public static void init(JFrame frame)
-	{
-		ResourceLoader.frame=frame;
-	}
+	private static String imagePath="/com/starbattle/mapeditor/resource/images/" ;
+	private static String fontPath="com/starbattle/mapeditor/resource/fonts/";
 	
 	public static Image loadImage(File file)
 	{
@@ -46,7 +43,7 @@ public class ResourceLoader {
 	public static Image loadImage(String name) {
 	
 		URL url = ResourceLoader.class
-				.getResource("/com/starbattle/mapeditor/resource/images/" + name);
+				.getResource(imagePath+ name);
 		try {
 			return ImageIO.read(url);
 		} catch (IOException e) {
@@ -61,6 +58,12 @@ public class ResourceLoader {
 				Image.SCALE_SMOOTH);
 	}
 
+	public static ImageIcon loadAnimatedIcon(String icon)
+	{
+		URL res = ResourceLoader.class.getResource(imagePath+icon);
+		return new ImageIcon(res);
+	}
+	
 	public static ImageIcon loadIcon(String icon) {
 		return new ImageIcon(loadImage(icon));
 	}
@@ -127,7 +130,7 @@ public class ResourceLoader {
 	public static Font loadFont(String name)
 	{
 	     try {
-	    	 String path="com/starbattle/mapeditor/resource/fonts/"+name;
+	    	 String path=fontPath+name;
 	         return Font.createFont(Font.TRUETYPE_FONT, ClassLoader.getSystemResourceAsStream(path));
 	        
 	        } catch (FontFormatException e) {

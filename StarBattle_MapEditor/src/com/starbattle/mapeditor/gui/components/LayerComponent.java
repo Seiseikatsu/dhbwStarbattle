@@ -125,6 +125,7 @@ public class LayerComponent {
 		j.setIcon(ResourceLoader.loadIcon(icon));
 		j.setPreferredSize(new Dimension(size, size));
 		j.setContentAreaFilled(false);
+		j.setBorderPainted(false);
 		return j;
 	}
 

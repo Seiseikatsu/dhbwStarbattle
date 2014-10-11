@@ -1,20 +1,22 @@
 package com.starbattle.mapeditor.gui.components;
 
 import java.awt.BorderLayout;
+import java.awt.Image;
 
-import javax.swing.JButton;
 import javax.swing.JScrollPane;
 
+import com.starbattle.mapeditor.gui.control.TileSelection;
 import com.starbattle.mapeditor.layer.MapLayer;
 import com.starbattle.mapeditor.window.ContentPanel;
 
 public class TilesetComponent extends ContentPanel{
 
 
-	private TilesetRender render=new TilesetRender();
+	private TilesetRender render;
 	
-	public TilesetComponent()
+	public TilesetComponent(TilePlacementPreview preview)
 	{
+		render=new TilesetRender(preview);
 		initLayout();
 	}
 	
@@ -25,11 +27,13 @@ public class TilesetComponent extends ContentPanel{
 		view.add(p,BorderLayout.CENTER);
 	}
 	
-	public void open(MapLayer layer)
-	{
-		render.open(layer);
-	}
+
 	
+	public void open(MapLayer layer, TileSelection selection)
+	{
+		render.open(layer, selection);
+	}
+
 	
 	
 	
