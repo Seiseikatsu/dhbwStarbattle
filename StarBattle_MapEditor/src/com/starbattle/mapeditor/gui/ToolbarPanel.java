@@ -9,7 +9,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
-import com.starbattle.mapeditor.gui.components.RepaintListener;
 import com.starbattle.mapeditor.gui.dialogs.DialogViewer;
 import com.starbattle.mapeditor.map.Map;
 import com.starbattle.mapeditor.resource.ResourceLoader;
@@ -19,14 +18,17 @@ public class ToolbarPanel extends ContentPanel{
 
 	private JToolBar toolbar=new JToolBar();
 	private ButtonListener buttonListener=new ButtonListener();
-	private RepaintListener repaintListener;
 	private Map map;
+	private MainPanel mainPanel;
 	
-	public ToolbarPanel(Map map, RepaintListener repaint)
+	public ToolbarPanel( MainPanel mainPanel)
 	{
-		this.map=map;
-		this.repaintListener=repaint;
+		this.mainPanel=mainPanel;
 		initLayout();
+	}
+	
+	public void setMap(Map map) {
+		this.map = map;
 	}
 	
 	private void initLayout()
@@ -46,10 +48,26 @@ public class ToolbarPanel extends ContentPanel{
 	{
 		switch(id)
 		{
-		case 0:  break;
-		case 1:  break;
-		case 2:  break;
-		case 3: if(DialogViewer.showNewLayerDialog(map)) repaintListener.refreshLayer(); break;	 
+		case 0: 
+			Map newMap=DialogViewer.showNewMapDialog();
+			if(newMap!=null)
+			{
+				//set new map
+				mainPanel.updateMap(newMap);
+			}
+		break;
+		case 1: 
+			
+		break;
+		case 2:  
+			
+		break;
+		case 3:
+		if(DialogViewer.showNewLayerDialog(map)) 
+		{
+			mainPanel.updateLayer();
+		}
+		break;	 
 		}
 		
 	}

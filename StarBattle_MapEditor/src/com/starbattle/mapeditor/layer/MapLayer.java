@@ -1,7 +1,5 @@
 package com.starbattle.mapeditor.layer;
 
-import java.awt.Dimension;
-
 import com.starbattle.mapeditor.gui.control.TilePlacement;
 import com.starbattle.mapeditor.map.MapSystem;
 
@@ -13,6 +11,10 @@ public abstract class MapLayer {
 	
 	public void clear() {
 		map.clear();
+	}
+	
+	public void setResource(String resource) {
+		this.resource = resource;
 	}
 
 	public void move(int xplus, int yplus) {

@@ -16,11 +16,16 @@ public class MapPanel extends ContentPanel{
 	private RepaintListener repaintListener;
 	private MapComponent mapComponent;  
 	
-	public MapPanel(Map map, RepaintListener repaint, TilePlacementListener listener,TilePlacementPreview preview)
+	public MapPanel(RepaintListener repaint, TilePlacementListener listener,TilePlacementPreview preview)
 	{
 		this.repaintListener=repaint;
-		mapComponent=new MapComponent(map,listener,preview);
+		mapComponent=new MapComponent(listener,preview);
 		initLayout();
+	}
+	
+	public void setMap(Map map)
+	{
+		mapComponent.setMap(map);
 	}
 	
 	private void initLayout()

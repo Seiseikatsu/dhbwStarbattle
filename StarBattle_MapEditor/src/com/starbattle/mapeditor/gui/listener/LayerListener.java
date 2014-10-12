@@ -11,6 +11,7 @@ public interface LayerListener {
 	 */
 	public void moveLayer(MapLayer layer, boolean up);
 	
+	public void repaintMap();
 	
 	public void selectLayer(MapLayer layer);
 	

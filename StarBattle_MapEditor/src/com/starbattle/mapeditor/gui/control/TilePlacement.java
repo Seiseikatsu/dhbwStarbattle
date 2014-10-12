@@ -14,21 +14,24 @@ public class TilePlacement {
 
 	public TilePlacement(MapLayer layer, TileSelection selection, int xpos, int ypos) {
 
-		// move to mid of selection
-		int selw = selection.getW() * SpriteSheet.TILE_SIZE;
-		int selh = selection.getH() * SpriteSheet.TILE_SIZE;
-		xpos -= selw / 2;
-		ypos -= selh / 2;
-
 		//set tile position
 		if (layer instanceof DecorationLayer) {
 			this.xpos = xpos;
 			this.ypos = ypos;
 		} else {
+			
 			this.xpos = xpos / SpriteSheet.TILE_SIZE;
 			this.ypos = ypos / SpriteSheet.TILE_SIZE;
+			//special case "-0" to -1 
+			if(xpos<0&&xpos>-SpriteSheet.TILE_SIZE)
+			{
+				this.xpos=-1;
+			}
+			if(ypos<0&&ypos>-SpriteSheet.TILE_SIZE)
+			{
+				this.ypos=-1;
+			}		
 		}
-
 		//set tileset selection area
 		int x = selection.getX();
 		int y = selection.getY();

@@ -68,15 +68,14 @@ public class LayerComponent {
 		settings.setLayout(new VerticalLayout());
 	
 		settings.add(showAndHide);
-		if(layer instanceof GameLayer )
-		{
-		//cant edit game layer	
-		}
-		else
-		{
 		settings.add(edit);
-		block.add(resource, BorderLayout.SOUTH);
+		
+		if(layer instanceof GameLayer)
+		{
+			resource.setText("Game Layer Tiles");
 		}
+		block.add(resource, BorderLayout.SOUTH);
+		
 		JPanel move = new JPanel();
 		move.setLayout(new VerticalLayout());
 		move.add(up);
@@ -98,6 +97,12 @@ public class LayerComponent {
 			}
 		});
 		
+		edit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				listener.editLayer(layer);
+			}
+		});
+		
 		showAndHide.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				layer.toggleVisibility();
@@ -109,6 +114,7 @@ public class LayerComponent {
 				{
 					showAndHide.setIcon(hidden);
 				}
+				listener.repaintMap();
 			}
 		});
 

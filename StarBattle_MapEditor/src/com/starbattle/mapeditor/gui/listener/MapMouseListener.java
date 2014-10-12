@@ -2,20 +2,20 @@ package com.starbattle.mapeditor.gui.listener;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 import com.starbattle.mapeditor.gui.components.MapComponent;
 
-public class MapMouseListener implements MouseListener{
+public class MapMouseListener implements MouseListener,MouseMotionListener{
 
 	
-	private int width, height;
 	private TilePlacementListener listener;
-	
-	public  MapMouseListener(int mapw, int maph, TilePlacementListener listener) {
-		width=mapw;
-		height=maph;
+
+	public  MapMouseListener( TilePlacementListener listener) {
+		
 		this.listener=listener;
 	}
+	
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -39,21 +39,27 @@ public class MapMouseListener implements MouseListener{
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		int mx=e.getX()-MapComponent.MAP_BORDER;
-		int my=e.getY()-MapComponent.MAP_BORDER;
+		int my=e.getY()-MapComponent.MAP_BORDER;	
+		listener.placeTile(mx, my);
 		
-	
-		int xmax=MapComponent.MAP_BORDER+width;
-		int ymax=MapComponent.MAP_BORDER+height;
-		
-		if(mx>=0&&my>=0&&mx<xmax&&my<ymax)
-		{
-			//in map
-			listener.placeTile(mx, my);
-		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		int mx=e.getX()-MapComponent.MAP_BORDER;
+		int my=e.getY()-MapComponent.MAP_BORDER;	
+		listener.placeTile(mx, my);
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

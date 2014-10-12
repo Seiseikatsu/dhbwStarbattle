@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import com.starbattle.mapeditor.gui.control.TileSelection;
 import com.starbattle.mapeditor.gui.listener.MouseSelectionListener;
+import com.starbattle.mapeditor.layer.DecorationLayer;
 import com.starbattle.mapeditor.layer.MapLayer;
 import com.starbattle.mapeditor.resource.MapTextureLoader;
 import com.starbattle.mapeditor.resource.SpriteSheet;
@@ -23,6 +24,7 @@ public class TilesetRender extends JPanel {
 	private Color back2 = new Color(0, 1, 66);
 	private TileSelection selection;
 	private TilePlacementPreview preview;
+	private boolean isDeocration;
 
 	public TilesetRender(TilePlacementPreview preview) {
 		this.preview = preview;
@@ -34,15 +36,21 @@ public class TilesetRender extends JPanel {
 		int w = sprites.getWidth();
 		int h = sprites.getHeight();
 		select.setBorders(w, h);
+
+		isDeocration = layer instanceof DecorationLayer;
 		this.setPreferredSize(new Dimension(w * SpriteSheet.TILE_SIZE, h * SpriteSheet.TILE_SIZE));
 		MouseSelectionListener mouseSelectionListener = new MouseSelectionListener(select, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				preview.setPreview(getTilePreview());
+				createPreview();
 				repaint();
 			}
 		});
 		this.addMouseListener(mouseSelectionListener);
 		this.addMouseMotionListener(mouseSelectionListener);
+	}
+
+	private void createPreview() {
+		preview.setPreview(getTilePreview(), isDeocration);
 	}
 
 	private Image getTilePreview() {

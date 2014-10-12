@@ -17,6 +17,7 @@ import com.starbattle.mapeditor.gui.components.RepaintListener;
 import com.starbattle.mapeditor.gui.components.TilePlacementPreview;
 import com.starbattle.mapeditor.gui.components.TilesetComponent;
 import com.starbattle.mapeditor.gui.control.TileSelection;
+import com.starbattle.mapeditor.gui.dialogs.DialogViewer;
 import com.starbattle.mapeditor.gui.listener.LayerListener;
 import com.starbattle.mapeditor.layer.MapLayer;
 import com.starbattle.mapeditor.map.Map;
@@ -37,13 +38,16 @@ public class LayerPanel extends ContentPanel {
 	private TilePlacementPreview tilePlacementPreview=new TilePlacementPreview();
 	
 	
-	public LayerPanel(Map map, RepaintListener repaint) {
+	public LayerPanel( RepaintListener repaint) {
 		
 		tileSet = new TilesetComponent(tilePlacementPreview);
 		this.repaintListener = repaint;	
-		this.map = map;
 		initLayout();
-		updateLayers();
+	}
+	
+	public void setMap(Map map) {
+		openLayerOverview();
+		this.map = map;
 	}
 
 	private void initLayout() {
@@ -135,6 +139,18 @@ public class LayerPanel extends ContentPanel {
 		@Override
 		public void editLayer(MapLayer layer) {
 
+			if(DialogViewer.showLayerSettingsDialog(layer))				
+			{
+				//delete layer
+				map.removeLayer(layer);
+			}
+			updateLayers();
+			repaintListener.repaintMap();
+		}
+
+		@Override
+		public void repaintMap() {
+			repaintListener.repaintMap();
 		}
 
 	}

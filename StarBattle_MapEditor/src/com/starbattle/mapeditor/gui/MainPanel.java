@@ -27,18 +27,34 @@ public class MainPanel extends ContentPanel {
 		map = new Map((new Dimension(20, 10)));
 		// create views
 		Repainter repaint = new Repainter();
-		layerPanel = new LayerPanel(map, repaint);
-		mapPanel = new MapPanel(map, repaint, new TilePlacementAction(),layerPanel.getTilePlacementPreview());
-		toolbarPanel = new ToolbarPanel(map, repaint);
+		layerPanel = new LayerPanel(repaint);
+		toolbarPanel = new ToolbarPanel(this);
+		mapPanel = new MapPanel(new Repainter(), new TilePlacementAction(), layerPanel.getTilePlacementPreview());
+
 		initLayout();
+		// set map
+		updateMap(map);
+
 	}
 
 	private void initLayout() {
 		view.setLayout(new BorderLayout());
-		view.add(layerPanel.getView(), BorderLayout.WEST);
 		view.add(mapPanel.getView(), BorderLayout.CENTER);
+		view.add(layerPanel.getView(), BorderLayout.WEST);
 		view.add(toolbarPanel.getView(), BorderLayout.NORTH);
+	}
 
+	public void updateMap(Map map) {
+		this.map = map;
+		layerPanel.setMap(map);
+		toolbarPanel.setMap(map);
+		mapPanel.setMap(map);
+		layerPanel.updateLayers();
+		view.repaint();
+	}
+
+	public void updateLayer() {
+		layerPanel.updateLayers();
 	}
 
 	private class TilePlacementAction implements TilePlacementListener {
@@ -51,7 +67,6 @@ public class MainPanel extends ContentPanel {
 			new TilePlacement(layer, selection, mx, my);
 			mapPanel.getView().repaint();
 		}
-
 	}
 
 	private class Repainter implements RepaintListener {
@@ -68,7 +83,7 @@ public class MainPanel extends ContentPanel {
 
 		@Override
 		public void refreshLayer() {
-			layerPanel.updateLayers();
+			updateLayer();
 		}
 
 	}

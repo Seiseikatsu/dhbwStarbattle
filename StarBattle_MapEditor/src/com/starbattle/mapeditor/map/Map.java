@@ -23,7 +23,6 @@ public class Map implements Serializable {
 		
 		setSize(size);	
 		addLayer(new GameLayer()); // add game layer per default
-		addLayer(new TiledLayer("grass_main.png"));
 		
 	}
 	
@@ -32,12 +31,14 @@ public class Map implements Serializable {
 		layer.init(size.width, size.height);
 		layers.add(layer);
 	}
+	
+	public void removeLayer(MapLayer layer)
+	{
+		layers.remove(layer);
+	}
 
 	private void setSize(Dimension size) {
 		this.size=size;
-		for (MapLayer layer : layers) {
-			layer.init(size.width, size.height);
-		}
 	}
 
 	public void resizeMap(int xplus, int yplus) {
