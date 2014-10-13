@@ -1,0 +1,211 @@
+10-13 10:26:32 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: ","; SQL statement:
+CREATE TABLE User (id int primary key AUTO_INCREMENT, username VARCHAR(255), firstname VARCHAR(255), lastname VARCHAR(255), email, VARCHAR(255),level VARCHAR(255), password VARCHAR(255)) [50004-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3963)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3826)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5723)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-13 10:26:59 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: ","; SQL statement:
+CREATE TABLE User (id int primary key, username VARCHAR(255), firstname VARCHAR(255), lastname VARCHAR(255), email, VARCHAR(255),level VARCHAR(255), password VARCHAR(255)) [50004-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3963)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3826)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5723)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-13 10:28:22 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: ","; SQL statement:
+CREATE TABLE User (id int primary key AUTO_INCREMENT, username VARCHAR(255), firstname VARCHAR(255), lastname VARCHAR(255), email, VARCHAR(255),level VARCHAR(255), password VARCHAR(255)) [50004-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3963)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3826)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5723)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-13 14:10:06 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE PLAYER (ID INT PRIMARY KEY AUTO_INCREMENT, DISPLAY_LEVEL VARCHAR(255), EXP VARCHAR(255), GOLD VARCHAR(255), INVENTAR_ID INT FOREIGN[*] KEY) "; expected "(, FOR, UNSIGNED, NOT, NULL, AS, DEFAULT, GENERATED, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, CONSTRAINT, PRIMARY, UNIQUE, NOT, NULL, CHECK, REFERENCES, ,, )"; SQL statement:
+CREATE TABLE Player (id int Primary key auto_increment, display_level VARCHAR(255), exp VARCHAR(255), gold VARCHAR(255), inventar_id int foreign key) [42001-176]
+10-13 14:11:28 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE PLAYER (ID INT PRIMARY KEY AUTO_INCREMENT, DISPLAY_LEVEL VARCHAR(255), EXP VARCHAR(255), GOLD VARCHAR(255), INVENTAR_ID INT , FOREIGN KEY (INVENTAR_ID))[*] "; expected "INDEX, REFERENCES"; SQL statement:
+CREATE TABLE Player (id int Primary key auto_increment, display_level VARCHAR(255), exp VARCHAR(255), gold VARCHAR(255), inventar_id int , FOREIGN KEY (inventar_id)) [42001-176]
+10-13 14:29:18 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE PLAYER (ID INT PRIMARY KEY AUTO_INCREMENT, DISPLAY_LEVEL VARCHAR(255), EXP VARCHAR(255), GOLD VARCHAR(255), INVENTAR_ID INT , FOREIGN KEY (INVENTAR_ID))[*] "; expected "INDEX, REFERENCES"; SQL statement:
+CREATE TABLE Player (id int Primary key auto_increment, display_level VARCHAR(255), exp VARCHAR(255), gold VARCHAR(255), inventar_id int , FOREIGN KEY (inventar_id)) [42001-176]
+10-13 14:31:05 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE PLAYER (ID INT PRIMARY KEY AUTO_INCREMENT, DISPLAY_LEVEL VARCHAR(255), EXP VARCHAR(255), GOLD VARCHAR(255), INVENTAR_ID INT , FOREIGN KEY (INVENTAR_ID),[*] REFERENCES INVENTAR(ID)) "; expected "INDEX, REFERENCES"; SQL statement:
+CREATE TABLE Player (id INT Primary key auto_increment, display_level VARCHAR(255), exp VARCHAR(255), gold VARCHAR(255), inventar_id int , FOREIGN KEY (inventar_id), REFERENCES inventar(id)) [42001-176]
+10-13 14:35:16 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE PLAYER (ID INT PRIMARY KEY AUTO_INCREMENT, DISPLAY_LEVEL VARCHAR(255), EXP VARCHAR(255), GOLD VARCHAR(255), INVENTAR_ID INT , FOREIGN KEY (INVENTAR_ID),[*] REFERENCES INVENTAR(ID)) "; expected "INDEX, REFERENCES"; SQL statement:
+CREATE TABLE Player (id INT Primary key auto_increment, display_level VARCHAR(255), exp VARCHAR(255), gold VARCHAR(255), inventar_id int , FOREIGN KEY (inventar_id), REFERENCES inventar(id)) [42001-176]
+10-13 14:36:18 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE PLAYER (ID INT PRIMARY KEY AUTO_INCREMENT, DISPLAY_LEVEL VARCHAR(255), EXP VARCHAR(255), GOLD VARCHAR(255), INVENTAR_ID INT , FOREIGN KEY (INVENTAR_ID),[*] REFERENCES INVENTAR(ID)) "; expected "INDEX, REFERENCES"; SQL statement:
+CREATE TABLE Player (id INT Primary key auto_increment, display_level VARCHAR(255), exp VARCHAR(255), gold VARCHAR(255), inventar_id int , FOREIGN KEY (inventar_id), REFERENCES inventar(id)) [42001-176]
+10-13 14:39:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE PLAYER (ID INT PRIMARY KEY AUTO_INCREMENT, DISPLAY_LEVEL VARCHAR(255), EXP VARCHAR(255), GOLD VARCHAR(255), INVENTAR_ID INT , FOREIGN KEY (INVENTAR_ID),[*] REFERENCES STARBATTLE.INVENTAR(ID)) "; expected "INDEX, REFERENCES"; SQL statement:
+CREATE TABLE Player (id INT Primary key auto_increment, display_level VARCHAR(255), exp VARCHAR(255), gold VARCHAR(255), inventar_id int , FOREIGN KEY (inventar_id), REFERENCES Starbattle.inventar(id)) [42001-176]
+10-13 14:43:12 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE PLAYER (ID INT PRIMARY KEY AUTO_INCREMENT, DISPLAY_LEVEL VARCHAR(255), EXP VARCHAR(255), GOLD VARCHAR(255), INVENTAR_ID INT , FOREIGN KEY (INVENTAR_ID),[*] REFERENCES INVENTAR(ID)) "; expected "INDEX, REFERENCES"; SQL statement:
+CREATE TABLE Player (id INT Primary key auto_increment, display_level VARCHAR(255), exp VARCHAR(255), gold VARCHAR(255), inventar_id int , FOREIGN KEY (inventar_id), REFERENCES INVENTAR(id)) [42001-176]
+10-13 21:09:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "DISPLAY_NAME" not found; SQL statement:
+INSERT INTO PLAYER (display_name) VALUES ? [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseColumn(Parser.java:849)
+	at org.h2.command.Parser.parseColumnList(Parser.java:833)
+	at org.h2.command.Parser.parseInsert(Parser.java:1033)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:1122)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.registerAccount(AccountManagerImpl.java:37)
+	at com.starbattle.accounts.database.DatabaseConnection.main(DatabaseConnection.java:61)
+10-13 21:09:55 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "DISPLAY_NAME" not found; SQL statement:
+INSERT INTO PLAYER (display_name) VALUES ? [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseColumn(Parser.java:849)
+	at org.h2.command.Parser.parseColumnList(Parser.java:833)
+	at org.h2.command.Parser.parseInsert(Parser.java:1033)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:1122)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.registerAccount(AccountManagerImpl.java:37)
+	at com.starbattle.accounts.database.DatabaseConnection.main(DatabaseConnection.java:61)
+10-13 21:18:34 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE ACCOUNT(NAME VARCHAR(255) PRIMARY KEY, PLAYER_ID INT, PASSWORD VARCHAR(255), EMAIL VARCHAR(255), FOREIGN KEY(PLAYER_ID),[*] REFERENCES PLAYER(ID)) "; expected "INDEX, REFERENCES"; SQL statement:
+create table account(name varchar(255) primary key, player_id int, password varchar(255), email varchar(255), Foreign key(player_id), References player(id)) [42001-176]
+10-13 21:19:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO PLAYER (DISPLAY_NAME) VALUES ?[*] "; expected "("; SQL statement:
+INSERT INTO PLAYER (display_name) VALUES ? [42001-176]
+10-13 21:19:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO PLAYER (DISPLAY_NAME) VALUES ?[*] "; expected "("; SQL statement:
+INSERT INTO PLAYER (display_name) VALUES ? [42001-176]
+10-13 21:20:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Method is only allowed for a query. Use execute or executeUpdate instead of executeQuery; SQL statement:
+INSERT INTO PLAYER (display_name) VALUES (?) [90002-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.message.DbException.get(DbException.java:143)
+	at org.h2.command.Prepared.query(Prepared.java:213)
+	at org.h2.command.CommandContainer.query(CommandContainer.java:91)
+	at org.h2.command.Command.executeQuery(Command.java:197)
+	at org.h2.jdbc.JdbcPreparedStatement.executeQuery(JdbcPreparedStatement.java:109)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.registerAccount(AccountManagerImpl.java:41)
+	at com.starbattle.accounts.database.DatabaseConnection.main(DatabaseConnection.java:61)
+10-13 21:24:42 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DROP PLAYER[*] "; expected "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, VIEW, ROLE, ALIAS, SCHEMA, ALL, DOMAIN, TYPE, DATATYPE, AGGREGATE"; SQL statement:
+drop player [42001-176]
+10-13 21:25:02 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "PLAYER" not found; SQL statement:
+drop table player [42102-176]
+10-13 21:25:02 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "PLAYER" not found; SQL statement:
+drop table player [42102-176]
+10-13 21:25:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Parameter "#2" is not set; SQL statement:
+INSERT INTO ACCOUNT (NAME, PLAYER_ID, PASSWORD, EMAIL) VALUES ( ?, ?, ?, ? ) [90012-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.expression.Parameter.checkSet(Parameter.java:81)
+	at org.h2.command.Prepared.checkParameters(Prepared.java:165)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:78)
+	at org.h2.command.Command.executeUpdate(Command.java:254)
+	at org.h2.jdbc.JdbcPreparedStatement.execute(JdbcPreparedStatement.java:199)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.registerAccount(AccountManagerImpl.java:49)
+	at com.starbattle.accounts.database.DatabaseConnection.main(DatabaseConnection.java:61)
+10-13 21:30:20 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "PLAYER[*] SELECT * FROM ACCOUNT"; expected "PREPARE, {"; SQL statement:
+PLAYER SELECT * FROM ACCOUNT [42001-176]
+10-13 21:35:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "id" not found [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3148)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3210)
+	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:340)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.registerAccount(AccountManagerImpl.java:43)
+	at com.starbattle.accounts.database.DatabaseConnection.main(DatabaseConnection.java:61)
+10-13 21:36:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-13 21:40:34 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "PLAYER[*] SELECT * FROM ACCOUNT"; expected "PREPARE, {"; SQL statement:
+PLAYER SELECT * FROM ACCOUNT [42001-176]
+10-13 21:42:58 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "PLAYER[*] SELECT * FROM ACCOUNT"; expected "PREPARE, {"; SQL statement:
+PLAYER SELECT * FROM ACCOUNT [42001-176]

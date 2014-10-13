@@ -12,6 +12,15 @@ public class PlayerAccount {
 		
 	}
 	
+	public PlayerAccount(String name, String passwort, String email, int gold)
+	{
+		this.name = name; 
+		this.password = passwort;
+		this.email = email;
+		this.gold = gold;
+		
+	}
+	
 	public void setGold(int gold) {
 		this.gold = gold;
 	}

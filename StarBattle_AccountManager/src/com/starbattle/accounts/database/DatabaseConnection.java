@@ -1,5 +1,6 @@
 package com.starbattle.accounts.database;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +9,10 @@ import java.sql.SQLException;
 
 import org.h2.server.web.WebServer;
 import org.h2.tools.Server;
+
+import com.starbattle.accounts.manager.AccountException;
+import com.starbattle.accounts.manager.PlayerAccount;
+import com.starbattle.accounts.manager.impl.AccountManagerImpl;
 
 public class DatabaseConnection {
 	private static final String CONNSTRING = "jdbc:h2:./StarBattle";
@@ -32,6 +37,10 @@ public class DatabaseConnection {
         
 	}
 	
+	public Connection getConnection(){
+		return conn;
+	}
+	
 	@Override
 	protected void finalize() throws Throwable {
 		super.finalize();
@@ -43,9 +52,18 @@ public class DatabaseConnection {
 		ResultSet rs = stmt.executeQuery();
 	}
 	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException, InterruptedException {
-		DatabaseConnection dc = new DatabaseConnection();
+	public static void main(String[] args) throws ClassNotFoundException, SQLException, InterruptedException, NoSuchAlgorithmException {
+		//DatabaseConnection dc = new DatabaseConnection();
 		//dc.test();
+		
+		PlayerAccount p = new PlayerAccount("geri", "1990", "gerry.beer<@gmail.com", 0);
+		AccountManagerImpl am = new AccountManagerImpl();
+		try {
+			am.registerAccount(p);
+		} catch (AccountException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		Thread.sleep(199999);
 	}

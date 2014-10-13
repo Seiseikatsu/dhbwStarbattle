@@ -1,5 +1,7 @@
 package com.starbattle.accounts.manager.impl;
 
+import java.sql.SQLException;
+
 import com.starbattle.accounts.manager.AccountException;
 import com.starbattle.accounts.manager.AccountManager;
 import com.starbattle.accounts.manager.AccountUpdate;
@@ -21,12 +23,6 @@ public class TestAccountManager implements AccountManager{
 	
 	@Override
 	public void registerAccount(PlayerAccount account) throws AccountException {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void deleteAccount(String accountName) throws AccountException {
 		// TODO Auto-generated method stub
 		
 	}
@@ -72,6 +68,12 @@ public class TestAccountManager implements AccountManager{
 
 	@Override
 	public void updateAccount(String accountName, AccountUpdate update) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteAccount(int id) throws AccountException, SQLException {
 		// TODO Auto-generated method stub
 		
 	}
