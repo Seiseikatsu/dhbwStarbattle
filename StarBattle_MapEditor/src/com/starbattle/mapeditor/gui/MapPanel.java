@@ -1,6 +1,7 @@
 package com.starbattle.mapeditor.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JScrollPane;
 
@@ -30,6 +31,7 @@ public class MapPanel extends ContentPanel{
 	
 	private void initLayout()
 	{
+	
 		view.setLayout(new BorderLayout());
 		view.add(new JScrollPane(mapComponent),BorderLayout.CENTER);
 	}

@@ -1,29 +1,26 @@
 package com.starbattle.mapeditor.map;
 
 import java.awt.Dimension;
-import java.io.Serializable;
 import java.util.ArrayList;
 
-import com.starbattle.mapeditor.layer.DecorationLayer;
 import com.starbattle.mapeditor.layer.GameLayer;
 import com.starbattle.mapeditor.layer.MapLayer;
-import com.starbattle.mapeditor.layer.TiledLayer;
 
-public class Map implements Serializable {
+public class Map  {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+
 	private ArrayList<MapLayer> layers = new ArrayList<MapLayer>();
 	private Dimension size;
+	
+	public Map(ArrayList<MapLayer> layers)
+	{
+		this.layers=layers;
+	}
 	
 	public Map(Dimension size) {
 		
 		setSize(size);	
-		addLayer(new GameLayer()); // add game layer per default
-		
+		addLayer(new GameLayer()); // add game layer per default	
 	}
 	
 
@@ -37,7 +34,7 @@ public class Map implements Serializable {
 		layers.remove(layer);
 	}
 
-	private void setSize(Dimension size) {
+	public void setSize(Dimension size) {
 		this.size=size;
 	}
 

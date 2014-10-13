@@ -3,6 +3,8 @@ package com.starbattle.mapeditor.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import javax.swing.JSplitPane;
+
 import com.starbattle.mapeditor.gui.components.RepaintListener;
 import com.starbattle.mapeditor.gui.control.TileSelection;
 import com.starbattle.mapeditor.gui.control.TilePlacement;
@@ -39,8 +41,10 @@ public class MainPanel extends ContentPanel {
 
 	private void initLayout() {
 		view.setLayout(new BorderLayout());
-		view.add(mapPanel.getView(), BorderLayout.CENTER);
-		view.add(layerPanel.getView(), BorderLayout.WEST);
+		JSplitPane splitPane=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,layerPanel.getView(),mapPanel.getView());
+		splitPane.setOneTouchExpandable(true);
+		splitPane.setDividerLocation(250);
+		view.add(splitPane, BorderLayout.CENTER);
 		view.add(toolbarPanel.getView(), BorderLayout.NORTH);
 	}
 
@@ -55,6 +59,10 @@ public class MainPanel extends ContentPanel {
 
 	public void updateLayer() {
 		layerPanel.updateLayers();
+	}
+	
+	public Map getMap() {
+		return map;
 	}
 
 	private class TilePlacementAction implements TilePlacementListener {

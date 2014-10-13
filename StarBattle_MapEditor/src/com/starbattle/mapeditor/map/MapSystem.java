@@ -13,5 +13,7 @@ public interface MapSystem {
 	public void placeTile(TilePlacement tilePlacement);
 	
 	public void clear();
+
+
 	
 }

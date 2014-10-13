@@ -3,6 +3,7 @@ package com.starbattle.mapeditor.map;
 import java.awt.Rectangle;
 
 import com.starbattle.mapeditor.gui.control.TilePlacement;
+import com.starbattle.mapeditor.map.file.MapFileTiledLayer;
 
 public class TiledMapSystem implements MapSystem {
 
@@ -10,6 +11,22 @@ public class TiledMapSystem implements MapSystem {
 
 	public TiledMapSystem() {
 
+	}
+	
+	public TiledMapSystem(MapFileTiledLayer layer)
+	{
+		int width=layer.tiles.length;
+		int height=layer.tiles[0].length;
+		map = new Tile[width][height];
+	
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				int tx=layer.tiles[x][y][0];
+				int ty=layer.tiles[x][y][1];			
+				map[x][y] = new Tile(tx,ty);
+			}
+		}
+		
 	}
 
 	public Tile[][] getMap() {

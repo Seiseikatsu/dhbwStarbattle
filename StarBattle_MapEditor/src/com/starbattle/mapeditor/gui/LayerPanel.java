@@ -60,8 +60,8 @@ public class LayerPanel extends ContentPanel {
 		layerView = new JScrollPane(layerPanel);
 		layerView.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		layerView.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		layerView.setPreferredSize(new Dimension(width, 0));
-
+		layerView.setMinimumSize(new Dimension(width, 0));
+	
 		//init tileset view
 		tilesetView.setLayout(new BorderLayout());
 		JScrollPane jsc=new JScrollPane(tileSet.getView());
@@ -125,6 +125,7 @@ public class LayerPanel extends ContentPanel {
 		public void moveLayer(MapLayer layer, boolean up) {
 			map.moveLayer(layer, up);
 			updateLayers();
+			repaintListener.repaintMap();
 		}
 
 		@Override

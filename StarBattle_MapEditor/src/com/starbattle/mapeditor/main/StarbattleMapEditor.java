@@ -1,6 +1,7 @@
 package com.starbattle.mapeditor.main;
 
 import java.awt.Dimension;
+import java.io.File;
 
 import javax.swing.UIManager;
 
@@ -11,6 +12,8 @@ import com.starbattle.mapeditor.window.WindowContainer;
 
 public class StarbattleMapEditor {
 
+	public static String fileExtension=".sbmap";
+	public static File mapsFolder=new File("maps");
 	
 	public static void main(String[] args) {
 		new StarbattleMapEditor();
