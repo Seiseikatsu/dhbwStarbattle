@@ -8,9 +8,11 @@ public class SpriteSheet {
 	private int tileSize=64;
 	private Image[][] tiles;
 	private int width,height;
+	private AutotileMarks autotileMarks;
 	
-	public SpriteSheet(Image source)
+	public SpriteSheet(Image source, AutotileMarks marks)
 	{
+		this.autotileMarks=marks;
 		int w=source.getWidth(null)/tileSize;
 		int h=source.getHeight(null)/tileSize;
 		tiles=new Image[w][h];
@@ -29,9 +31,27 @@ public class SpriteSheet {
 		height=h;
 	}
 	
+
+	public boolean isAutotile(int x, int y)
+	{
+		if(autotileMarks==null)
+		{
+			return false;
+		}
+		return autotileMarks.isAutotile(x, y);
+	}
+	
+	
 	public Image getTileGraphic(int x, int y)
 	{
-		return tiles[x][y];		
+		try {
+			return tiles[x][y];	
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return tiles[0][0];
+		}
+		
 	}
 	
 	public int getHeight() {

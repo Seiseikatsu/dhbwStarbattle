@@ -11,13 +11,15 @@ public class TilePlacement {
 
 	private int xpos, ypos;
 	private Rectangle tileSelection;
-
+	private boolean isAutotile;
+	
 	public TilePlacement(MapLayer layer, TileSelection selection, int xpos, int ypos) {
 
 		//set tile position
 		if (layer instanceof DecorationLayer) {
 			this.xpos = xpos;
 			this.ypos = ypos;
+			
 		} else {
 			
 			this.xpos = xpos / SpriteSheet.TILE_SIZE;
@@ -37,11 +39,17 @@ public class TilePlacement {
 		int y = selection.getY();
 		int w = selection.getW();
 		int h = selection.getH();
+		
 		tileSelection = new Rectangle(x, y, w, h);
-
+		isAutotile=selection.isAutotile();
 		layer.place(this); // place tile
 	}
 
+	public boolean isAutotile()
+	{
+		return isAutotile;
+	}
+	
 	public Rectangle getTileSelection() {
 		return tileSelection;
 	}

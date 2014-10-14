@@ -41,6 +41,7 @@ public class TilesetRender extends JPanel {
 		this.setPreferredSize(new Dimension(w * SpriteSheet.TILE_SIZE, h * SpriteSheet.TILE_SIZE));
 		MouseSelectionListener mouseSelectionListener = new MouseSelectionListener(select, new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				selection.checkForAutotiles(sprites);
 				createPreview();
 				repaint();
 			}
