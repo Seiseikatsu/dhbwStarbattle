@@ -209,3 +209,983 @@ PLAYER SELECT * FROM ACCOUNT [42001-176]
 10-13 21:42:58 jdbc[4]: exception
 org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "PLAYER[*] SELECT * FROM ACCOUNT"; expected "PREPARE, {"; SQL statement:
 PLAYER SELECT * FROM ACCOUNT [42001-176]
+10-13 23:14:20 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "MEMBERS" not found; SQL statement:
+SELECT user FROM members WHERE user = ? [42102-176]
+10-13 23:15:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "USER" not found; SQL statement:
+SELECT user FROM account WHERE name = ? [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:148)
+	at org.h2.command.dml.Select.prepare(Select.java:831)
+	at org.h2.command.Parser.prepareCommand(Parser.java:248)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.canLogin(AccountManagerImpl.java:97)
+	at tests.AccountManagerTest.loginTest(AccountManagerTest.java:66)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-13 23:58:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DELETE WHERE[*] NAME = ?"; expected "identifier"; SQL statement:
+DELETE WHERE NAME = ? [42001-176]
+10-13 23:58:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DELETE WHERE[*] NAME = ?"; expected "identifier"; SQL statement:
+DELETE WHERE NAME = ? [42001-176]
+10-14 22:41:01 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Column "PLAYER_ID" not found; SQL statement:
+INSERT INTO PLAYER (PLAYER_ID) [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseColumn(Parser.java:849)
+	at org.h2.command.Parser.parseColumnList(Parser.java:833)
+	at org.h2.command.Parser.parseInsert(Parser.java:1033)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-14 22:44:36 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER  ADD PLAYER_ID INT PRIMARY[*] KEY "; SQL statement:
+ALTER TABLE PLAYER  ADD PLAYER_ID int PRIMARY KEY [42000-176]
+10-14 22:45:28 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER  ADD PLAYER_ID INT PRIMARY[*] KEY "; SQL statement:
+ALTER TABLE PLAYER  ADD PLAYER_ID int PRIMARY KEY [42000-176]
+10-14 22:46:03 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER  ADD PLAYER_ID INT PRIMARY[*] KEY "; SQL statement:
+ALTER TABLE PLAYER  ADD PLAYER_ID INT primary key [42000-176]
+10-14 22:46:47 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER  ADD PLAYER_ID INT PRIMARY[*] KEY"; SQL statement:
+ALTER TABLE PLAYER  ADD PLAYER_ID INT PRIMARY KEY [42000-176]
+10-14 22:51:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "password" not found [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3148)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3210)
+	at org.h2.jdbc.JdbcResultSet.getString(JdbcResultSet.java:304)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.canLogin(AccountManagerImpl.java:131)
+	at tests.AccountManagerTest.loginTest(AccountManagerTest.java:64)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-14 22:51:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-14 22:51:51 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-14 22:55:46 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DROP COLUMN[*] PLAYER_ID"; expected "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, VIEW, ROLE, ALIAS, SCHEMA, ALL, DOMAIN, TYPE, DATATYPE, AGGREGATE"; SQL statement:
+DROP COLUMN PLAYER_ID [42001-176]
+10-14 22:56:27 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER ADD COLUMN PLAYER_ID INT AUTO_INCREMENT PRIMARY[*] KEY "; SQL statement:
+ALTER TABLE PLAYER ADD COLUMN PLAYER_ID INT auto_increment primary key [42000-176]
+10-14 22:57:04 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER ADD COLUMN PLAYER_ID INT PRIMARY[*] KEY AUTO_INCREMENT "; SQL statement:
+ALTER TABLE PLAYER ADD COLUMN PLAYER_ID INT primary key auto_increment [42000-176]
+10-14 22:58:02 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER ADD COLUMN PLAYER_ID INT PRIMARY[*] KEY AUTO_INCREMENT "; SQL statement:
+ALTER TABLE PLAYER ADD COLUMN PLAYER_ID INT primary key auto_increment [42000-176]
+10-14 22:58:49 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT PRIMARY[*] KEY AUTO_INCREMENT ) "; expected "(, FOR, UNSIGNED, NOT, NULL, AS, DEFAULT, GENERATED, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, ,, )"; SQL statement:
+ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT primary key auto_increment ) [42001-176]
+10-14 22:59:25 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER ADD COLUMN PLAYER_ID INT PRIMARY[*] KEY "; SQL statement:
+ALTER TABLE PLAYER ADD COLUMN PLAYER_ID INT primary key [42000-176]
+10-14 23:00:09 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER ADD COLUMN (PLAYER_ID INT AUTO_INCREMENT PRIMARY[*] KEY) "; expected "(, NOT, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, ,, )"; SQL statement:
+ALTER TABLE PLAYER ADD COLUMN (PLAYER_ID INT auto_increment primary key) [42001-176]
+10-14 23:00:42 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT AUTO_INCREMENT PRIMARY[*] KEY ) "; expected "(, NOT, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, ,, )"; SQL statement:
+ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT auto_increment primary key ) [42001-176]
+10-14 23:01:04 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT NOT NULL AUTO_INCREMENT PRIMARY[*] KEY ) "; expected "(, NOT, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, ,, )"; SQL statement:
+ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT not null auto_increment primary key ) [42001-176]
+10-14 23:02:05 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER DROP COLUMN ([*] PLAYER_ID )"; expected "identifier"; SQL statement:
+ALTER TABLE PLAYER DROP COLUMN ( PLAYER_ID ) [42001-176]
+10-14 23:02:05 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Duplicate column name "PLAYER_ID"; SQL statement:
+ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT ) [42121-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.setColumns(Table.java:399)
+	at org.h2.table.TableBase.<init>(TableBase.java:45)
+	at org.h2.table.RegularTable.<init>(RegularTable.java:75)
+	at org.h2.schema.Schema.createTable(Schema.java:585)
+	at org.h2.command.ddl.AlterTableAlterColumn.cloneTableStructure(AlterTableAlterColumn.java:318)
+	at org.h2.command.ddl.AlterTableAlterColumn.copyData(AlterTableAlterColumn.java:226)
+	at org.h2.command.ddl.AlterTableAlterColumn.update(AlterTableAlterColumn.java:158)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:79)
+	at org.h2.command.Command.executeUpdate(Command.java:254)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:186)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-14 23:02:26 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT PRIMARY[*] KEY )"; expected "(, FOR, UNSIGNED, NOT, NULL, AS, DEFAULT, GENERATED, NOT, NULL, AUTO_INCREMENT, BIGSERIAL, SERIAL, IDENTITY, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, ,, )"; SQL statement:
+ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT PRIMARY KEY ) [42001-176]
+10-14 23:03:16 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Column "PLAYER_ID" not found; SQL statement:
+ALTER TABLE PLAYER DROP COLUMN PLAYER_ID [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseAlterTable(Parser.java:5343)
+	at org.h2.command.Parser.parseAlter(Parser.java:4689)
+	at org.h2.command.Parser.parsePrepared(Parser.java:333)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-14 23:03:16 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT AUTO_INCREMENT PRIMARY[*] KEY )"; expected "(, NOT, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, ,, )"; SQL statement:
+ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT AUTO_INCREMENT PRIMARY KEY ) [42001-176]
+10-14 23:03:30 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Column "PLAYER_ID" not found; SQL statement:
+ALTER TABLE PLAYER DROP COLUMN PLAYER_ID [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseAlterTable(Parser.java:5343)
+	at org.h2.command.Parser.parseAlter(Parser.java:4689)
+	at org.h2.command.Parser.parsePrepared(Parser.java:333)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-14 23:03:30 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT NOT NULL AUTO_INCREMENT PRIMARY[*] KEY )"; expected "(, NOT, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, ,, )"; SQL statement:
+ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY ) [42001-176]
+10-14 23:03:39 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Column "PLAYER_ID" not found; SQL statement:
+ALTER TABLE PLAYER DROP COLUMN PLAYER_ID [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseAlterTable(Parser.java:5343)
+	at org.h2.command.Parser.parseAlter(Parser.java:4689)
+	at org.h2.command.Parser.parsePrepared(Parser.java:333)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-14 23:03:39 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT NOT AUTO_INCREMENT[*] PRIMARY KEY )"; expected "NULL"; SQL statement:
+ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT NOT AUTO_INCREMENT PRIMARY KEY ) [42001-176]
+10-14 23:03:47 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Column "PLAYER_ID" not found; SQL statement:
+ALTER TABLE PLAYER DROP COLUMN PLAYER_ID [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseAlterTable(Parser.java:5343)
+	at org.h2.command.Parser.parseAlter(Parser.java:4689)
+	at org.h2.command.Parser.parsePrepared(Parser.java:333)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-14 23:03:47 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT NOT NULL AUTO_INCREMENT PRIMARY[*] KEY )"; expected "(, NOT, NULL_TO_DEFAULT, SEQUENCE, SELECTIVITY, COMMENT, ,, )"; SQL statement:
+ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY ) [42001-176]
+10-14 23:03:58 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Column "PLAYER_ID" not found; SQL statement:
+ALTER TABLE PLAYER DROP COLUMN PLAYER_ID [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseAlterTable(Parser.java:5343)
+	at org.h2.command.Parser.parseAlter(Parser.java:4689)
+	at org.h2.command.Parser.parsePrepared(Parser.java:333)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-14 23:03:58 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: "PRIMARY"; SQL statement:
+ALTER TABLE PLAYER ADD COLUMN ( PLAYER_ID INT, AUTO_INCREMENT PRIMARY KEY ) [50004-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3963)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3826)
+	at org.h2.command.Parser.parseAlterTableAddColumn(Parser.java:5472)
+	at org.h2.command.Parser.parseAlterTable(Parser.java:5274)
+	at org.h2.command.Parser.parseAlter(Parser.java:4689)
+	at org.h2.command.Parser.parsePrepared(Parser.java:333)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-14 23:13:52 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DROP TABLE PLAYER 
+
+CREATE[*] TABLE PLAYER (PLAYER_ID INT AUTO_INCREMENT PRIMARY KEY, LEVEL INT, EXP INT, GOLD INT) "; SQL statement:
+DROP TABLE PLAYER 
+
+CREATE TABLE PLAYER (PLAYER_ID int auto_increment primary key, Level int, exp int, gold int) [42000-176]
+10-14 23:41:43 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DROP TABLE LEVEL
+DROP[*] TABLE DISPLAY_NAME
+DROP TABLE PLAYER 
+
+
+CREATE TABLE PLAYER (PLAYER_ID INT AUTO_INCREMENT PRIMARY KEY, LEVEL INT, EXP INT, GOLD INT)
+CREATE TABLE ACCOUNT(NAME VARCHAR(255) PRIMARY KEY, PLAYER_ID INT, PASSWORD VARCHAR(255), EMAIL(255), FOREIGN KEY(PLAYER_ID) REFERENCES PLAYER(PLAYER_ID))
+CREATE TABLE INVENTAR(PLAYER_ID INT , ITEM_ID INT, PRICE INT, EXPIRE_DATE DATE, BUY_DATE DATE,PRIMARY KEY(PLAYER_ID, ITEM_ID) ) "; SQL statement:
+DROP TABLE LEVEL
+DROP TABLE DISPLAY_NAME
+DROP TABLE PLAYER 
+
+
+CREATE TABLE PLAYER (PLAYER_ID int auto_increment primary key, Level int, exp int, gold int)
+CREATE TABLE ACCOUNT(name varchar(255) primary key, PLAYER_ID int, password varchar(255), email(255), foreign key(player_id) references Player(player_id))
+CREATE TABLE INVENTAR(PLAYER_ID int , item_id int, price int, expire_date date, buy_date date,primary key(PLAYER_ID, item_id) ) [42000-176]
+10-14 23:42:15 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DROP TABLE INVENTAR
+DROP[*] TABLE DISPLAY_NAME
+DROP TABLE PLAYER 
+
+
+CREATE TABLE PLAYER (PLAYER_ID INT AUTO_INCREMENT PRIMARY KEY, LEVEL INT, EXP INT, GOLD INT)
+CREATE TABLE ACCOUNT(NAME VARCHAR(255) PRIMARY KEY, PLAYER_ID INT, PASSWORD VARCHAR(255), EMAIL(255), FOREIGN KEY(PLAYER_ID) REFERENCES PLAYER(PLAYER_ID))
+CREATE TABLE INVENTAR(PLAYER_ID INT , ITEM_ID INT, PRICE INT, EXPIRE_DATE DATE, BUY_DATE DATE,PRIMARY KEY(PLAYER_ID, ITEM_ID) ) "; SQL statement:
+DROP TABLE INVENTAR
+DROP TABLE DISPLAY_NAME
+DROP TABLE PLAYER 
+
+
+CREATE TABLE PLAYER (PLAYER_ID int auto_increment primary key, Level int, exp int, gold int)
+CREATE TABLE ACCOUNT(name varchar(255) primary key, PLAYER_ID int, password varchar(255), email(255), foreign key(player_id) references Player(player_id))
+CREATE TABLE INVENTAR(PLAYER_ID int , item_id int, price int, expire_date date, buy_date date,primary key(PLAYER_ID, item_id) ) [42000-176]
+10-14 23:43:18 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "DISPLAY_NAME" not found; SQL statement:
+DROP TABLE DISPLAY_NAME [42102-176]
+10-14 23:43:18 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: "("; SQL statement:
+CREATE TABLE ACCOUNT(name varchar(255) primary key, PLAYER_ID int, password varchar(255), email(255), foreign key(player_id) references Player(player_id)) [50004-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3963)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3826)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5723)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-14 23:43:35 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: "("; SQL statement:
+CREATE TABLE ACCOUNT(name varchar(255) primary key, PLAYER_ID int, password varchar(255), email(255), foreign key(player_id) references Player(player_id)) [50004-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3963)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3826)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5723)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-14 23:46:27 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACCOUNT" not found; SQL statement:
+DROP TABLE ACCOUNT [42102-176]
+10-14 23:46:27 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: "("; SQL statement:
+CREATE TABLE ACCOUNT(name varchar(255) primary key, PLAYER_ID int, password varchar(255), email(255), foreign key player_id references Player(player_id)) [50004-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3963)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3826)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5723)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-14 23:46:54 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACCOUNT" not found; SQL statement:
+DROP TABLE ACCOUNT [42102-176]
+10-14 23:46:54 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE ACCOUNT(NAME VARCHAR(255) PRIMARY KEY, PLAYER_ID INT, PASSWORD VARCHAR(255), EMAIL VARCHAR(255), FOREIGN KEY PLAYER_ID[*] REFERENCES PLAYER(PLAYER_ID)) "; expected "("; SQL statement:
+CREATE TABLE ACCOUNT(name varchar(255) primary key, PLAYER_ID int, password varchar(255), email varchar(255), foreign key player_id references Player(player_id)) [42001-176]
+10-14 23:47:07 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACCOUNT" not found; SQL statement:
+DROP TABLE ACCOUNT [42102-176]
+10-14 23:56:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "DISPLAY_NAME" not found; SQL statement:
+INSERT INTO PLAYER (display_name) VALUES (?) [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseColumn(Parser.java:849)
+	at org.h2.command.Parser.parseColumnList(Parser.java:833)
+	at org.h2.command.Parser.parseInsert(Parser.java:1033)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:1122)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.registerAccount(AccountManagerImpl.java:48)
+	at tests.AccountManagerTest.setUpBeforeClass(AccountManagerTest.java:44)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-14 23:56:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "DISPLAY_NAME" not found; SQL statement:
+INSERT INTO PLAYER (display_name) VALUES (?) [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseColumn(Parser.java:849)
+	at org.h2.command.Parser.parseColumnList(Parser.java:833)
+	at org.h2.command.Parser.parseInsert(Parser.java:1033)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:1122)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.registerAccount(AccountManagerImpl.java:48)
+	at tests.AccountManagerTest.setUpBeforeClass(AccountManagerTest.java:44)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-14 23:56:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "password" not found [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3148)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3210)
+	at org.h2.jdbc.JdbcResultSet.getString(JdbcResultSet.java:304)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.canLogin(AccountManagerImpl.java:131)
+	at tests.AccountManagerTest.loginTest(AccountManagerTest.java:64)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-14 23:56:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-14 23:56:46 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-15 00:04:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "DISPLAY_NAME" not found; SQL statement:
+INSERT INTO PLAYER (display_name) VALUES (?) [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseColumn(Parser.java:849)
+	at org.h2.command.Parser.parseColumnList(Parser.java:833)
+	at org.h2.command.Parser.parseInsert(Parser.java:1033)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:1122)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.registerAccount(AccountManagerImpl.java:48)
+	at tests.AccountManagerTest.setUpBeforeClass(AccountManagerTest.java:44)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-15 00:04:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "DISPLAY_NAME" not found; SQL statement:
+INSERT INTO PLAYER (display_name) VALUES (?) [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseColumn(Parser.java:849)
+	at org.h2.command.Parser.parseColumnList(Parser.java:833)
+	at org.h2.command.Parser.parseInsert(Parser.java:1033)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:1122)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.registerAccount(AccountManagerImpl.java:48)
+	at tests.AccountManagerTest.setUpBeforeClass(AccountManagerTest.java:44)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-15 00:04:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "password" not found [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3148)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3210)
+	at org.h2.jdbc.JdbcResultSet.getString(JdbcResultSet.java:304)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.canLogin(AccountManagerImpl.java:130)
+	at tests.AccountManagerTest.loginTest(AccountManagerTest.java:64)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-15 00:04:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-15 00:04:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-15 00:07:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "NAME" not found; SQL statement:
+INSERT INTO PLAYER (name) VALUES (?) [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseColumn(Parser.java:849)
+	at org.h2.command.Parser.parseColumnList(Parser.java:833)
+	at org.h2.command.Parser.parseInsert(Parser.java:1033)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:1122)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.registerAccount(AccountManagerImpl.java:48)
+	at tests.AccountManagerTest.setUpBeforeClass(AccountManagerTest.java:44)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-15 00:07:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "NAME" not found; SQL statement:
+INSERT INTO PLAYER (name) VALUES (?) [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.table.Table.getColumn(Table.java:637)
+	at org.h2.command.Parser.parseColumn(Parser.java:849)
+	at org.h2.command.Parser.parseColumnList(Parser.java:833)
+	at org.h2.command.Parser.parseInsert(Parser.java:1033)
+	at org.h2.command.Parser.parsePrepared(Parser.java:402)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:1122)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.registerAccount(AccountManagerImpl.java:48)
+	at tests.AccountManagerTest.setUpBeforeClass(AccountManagerTest.java:44)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-15 00:07:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "password" not found [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3148)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3210)
+	at org.h2.jdbc.JdbcResultSet.getString(JdbcResultSet.java:304)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.canLogin(AccountManagerImpl.java:130)
+	at tests.AccountManagerTest.loginTest(AccountManagerTest.java:64)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-15 00:07:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-15 00:07:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-15 00:08:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "password" not found [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3148)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3210)
+	at org.h2.jdbc.JdbcResultSet.getString(JdbcResultSet.java:304)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.canLogin(AccountManagerImpl.java:130)
+	at tests.AccountManagerTest.loginTest(AccountManagerTest.java:64)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-15 00:08:16 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-15 00:10:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "password" not found [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3148)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3210)
+	at org.h2.jdbc.JdbcResultSet.getString(JdbcResultSet.java:304)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.canLogin(AccountManagerImpl.java:135)
+	at tests.AccountManagerTest.loginTest(AccountManagerTest.java:64)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-15 00:10:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-15 00:11:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "password" not found [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3148)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3210)
+	at org.h2.jdbc.JdbcResultSet.getString(JdbcResultSet.java:304)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.canLogin(AccountManagerImpl.java:135)
+	at tests.AccountManagerTest.loginTest(AccountManagerTest.java:64)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-15 00:11:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-15 00:11:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column "password" not found [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3148)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3210)
+	at org.h2.jdbc.JdbcResultSet.getString(JdbcResultSet.java:304)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.canLogin(AccountManagerImpl.java:135)
+	at tests.AccountManagerTest.loginTest(AccountManagerTest.java:64)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:271)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:70)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:50)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:238)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:63)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:236)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:53)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:229)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-15 00:11:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-15 00:13:28 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-15 00:15:33 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-15 00:19:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-15 00:22:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-15 00:25:23 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-15 00:26:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]

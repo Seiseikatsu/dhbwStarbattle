@@ -22,6 +22,7 @@ public class AccountManagerImpl implements AccountManager {
 	private PreparedStatement stmt;
 	private ResultSet rs;
 	private Connection conn;
+	private String[] tables = {"ACCOUNT", "PLAYER", "INVENTAR"};
 
 	public AccountManagerImpl() {
 		try {
@@ -37,95 +38,161 @@ public class AccountManagerImpl implements AccountManager {
 
 	}
 
-	public void registerAccount(PlayerAccount account) throws AccountException, SQLException, NoSuchAlgorithmException {
-		stmt = conn.prepareStatement("SELECT count(*) FROM account WHERE name = ?");
-		stmt.setString(1, account.getName());
-		ResultSet rs = stmt.executeQuery();
-		rs.next();
-		
-		if (rs.getInt(1) > 0) { // User already exists
-			//RegisterState.Username_Exists;
-			System.out.println("user already exists");
-			return;
-		}
-		
-		String sqlPlayer = "INSERT INTO PLAYER (display_name) VALUES (?)";
-		String sqlAccount = "INSERT INTO ACCOUNT (NAME, PLAYER_ID, PASSWORD, EMAIL) VALUES ( ?, ?, ?, ? )";
-		stmt = databaseConnection.getConnection().prepareStatement(sqlPlayer,
-				PreparedStatement.RETURN_GENERATED_KEYS);
+	public void registerAccount(PlayerAccount account) throws AccountException {
+		try {
 
-		stmt.setString(1, account.getName());
-		stmt.execute();
-		rs = stmt.getGeneratedKeys();
+			if (canRegisterAccount(account).equals(RegisterState.Register_Ok)) {
 
-		int id = 0;
-		if (rs.next()) {
-			id = (int) rs.getInt(1);
-		}
+				String sqlPlayer = "INSERT INTO PLAYER (display_name) VALUES (?)";
+				String sqlAccount = "INSERT INTO ACCOUNT (NAME, PLAYER_ID, PASSWORD, EMAIL) VALUES ( ?, ?, ?, ? )";
+				stmt = databaseConnection.getConnection().prepareStatement(sqlPlayer, PreparedStatement.RETURN_GENERATED_KEYS);
 
-		stmt = databaseConnection.getConnection().prepareStatement(sqlAccount);
-		stmt.setString(1, account.getName());
-		stmt.setInt(2, id);
-		stmt.setString(3, hashPassword(account.getPassword())); // TODO: hash password
-		stmt.setString(4, account.getEmail());
-		stmt.execute();
+				stmt.setString(1, account.getName());
+				stmt.execute();
+				rs = stmt.getGeneratedKeys();
 
-	}
+				int id = 0;
+				if (rs.next()) {
+					id = (int) rs.getInt(1);
+				}
 
-	private String hashPassword(String password) throws NoSuchAlgorithmException {
-		String hash;
-		MessageDigest digest = MessageDigest.getInstance("MD5");
-
-		digest.update(password.getBytes(), 0, password.length());
-
-		hash = new BigInteger(1, digest.digest()).toString(16);
-		
-		return hash;
-	}
-
-	public void deleteAccount(int id) throws AccountException, SQLException {
-		String sql = "DELETE WHERE ID = ?";
-		
-		stmt = databaseConnection.getConnection().prepareStatement(sql);
-		stmt.setInt(1, id);
-		stmt.execute();
-
-	}
-
-	public LoginState canLogin(String name, String password) throws SQLException, NoSuchAlgorithmException {
-		stmt = databaseConnection.getConnection().prepareStatement("SELECT user FROM members WHERE user = ?");
-		stmt.setString(1, name);
-
-		ResultSet rs = stmt.executeQuery(); 
-		
-
-		if (rs.next() ) { //if there is no resultset, the uname is wrong
-			if(rs.getString("password").equalsIgnoreCase(hashPassword(password))){
-				return LoginState.Login_Ok;
-			} else {
-				return LoginState.Wrong_Password;
+				stmt = databaseConnection.getConnection().prepareStatement(
+						sqlAccount);
+				stmt.setString(1, account.getName());
+				stmt.setInt(2, id);
+				stmt.setString(3, hashPassword(account.getPassword())); // TODO: hash password
+				stmt.setString(4, account.getEmail());
+				stmt.execute();
 			}
-		} else { 
-			return LoginState.Wrong_Username;
+
+		} catch (SQLException e) {
+			throw new AccountException("SQL Failure", e);
 		}
 
 	}
 
-	public RegisterState canRegisterAccount(PlayerAccount account) {
+	private String hashPassword(String password) {
+		String hash;
+		MessageDigest digest;
+		try {
+			digest = MessageDigest.getInstance("MD5");
+			digest.update(password.getBytes(), 0, password.length());
+			hash = new BigInteger(1, digest.digest()).toString(16);
+
+			return hash;
+		} catch (NoSuchAlgorithmException e) {
+			System.err.println("No MD5 hash...FATAL!");
+			System.exit(1);
+			return null;
+		}
+	}
+
+	public void deleteAccount(int id) throws AccountException {
+		
+		for (int i = 0; i < tables.length; i++) {
+			try {
+				stmt = databaseConnection.getConnection().prepareStatement("DELETE " + tables[i]+ " WHERE PLAYER_ID = ?");
+				stmt.setInt(1, id);
+				stmt.execute();
+	
+			} catch (SQLException e) {
+				throw new AccountException("SQL Failure", e);
+			}
+		}
+
+	}
+
+	public void deleteAccount(String name) throws AccountException {
+		int id = getId(name);
+		
+		for (int i = 0; i < tables.length; i++) {
+			try {
+				stmt = databaseConnection.getConnection().prepareStatement("DELETE " + tables[i]+ " WHERE PLAYER_ID = ?");
+				stmt.setInt(1, id);
+				stmt.execute();
+	
+			} catch (SQLException e) {
+				throw new AccountException("SQL Failure", e);
+			}
+		}
+
+	}
+
+	public LoginState canLogin(String name, String password) throws AccountException {
+		try {
+			stmt = databaseConnection.getConnection().prepareStatement("SELECT password, name FROM account WHERE name = ?");
+			stmt.setString(1, name);
+
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) { // if there is no resultset, the uname is wrong
+				if (rs.getString("password").equalsIgnoreCase(
+						hashPassword(password))) {
+					return LoginState.Login_Ok;
+				} else {
+					return LoginState.Wrong_Password;
+				}
+			} else {
+				return LoginState.Wrong_Username;
+			}
+
+		} catch (SQLException e) {
+			throw new AccountException("Error in SQL-Statement");
+		}
+
+	}
+
+	public RegisterState canRegisterAccount(PlayerAccount account) {	
+		if(!PasswordChecker.isValid(account.getPassword())){
+			return RegisterState.Invalid_Password;
+		}
+
+		try {
+			stmt = conn.prepareStatement("SELECT count(*) FROM account WHERE name = ?");
+			stmt.setString(1, account.getName());
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			System.out.println(rs.getInt(1));
+
+			if (rs.getInt(1) > 0) { // User already exists
+				System.out.println("user already exists");
+				return RegisterState.Username_Exists;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		return RegisterState.Register_Ok;
 	}
 
-	public PlayerAccount readAccount(String accountName)
-			throws AccountException {
-
-		return null;
+	public PlayerAccount readAccount(String accountName) throws AccountException {
+		try {
+			stmt = conn.prepareStatement("SELECT  name, player_id, email, gold FROM account WHERE name = ?");
+			stmt.setString(1, accountName);
+			ResultSet rs = stmt.executeQuery();
+			return new PlayerAccount(accountName,rs.getInt("player_id"), rs.getString("email"), rs.getInt("gold"));
+		} catch (SQLException e) {
+			throw new AccountException("SQL error");
+		}
 	}
 
 	public void updateAccount(String accountName, AccountUpdate update) {
 
 	}
-
-
+	
+	public int getId(String name) throws AccountException{
+		try {
+			stmt = conn.prepareStatement("SELECT  player_id FROM account WHERE name = ?");
+			stmt.setString(1, name);
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			System.out.println("getID() --> ID : " + rs.getInt(1));
+			
+			return rs.getInt(1);
+		} catch (SQLException e) {
+			throw new AccountException("SQL error");
+		}
+	}
 
 }

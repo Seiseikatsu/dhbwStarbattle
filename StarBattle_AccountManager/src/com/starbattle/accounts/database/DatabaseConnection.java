@@ -53,17 +53,17 @@ public class DatabaseConnection {
 	}
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InterruptedException, NoSuchAlgorithmException {
-		//DatabaseConnection dc = new DatabaseConnection();
+		DatabaseConnection dc = new DatabaseConnection();
 		//dc.test();
 		
-		PlayerAccount p = new PlayerAccount("geri", "1990", "gerry.beer<@gmail.com", 0);
-		AccountManagerImpl am = new AccountManagerImpl();
-		try {
-			am.registerAccount(p);
-		} catch (AccountException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//PlayerAccount p = new PlayerAccount("geri", "1990", "gerry.beer<@gmail.com", 0);
+		//AccountManagerImpl am = new AccountManagerImpl();
+//		try {
+//			am.registerAccount(p);
+//		} catch (AccountException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		Thread.sleep(199999);
 	}

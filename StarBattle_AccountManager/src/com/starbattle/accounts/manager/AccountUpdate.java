@@ -2,8 +2,7 @@ package com.starbattle.accounts.manager;
 
 public class AccountUpdate {
 
-	public AccountUpdate()
-	{
+	public AccountUpdate(){
 		
 	}
 	

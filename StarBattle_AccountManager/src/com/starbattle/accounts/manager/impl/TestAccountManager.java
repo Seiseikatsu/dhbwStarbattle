@@ -22,10 +22,7 @@ public class TestAccountManager implements AccountManager{
 	}
 	
 	@Override
-	public void registerAccount(PlayerAccount account) throws AccountException {
-		// TODO Auto-generated method stub
-		
-	}
+	public void registerAccount(PlayerAccount account) throws AccountException {	}
 
 	@Override
 	public LoginState canLogin(String name, String password) {
@@ -73,7 +70,7 @@ public class TestAccountManager implements AccountManager{
 	}
 
 	@Override
-	public void deleteAccount(int id) throws AccountException, SQLException {
+	public void deleteAccount(int id) throws AccountException {
 		// TODO Auto-generated method stub
 		
 	}

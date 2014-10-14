@@ -6,6 +6,7 @@ public class PlayerAccount {
 	private String password;
 	private String email;
 	private int gold;
+	private int id;
 	
 	public PlayerAccount()
 	{
@@ -21,6 +22,13 @@ public class PlayerAccount {
 		
 	}
 	
+	public PlayerAccount(String name, int id, String email, int gold) {
+		this.name = name;
+		this.id = id;
+		this.email = email;
+		this.gold = gold;
+	}
+
 	public void setGold(int gold) {
 		this.gold = gold;
 	}

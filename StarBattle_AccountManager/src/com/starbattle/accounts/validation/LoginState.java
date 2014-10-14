@@ -2,7 +2,7 @@ package com.starbattle.accounts.validation;
 
 public enum LoginState {
 
-	Login_Ok("Login successful!"), Wrong_Username("This username doesnt exist!"), Wrong_Password("Wrong Password!");
+	Login_Ok("Login successful!"),Wrong_Password("Wrong Password!"), Wrong_Username("Wrong Username!");
 
 	String text;
 
