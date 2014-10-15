@@ -19,6 +19,7 @@ import com.starbattle.mapeditor.gui.components.TilesetComponent;
 import com.starbattle.mapeditor.gui.control.TileSelection;
 import com.starbattle.mapeditor.gui.dialogs.DialogViewer;
 import com.starbattle.mapeditor.gui.listener.LayerListener;
+import com.starbattle.mapeditor.layer.DecorationLayer;
 import com.starbattle.mapeditor.layer.MapLayer;
 import com.starbattle.mapeditor.map.Map;
 import com.starbattle.mapeditor.window.ContentPanel;
@@ -36,10 +37,11 @@ public class LayerPanel extends ContentPanel {
 	private TileSelection tileSelection=new TileSelection();
 	private MapLayer selectedLayer;
 	private TilePlacementPreview tilePlacementPreview=new TilePlacementPreview();
+	private ToolbarPanel toolbarPanel;
 	
-	
-	public LayerPanel( RepaintListener repaint) {
+	public LayerPanel( RepaintListener repaint,ToolbarPanel toolbarPanel) {
 		
+		this.toolbarPanel=toolbarPanel;
 		tileSet = new TilesetComponent(tilePlacementPreview);
 		this.repaintListener = repaint;	
 		initLayout();
@@ -134,6 +136,8 @@ public class LayerPanel extends ContentPanel {
 			tileSelection.reset();
 			selectedLayer=layer;
 			tileSet.open(layer,tileSelection);
+			boolean decoLayer=layer instanceof DecorationLayer;
+			toolbarPanel.selectLayer(decoLayer);
 			openTilesetView();
 		}
 

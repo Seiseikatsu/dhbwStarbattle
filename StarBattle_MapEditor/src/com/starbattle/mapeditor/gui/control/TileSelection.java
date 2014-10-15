@@ -1,5 +1,7 @@
 package com.starbattle.mapeditor.gui.control;
 
+import java.awt.Rectangle;
+
 import com.starbattle.mapeditor.resource.SpriteSheet;
 
 public class TileSelection {
@@ -11,10 +13,16 @@ public class TileSelection {
 	public TileSelection() {
 
 	}
+	
 
 	public void setBorders(int x, int y) {
 		maxW = x;
 		maxH = y;
+	}
+	
+	public Rectangle getSelectionAsRectangle()
+	{
+		return new Rectangle(x,y,w,h);
 	}
 
 	public void checkForAutotiles(SpriteSheet sprites) {

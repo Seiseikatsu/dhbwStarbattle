@@ -2,7 +2,7 @@ package com.starbattle.mapeditor.map;
 
 public class AutotilePlacement {
 
-	public static Tile getAutotileID(boolean[] neighbours, Tile center) throws Exception {
+	public static Tile getAutotile(boolean[] neighbours, Tile center) throws Exception {
 		int id = 0;
 
 		/*

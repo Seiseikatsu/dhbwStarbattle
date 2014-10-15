@@ -2,12 +2,18 @@ package com.starbattle.mapeditor.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Rectangle;
 
 import javax.swing.JSplitPane;
 
 import com.starbattle.mapeditor.gui.components.RepaintListener;
+import com.starbattle.mapeditor.gui.control.TilePlacementFill;
+import com.starbattle.mapeditor.gui.control.TilePlacementMode;
+import com.starbattle.mapeditor.gui.control.TilePlacementMoveSelection;
+import com.starbattle.mapeditor.gui.control.TilePlacementRectangle;
+import com.starbattle.mapeditor.gui.control.TilePlacementRemove;
+import com.starbattle.mapeditor.gui.control.TilePlacementStandard;
 import com.starbattle.mapeditor.gui.control.TileSelection;
-import com.starbattle.mapeditor.gui.control.TilePlacement;
 import com.starbattle.mapeditor.gui.listener.TilePlacementListener;
 import com.starbattle.mapeditor.layer.MapLayer;
 import com.starbattle.mapeditor.map.Map;
@@ -29,9 +35,10 @@ public class MainPanel extends ContentPanel {
 		map = new Map((new Dimension(20, 10)));
 		// create views
 		Repainter repaint = new Repainter();
-		layerPanel = new LayerPanel(repaint);
 		toolbarPanel = new ToolbarPanel(this);
-		mapPanel = new MapPanel(new Repainter(), new TilePlacementAction(), layerPanel.getTilePlacementPreview());
+		layerPanel = new LayerPanel(repaint, toolbarPanel);
+		mapPanel = new MapPanel(new Repainter(), toolbarPanel.getToolSelection(), new TilePlacementAction(),
+				layerPanel.getTilePlacementPreview());
 
 		initLayout();
 		// set map
@@ -41,7 +48,7 @@ public class MainPanel extends ContentPanel {
 
 	private void initLayout() {
 		view.setLayout(new BorderLayout());
-		JSplitPane splitPane=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,layerPanel.getView(),mapPanel.getView());
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, layerPanel.getView(), mapPanel.getView());
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setDividerLocation(250);
 		view.add(splitPane, BorderLayout.CENTER);
@@ -60,7 +67,7 @@ public class MainPanel extends ContentPanel {
 	public void updateLayer() {
 		layerPanel.updateLayers();
 	}
-	
+
 	public Map getMap() {
 		return map;
 	}
@@ -69,12 +76,47 @@ public class MainPanel extends ContentPanel {
 
 		@Override
 		public void placeTile(int mx, int my) {
-			// TODO Auto-generated method stub
 			MapLayer layer = layerPanel.getSelectedLayer();
 			TileSelection selection = layerPanel.getTileSelection();
-			new TilePlacement(layer, selection, mx, my);
+			TilePlacementMode mode = new TilePlacementStandard(layer, selection, mx, my);
+			layer.place(mode);
 			mapPanel.getView().repaint();
 		}
+
+		@Override
+		public void removeTile(int mx, int my) {
+			MapLayer layer = layerPanel.getSelectedLayer();
+			TilePlacementRemove mode = new TilePlacementRemove(layer, mx, my);
+			layer.place(mode);
+			mapPanel.getView().repaint();
+		}
+
+		@Override
+		public void fillRectangle(int x, int y, int w, int h) {
+			MapLayer layer = layerPanel.getSelectedLayer();
+			TileSelection selection = layerPanel.getTileSelection();
+			TilePlacementMode mode = new TilePlacementRectangle(layer, selection,new Rectangle(x,y,w,h));
+			layer.place(mode);
+			mapPanel.getView().repaint();
+		}
+
+		@Override
+		public void fillTile(int tx, int ty) {
+			MapLayer layer = layerPanel.getSelectedLayer();
+			TileSelection selection = layerPanel.getTileSelection();			
+			TilePlacementMode mode = new TilePlacementFill(layer,selection, tx, ty);
+			layer.place(mode);
+			mapPanel.getView().repaint();
+		}
+
+		@Override
+		public void moveSelectedTile(int mx, int my, int movex, int movey) {
+			MapLayer layer = layerPanel.getSelectedLayer();
+			TilePlacementMode mode = new TilePlacementMoveSelection(layer, mx, my, movex, movey);
+			layer.place(mode);
+			mapPanel.getView().repaint();
+		}
+
 	}
 
 	private class Repainter implements RepaintListener {

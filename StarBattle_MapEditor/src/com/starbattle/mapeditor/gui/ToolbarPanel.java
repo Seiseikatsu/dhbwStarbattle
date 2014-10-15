@@ -9,6 +9,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
+import com.starbattle.mapeditor.gui.components.PlaceToolComponent;
+import com.starbattle.mapeditor.gui.control.ToolSelection;
 import com.starbattle.mapeditor.gui.dialogs.DialogViewer;
 import com.starbattle.mapeditor.map.Map;
 import com.starbattle.mapeditor.resource.ResourceLoader;
@@ -21,14 +23,22 @@ public class ToolbarPanel extends ContentPanel {
 	private Map map;
 	private MainPanel mainPanel;
 
+	private PlaceToolComponent tilePlace;
+	private PlaceToolComponent decoPlace;
+	private ToolSelection toolSelection = new ToolSelection();
+
 	public ToolbarPanel(MainPanel mainPanel) {
 		this.mainPanel = mainPanel;
+		tilePlace = new PlaceToolComponent(toolSelection, false);
+		decoPlace = new PlaceToolComponent(toolSelection, true);
 		initLayout();
 	}
 
 	public void setMap(Map map) {
 		this.map = map;
 	}
+
+	int toolComponentID = 6;
 
 	private void initLayout() {
 		toolbar.setFloatable(false);
@@ -40,6 +50,31 @@ public class ToolbarPanel extends ContentPanel {
 		addButton("Save Map", "save_as.png");
 		toolbar.addSeparator();
 		addButton("New Layer", "layer_add.png");
+		toolbar.addSeparator();
+		toolbar.add(tilePlace.getView());
+	}
+
+	public ToolSelection getToolSelection() {
+		return toolSelection;
+	}
+
+	public void selectLayer(boolean decoLayer) {
+		if (decoLayer) {
+			if (toolbar.getComponent(toolComponentID) == tilePlace.getView()) {
+				toolbar.remove(toolComponentID);
+				decoPlace.updateSelection();
+				toolbar.add(decoPlace.getView());
+
+			}
+		} else {
+			if (toolbar.getComponent(toolComponentID) == decoPlace.getView()) {
+				toolbar.remove(toolComponentID);
+				tilePlace.updateSelection();
+				toolbar.add(tilePlace.getView());
+			}
+		}
+		toolbar.revalidate();
+		toolbar.repaint();
 	}
 
 	private void pressedButton(int id) {

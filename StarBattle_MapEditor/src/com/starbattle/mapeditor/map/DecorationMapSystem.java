@@ -3,7 +3,8 @@ package com.starbattle.mapeditor.map;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import com.starbattle.mapeditor.gui.control.TilePlacement;
+import com.starbattle.mapeditor.gui.control.TilePlacementMode;
+import com.starbattle.mapeditor.gui.control.TilePlacementStandard;
 
 public class DecorationMapSystem implements MapSystem {
 
@@ -40,13 +41,16 @@ public class DecorationMapSystem implements MapSystem {
 	}
 
 	@Override
-	public void placeTile(TilePlacement tilePlacement) {
+	public void placeTile(TilePlacementMode mode) {
 
+		if(mode instanceof TilePlacementStandard)
+		{
+		TilePlacementStandard tilePlacement=(TilePlacementStandard)mode;
 		int xpos = tilePlacement.getXpos();
 		int ypos = tilePlacement.getYpos();
 		Rectangle tile = tilePlacement.getTileSelection();
 		map.add(new DecorationTile(xpos, ypos, tile));
-
+		}
 	}
 
 	@Override

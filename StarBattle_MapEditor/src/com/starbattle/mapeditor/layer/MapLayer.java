@@ -1,6 +1,6 @@
 package com.starbattle.mapeditor.layer;
 
-import com.starbattle.mapeditor.gui.control.TilePlacement;
+import com.starbattle.mapeditor.gui.control.TilePlacementMode;
 import com.starbattle.mapeditor.map.MapSystem;
 
 public abstract class MapLayer {
@@ -29,7 +29,7 @@ public abstract class MapLayer {
 		map.resize(xplus, yplus);
 	}
 
-	public void place(TilePlacement tilePlacement) {
+	public void place(TilePlacementMode tilePlacement) {
 		map.placeTile(tilePlacement);
 	}
 

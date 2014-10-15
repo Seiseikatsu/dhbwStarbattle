@@ -34,6 +34,8 @@ public class LayerComponent {
 		visible=ResourceLoader.loadIcon("eye.png");
 		hidden=ResourceLoader.loadIcon("eye_close.png");
 	}
+	
+
 
 	private void initLayout(final LayerListener listener) {
 		view.setBackground(new Color(200, 250, 200));

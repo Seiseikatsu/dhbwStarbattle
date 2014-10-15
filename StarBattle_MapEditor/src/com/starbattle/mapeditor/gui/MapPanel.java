@@ -8,6 +8,7 @@ import javax.swing.JScrollPane;
 import com.starbattle.mapeditor.gui.components.MapComponent;
 import com.starbattle.mapeditor.gui.components.RepaintListener;
 import com.starbattle.mapeditor.gui.components.TilePlacementPreview;
+import com.starbattle.mapeditor.gui.control.ToolSelection;
 import com.starbattle.mapeditor.gui.listener.TilePlacementListener;
 import com.starbattle.mapeditor.map.Map;
 import com.starbattle.mapeditor.window.ContentPanel;
@@ -17,10 +18,10 @@ public class MapPanel extends ContentPanel{
 	private RepaintListener repaintListener;
 	private MapComponent mapComponent;  
 	
-	public MapPanel(RepaintListener repaint, TilePlacementListener listener,TilePlacementPreview preview)
+	public MapPanel(RepaintListener repaint, ToolSelection toolSelection, TilePlacementListener listener,TilePlacementPreview preview)
 	{
 		this.repaintListener=repaint;
-		mapComponent=new MapComponent(listener,preview);
+		mapComponent=new MapComponent(listener,toolSelection,preview);
 		initLayout();
 	}
 	

@@ -3,31 +3,41 @@ package com.starbattle.mapeditor.gui.components;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import javax.swing.JPanel;
 
+import com.starbattle.mapeditor.gui.control.ToolSelection;
 import com.starbattle.mapeditor.gui.listener.MapMouseListener;
 import com.starbattle.mapeditor.gui.listener.TilePlacementListener;
 import com.starbattle.mapeditor.layer.MapLayer;
 import com.starbattle.mapeditor.map.Map;
+import com.starbattle.mapeditor.resource.ResourceLoader;
 import com.starbattle.mapeditor.resource.SpriteSheet;
 
 public class MapComponent extends JPanel {
 
-	private MapLayerRender mapRender = new MapLayerRender();
+	private MapLayerRender mapRender;
 	private Map map;
 	public final static int MAP_BORDER = SpriteSheet.TILE_SIZE * 3;
 	private TilePlacementPreview preview;
 	private int mx, my;
 	private boolean showPreview = false;
 	private MapMouseListener mapMouseListener;
-
-	public MapComponent( TilePlacementListener listener, TilePlacementPreview preview) {
+	private ToolSelection toolSelection;
+	
+	private Image eraserTool=ResourceLoader.loadImage("draw_eraser.png");
+	private Image fillTool=ResourceLoader.loadImage("paintcan.png");
+	private Image moveTool=ResourceLoader.loadImage("select.png");
+	
+	public MapComponent( TilePlacementListener listener, ToolSelection toolSelection, TilePlacementPreview preview) {
 		
-		mapMouseListener = new MapMouseListener(listener);
+		mapRender=new MapLayerRender();
+		mapMouseListener = new MapMouseListener(listener,toolSelection);
+		this.toolSelection=toolSelection;
 		this.addMouseMotionListener(new PreviewUpdater());
 		this.addMouseListener(new PreviewUpdater());
 		this.addMouseListener(mapMouseListener);
@@ -62,7 +72,8 @@ public class MapComponent extends JPanel {
 		paintRaster(g, x, y);
 
 		if (showPreview) {
-			preview.paint(g, mx, my);
+			//standard
+			paintToolTip(g);			
 		}
 
 		int w = map.getWidth() * SpriteSheet.TILE_SIZE;
@@ -70,6 +81,22 @@ public class MapComponent extends JPanel {
 		g.setColor(new Color(50, 50, 50));
 		g.drawRect(x - 1, y - 1, w + 1, h + 1);
 
+	}
+	
+	private void paintToolTip(Graphics g)
+	{
+		if(toolSelection.isPaintTool())
+		{
+		preview.paint(g, mx, my);
+		}
+		else if(toolSelection.isEraseTool())
+		{
+		g.drawImage(eraserTool,mx,my,null);	
+		}
+		else if(toolSelection.isFillTool())
+		{
+		g.drawImage(fillTool,mx,my,null);	
+		}
 	}
 
 	private void paintRaster(Graphics g, int sx, int sy) {
