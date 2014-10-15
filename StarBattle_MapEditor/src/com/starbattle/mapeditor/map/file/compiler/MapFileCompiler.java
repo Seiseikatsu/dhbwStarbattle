@@ -18,6 +18,8 @@ import com.starbattle.mapeditor.map.file.MapFileDecoration;
 import com.starbattle.mapeditor.map.file.MapFileDecorationLayer;
 import com.starbattle.mapeditor.map.file.MapFileLayer;
 import com.starbattle.mapeditor.map.file.MapFileTiledLayer;
+import com.starbattle.mapeditor.resource.AutotileMarks;
+import com.starbattle.mapeditor.resource.MapTextureLoader;
 
 public class MapFileCompiler {
 
@@ -99,13 +101,14 @@ public class MapFileCompiler {
 		if(layer instanceof MapFileTiledLayer)
 		{
 			MapFileTiledLayer map=(MapFileTiledLayer)layer;
+			AutotileMarks marks=MapTextureLoader.getSpriteSheets().get(map.resourceName).getAutotileMarks();
 			if(map.isGameLayer)
 			{
-				return new GameLayer(map);
+				return new GameLayer(map,marks);
 			}
 			else
 			{
-				return new TiledLayer(map);
+				return new TiledLayer(map,marks);
 			}
 		}		
 		else if(layer instanceof MapFileDecorationLayer){

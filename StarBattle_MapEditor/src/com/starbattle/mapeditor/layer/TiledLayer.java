@@ -2,6 +2,7 @@ package com.starbattle.mapeditor.layer;
 
 import com.starbattle.mapeditor.map.TiledMapSystem;
 import com.starbattle.mapeditor.map.file.MapFileTiledLayer;
+import com.starbattle.mapeditor.resource.AutotileMarks;
 
 
 public class TiledLayer extends MapLayer{
@@ -13,10 +14,10 @@ public class TiledLayer extends MapLayer{
 		map=new TiledMapSystem();
 	}
 
-	public TiledLayer(MapFileTiledLayer map) {
+	public TiledLayer(MapFileTiledLayer map, AutotileMarks marks) {
 		name="Tile Layer";
 		resource=map.resourceName;
-		this.map=new TiledMapSystem(map);
+		this.map=new TiledMapSystem(map,marks);
 	}
 
 

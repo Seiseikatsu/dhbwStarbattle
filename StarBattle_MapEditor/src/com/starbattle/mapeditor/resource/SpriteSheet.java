@@ -54,6 +54,10 @@ public class SpriteSheet {
 		
 	}
 	
+	public AutotileMarks getAutotileMarks() {
+		return autotileMarks;
+	}
+	
 	public int getHeight() {
 		return height;
 	}

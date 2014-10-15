@@ -1,10 +1,10 @@
 package com.starbattle.mapeditor.map;
 
 import java.awt.Rectangle;
-import java.util.Stack;
 
 import com.starbattle.mapeditor.gui.control.TilePlacement;
 import com.starbattle.mapeditor.map.file.MapFileTiledLayer;
+import com.starbattle.mapeditor.resource.AutotileMarks;
 
 public class TiledMapSystem implements MapSystem {
 
@@ -15,19 +15,29 @@ public class TiledMapSystem implements MapSystem {
 
 	}
 
-	public TiledMapSystem(MapFileTiledLayer layer) {
+	public TiledMapSystem(MapFileTiledLayer layer, AutotileMarks autotile) {
 		int width = layer.tiles.length;
 		int height = layer.tiles[0].length;
 		map = new Tile[width][height];
+		this.width = width;
+		this.height = height;
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				int tx = layer.tiles[x][y][0];
 				int ty = layer.tiles[x][y][1];
+				// convert back to autotile if its in an autotile range
+				if (autotile != null) {
+					int[] autoid = autotile.getAutotileID(tx, ty);
+					if(autoid!=null)
+					{
+					map[x][y] = new Tile(tx, ty, autoid[0], autoid[1]);
+					continue;
+					}
+				}
 				map[x][y] = new Tile(tx, ty);
 			}
 		}
-
 	}
 
 	public Tile[][] getMap() {
@@ -74,16 +84,12 @@ public class TiledMapSystem implements MapSystem {
 			placeStandardSelection(sx, sy, tile);
 		}
 	}
-	
-
 
 	private void placeAutotile(int sx, int sy, int tix, int tiy) {
 
-	
-		Tile center = new Tile(tix, tiy,tix,tiy);
+		Tile center = new Tile(tix, tiy, tix, tiy);
 		if (sx >= 0 && sy >= 0 && sx < width && sy < height) {
 
-			
 			try {
 				Tile tile = AutotilePlacement.getAutotileID(areSameNeighbours(sx, sy, center), center);
 				map[sx][sy] = tile;
@@ -91,23 +97,20 @@ public class TiledMapSystem implements MapSystem {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
+
 		}
-		
+
 		updateAutoTiles(sx, sy);
 
 	}
 
-
-	
-	
 	private void updateAutoTiles(int sx, int sy) {
 		for (int x = 0; x < 3; x++) {
 			for (int y = 0; y < 3; y++) {
-				//dont update new set
+				// dont update new set
 				if (x != sx && y != sy) {
-					int xp = sx+(x-1);
-					int yp = sy+(y-1);
+					int xp = sx + (x - 1);
+					int yp = sy + (y - 1);
 					if (xp >= 0 && yp >= 0 && xp < width && yp < height) {
 
 						// check if it is an autotile
@@ -122,7 +125,7 @@ public class TiledMapSystem implements MapSystem {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
-							
+
 						}
 					}
 				}
