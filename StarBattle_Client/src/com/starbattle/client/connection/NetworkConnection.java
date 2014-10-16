@@ -11,8 +11,10 @@ public class NetworkConnection {
 
 	private NetworkClient client;
 	private NetworkObjectResolver networkObjectResolver;
-
-	public NetworkConnection() {
+	private NetworkConnectionListener networkConnectionListener;
+	
+	public NetworkConnection(NetworkConnectionListener networkConnectionListener) {
+		this.networkConnectionListener=networkConnectionListener;
 		networkObjectResolver = new NetworkObjectResolver();
 		client = new NetworkClient();
 	}
@@ -35,19 +37,16 @@ public class NetworkConnection {
 
 		@Override
 		public void onConnect(Connection connection) {
-			// TODO Auto-generated method stub
-
+			networkConnectionListener.onConnect();
 		}
 
 		@Override
 		public void onDisconnect(Connection connection) {
-			// TODO Auto-generated method stub
-
+			networkConnectionListener.onDisconnect();
 		}
 
 		@Override
 		public void onReceive(Connection connection, Object message) {
-			// TODO Auto-generated method stub
 			networkObjectResolver.income(message);
 		}
 

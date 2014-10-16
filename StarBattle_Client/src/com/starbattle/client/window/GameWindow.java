@@ -12,7 +12,10 @@ public class GameWindow {
 
 	public GameWindow(Dimension size, String name) {
 		window = new JFrame(name);
+		if(size!=null)
+		{
 		updateSize(size);
+		}
 		content = new WindowContent(this);
 		window.setContentPane(content);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
