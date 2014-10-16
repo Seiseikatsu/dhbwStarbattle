@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.starbattle.accounts.database.DatabaseConnection;
 import com.starbattle.accounts.manager.AccountException;
@@ -60,7 +61,7 @@ public class AccountManagerImpl implements AccountManager {
 						sqlAccount);
 				stmt.setString(1, account.getName());
 				stmt.setInt(2, id);
-				stmt.setString(3, hashPassword(account.getPassword())); // TODO: hash password
+				stmt.setString(3, account.getPassword());
 				stmt.setString(4, account.getEmail());
 				stmt.execute();
 			}
@@ -71,21 +72,6 @@ public class AccountManagerImpl implements AccountManager {
 
 	}
 
-	private String hashPassword(String password) {
-		String hash;
-		MessageDigest digest;
-		try {
-			digest = MessageDigest.getInstance("MD5");
-			digest.update(password.getBytes(), 0, password.length());
-			hash = new BigInteger(1, digest.digest()).toString(16);
-
-			return hash;
-		} catch (NoSuchAlgorithmException e) {
-			System.err.println("No MD5 hash...FATAL!");
-			System.exit(1);
-			return null;
-		}
-	}
 
 	public void deleteAccount(int id) throws AccountException {
 		
@@ -126,8 +112,7 @@ public class AccountManagerImpl implements AccountManager {
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) { // if there is no resultset, the uname is wrong
-				if (rs.getString("password").equalsIgnoreCase(
-						hashPassword(password))) {
+				if (rs.getString("password").equalsIgnoreCase(password)) {
 					return LoginState.Login_Ok;
 				} else {
 					return LoginState.Wrong_Password;
@@ -167,11 +152,23 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	public PlayerAccount readAccount(String accountName) throws AccountException {
+		PlayerAccount player = new PlayerAccount();
+		
 		try {
-			stmt = conn.prepareStatement("SELECT  name, player_id, email, gold FROM account WHERE name = ?");
+			stmt = conn.prepareStatement("SELECT player_id, name, email, gold FROM account WHERE name = ?");
 			stmt.setString(1, accountName);
 			ResultSet rs = stmt.executeQuery();
-			return new PlayerAccount(accountName,rs.getInt("player_id"), rs.getString("email"), rs.getInt("gold"));
+			
+			player.setEmail( rs.getString("email"));
+			player.setName( rs.getString("accountName"));
+			player.setGold(  rs.getInt("gold"));
+			
+			stmt = conn.prepareStatement("SELECT display_name FROM player WHERE player_id = ?");
+			stmt.setInt(1, rs.getInt("player_id"));
+			
+			player.setDisplayName("display_name");
+			
+			return player;
 		} catch (SQLException e) {
 			throw new AccountException("SQL error");
 		}
@@ -193,6 +190,12 @@ public class AccountManagerImpl implements AccountManager {
 		} catch (SQLException e) {
 			throw new AccountException("SQL error");
 		}
+	}
+
+	@Override
+	public List<Integer> getItemList(String accountName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

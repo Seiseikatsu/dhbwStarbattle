@@ -34,10 +34,10 @@ public class AccountManagerTest {
 	public static void setUpBeforeClass() {
 		ami = new AccountManagerImpl();
 
-		account1 = new PlayerAccount("Sebastian", "RufeMichAn!:)2", "hallo@web.de", 999);
-		account2 = new PlayerAccount("Sebastian", "RufeMichAn!:)2", "hallo@web.de", 1);
-		account3 = new PlayerAccount("Geraldine", "RufeMichAn!:)2", "geri@web.de", 100);
-		account4 = new PlayerAccount("Roland", "29RufeMichAn!:)293", "roland@web.de", 1000);
+		account1 = new PlayerAccount("Sebastian", "RufeMichAn!:)2", "hallo@web.de");
+		account2 = new PlayerAccount("Sebastian", "RufeMichAn!:)2", "hallo@web.de");
+		account3 = new PlayerAccount("Geraldine", "RufeMichAn!:)2", "geri@web.de");
+		account4 = new PlayerAccount("Roland", "29RufeMichAn!:)293", "roland@web.de");
 
 		assertTrue("Registration successful", ami.canRegisterAccount(account1).equals(RegisterState.Register_Ok));
 		assertTrue("Registration successful", ami.canRegisterAccount(account3).equals(RegisterState.Register_Ok));

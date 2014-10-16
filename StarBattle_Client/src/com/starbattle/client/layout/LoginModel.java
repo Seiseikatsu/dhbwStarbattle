@@ -2,6 +2,9 @@ package com.starbattle.client.layout;
 
 import java.awt.Color;
 import java.awt.event.KeyListener;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -73,7 +76,23 @@ public class LoginModel {
 	
 	public String getPassword()
 	{
-		return password.getText();
+		return hashPassword(password.getText());
+	}
+	
+	private String hashPassword(String password) {
+		String hash;
+		MessageDigest digest;
+		try {
+			digest = MessageDigest.getInstance("MD5");
+			digest.update(password.getBytes(), 0, password.length());
+			hash = new BigInteger(1, digest.digest()).toString(16);
+
+			return hash;
+		} catch (NoSuchAlgorithmException e) {
+			System.err.println("No MD5 hash...FATAL!");
+			System.exit(1);
+			return null;
+		}
 	}
 	
 	public void addKeyListener(KeyListener listener)

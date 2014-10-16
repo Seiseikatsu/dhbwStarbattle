@@ -6,25 +6,22 @@ public class PlayerAccount {
 	private String password;
 	private String email;
 	private int gold;
-	private int id;
+	private String displayName; 
 	
 	public PlayerAccount()
 	{
 		
 	}
 	
-	public PlayerAccount(String name, String passwort, String email, int gold)
-	{
+	public PlayerAccount(String name, String passwort, String email){
 		this.name = name; 
 		this.password = passwort;
 		this.email = email;
-		this.gold = gold;
-		
 	}
 	
-	public PlayerAccount(String name, int id, String email, int gold) {
+	public PlayerAccount(String name, String displayName, String email, int gold) {
 		this.name = name;
-		this.id = id;
+		this.setDisplayName(displayName);
 		this.email = email;
 		this.gold = gold;
 	}
@@ -59,6 +56,14 @@ public class PlayerAccount {
 	
 	public int getGold() {
 		return gold;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 	
 }

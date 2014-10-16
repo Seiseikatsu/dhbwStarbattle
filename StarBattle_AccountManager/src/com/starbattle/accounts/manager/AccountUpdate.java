@@ -17,5 +17,6 @@ public class AccountUpdate {
 		
 	}
 	
+	// TODO : Items kaufen/verkaufen buyItem/sellItem
 	
 }
