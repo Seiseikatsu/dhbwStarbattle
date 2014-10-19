@@ -31,8 +31,11 @@ public class MapLayerRender {
 		this.mapSize = mapSize;
 	}
 	
-	public void renderLayer(Graphics g, MapLayer layer, int x, int y)
+	private int tiles;
+	
+	public int renderLayer(Graphics g, MapLayer layer, int x, int y)
 	{
+		tiles=0;
 		if(layer instanceof TiledLayer)
 		{
 			renderTiledLayer(g, layer, x, y);
@@ -45,6 +48,7 @@ public class MapLayerRender {
 		{
 			renderTiledLayer(g, layer, x, y);
 		}
+		return tiles;
 	}
 	
 	private void renderTiledLayer(Graphics g, MapLayer layer, int sx, int sy)
@@ -62,6 +66,7 @@ public class MapLayerRender {
 				Tile tile=map.getTile(x, y);
 				if(!tile.isEmpty())
 				{
+					tiles++;
 					int xid=tile.getX();
 					int yid=tile.getY();
 					Image img=sprites.getTileGraphic(xid, yid);
@@ -75,11 +80,11 @@ public class MapLayerRender {
 	{
 		DecorationMapSystem map=(DecorationMapSystem)layer.getMap();
 		SpriteSheet sprites=textures.get(layer.getResource());
-		for(DecorationTile tile: map.getMap())
+		for(int i=0; i<map.getMap().size(); i++)
 		{
-		
+			DecorationTile tile=map.getMap().get(i);
 			Rectangle rect=tile.getTileSelection();
-			
+			tiles++;
 			for(int x=0; x<rect.width; x++)
 			{
 				for(int y=0; y<rect.height; y++)

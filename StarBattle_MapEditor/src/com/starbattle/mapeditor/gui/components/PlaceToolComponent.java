@@ -22,6 +22,7 @@ public class PlaceToolComponent extends ContentPanel {
 	public final static int TOOL_SELECT = 2;
 	public final static int TOOL_RECTANGLE = 2;
 	public final static int TOOL_FILL = 3;
+	public final static int TOOL_MOVE_BEHIND = 3;
 
 	private ToolSelection toolSelection;
 	private boolean decorationPanel;
@@ -41,6 +42,8 @@ public class PlaceToolComponent extends ContentPanel {
 		if (decorationPanel) {
 			// decoration panel tools
 			createToolButton("select.png");
+			createToolButton("layer_arrange_back.png");
+			
 
 		} else {
 			// standard panel

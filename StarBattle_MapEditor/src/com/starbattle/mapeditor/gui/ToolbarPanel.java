@@ -7,6 +7,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 
 import com.starbattle.mapeditor.gui.components.PlaceToolComponent;
@@ -19,7 +22,7 @@ import com.starbattle.mapeditor.window.ContentPanel;
 public class ToolbarPanel extends ContentPanel {
 
 	private JToolBar toolbar = new JToolBar();
-	private ButtonListener buttonListener = new ButtonListener();
+	private ClickListener buttonListener = new ClickListener();
 	private Map map;
 	private MainPanel mainPanel;
 
@@ -52,6 +55,8 @@ public class ToolbarPanel extends ContentPanel {
 		addButton("New Layer", "layer_add.png");
 		toolbar.addSeparator();
 		toolbar.add(tilePlace.getView());
+		
+		
 	}
 
 	public ToolSelection getToolSelection() {
@@ -120,11 +125,12 @@ public class ToolbarPanel extends ContentPanel {
 		toolbar.add(button);
 	}
 
-	private class ButtonListener implements ActionListener {
+
+	private class ClickListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			JButton button = (JButton) e.getSource();
+			JComponent button = (JComponent) e.getSource();
 			String name = button.getName();
 			pressedButton(Integer.parseInt(name));
 		}

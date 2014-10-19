@@ -1,7 +1,5 @@
 package com.starbattle.mapeditor.gui.control;
 
-import java.awt.Rectangle;
-
 import com.starbattle.mapeditor.layer.MapLayer;
 
 public class TilePlacementMoveSelection extends TilePlacementMode {

@@ -23,6 +23,7 @@ public class StarbattleMapEditor {
 	}
 
 	public StarbattleMapEditor() {
+		System.out.println("Start MapEditor...");
 		LoadingWindow loadingWindow = new LoadingWindow();
 		loadingWindow.open();
 		WindowContainer window = new WindowContainer(new Dimension(1000, 600), "Map Editor");
@@ -37,13 +38,12 @@ public class StarbattleMapEditor {
 			DialogViewer.showErrorMessage("Mapres Loader", "Failed to load textures: \n" + e1.getMessage());
 			System.exit(0);
 		}
-
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		System.out.println("Create window");
 		loadingWindow.close();
 		window.open();
 	}

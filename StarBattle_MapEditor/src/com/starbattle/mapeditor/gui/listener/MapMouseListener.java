@@ -1,5 +1,6 @@
 package com.starbattle.mapeditor.gui.listener;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -13,6 +14,9 @@ public class MapMouseListener implements MouseListener,MouseMotionListener{
 	private TilePlacementListener listener;
 	private ToolSelection toolSelection;
 	private boolean pressed=false;
+	private boolean dragging=false;
+	private int startx,starty;
+	private int dragx,dragy;
 	
 	public  MapMouseListener( TilePlacementListener listener, ToolSelection toolSelection) {
 		
@@ -20,7 +24,14 @@ public class MapMouseListener implements MouseListener,MouseMotionListener{
 		this.listener=listener;
 	}
 	
-	
+	public Rectangle getDragRect()
+	{
+		if(dragging)
+		{
+		return new Rectangle(startx, starty, dragx-startx, dragy-starty);
+		}
+		return null;
+	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -59,17 +70,34 @@ public class MapMouseListener implements MouseListener,MouseMotionListener{
 		{
 			listener.fillTile(mx, my);
 		}
-		pressed=true;
+		else if(toolSelection.isMoveBehindTool())
+		{
+			listener.moveBehind(mx, my);
 		}
-		
+		pressed=true;
+		}		
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		pressed=false;
+		pressed=false;	
+		if(toolSelection.isSelectTool())
+		{
+			listener.moveSelectedTileReleased();
+		}
+		else if(toolSelection.isRectangleTool())
+		{
+			Rectangle rect=getDragRect();
+			if(rect!=null)
+			{
+			listener.fillRectangle(rect.x,rect.y,rect.width,rect.height);
+			}
+		}
+		dragging=false;
 	}
 
+	
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -85,7 +113,33 @@ public class MapMouseListener implements MouseListener,MouseMotionListener{
 		}
 		else if(toolSelection.isSelectTool())
 		{
-			
+			//move
+			if(dragging)
+			{
+				int movex=mx-startx;
+				int movey=my-starty;
+				listener.moveSelectedTile(startx, starty, movex, movey);
+			}
+			else
+			{
+				startx=mx;
+				starty=my;
+			}
+			dragging=!dragging;
+		}
+		else if(toolSelection.isRectangleTool())
+		{
+			if(dragging)
+			{
+				dragx=mx;
+				dragy=my;
+			}
+			else
+			{
+				startx=mx;
+				starty=my;
+				dragging=true;
+			}
 		}
 	}
 

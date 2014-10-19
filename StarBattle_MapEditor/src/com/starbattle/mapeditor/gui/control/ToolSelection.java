@@ -37,6 +37,11 @@ public class ToolSelection {
 		return seletcedTool==PlaceToolComponent.TOOL_SELECT&&decorationTools;
 	}
 	
+	public boolean isMoveBehindTool()
+	{
+		return seletcedTool==PlaceToolComponent.TOOL_MOVE_BEHIND&&decorationTools;
+	}
+	
 	public boolean isRectangleTool()
 	{
 		return seletcedTool==PlaceToolComponent.TOOL_RECTANGLE&&decorationTools==false;
@@ -46,6 +51,8 @@ public class ToolSelection {
 	{
 		return seletcedTool==PlaceToolComponent.TOOL_FILL&&decorationTools==false;
 	}
+	
+	
 	
 	
 }

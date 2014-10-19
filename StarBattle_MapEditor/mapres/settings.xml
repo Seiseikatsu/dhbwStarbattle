@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mapresSettings>
 
-<mapresAutotileProperties name="grass_main.png">
+<mapresAutotileProperties name="planet_bubble_main.png">
 <autotileField xpos="0" ypos="1"/>
 <autotileField xpos="3" ypos="1"/>
 <autotileField xpos="6" ypos="1"/>

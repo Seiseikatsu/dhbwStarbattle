@@ -18,12 +18,13 @@ public class MapTextureLoader {
 	public static void loadTextures() throws JAXBException {
 		File path = new File("mapres");
 		
+		System.out.println("Load autotile settings");
 		HashMap<String, AutotileMarks> autotiles = PropertiesReader.read();
 		for (File file : path.listFiles()) {
 			if (isMapres(file)) {
 				String name = file.getName();
+				System.out.println("Load texture "+name);
 				Image texture = ResourceLoader.loadImage(file);
-				
 				AutotileMarks auto=null;
 				if(autotiles.containsKey(name))
 				{
