@@ -1,4 +1,4 @@
-package com.starbattle.client.views;
+package com.starbattle.client.views.lobby;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -10,7 +10,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import org.omg.CORBA.FREE_MEM;
+
 import com.starbattle.client.connection.NetworkConnection;
+import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.window.ContentView;
 import com.starbattle.network.connection.objects.NP_Logout;
 
@@ -19,9 +22,14 @@ public class LobbyView extends ContentView{
 	public final static int VIEW_ID = 3;
 	private Dimension windowSize=new Dimension(1000,600);
 	
+	private FriendPanel friendPanel;
+	private PicturePanel picturePanel;
 	
 	public LobbyView(final NetworkConnection networkConnection)
 	{
+		friendPanel=new FriendPanel();
+		picturePanel=new PicturePanel();
+		
 		JPanel topPanel=new JPanel(new FlowLayout());
 		JButton logout=new JButton("Disconnect");
 		JButton profile=new JButton("Profile");
@@ -29,9 +37,8 @@ public class LobbyView extends ContentView{
 		JButton shop=new JButton("Shop");
 		JPanel blocker=new JPanel();
 		JPanel centerPanel=new JPanel(new BorderLayout());
-		JPanel friendPanel=new JPanel();
 		JPanel southWestPanel=new JPanel(new BorderLayout());
-		JPanel newsPanel=new JPanel();
+		
 		JPanel startPanel=new JPanel();
 		
 		view.setLayout(new BorderLayout());
@@ -40,13 +47,13 @@ public class LobbyView extends ContentView{
 		topPanel.setBackground(Color.lightGray);
 		view.add(topPanel, BorderLayout.NORTH);
 		
-		friendPanel.setBackground(Color.green);
-		friendPanel.setPreferredSize(new Dimension(300,0));
-		centerPanel.add(friendPanel, BorderLayout.EAST);
+	
+
+		centerPanel.add(friendPanel.getView(), BorderLayout.EAST);
 		
-		southWestPanel.add(newsPanel, BorderLayout.CENTER);
+		southWestPanel.add(picturePanel.getView(), BorderLayout.CENTER);
 		startPanel.setBackground(Color.gray);
-		startPanel.setPreferredSize(new Dimension(0,250));
+		startPanel.setPreferredSize(new Dimension(0,200));
 		
 		shop.setPreferredSize(new Dimension(140,100));
 		shop.setOpaque(true);
@@ -61,6 +68,7 @@ public class LobbyView extends ContentView{
 		startPanel.add(find);
 		southWestPanel.add(startPanel, BorderLayout.SOUTH);
 		centerPanel.add(southWestPanel, BorderLayout.CENTER);
+		
 		view.add(centerPanel, BorderLayout.CENTER);
 		
 		logout.addActionListener(new ActionListener() {

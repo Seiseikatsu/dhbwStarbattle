@@ -1,4 +1,4 @@
-package com.starbattle.client.views;
+package com.starbattle.client.views.error;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

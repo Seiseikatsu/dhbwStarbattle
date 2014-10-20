@@ -1,4 +1,4 @@
-package com.starbattle.client.views;
+package com.starbattle.client.views.register;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -12,9 +12,10 @@ import javax.swing.JPanel;
 
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.connection.RegistrationListener;
-import com.starbattle.client.model.RegisterModel;
 import com.starbattle.client.model.validate.PasswordChecker;
 import com.starbattle.client.model.validate.PasswordHasher;
+import com.starbattle.client.views.lobby.LobbyView;
+import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.window.ContentView;
 import com.starbattle.network.client.SendServerConnection;
 import com.starbattle.network.connection.objects.NP_Register;

@@ -6,11 +6,11 @@ import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.connection.NetworkConnectionListener;
 import com.starbattle.client.main.error.ConnectionErrorListener;
 import com.starbattle.client.resource.ClientConfiguration;
-import com.starbattle.client.views.ConnectionErrorView;
-import com.starbattle.client.views.LobbyView;
-import com.starbattle.client.views.LoginView;
-import com.starbattle.client.views.RegisterView;
-import com.starbattle.client.views.ResetPasswordView;
+import com.starbattle.client.views.error.ConnectionErrorView;
+import com.starbattle.client.views.lobby.LobbyView;
+import com.starbattle.client.views.login.LoginView;
+import com.starbattle.client.views.register.RegisterView;
+import com.starbattle.client.views.reset.ResetPasswordView;
 import com.starbattle.client.window.GameWindow;
 
 public class StarBattleClient {

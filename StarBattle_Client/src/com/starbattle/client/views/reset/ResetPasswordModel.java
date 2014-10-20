@@ -1,4 +1,4 @@
-package com.starbattle.client.model;
+package com.starbattle.client.views.reset;
 
 import java.awt.Color;
 
@@ -10,14 +10,14 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.starbattle.client.layout.VerticalLayout;
+import com.starbattle.client.layout.StandardViewModel;
 import com.starbattle.client.resource.ResourceLoader;
 
-public class ResetPasswordModel {
+public class ResetPasswordModel extends StandardViewModel{
 
 	private JTextField username = new JTextField(22);
 	private JTextField email = new JTextField(22);	
 	private JTextArea info=new JTextArea(5,22);
-	private JPanel view = new JPanel();
 	
 	public ResetPasswordModel() {
 		view.setLayout(new VerticalLayout());
@@ -42,10 +42,6 @@ public class ResetPasswordModel {
 		return l;
 	}
 
-	
-	public JPanel getView() {
-		return view;
-	}
 
 	public String getUserName() {
 		return username.getText();

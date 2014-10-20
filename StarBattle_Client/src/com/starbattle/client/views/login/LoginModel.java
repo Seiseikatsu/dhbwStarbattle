@@ -1,4 +1,4 @@
-package com.starbattle.client.model;
+package com.starbattle.client.views.login;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -14,14 +14,14 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.starbattle.client.layout.VerticalLayout;
+import com.starbattle.client.layout.StandardViewModel;
 import com.starbattle.client.model.validate.PasswordHasher;
 import com.starbattle.client.resource.ResourceLoader;
 
-public class LoginModel {
+public class LoginModel extends StandardViewModel{
 
 	private JTextField username = new JTextField(22);
 	private JPasswordField password = new JPasswordField(22);
-	private JPanel view = new JPanel();
 	private JLabel errorText = new JLabel("  ");
 	private JCheckBox rememberName = new JCheckBox("Remember Username", false);
 	private JButton forgotPassword=new JButton("Forgot password?");
@@ -77,9 +77,6 @@ public class LoginModel {
 		return rememberName.isSelected();
 	}
 	
-	public JPanel getView() {
-		return view;
-	}
 
 	public String getUserName() {
 		return username.getText();

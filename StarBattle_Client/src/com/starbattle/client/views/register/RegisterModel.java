@@ -1,30 +1,26 @@
-package com.starbattle.client.model;
+package com.starbattle.client.views.register;
 
 import java.awt.Color;
 import java.awt.event.KeyListener;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.starbattle.client.layout.VerticalLayout;
+import com.starbattle.client.layout.StandardViewModel;
 import com.starbattle.client.resource.ResourceLoader;
 
-public class RegisterModel {
+public class RegisterModel extends StandardViewModel{
 
 	private JTextField username = new JTextField(22);
 	private JTextField email = new JTextField(22);
 	private JPasswordField password = new JPasswordField(22);
 	private JPasswordField password2 = new JPasswordField(22);
-	private JPanel view = new JPanel();
-	private JLabel errorText = new JLabel("  ");
+		private JLabel errorText = new JLabel("  ");
 
 	public RegisterModel() {
 		errorText.setForeground(new Color(250, 50, 50));
@@ -54,9 +50,6 @@ public class RegisterModel {
 		return l;
 	}
 
-	public JPanel getView() {
-		return view;
-	}
 
 	public String getUserName() {
 		return username.getText();
