@@ -26,9 +26,7 @@ public class LoginModel {
 	private JCheckBox rememberName = new JCheckBox("Remember Username", false);
 	private JButton forgotPassword=new JButton("Forgot password?");
 	
-	public LoginModel(String name, String pw) {
-		username.setText(name);
-		password.setText(pw);
+	public LoginModel() {
 		rememberName.setOpaque(false);
 		rememberName.setForeground(new Color(200, 200, 200));
 		password.setCaretColor(Color.WHITE);
@@ -55,6 +53,12 @@ public class LoginModel {
 		view.add(forgotPassword);
 	}
 
+	public void setUsername(String name)
+	{
+		username.setText(name);
+		rememberName.setSelected(true);
+	}
+	
 	private JLabel createText(String t, String iconName) {
 		JLabel l = new JLabel(t, ResourceLoader.loadIcon(iconName), 0);
 		l.setFont(l.getFont().deriveFont(16f));
@@ -66,6 +70,11 @@ public class LoginModel {
 	public void setForgotPasswordListener(ActionListener listener)
 	{
 		forgotPassword.addActionListener(listener);
+	}
+	
+	public boolean isRememberUsername()
+	{
+		return rememberName.isSelected();
 	}
 	
 	public JPanel getView() {

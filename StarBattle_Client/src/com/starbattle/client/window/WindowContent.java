@@ -12,6 +12,7 @@ public class WindowContent extends JPanel{
 	private HashMap<Integer,ContentView> views=new HashMap<Integer,ContentView>();
 	private ContentViewChanger contentViewChanger=new ContentViewChanger();
 	private GameWindow window;
+	private ContentView currentView;
 	
 	public WindowContent(GameWindow window)
 	{
@@ -26,6 +27,10 @@ public class WindowContent extends JPanel{
 		views.put(id, view);
 	}
 	
+	public void isClosing() {
+		 currentView.onClosing();
+	}
+	
 	public void showView(int id)
 	{
 		try {
@@ -38,6 +43,7 @@ public class WindowContent extends JPanel{
 	
 	public void showView(ContentView view)
 	{
+		currentView=view;
 		view.initView();
 		this.removeAll();
 		this.add(view.getView(),BorderLayout.CENTER);
@@ -60,4 +66,6 @@ public class WindowContent extends JPanel{
 		}
 		
 	}
+
+	
 }

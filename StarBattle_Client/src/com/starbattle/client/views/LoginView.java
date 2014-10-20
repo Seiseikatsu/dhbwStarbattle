@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.connection.RegistrationListener;
 import com.starbattle.client.model.LoginModel;
+import com.starbattle.client.resource.ClientConfiguration;
 import com.starbattle.client.resource.ResourceLoader;
 import com.starbattle.client.window.ContentView;
 import com.starbattle.network.client.SendServerConnection;
@@ -30,9 +31,11 @@ public class LoginView extends ContentView {
 	
 	private JButton loginButton = new JButton("Login");
 	private JButton registerButton = new JButton("Create Account");
-	private LoginModel loginModel=new LoginModel("TimoTester","test123");
+	private LoginModel loginModel=new LoginModel();
 	private SendServerConnection sendConnection;
 
+	private String rememberUsername="login.rememberUsername";
+	
 	public LoginView(NetworkConnection connection) {
 
 		sendConnection = connection.getSendConnection();
@@ -84,10 +87,16 @@ public class LoginView extends ContentView {
 		String name = loginModel.getUserName();
 		String password = loginModel.getHashedPassword();
 
+		//remember username if checked
+		if(loginModel.isRememberUsername())
+		{
+		ClientConfiguration.get().setProperty(rememberUsername, name);	
+		}
+		
 		NP_Login login = new NP_Login();
 		login.playerName = name;
 		login.password = password;
-		sendConnection.sendTCP(login);
+		sendConnection.sendTCP(login);		
 	}
 
 	private class Registration implements RegistrationListener {
@@ -125,11 +134,26 @@ public class LoginView extends ContentView {
 	protected void initView() {
 		loginModel.setErrorText("");
 		resizeWindow(windowSize);
+		
+		//check config for remember username
+		String name=ClientConfiguration.get().getProperty(rememberUsername);
+		if(name!=null)
+		{
+			if(!name.isEmpty())
+			{
+			loginModel.setUsername(name);
+			}
+		}
 	}
 
 	@Override
 	protected void onClosing() {
 
+		if(!loginModel.isRememberUsername())
+		{
+			//remove properties value
+			ClientConfiguration.get().remove(rememberUsername);
+		}
 	}
 
 	@Override

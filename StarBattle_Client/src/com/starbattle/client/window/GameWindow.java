@@ -2,8 +2,13 @@ package com.starbattle.client.window;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 
 import javax.swing.JFrame;
+
+import com.starbattle.client.resource.ClientConfiguration;
 
 public class GameWindow {
 
@@ -12,14 +17,46 @@ public class GameWindow {
 
 	public GameWindow(Dimension size, String name) {
 		window = new JFrame(name);
-		if(size!=null)
-		{
-		updateSize(size);
+		if (size != null) {
+			updateSize(size);
 		}
 		content = new WindowContent(this);
 		window.setContentPane(content);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
+		window.addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				content.isClosing();
+				ClientConfiguration.saveProperties();
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+
+			}
+		});
 	}
 
 	public void updateSize(Dimension size) {
