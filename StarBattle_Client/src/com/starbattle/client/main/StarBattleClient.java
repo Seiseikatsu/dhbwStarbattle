@@ -9,6 +9,7 @@ import com.starbattle.client.views.ConnectionErrorView;
 import com.starbattle.client.views.GameView;
 import com.starbattle.client.views.LoginView;
 import com.starbattle.client.views.RegisterView;
+import com.starbattle.client.views.ResetPasswordView;
 import com.starbattle.client.window.GameWindow;
 
 public class StarBattleClient {
@@ -45,6 +46,7 @@ public class StarBattleClient {
 		// create views
 		window.addView(new LoginView(connection));
 		window.addView(new RegisterView(connection));
+		window.addView(new ResetPasswordView(connection));
 		window.addView(new GameView(connection));
 		// open login window
 		window.open(GameView.VIEW_ID);

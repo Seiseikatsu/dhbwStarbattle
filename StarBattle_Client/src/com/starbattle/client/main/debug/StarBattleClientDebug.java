@@ -4,6 +4,7 @@ import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.views.GameView;
 import com.starbattle.client.views.LoginView;
 import com.starbattle.client.views.RegisterView;
+import com.starbattle.client.views.ResetPasswordView;
 import com.starbattle.client.window.GameWindow;
 
 public class StarBattleClientDebug {
@@ -17,6 +18,7 @@ public class StarBattleClientDebug {
 		//add views to test
 		window.addView(new LoginView(debugConnection));
 		window.addView(new RegisterView(debugConnection));
+		window.addView(new ResetPasswordView(debugConnection));
 		window.addView(new GameView(debugConnection));
 		
 		//set starting view

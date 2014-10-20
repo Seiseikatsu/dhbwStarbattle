@@ -27,7 +27,7 @@ public class RegisterModel {
 	private JLabel errorText = new JLabel("  ");
 
 	public RegisterModel() {
-		errorText.setForeground(new Color(250, 150, 100));
+		errorText.setForeground(new Color(250, 50, 50));
 		errorText.setFont(errorText.getFont().deriveFont(15f));
 		view.setLayout(new VerticalLayout());
 		view.setBorder(BorderFactory.createEmptyBorder(20, 70, 20, 50));

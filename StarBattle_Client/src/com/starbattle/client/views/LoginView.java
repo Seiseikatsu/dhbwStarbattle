@@ -72,6 +72,12 @@ public class LoginView extends ContentView {
 				tryLogin();
 			}
 		});
+		
+		loginModel.setForgotPasswordListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openView(ResetPasswordView.VIEW_ID);
+			}
+		});
 	}
 
 	private void tryLogin() {
@@ -88,13 +94,11 @@ public class LoginView extends ContentView {
 
 		@Override
 		public void registrationOk() {
-			// TODO Auto-generated method stub
 			openView(GameView.VIEW_ID);
 		}
 
 		@Override
 		public void registrationFailed(String error) {
-			// TODO Auto-generated method stub
 			loginModel.setErrorText(error);
 		}
 	}

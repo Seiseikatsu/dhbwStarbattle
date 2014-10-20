@@ -13,7 +13,7 @@ import com.starbattle.network.connection.objects.NP_Logout;
 
 public class GameView extends ContentView{
 
-	public final static int VIEW_ID = 2;
+	public final static int VIEW_ID = 3;
 	private Dimension windowSize=new Dimension(1000,600);
 	
 	

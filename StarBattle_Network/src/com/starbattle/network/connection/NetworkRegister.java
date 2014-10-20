@@ -18,6 +18,7 @@ public class NetworkRegister {
 		addNetworkClass(NP_Register.class);
 		addNetworkClass(NP_StartAnswer.class);
 		addNetworkClass(NP_Logout.class);
+		addNetworkClass(NP_ResetEmail.class);
 	}
 	
 	public void register(EndPoint endPoint) {
