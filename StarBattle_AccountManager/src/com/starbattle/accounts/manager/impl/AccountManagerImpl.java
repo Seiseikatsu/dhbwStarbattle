@@ -7,10 +7,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.starbattle.accounts.database.DatabaseConnection;
+import com.starbattle.accounts.mail.GeneratePassword;
+import com.starbattle.accounts.mail.MailService;
 import com.starbattle.accounts.manager.AccountException;
 import com.starbattle.accounts.manager.AccountManager;
-import com.starbattle.accounts.manager.PlayerAccount;
 import com.starbattle.accounts.manager.AccountUpdate;
+import com.starbattle.accounts.manager.PlayerAccount;
 import com.starbattle.accounts.validation.LoginState;
 import com.starbattle.accounts.validation.RegisterState;
 
@@ -173,6 +175,31 @@ public class AccountManagerImpl implements AccountManager {
 	}
 	
 	public void newPassword(){
+		
+	}
+	
+	
+	public void newPassword(String accountName) throws AccountException{
+		try {
+			stmt = conn.prepareStatement("SELECT email FROM account WHERE name = ?");
+			stmt.setString(1, accountName);
+			ResultSet rs = stmt.executeQuery();
+			
+			rs.next();
+			String email = rs.getString(1);
+			String password = GeneratePassword.generatePsw();
+			
+			stmt = conn.prepareStatement("UPDATE account SET password = ? WHERE name = ?"); 
+			stmt.setString(1, password);
+			stmt.setString(2, accountName);
+			stmt.executeQuery();
+			
+			MailService.sendMail(email, accountName, password);
+			
+			
+		} catch (SQLException e) {
+			throw new AccountException("SQL error");
+		}
 		
 	}
 	

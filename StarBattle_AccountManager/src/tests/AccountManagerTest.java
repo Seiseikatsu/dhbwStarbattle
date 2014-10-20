@@ -34,10 +34,10 @@ public class AccountManagerTest {
 	public static void setUpBeforeClass() {
 		ami = new AccountManagerImpl();
 
-		account1 = new PlayerAccount("Sebastian", "RufeMichAn!:)2", "hallo@web.de");
-		account2 = new PlayerAccount("Sebastian", "RufeMichAn!:)2", "hallo@web.de");
-		account3 = new PlayerAccount("Geraldine", "RufeMichAn!:)2", "geri@web.de");
-		account4 = new PlayerAccount("Roland", "29RufeMichAn!:)293", "roland@web.de");
+		account1 = new PlayerAccount("Sebastian1", "RufeMichAn!:)2", "hallo@web.de");
+		account2 = new PlayerAccount("Sebastian1", "RufeMichAn!:)2", "hallo@web.de");
+		account3 = new PlayerAccount("Geraldine1", "RufeMichAn!:)2", "geri@web.de");
+		account4 = new PlayerAccount("Roland1", "29RufeMichAn!:)293", "roland@web.de");
 
 		assertTrue("Registration successful", ami.canRegisterAccount(account1).equals(RegisterState.Register_Ok));
 		assertTrue("Registration successful", ami.canRegisterAccount(account3).equals(RegisterState.Register_Ok));
@@ -60,17 +60,17 @@ public class AccountManagerTest {
 	@Test
 	public void loginTest() throws AccountException {
 
-		assertTrue(ami.canLogin("Geraldine", "RufeMichAn!:)2").equals(LoginState.Login_Ok));
+		assertTrue(ami.canLogin("Geraldine1", "RufeMichAn!:)2").equals(LoginState.Login_Ok));
 		assertTrue(ami.canLogin("Nene", "RufeMichAn!:)2").equals(LoginState.Wrong_Username));
-		assertTrue(ami.canLogin("Geraldine", "xxx").equals(LoginState.Wrong_Password));
+		assertTrue(ami.canLogin("Geraldine1", "xxx").equals(LoginState.Wrong_Password));
 	}
 
 	 @AfterClass
 	 public static void afterTest() throws AccountException{
 	
-	 ami.deleteAccount("Geraldine");
-	 ami.deleteAccount("Roland");
-	 ami.deleteAccount("Sebastian");
+	 ami.deleteAccount("Geraldine1");
+	 ami.deleteAccount("Roland1");
+	 ami.deleteAccount("Sebastian1");
 	 }
 
 }

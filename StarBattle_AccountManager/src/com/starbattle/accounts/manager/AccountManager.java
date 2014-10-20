@@ -20,5 +20,7 @@ public interface AccountManager {
 	public void updateAccount(String accountName, AccountUpdate update);
 	
 	public List<Integer> getItemList(String accountName);
+	
+	public void newPassword(String accountName) throws AccountException;
 
 }
