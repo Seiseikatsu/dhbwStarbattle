@@ -21,6 +21,6 @@ public interface AccountManager {
 	
 	public List<Integer> getItemList(String accountName);
 	
-	public void newPassword(String accountName, String email) throws AccountException;
+	public void tryResetPassword(String accountName, String email) throws AccountException;
 
 }

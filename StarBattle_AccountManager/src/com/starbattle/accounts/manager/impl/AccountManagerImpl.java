@@ -175,7 +175,7 @@ public class AccountManagerImpl implements AccountManager {
 
 	}
 	
-	public void newPassword(String accountName, String email) throws AccountException{
+	public void tryResetPassword(String accountName, String email) throws AccountException{
 		try {
 			stmt = conn.prepareStatement("SELECT player_id FROM account WHERE name = ? AND email = ? ");
 			stmt.setString(1, accountName);

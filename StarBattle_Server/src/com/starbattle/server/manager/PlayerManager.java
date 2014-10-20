@@ -32,7 +32,7 @@ public class PlayerManager {
 		String user = reset.name;
 		String email = reset.email;
 		try {
-			accountManager.newPassword(user);
+			accountManager.tryResetPassword(user, email);
 		} catch (AccountException e) {
 			e.printStackTrace();
 		}

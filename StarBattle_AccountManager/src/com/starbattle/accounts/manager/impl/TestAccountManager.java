@@ -84,7 +84,7 @@ public class TestAccountManager implements AccountManager{
 
 
 	@Override
-	public void newPassword(String accountName, String email)
+	public void tryResetPassword(String accountName, String email)
 			throws AccountException {
 		// TODO Auto-generated method stub
 		
