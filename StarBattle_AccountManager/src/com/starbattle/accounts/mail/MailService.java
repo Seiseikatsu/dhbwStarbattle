@@ -34,7 +34,7 @@ public class MailService {
 		properties.setProperty("mail.smtp.host", host);
 		properties.setProperty("mail.smtp.starttls.required", "true");
 		
-		//properties.put("mail.smtp.user", "game.starbattle");
+		properties.put("mail.smtp.user", "game.starbattle");
 		properties.put("mail.smtp.host", host);
 		properties.put("mail.smtp.auth", "true");
 		properties.put("mail.smtp.debug", "true");
@@ -69,7 +69,7 @@ public class MailService {
 			messageBodyPart.setText("Dear " + user + ", your new password is: "
 					+ newPassword + " Sincerly your StarBattle-Team. ");
 
-			// Create a multipart message
+			// Create a multipar message
 			Multipart multipart = new MimeMultipart();
 
 			// Set text message part

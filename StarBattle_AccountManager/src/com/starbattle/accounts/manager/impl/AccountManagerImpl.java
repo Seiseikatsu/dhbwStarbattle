@@ -183,7 +183,7 @@ public class AccountManagerImpl implements AccountManager {
 			ResultSet rs = stmt.executeQuery();
 			
 			rs.next();
-			http://stackoverflow.com/tour
+			
 			if(rs.getInt(1) > 0){
 				String password = GeneratePassword.generatePsw();
 				
