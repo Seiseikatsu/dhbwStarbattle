@@ -53,7 +53,7 @@ public class DatabaseConnection {
 	}
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException, InterruptedException, NoSuchAlgorithmException {
-		//DatabaseConnection dc = new DatabaseConnection();
+		DatabaseConnection dc = new DatabaseConnection();
 		//dc.test();
 		
 		//PlayerAccount p = new PlayerAccount("geri", "1990", "gerry.beer<@gmail.com", 0);

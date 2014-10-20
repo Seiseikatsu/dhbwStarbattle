@@ -175,6 +175,10 @@ public class AccountManagerImpl implements AccountManager {
 
 	}
 	
+	public void newPassword(){
+		
+	}
+	
 	public int getId(String name) throws AccountException{
 		try {
 			stmt = conn.prepareStatement("SELECT  player_id FROM account WHERE name = ?");
