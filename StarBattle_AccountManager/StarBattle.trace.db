@@ -1332,3 +1332,9 @@ UPDATE account SET PASSWORD = 123 Where name = geri [42122-176]
 10-20 13:00:21 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT EMAIL FROM ACCOUNT WHERE NAME = ?,[*] EMAIL = ?  "; SQL statement:
 SELECT email FROM account WHERE name = ?, email = ?  [42000-176]
+10-20 20:00:05 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-20 20:00:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-20 20:01:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]

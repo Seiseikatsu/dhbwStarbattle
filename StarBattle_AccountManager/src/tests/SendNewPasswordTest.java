@@ -14,7 +14,7 @@ public class SendNewPasswordTest {
 	@Test
 	public void testSending() throws AccountException {
 		String name = "Geri";
-		String email = "Gerry.Beery@gmail.com";
+		String email = "gerry.beery@gmail.com";
 		ami = new AccountManagerImpl();
 		ami.tryResetPassword(name, email);
 		

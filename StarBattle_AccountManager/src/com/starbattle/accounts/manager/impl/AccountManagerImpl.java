@@ -183,8 +183,8 @@ public class AccountManagerImpl implements AccountManager {
 			ResultSet rs = stmt.executeQuery();
 			
 			rs.next();
-			
-			if(rs.getInt(1) < 0){
+			http://stackoverflow.com/tour
+			if(rs.getInt(1) > 0){
 				String password = GeneratePassword.generatePsw();
 				
 				stmt = conn.prepareStatement("UPDATE account SET password = ? WHERE name = ?"); 
