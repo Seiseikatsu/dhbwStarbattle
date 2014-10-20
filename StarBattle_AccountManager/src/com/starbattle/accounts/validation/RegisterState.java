@@ -2,7 +2,7 @@ package com.starbattle.accounts.validation;
 
 public enum RegisterState {
 
-	Register_Ok("Registration successful!"), Invalid_Password("Password is invalid!"), Username_Exists(
+	Register_Ok("Registration successful!"), Username_Exists(
 			"Username is already existing!");
 
 	String text;

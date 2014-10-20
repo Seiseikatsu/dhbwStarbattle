@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.connection.RegistrationListener;
-import com.starbattle.client.layout.LoginModel;
+import com.starbattle.client.model.LoginModel;
 import com.starbattle.client.resource.ResourceLoader;
 import com.starbattle.client.window.ContentView;
 import com.starbattle.network.client.SendServerConnection;
@@ -76,7 +76,7 @@ public class LoginView extends ContentView {
 
 	private void tryLogin() {
 		String name = loginModel.getUserName();
-		String password = loginModel.getPassword();
+		String password = loginModel.getHashedPassword();
 
 		NP_Login login = new NP_Login();
 		login.playerName = name;

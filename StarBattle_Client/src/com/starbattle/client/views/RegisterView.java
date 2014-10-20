@@ -6,8 +6,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import com.starbattle.client.connection.NetworkConnection;
+import com.starbattle.client.model.RegisterModel;
 import com.starbattle.client.window.ContentView;
 
 public class RegisterView extends ContentView{
@@ -15,16 +17,23 @@ public class RegisterView extends ContentView{
 	public final static int VIEW_ID = 1;
 
 	private JButton backButton=new JButton("Back");
+	private JButton registerButton=new JButton("Register");	
+	private RegisterModel registerModel=new RegisterModel();
 	
 	public  RegisterView(NetworkConnection connection) {
-		// TODO Auto-generated constructor stub
 		
 		view.setLayout(new BorderLayout());
 		JLabel title=new JLabel("Register",JLabel.CENTER);
 		title.setFont(title.getFont().deriveFont(20f));
-		view.add(title,BorderLayout.NORTH);
 		
-		view.add(backButton,BorderLayout.SOUTH);
+		view.add(title,BorderLayout.NORTH);
+		view.add(registerModel.getView(),BorderLayout.CENTER);
+		
+		JPanel footer=new JPanel();
+		footer.add(backButton);
+		footer.add(registerButton);
+		view.add(footer,BorderLayout.SOUTH);
+		
 		
 		//go back to login view on back button click
 		backButton.addActionListener(new ActionListener() {
@@ -36,19 +45,16 @@ public class RegisterView extends ContentView{
 	
 	@Override
 	protected void initView() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected void onClosing() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public int getViewID() {
-		// TODO Auto-generated method stub
 		return VIEW_ID;
 	}
 

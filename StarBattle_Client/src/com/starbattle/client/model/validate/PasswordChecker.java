@@ -1,4 +1,4 @@
-package com.starbattle.accounts.manager.impl;
+package com.starbattle.client.model.validate;
 
 public class PasswordChecker {
 

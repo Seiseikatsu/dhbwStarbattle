@@ -125,9 +125,6 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	public RegisterState canRegisterAccount(PlayerAccount account) {	
-		if(!PasswordChecker.isValid(account.getPassword())){
-			return RegisterState.Invalid_Password;
-		}
 
 		try {
 			stmt = conn.prepareStatement("SELECT count(*) FROM account WHERE name = ?");
