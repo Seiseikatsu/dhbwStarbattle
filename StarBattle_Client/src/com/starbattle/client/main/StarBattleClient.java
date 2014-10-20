@@ -7,7 +7,7 @@ import com.starbattle.client.connection.NetworkConnectionListener;
 import com.starbattle.client.main.error.ConnectionErrorListener;
 import com.starbattle.client.resource.ClientConfiguration;
 import com.starbattle.client.views.ConnectionErrorView;
-import com.starbattle.client.views.GameView;
+import com.starbattle.client.views.LobbyView;
 import com.starbattle.client.views.LoginView;
 import com.starbattle.client.views.RegisterView;
 import com.starbattle.client.views.ResetPasswordView;
@@ -51,9 +51,9 @@ public class StarBattleClient {
 		window.addView(new LoginView(connection));
 		window.addView(new RegisterView(connection));
 		window.addView(new ResetPasswordView(connection));
-		window.addView(new GameView(connection));
+		window.addView(new LobbyView(connection));
 		// open login window
-		window.open(GameView.VIEW_ID);
+		window.open(LobbyView.VIEW_ID);
 	}
 
 	// reacts if connection to server opened/closed

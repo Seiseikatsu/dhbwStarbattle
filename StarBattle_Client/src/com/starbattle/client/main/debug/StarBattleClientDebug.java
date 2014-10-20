@@ -2,7 +2,7 @@ package com.starbattle.client.main.debug;
 
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.resource.ClientConfiguration;
-import com.starbattle.client.views.GameView;
+import com.starbattle.client.views.LobbyView;
 import com.starbattle.client.views.LoginView;
 import com.starbattle.client.views.RegisterView;
 import com.starbattle.client.views.ResetPasswordView;
@@ -22,10 +22,10 @@ public class StarBattleClientDebug {
 		window.addView(new LoginView(debugConnection));
 		window.addView(new RegisterView(debugConnection));
 		window.addView(new ResetPasswordView(debugConnection));
-		window.addView(new GameView(debugConnection));
+		window.addView(new LobbyView(debugConnection));
 		
 		//set starting view
-		window.open(LoginView.VIEW_ID);
+		window.open(LobbyView.VIEW_ID);
 		
 	}
 	

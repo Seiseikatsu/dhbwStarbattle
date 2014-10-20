@@ -97,7 +97,7 @@ public class RegisterView extends ContentView {
 
 		@Override
 		public void registrationOk() {
-			openView(GameView.VIEW_ID); // login after register
+			openView(LobbyView.VIEW_ID); // login after register
 		}
 
 		@Override

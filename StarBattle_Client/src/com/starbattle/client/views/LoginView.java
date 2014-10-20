@@ -103,7 +103,7 @@ public class LoginView extends ContentView {
 
 		@Override
 		public void registrationOk() {
-			openView(GameView.VIEW_ID);
+			openView(LobbyView.VIEW_ID);
 		}
 
 		@Override
