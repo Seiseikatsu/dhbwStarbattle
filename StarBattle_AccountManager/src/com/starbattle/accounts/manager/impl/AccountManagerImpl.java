@@ -14,6 +14,7 @@ import com.starbattle.accounts.manager.AccountManager;
 import com.starbattle.accounts.manager.AccountUpdate;
 import com.starbattle.accounts.manager.PlayerAccount;
 import com.starbattle.accounts.validation.LoginState;
+import com.starbattle.accounts.validation.PasswordHasher;
 import com.starbattle.accounts.validation.RegisterState;
 
 public class AccountManagerImpl implements AccountManager {
@@ -174,27 +175,27 @@ public class AccountManagerImpl implements AccountManager {
 
 	}
 	
-	public void newPassword(){
-		
-	}
-	
-	
-	public void newPassword(String accountName) throws AccountException{
+	public void newPassword(String accountName, String email) throws AccountException{
 		try {
-			stmt = conn.prepareStatement("SELECT email FROM account WHERE name = ?");
+			stmt = conn.prepareStatement("SELECT player_id FROM account WHERE name = ? AND email = ? ");
 			stmt.setString(1, accountName);
+			stmt.setString(2, email);
 			ResultSet rs = stmt.executeQuery();
 			
 			rs.next();
-			String email = rs.getString(1);
-			String password = GeneratePassword.generatePsw();
 			
-			stmt = conn.prepareStatement("UPDATE account SET password = ? WHERE name = ?"); 
-			stmt.setString(1, password);
-			stmt.setString(2, accountName);
-			stmt.executeQuery();
-			
-			MailService.sendMail(email, accountName, password);
+			if(rs.getInt(1) < 0){
+				String password = GeneratePassword.generatePsw();
+				
+				stmt = conn.prepareStatement("UPDATE account SET password = ? WHERE name = ?"); 
+				stmt.setString(1, PasswordHasher.hashPassword(password));
+				stmt.setString(2, accountName);
+				stmt.execute();
+				
+				MailService.sendMail(email, accountName, password);
+			} else {
+				System.out.println("email und passwort stimmen nicht überein");
+			}
 			
 			
 		} catch (SQLException e) {
@@ -221,6 +222,23 @@ public class AccountManagerImpl implements AccountManager {
 	public List<Integer> getItemList(String accountName) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public String getPassword(String accountName){
+
+		try {
+			stmt = conn.prepareStatement("SELECT password FROM account WHERE name = ?");
+			stmt.setString(1, accountName);
+			ResultSet rs = stmt.executeQuery();
+			
+			rs.next();
+			return rs.getString(1);
+		} catch (SQLException e) {
+			return "false";
+		}
+	
+		
+		
 	}
 
 }

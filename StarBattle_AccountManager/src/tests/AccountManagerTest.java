@@ -2,11 +2,6 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,9 +16,6 @@ import com.starbattle.accounts.validation.RegisterState;
 public class AccountManagerTest {
 
 	static DatabaseConnection db;
-	static private PreparedStatement stmt;
-	static private ResultSet rs;
-	static private Connection conn;
 	static private PlayerAccount account1;
 	static private PlayerAccount account2;
 	static private PlayerAccount account3;

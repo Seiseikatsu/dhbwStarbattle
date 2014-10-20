@@ -82,8 +82,10 @@ public class TestAccountManager implements AccountManager{
 		return null;
 	}
 
+
 	@Override
-	public void newPassword(String accountName) throws AccountException {
+	public void newPassword(String accountName, String email)
+			throws AccountException {
 		// TODO Auto-generated method stub
 		
 	}
