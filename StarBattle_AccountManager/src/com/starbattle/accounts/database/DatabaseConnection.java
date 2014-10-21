@@ -11,8 +11,8 @@ import org.h2.server.web.WebServer;
 import org.h2.tools.Server;
 
 import com.starbattle.accounts.manager.AccountException;
-import com.starbattle.accounts.manager.PlayerAccount;
 import com.starbattle.accounts.manager.impl.AccountManagerImpl;
+import com.starbattle.accounts.player.PlayerAccount;
 
 public class DatabaseConnection {
 	private static final String CONNSTRING = "jdbc:h2:./StarBattle";

@@ -1,4 +1,4 @@
-package com.starbattle.accounts.manager;
+package com.starbattle.accounts.player;
 
 public class PlayerAccount {
 

@@ -12,7 +12,8 @@ import com.starbattle.accounts.mail.MailService;
 import com.starbattle.accounts.manager.AccountException;
 import com.starbattle.accounts.manager.AccountManager;
 import com.starbattle.accounts.manager.AccountUpdate;
-import com.starbattle.accounts.manager.PlayerAccount;
+import com.starbattle.accounts.player.PlayerAccount;
+import com.starbattle.accounts.player.PlayerFriends;
 import com.starbattle.accounts.validation.LoginState;
 import com.starbattle.accounts.validation.PasswordHasher;
 import com.starbattle.accounts.validation.RegisterState;
@@ -238,6 +239,24 @@ public class AccountManagerImpl implements AccountManager {
 		}
 	
 		
+		
+	}
+
+	@Override
+	public PlayerFriends getFriendRelations(String accountName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean newFriendRequest(String accountName, String friendDisplayname) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void handleFriendRequest(String accountName, String friendDisplayname, boolean accept) {
+		// TODO Auto-generated method stub
 		
 	}
 

@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import com.starbattle.accounts.database.DatabaseConnection;
 import com.starbattle.accounts.manager.AccountException;
-import com.starbattle.accounts.manager.PlayerAccount;
 import com.starbattle.accounts.manager.impl.AccountManagerImpl;
+import com.starbattle.accounts.player.PlayerAccount;
 import com.starbattle.accounts.validation.LoginState;
 import com.starbattle.accounts.validation.RegisterState;
 
