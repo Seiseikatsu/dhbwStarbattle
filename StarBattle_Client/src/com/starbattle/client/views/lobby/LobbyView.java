@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import org.omg.CORBA.FREE_MEM;
 
 import com.starbattle.client.connection.NetworkConnection;
+import com.starbattle.client.views.lobby.friends.FriendPanel;
 import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.window.ContentView;
 import com.starbattle.network.connection.objects.NP_Logout;
@@ -33,7 +34,7 @@ public class LobbyView extends ContentView{
 		JPanel topPanel=new JPanel(new FlowLayout());
 		JButton logout=new JButton("Disconnect");
 		JButton profile=new JButton("Profile");
-		JButton find=new JButton("Find");
+		JButton find=new JButton("Play");
 		JButton shop=new JButton("Shop");
 		JPanel blocker=new JPanel();
 		JPanel centerPanel=new JPanel(new BorderLayout());

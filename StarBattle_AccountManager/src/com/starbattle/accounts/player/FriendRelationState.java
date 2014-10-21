@@ -2,7 +2,7 @@ package com.starbattle.accounts.player;
 
 public enum FriendRelationState {
 
-	Friends, Pending, Request;   
+	Friends(0), Pending(1), Request(2);   
 
 	/**
 	 * This is the relation from the view of the player.
@@ -13,8 +13,14 @@ public enum FriendRelationState {
 	 * 
 	 */
 	
-	FriendRelationState() {
-
+	private int id;
+	
+	FriendRelationState(int id) {
+		this.id=id;
+	}
+	
+	public int getId() {
+		return id;
 	}
 
 }
