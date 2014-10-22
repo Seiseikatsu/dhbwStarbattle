@@ -139,7 +139,7 @@ public class AccountManagerImpl implements AccountManager {
 
 			if (rs.getInt(1) > 0) { // User already exists
 				System.out.println("user already exists");
-				return RegisterState.Username_Exists;
+				return RegisterState.Accountname_Exists;
 			}
 
 		} catch (SQLException e) {

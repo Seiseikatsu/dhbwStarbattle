@@ -46,7 +46,7 @@ public class AccountManagerTest {
 
 	@Test
 	public void userAlreadyExists() {
-		assertTrue("Registration not successful",ami.canRegisterAccount(account2).equals(RegisterState.Username_Exists));
+		assertTrue("Registration not successful",ami.canRegisterAccount(account2).equals(RegisterState.Accountname_Exists));
 	}
 
 	@Test

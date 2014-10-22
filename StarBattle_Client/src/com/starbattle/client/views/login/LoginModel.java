@@ -23,7 +23,7 @@ public class LoginModel extends StandardViewModel{
 	private JTextField username = new JTextField(22);
 	private JPasswordField password = new JPasswordField(22);
 	private JLabel errorText = new JLabel("  ");
-	private JCheckBox rememberName = new JCheckBox("Remember Username", false);
+	private JCheckBox rememberName = new JCheckBox("Remember Name", false);
 	private JButton forgotPassword=new JButton("Forgot password?");
 	
 	public LoginModel() {
@@ -41,7 +41,7 @@ public class LoginModel extends StandardViewModel{
 		view.setBorder(BorderFactory.createEmptyBorder(5, 75, 10, 0));
 		view.setLayout(new VerticalLayout());
 		view.add(errorText);
-		view.add(createText("Username", "user.png"));
+		view.add(createText("Accountname", "user.png"));
 		view.add(username);
 		view.add(rememberName);
 		view.add(Box.createVerticalStrut(5));

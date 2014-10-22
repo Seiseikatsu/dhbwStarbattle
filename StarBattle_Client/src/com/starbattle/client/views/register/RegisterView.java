@@ -1,6 +1,7 @@
 package com.starbattle.client.views.register;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -23,7 +24,9 @@ import com.starbattle.network.connection.objects.NP_Register;
 public class RegisterView extends ContentView {
 
 	public final static int VIEW_ID = 1;
-
+	
+	private Dimension windowSize=new Dimension(400,500);
+	
 	private JButton backButton = new JButton("Back");
 	private JButton registerButton = new JButton("Register");
 	private RegisterModel registerModel = new RegisterModel();
@@ -35,7 +38,7 @@ public class RegisterView extends ContentView {
 		sendConnection = connection.getSendConnection();
 
 		view.setLayout(new BorderLayout());
-		JLabel title = new JLabel("Register", JLabel.CENTER);
+		JLabel title = new JLabel("Register new Account", JLabel.CENTER);
 		title.setFont(title.getFont().deriveFont(20f));
 
 		view.add(title, BorderLayout.NORTH);
@@ -69,7 +72,8 @@ public class RegisterView extends ContentView {
 				NP_Register reg = new NP_Register();
 				reg.email = registerModel.getEmail();
 				reg.password = PasswordHasher.hashPassword(password);
-				reg.playerName = registerModel.getUserName();
+				reg.accountName = registerModel.getAccountName();
+				reg.displayName= registerModel.getDisplayName();
 				sendConnection.sendTCP(reg);
 			} else {
 				registerModel.setErrorText("Invalid password!");
@@ -81,7 +85,8 @@ public class RegisterView extends ContentView {
 
 	@Override
 	protected void initView() {
-
+		resizeWindow(windowSize);
+		
 	}
 
 	@Override

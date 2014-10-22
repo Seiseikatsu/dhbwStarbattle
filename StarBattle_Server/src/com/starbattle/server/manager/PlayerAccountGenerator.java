@@ -8,7 +8,8 @@ public class PlayerAccountGenerator {
 	public static PlayerAccount generateAccount(NP_Register registerObject) {
 		PlayerAccount player = new PlayerAccount();
 
-		player.setName(registerObject.playerName);
+		player.setName(registerObject.accountName);
+		player.setDisplayName(registerObject.displayName);
 		player.setEmail(registerObject.email);
 		player.setPassword(registerObject.password);
 

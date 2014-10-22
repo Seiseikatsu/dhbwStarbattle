@@ -22,7 +22,9 @@ public class ResetPasswordModel extends StandardViewModel{
 	public ResetPasswordModel() {
 		view.setLayout(new VerticalLayout());
 		view.setBorder(BorderFactory.createEmptyBorder(20, 70, 20, 50));
-		view.add(createText("Username", "user.png"));
+		view.setBackground(new Color(200,200,200));
+		
+		view.add(createText("Accountname", "user.png"));
 		view.add(username);
 		view.add(Box.createVerticalStrut(5));
 		view.add(createText("EMail", "email.png"));
@@ -30,6 +32,7 @@ public class ResetPasswordModel extends StandardViewModel{
 		view.add(Box.createVerticalStrut(50));
 		view.add(info);
 		info.setEditable(false);
+		info.setOpaque(false);
 		info.append("Password reset: \n");
 		info.append("You will get a new password by email. \n");
 		

@@ -72,7 +72,7 @@ public class PlayerManager {
 				// create account
 				accountManager.registerAccount(account);
 				// login player
-				loginPlayer(player, register.playerName);
+				loginPlayer(player, register.accountName);
 				return;
 			} catch (AccountException e) {
 				// TODO Auto-generated catch block
