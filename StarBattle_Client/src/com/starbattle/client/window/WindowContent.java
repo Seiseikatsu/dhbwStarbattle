@@ -44,7 +44,7 @@ public class WindowContent extends JPanel{
 	public void showView(ContentView view)
 	{
 		currentView=view;
-		view.initView();
+		view.open();
 		this.removeAll();
 		this.add(view.getView(),BorderLayout.CENTER);
 		this.revalidate();

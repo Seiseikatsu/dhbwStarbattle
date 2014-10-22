@@ -23,11 +23,14 @@ public class LoginModel extends StandardViewModel {
 
 	private JTextField username = new JTextField(19);
 	private JPasswordField password = new JPasswordField(22);
-	private JLabel errorText = new JLabel("  ");
+	private JLabel errorText = new DesignLabel(null,"error.png",new Color(250, 100, 100));
 	private JCheckBox rememberName = new JCheckBox("Remember Name", false);
 	private JButton forgotPassword = new JButton("Forgot password?");
 
 	public LoginModel() {
+		
+		errorText.setOpaque(true);
+		errorText.setBackground(new Color(0,0,0));
 		rememberName.setOpaque(false);
 		rememberName.setForeground(new Color(200, 200, 200));
 		password.setCaretColor(Color.WHITE);
@@ -37,8 +40,6 @@ public class LoginModel extends StandardViewModel {
 		username.setForeground(new Color(200, 200, 250));
 		username.setFont(username.getFont().deriveFont(16f));
 		username.setCaretColor(Color.WHITE);
-		errorText.setForeground(new Color(250, 150, 100));
-		errorText.setFont(errorText.getFont().deriveFont(15f));
 		view.setOpaque(false);
 
 		view.setBorder(BorderFactory.createEmptyBorder(5, 15, 10, 0));

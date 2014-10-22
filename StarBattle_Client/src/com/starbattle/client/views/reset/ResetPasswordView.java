@@ -1,6 +1,8 @@
 package com.starbattle.client.views.reset;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +12,7 @@ import javax.swing.JPanel;
 
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.layout.DesignButton;
+import com.starbattle.client.layout.DesignLabel;
 import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.window.ContentView;
 import com.starbattle.network.client.SendServerConnection;
@@ -19,6 +22,7 @@ public class ResetPasswordView extends ContentView {
 
 	public final static int VIEW_ID = 2;
 
+	
 	private ResetPasswordModel model = new ResetPasswordModel();
 	private JButton backButton = new DesignButton("Back");
 	private JButton resetButton = new DesignButton("Send Email");
@@ -26,14 +30,20 @@ public class ResetPasswordView extends ContentView {
 
 	public ResetPasswordView(NetworkConnection connection) {
 
+		windowSize=new Dimension(400,400);
+		
 		sendConnection = connection.getSendConnection();
 		view.setLayout(new BorderLayout());
-		JLabel title = new JLabel("Reset Password", JLabel.CENTER);
+		view.setBackground(new Color(170,110,40));
+		
+		JLabel title = new DesignLabel("Reset Password",25);
+		title.setHorizontalAlignment(JLabel.CENTER);
 		title.setFont(title.getFont().deriveFont(20f));
 		view.add(title, BorderLayout.NORTH);
 		view.add(model.getView(), BorderLayout.CENTER);
 
 		JPanel footer = new JPanel();
+		footer.setOpaque(false);
 		footer.add(backButton);
 		footer.add(resetButton);
 		view.add(footer, BorderLayout.SOUTH);

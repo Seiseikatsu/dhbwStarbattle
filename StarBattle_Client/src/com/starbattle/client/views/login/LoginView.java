@@ -27,7 +27,7 @@ import com.starbattle.network.connection.objects.NP_Login;
 public class LoginView extends ContentView {
 
 	public final static int VIEW_ID = 0;
-	private Dimension windowSize=new Dimension(600,600);
+
 	
 	private JButton loginButton = new DesignButton("Login");
 	private JButton registerButton = new DesignButton("Create Account");
@@ -38,6 +38,8 @@ public class LoginView extends ContentView {
 	
 	public LoginView(NetworkConnection connection) {
 
+		windowSize=new Dimension(600,600);
+		
 		sendConnection = connection.getSendConnection();
 		connection.setRegistrationListener(new Registration());
 		
@@ -133,7 +135,7 @@ public class LoginView extends ContentView {
 
 	@Override
 	protected void initView() {
-		loginModel.setErrorText("");
+		loginModel.setErrorText(null);
 		resizeWindow(windowSize);
 		
 		//check config for remember username

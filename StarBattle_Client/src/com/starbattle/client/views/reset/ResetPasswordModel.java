@@ -1,6 +1,7 @@
 package com.starbattle.client.views.reset;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -20,6 +21,10 @@ public class ResetPasswordModel extends StandardViewModel{
 	private JTextArea info=new JTextArea(5,22);
 	
 	public ResetPasswordModel() {
+		
+		
+		
+		
 		view.setLayout(new VerticalLayout());
 		view.setBorder(BorderFactory.createEmptyBorder(20, 70, 20, 50));
 		view.setBackground(new Color(200,200,200));

@@ -7,7 +7,18 @@ import javax.swing.JPanel;
 public abstract class ContentView {
 
 	protected ContentPanel view=new ContentPanel();
+	protected Dimension windowSize;
 	private ViewChangeListener listener;
+	
+	
+	public void open()
+	{
+		if(windowSize!=null)
+		{
+			resizeWindow(windowSize);
+		}
+		initView();
+	}
 	
 	protected abstract void initView();
 	

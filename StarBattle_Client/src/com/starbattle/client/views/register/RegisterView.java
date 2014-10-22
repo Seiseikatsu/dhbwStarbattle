@@ -27,8 +27,7 @@ import com.starbattle.network.connection.objects.NP_Register;
 public class RegisterView extends ContentView {
 
 	public final static int VIEW_ID = 1;
-	
-	private Dimension windowSize=new Dimension(400,500);
+
 	
 	private JButton backButton = new DesignButton("Back");
 	private JButton registerButton = new DesignButton("Register");
@@ -37,12 +36,14 @@ public class RegisterView extends ContentView {
 
 	public RegisterView(NetworkConnection connection) {
 
+		windowSize=new Dimension(400,500);
+		
 		connection.setRegistrationListener(new Registration());
 		sendConnection = connection.getSendConnection();
 		
 		view.setBackground(new Color(170,110,40));
 		view.setLayout(new BorderLayout());
-		DesignLabel title=new DesignLabel("Register new Account", Color.WHITE, 25);
+		DesignLabel title=new DesignLabel("Register new Account", 25);
 		title.setHorizontalAlignment(JLabel.CENTER);
 		view.add(title, BorderLayout.NORTH);
 		view.add(registerModel.getView(), BorderLayout.CENTER);
