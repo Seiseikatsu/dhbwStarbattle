@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.connection.RegistrationListener;
+import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.model.validate.PasswordChecker;
 import com.starbattle.client.model.validate.PasswordHasher;
 import com.starbattle.client.views.lobby.LobbyView;
@@ -27,8 +28,8 @@ public class RegisterView extends ContentView {
 	
 	private Dimension windowSize=new Dimension(400,500);
 	
-	private JButton backButton = new JButton("Back");
-	private JButton registerButton = new JButton("Register");
+	private JButton backButton = new DesignButton("Back");
+	private JButton registerButton = new DesignButton("Register");
 	private RegisterModel registerModel = new RegisterModel();
 	private SendServerConnection sendConnection;
 

@@ -1,22 +1,20 @@
 package com.starbattle.client.views.login;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.connection.RegistrationListener;
+import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.resource.ClientConfiguration;
 import com.starbattle.client.resource.ResourceLoader;
 import com.starbattle.client.views.lobby.LobbyView;
@@ -31,8 +29,8 @@ public class LoginView extends ContentView {
 	public final static int VIEW_ID = 0;
 	private Dimension windowSize=new Dimension(400,400);
 	
-	private JButton loginButton = new JButton("Login");
-	private JButton registerButton = new JButton("Create Account");
+	private JButton loginButton = new DesignButton("Login");
+	private JButton registerButton = new DesignButton("Create Account");
 	private LoginModel loginModel=new LoginModel();
 	private SendServerConnection sendConnection;
 

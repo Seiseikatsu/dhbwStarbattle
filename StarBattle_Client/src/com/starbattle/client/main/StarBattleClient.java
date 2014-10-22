@@ -6,6 +6,7 @@ import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.connection.NetworkConnectionListener;
 import com.starbattle.client.main.error.ConnectionErrorListener;
 import com.starbattle.client.resource.ClientConfiguration;
+import com.starbattle.client.resource.GUIDesign;
 import com.starbattle.client.views.error.ConnectionErrorView;
 import com.starbattle.client.views.lobby.LobbyView;
 import com.starbattle.client.views.login.LoginView;
@@ -28,7 +29,7 @@ public class StarBattleClient {
 
 	public void initClient() {
 		window = new GameWindow(null, "StarBattle Client");
-		
+		GUIDesign.load();
 		ClientConfiguration.loadConfiguration();
 		
 		// create network connection

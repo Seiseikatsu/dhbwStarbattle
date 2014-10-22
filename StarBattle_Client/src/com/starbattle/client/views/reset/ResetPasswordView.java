@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.starbattle.client.connection.NetworkConnection;
+import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.window.ContentView;
 import com.starbattle.network.client.SendServerConnection;
@@ -19,8 +20,8 @@ public class ResetPasswordView extends ContentView {
 	public final static int VIEW_ID = 2;
 
 	private ResetPasswordModel model = new ResetPasswordModel();
-	private JButton backButton = new JButton("Back");
-	private JButton resetButton = new JButton("Send Email");
+	private JButton backButton = new DesignButton("Back");
+	private JButton resetButton = new DesignButton("Send Email");
 	private SendServerConnection sendConnection;
 
 	public ResetPasswordView(NetworkConnection connection) {
