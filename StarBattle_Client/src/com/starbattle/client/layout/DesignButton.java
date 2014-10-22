@@ -39,6 +39,7 @@ public class DesignButton extends JButton{
 		this.setForeground(fontColor);
 		this.setOpaque(false);
 		this.setBorder(BorderFactory.createEmptyBorder(0,10,5,10));
+		this.setFocusable(false);
 		this.addMouseListener(new MouseListener() {
 			
 			@Override
@@ -85,13 +86,13 @@ public class DesignButton extends JButton{
 		Image img=null;
 		if(isMouseOver)
 		{
-			img=GUIDesign.buttonSelected;
+			img=GUIDesign.buttonSelected.getScaledInstance(w, h, Image.SCALE_SMOOTH);
 		}
 		else
 		{
-			img=GUIDesign.button;
+			img=GUIDesign.button.getScaledInstance(w, h, Image.SCALE_SMOOTH);
 		}
-		g.drawImage(img,0,0,w,h,null);
+		g.drawImage(img,0,0,null);
 		super.paintComponent(g);
 		
 	}

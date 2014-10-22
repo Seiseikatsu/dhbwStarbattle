@@ -27,7 +27,7 @@ import com.starbattle.network.connection.objects.NP_Login;
 public class LoginView extends ContentView {
 
 	public final static int VIEW_ID = 0;
-	private Dimension windowSize=new Dimension(400,400);
+	private Dimension windowSize=new Dimension(600,600);
 	
 	private JButton loginButton = new DesignButton("Login");
 	private JButton registerButton = new DesignButton("Create Account");
@@ -58,10 +58,11 @@ public class LoginView extends ContentView {
 				
 		JPanel block=new JPanel();
 		block.setLayout(new BorderLayout());
-		block.setOpaque(false);
-		block.add(loginModel.getView(),BorderLayout.NORTH);
+	    block.setOpaque(false);
+		block.add(loginModel.getView(),BorderLayout.WEST);
 		block.add(footer,BorderLayout.SOUTH);
-		view.add(block, BorderLayout.SOUTH);
+		
+		view.add(block, BorderLayout.WEST);
 
 		// change to register view on button click
 		registerButton.addActionListener(new ActionListener() {

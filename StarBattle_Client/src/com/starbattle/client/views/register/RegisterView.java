@@ -1,6 +1,7 @@
 package com.starbattle.client.views.register;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,7 @@ import javax.swing.JPanel;
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.connection.RegistrationListener;
 import com.starbattle.client.layout.DesignButton;
+import com.starbattle.client.layout.DesignLabel;
 import com.starbattle.client.model.validate.PasswordChecker;
 import com.starbattle.client.model.validate.PasswordHasher;
 import com.starbattle.client.views.lobby.LobbyView;
@@ -37,15 +39,16 @@ public class RegisterView extends ContentView {
 
 		connection.setRegistrationListener(new Registration());
 		sendConnection = connection.getSendConnection();
-
+		
+		view.setBackground(new Color(170,110,40));
 		view.setLayout(new BorderLayout());
-		JLabel title = new JLabel("Register new Account", JLabel.CENTER);
-		title.setFont(title.getFont().deriveFont(20f));
-
+		DesignLabel title=new DesignLabel("Register new Account", Color.WHITE, 25);
+		title.setHorizontalAlignment(JLabel.CENTER);
 		view.add(title, BorderLayout.NORTH);
 		view.add(registerModel.getView(), BorderLayout.CENTER);
 
 		JPanel footer = new JPanel();
+		footer.setOpaque(false);
 		footer.add(backButton);
 		footer.add(registerButton);
 		view.add(footer, BorderLayout.SOUTH);
