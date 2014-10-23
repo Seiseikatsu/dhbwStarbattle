@@ -27,7 +27,7 @@ public class StarBattleClientDebug {
 		window.addView(new LobbyView(debugConnection));
 		
 		//set starting view
-		window.open(LobbyView.VIEW_ID);
+		window.open(LoginView.VIEW_ID);
 		
 	}
 	
