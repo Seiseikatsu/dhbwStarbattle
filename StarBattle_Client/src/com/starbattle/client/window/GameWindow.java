@@ -9,6 +9,7 @@ import java.awt.event.WindowStateListener;
 import javax.swing.JFrame;
 
 import com.starbattle.client.resource.ClientConfiguration;
+import com.starbattle.client.resource.ResourceLoader;
 
 public class GameWindow {
 
@@ -17,9 +18,11 @@ public class GameWindow {
 
 	public GameWindow(Dimension size, String name) {
 		window = new JFrame(name);
+		window.setUndecorated(true);
 		if (size != null) {
 			updateSize(size);
 		}
+		window.setIconImage(ResourceLoader.loadImage("windowIcon.png"));
 		content = new WindowContent(this);
 		window.setContentPane(content);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,10 +61,23 @@ public class GameWindow {
 			}
 		});
 	}
-
+	
+	private Dimension oldSize=null;
 	public void updateSize(Dimension size) {
 		window.setSize(size);
+		if(oldSize==null)
+		{
 		centerWindow();
+		}
+		else
+		{
+			if(!size.equals(oldSize))
+			{
+				//replace around center
+				recenterWindow();
+			}
+		}
+		oldSize=size;
 	}
 
 	public void addView(ContentView view) {
@@ -83,6 +99,17 @@ public class GameWindow {
 		Dimension windowSize = window.getSize();
 		int x = screenSize.width / 2 - windowSize.width / 2;
 		int y = screenSize.height / 2 - windowSize.height / 2 - 40;
+		window.setLocation(x, y);
+	}
+	
+	private void recenterWindow()
+	{
+		Dimension current=window.getSize();
+		Dimension old=oldSize;
+		int wdiff=current.width-old.width;
+		int hdiff=current.height-old.height;
+		int x=window.getX()-wdiff/2;
+		int y=window.getY()-hdiff/2;
 		window.setLocation(x, y);
 	}
 

@@ -34,12 +34,6 @@ public class LoginBackgroundAnimation extends CustomPaintInterface {
 
 		AffineTransform affineTransform;
 	
-		// draw planet
-	    affineTransform = new AffineTransform();
-		affineTransform.setToTranslation(planetx, planety);
-		affineTransform.rotate(angle, planet.getWidth(null) / 2, planet.getHeight(null) / 2);
-		g2d.drawImage(planet, affineTransform, null);
-
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
 		//draw light effect
 		double lw=angle*-.5;
@@ -52,6 +46,14 @@ public class LoginBackgroundAnimation extends CustomPaintInterface {
 		g2d.drawImage(light, affineTransform, null);
 		
 		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+	
+		
+		// draw planet
+	    affineTransform = new AffineTransform();
+		affineTransform.setToTranslation(planetx, planety);
+		affineTransform.rotate(angle, planet.getWidth(null) / 2, planet.getHeight(null) / 2);
+		g2d.drawImage(planet, affineTransform, null);
+
 		
 		// draw title
 		int titlex=100;

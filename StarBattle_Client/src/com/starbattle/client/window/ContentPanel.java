@@ -21,13 +21,13 @@ public class ContentPanel extends JPanel{
 		this.customPaintInterface = customPaintInterface;
 	}
 	
-
+	
 		
 	
 	@Override
 	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
 		super.paintComponent(g);
+		
 		if(background!=null)
 		{
 		g.drawImage(background,0,0,null);
