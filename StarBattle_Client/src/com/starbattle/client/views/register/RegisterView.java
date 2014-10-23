@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -41,6 +42,7 @@ public class RegisterView extends ContentView {
 		connection.setRegistrationListener(new Registration());
 		sendConnection = connection.getSendConnection();
 		
+		view.setBorder(BorderFactory.createLineBorder(new Color(100,50,10),3));
 		view.setBackground(new Color(170,110,40));
 		view.setLayout(new BorderLayout());
 		DesignLabel title=new DesignLabel("Register new Account", 25);

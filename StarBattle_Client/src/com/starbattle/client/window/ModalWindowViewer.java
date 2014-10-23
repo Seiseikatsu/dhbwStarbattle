@@ -12,6 +12,7 @@ public class ModalWindowViewer {
 	public ModalWindowViewer(JFrame jFrame) {
 		this.frame = jFrame;
 		dialog = new JDialog(jFrame);
+		dialog.setUndecorated(true);
 		dialog.setResizable(false);
 		dialog.setModal(true);
 		dialog.setTitle(null);

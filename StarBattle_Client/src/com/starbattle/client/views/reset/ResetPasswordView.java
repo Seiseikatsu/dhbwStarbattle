@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,10 +31,11 @@ public class ResetPasswordView extends ContentView {
 
 	public ResetPasswordView(NetworkConnection connection) {
 
-		windowSize=new Dimension(400,400);
+		windowSize=new Dimension(400,300);
 		
 		sendConnection = connection.getSendConnection();
 		view.setLayout(new BorderLayout());
+		view.setBorder(BorderFactory.createLineBorder(new Color(100,50,10),3));
 		view.setBackground(new Color(170,110,40));
 		
 		JLabel title = new DesignLabel("Reset Password",25);

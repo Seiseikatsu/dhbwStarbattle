@@ -1,5 +1,6 @@
 package com.starbattle.client.views.login;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -15,6 +16,8 @@ public class LoginBackgroundAnimation extends CustomPaintInterface {
 
 	private Image planet = ResourceLoader.loadImage("backgroundPlanet.png");
 	private Image title = ResourceLoader.loadImage("title.png");
+	private Image light = ResourceLoader.loadImage("backgroundLight.png");
+	
 	private int planetx = 92, planety = 124;
 	private double angle;
 
@@ -27,13 +30,29 @@ public class LoginBackgroundAnimation extends CustomPaintInterface {
 	@Override
 	public void paintPanel(Graphics g) {
 
-		// draw planet
 		Graphics2D g2d = (Graphics2D) g;
-		AffineTransform affineTransform = new AffineTransform();
+
+		AffineTransform affineTransform;
+	
+		// draw planet
+	    affineTransform = new AffineTransform();
 		affineTransform.setToTranslation(planetx, planety);
 		affineTransform.rotate(angle, planet.getWidth(null) / 2, planet.getHeight(null) / 2);
 		g2d.drawImage(planet, affineTransform, null);
 
+		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
+		//draw light effect
+		double lw=angle*-.5;
+		int r=195;
+		int lx=(int) (Math.cos(lw)*r);
+		int ly=(int) (Math.sin(lw)*r)+15;
+		affineTransform = new AffineTransform();
+		affineTransform.setToTranslation(lx,ly);
+		affineTransform.rotate(lw*-1.7,300,300);
+		g2d.drawImage(light, affineTransform, null);
+		
+		g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+		
 		// draw title
 		int titlex=100;
 		int titley=70;
