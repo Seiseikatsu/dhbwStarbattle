@@ -90,7 +90,6 @@ public class RegisterView extends ContentView {
 
 	@Override
 	protected void initView() {
-		resizeWindow(windowSize);
 		
 	}
 

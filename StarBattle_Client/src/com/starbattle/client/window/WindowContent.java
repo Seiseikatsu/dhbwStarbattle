@@ -13,9 +13,11 @@ public class WindowContent extends JPanel{
 	private ContentViewChanger contentViewChanger=new ContentViewChanger();
 	private GameWindow window;
 	private ContentView currentView;
+	private ModalWindowViewer modalWindowViewer;
 	
 	public WindowContent(GameWindow window)
 	{
+		modalWindowViewer=new ModalWindowViewer(window.getWindow());
 		this.window=window;
 		this.setLayout(new BorderLayout());
 	}
@@ -33,12 +35,28 @@ public class WindowContent extends JPanel{
 	
 	public void showView(int id)
 	{
+		if(modalWindowViewer.isOpen())
+		{
+			modalWindowViewer.close();
+		}
 		try {
 			showView(views.get(id));
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}	
+	}
+	
+
+	private void showWindowView(int newViewID) {
+		if(modalWindowViewer.isOpen())
+		{
+			modalWindowViewer.close();
+		}
+		ContentView view=views.get(newViewID);
+		currentView=view;
+		view.initView();
+		modalWindowViewer.open(view);
 	}
 	
 	public void showView(ContentView view)
@@ -55,14 +73,20 @@ public class WindowContent extends JPanel{
 
 		@Override
 		public void openView( int newViewID) {
-			// TODO Auto-generated method stub
 			showView(newViewID);
 		}
 
 		@Override
 		public void resizeWindow(Dimension newSize) {
-			// TODO Auto-generated method stub
+			if(!modalWindowViewer.isOpen())
+			{
 			window.updateSize(newSize);
+			}
+		}
+
+		@Override
+		public void openWindowView(int newViewID) {
+			showWindowView(newViewID);
 		}
 		
 	}

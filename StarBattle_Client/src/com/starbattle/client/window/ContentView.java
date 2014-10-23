@@ -32,6 +32,12 @@ public abstract class ContentView {
 		listener.openView( id);
 	}
 	
+	public void openWindowView(int id)
+	{
+		onClosing();
+		listener.openWindowView(id);
+	}
+	
 	public void resizeWindow(Dimension newSize)
 	{
 		listener.resizeWindow(newSize);
@@ -49,6 +55,10 @@ public abstract class ContentView {
 	{
 		view.removeAll();
 		view.revalidate();
+	}
+	
+	public Dimension getWindowSize() {
+		return windowSize;
 	}
 	
 }

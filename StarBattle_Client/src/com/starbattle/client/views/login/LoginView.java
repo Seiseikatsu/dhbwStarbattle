@@ -28,48 +28,45 @@ public class LoginView extends ContentView {
 
 	public final static int VIEW_ID = 0;
 
-	
 	private JButton loginButton = new DesignButton("Login");
 	private JButton registerButton = new DesignButton("Create Account");
-	private LoginModel loginModel=new LoginModel();
+	private LoginModel loginModel = new LoginModel();
 	private SendServerConnection sendConnection;
 
-	private String rememberUsername="login.rememberUsername";
-	
+	private String rememberUsername = "login.rememberUsername";
+
 	public LoginView(NetworkConnection connection) {
 
-		windowSize=new Dimension(600,600);
-		
+		windowSize = new Dimension(600, 600);
+
 		sendConnection = connection.getSendConnection();
 		connection.setRegistrationListener(new Registration());
-		
-		view.setBackgroundImage(ResourceLoader.loadImage("loginBackground.jpg"));
+
+		view.setCustomPaintInterface(new LoginBackgroundAnimation());
+		view.setBackgroundImage(ResourceLoader.loadImage("backgroundScreen.jpg"));
 
 		view.setLayout(new BorderLayout());
-		
+
 		loginModel.addKeyListener(new KeyEnter());
-		
-		JLabel title=new JLabel(ResourceLoader.loadIcon("title.png"));
-		view.add(title,BorderLayout.NORTH);
-		
+
 		JPanel footer = new JPanel();
 		footer.setLayout(new FlowLayout());
 		footer.setOpaque(false);
 		footer.add(registerButton);
 		footer.add(loginButton);
-				
-		JPanel block=new JPanel();
+
+		JPanel block = new JPanel();
 		block.setLayout(new BorderLayout());
-	    block.setOpaque(false);
-		block.add(loginModel.getView(),BorderLayout.WEST);
-		block.add(footer,BorderLayout.SOUTH);
-		
+		block.setOpaque(false);
+		block.add(loginModel.getView(), BorderLayout.WEST);
+		block.add(footer, BorderLayout.SOUTH);
+
 		view.add(block, BorderLayout.WEST);
 
 		// change to register view on button click
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openView(RegisterView.VIEW_ID);
+				openWindowView(RegisterView.VIEW_ID);
 			}
 		});
 
@@ -78,10 +75,10 @@ public class LoginView extends ContentView {
 				tryLogin();
 			}
 		});
-		
+
 		loginModel.setForgotPasswordListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				openView(ResetPasswordView.VIEW_ID);
+				openWindowView(ResetPasswordView.VIEW_ID);
 			}
 		});
 	}
@@ -90,16 +87,15 @@ public class LoginView extends ContentView {
 		String name = loginModel.getUserName();
 		String password = loginModel.getHashedPassword();
 
-		//remember username if checked
-		if(loginModel.isRememberUsername())
-		{
-		ClientConfiguration.get().setProperty(rememberUsername, name);	
+		// remember username if checked
+		if (loginModel.isRememberUsername()) {
+			ClientConfiguration.get().setProperty(rememberUsername, name);
 		}
-		
+
 		NP_Login login = new NP_Login();
 		login.playerName = name;
 		login.password = password;
-		sendConnection.sendTCP(login);		
+		sendConnection.sendTCP(login);
 	}
 
 	private class Registration implements RegistrationListener {
@@ -137,14 +133,12 @@ public class LoginView extends ContentView {
 	protected void initView() {
 		loginModel.setErrorText(null);
 		resizeWindow(windowSize);
-		
-		//check config for remember username
-		String name=ClientConfiguration.get().getProperty(rememberUsername);
-		if(name!=null)
-		{
-			if(!name.isEmpty())
-			{
-			loginModel.setUsername(name);
+
+		// check config for remember username
+		String name = ClientConfiguration.get().getProperty(rememberUsername);
+		if (name != null) {
+			if (!name.isEmpty()) {
+				loginModel.setUsername(name);
 			}
 		}
 	}
@@ -152,9 +146,8 @@ public class LoginView extends ContentView {
 	@Override
 	protected void onClosing() {
 
-		if(!loginModel.isRememberUsername())
-		{
-			//remove properties value
+		if (!loginModel.isRememberUsername()) {
+			// remove properties value
 			ClientConfiguration.get().remove(rememberUsername);
 		}
 	}

@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 public class ContentPanel extends JPanel{
 
 	private Image background=null;
-	
+	private CustomPaintInterface customPaintInterface;	
 	
 	
 	public void setBackgroundImage(Image image)
@@ -16,7 +16,13 @@ public class ContentPanel extends JPanel{
 		background=image;
 	}
 	
+	public void setCustomPaintInterface(CustomPaintInterface customPaintInterface) {
+		customPaintInterface.setParentView(this);
+		this.customPaintInterface = customPaintInterface;
+	}
+	
 
+		
 	
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -26,6 +32,11 @@ public class ContentPanel extends JPanel{
 		{
 		g.drawImage(background,0,0,null);
 		}
+		if(customPaintInterface!=null)
+		{
+			customPaintInterface.paintPanel(g);
+		}
 	}
+	
 	
 }

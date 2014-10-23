@@ -86,4 +86,7 @@ public class GameWindow {
 		window.setLocation(x, y);
 	}
 
+	public JFrame getWindow() {
+		return window;
+	}
 }
