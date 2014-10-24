@@ -28,21 +28,24 @@ public class StarBattleClient {
 	}
 
 	public void initClient() {
-		window = new GameWindow(null, "StarBattle Client");
 		GUIDesign.load();
+		
+		window = new GameWindow(null, "StarBattle Client");
 		ClientConfiguration.loadConfiguration();
 		
 		// create network connection
 		connection = new NetworkConnection(new NetworkConnectionHandler());
 		
-		// add error view
+		// add connection error view
 		window.addView(new ConnectionErrorView(new ConnectionErrorHandler()));
-		try {
+			try {
+	
 			connection.start("localhost", 56777, 56777);
 			openWindow();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			ConnectionErrorView.setErrorInfo(e);
 			window.open(ConnectionErrorView.VIEW_ID);
 		}
 	}
@@ -54,7 +57,7 @@ public class StarBattleClient {
 		window.addView(new ResetPasswordView(connection));
 		window.addView(new LobbyView(connection));
 		// open login window
-		window.open(LobbyView.VIEW_ID);
+		window.open(LoginView.VIEW_ID);
 	}
 
 	// reacts if connection to server opened/closed

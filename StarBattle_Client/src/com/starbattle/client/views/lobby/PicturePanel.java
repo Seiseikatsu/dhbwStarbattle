@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
 import com.starbattle.client.layout.BackgroundViewModel;
+import com.starbattle.client.layout.DesignLabel;
 import com.starbattle.client.resource.ResourceLoader;
 
 public class PicturePanel extends BackgroundViewModel {
@@ -24,16 +25,10 @@ public class PicturePanel extends BackgroundViewModel {
 		view.setBorder(BorderFactory.createLineBorder(new Color(50,50,50), 3));
 		view.setLayout(new BorderLayout());
 	
-		
+		JLabel title=new DesignLabel("Star Battle Client Version 0.1",new Color(200,200,200) ,14);
+		view.add(title,BorderLayout.NORTH);
 		view.add(new JLabel(ResourceLoader.loadIcon("title.png")),BorderLayout.CENTER);		
-		
-		
-		JToolBar titleBar=new JToolBar();
-		titleBar.setFloatable(false);
-		
-		JLabel version=new JLabel("Version 0.1",ResourceLoader.loadIcon("information.png"),0);
-		titleBar.add(version);
-		
-		view.add(titleBar,BorderLayout.NORTH);
+			
+	
 	}
 }
