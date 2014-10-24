@@ -15,9 +15,9 @@ import javax.swing.JTextField;
 import com.starbattle.client.layout.DesignLabel;
 import com.starbattle.client.layout.StandardViewModel;
 import com.starbattle.client.layout.VerticalLayout;
-import com.starbattle.client.model.validate.PasswordHasher;
 import com.starbattle.client.resource.GUIDesign;
 import com.starbattle.client.resource.ResourceLoader;
+import com.starbattle.client.views.register.validate.PasswordHasher;
 
 public class LoginModel extends StandardViewModel {
 

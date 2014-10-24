@@ -1,19 +1,26 @@
 package com.starbattle.client.views.register;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.layout.DesignLabel;
 import com.starbattle.client.layout.StandardViewModel;
 import com.starbattle.client.layout.VerticalLayout;
 import com.starbattle.client.resource.ResourceLoader;
+import com.starbattle.client.views.register.validate.NameGenerator;
 
 public class RegisterModel extends StandardViewModel {
 
@@ -22,6 +29,7 @@ public class RegisterModel extends StandardViewModel {
 	private JTextField email = new JTextField(22);
 	private JPasswordField password = new JPasswordField(22);
 	private JPasswordField password2 = new JPasswordField(22);
+	private JButton generateName=new DesignButton(ResourceLoader.loadIcon("dice.png",24,24));
 	private JLabel errorText = new DesignLabel(null,"error.png",new Color(150, 50, 50));
 	private Color labelColor=new Color(50, 50, 50);
 	
@@ -35,7 +43,11 @@ public class RegisterModel extends StandardViewModel {
 		addInfo("The secret name for your account registration.");
 		view.add(Box.createVerticalStrut(5));
 		view.add(new DesignLabel("Displayname", "comment.png",labelColor));
-		view.add(displayname);
+		JPanel namePanel=new JPanel();
+		namePanel.setOpaque(false);
+		namePanel.add(displayname);
+		namePanel.add(generateName);
+		view.add(namePanel);
 		addInfo("Public name of your player, can be changed later. ");	
 		view.add(Box.createVerticalStrut(5));	
 		view.add(new DesignLabel("Password", "key.png",labelColor));
@@ -52,6 +64,13 @@ public class RegisterModel extends StandardViewModel {
 		view.add(Box.createVerticalStrut(5));
 		view.add(errorText);
 
+		generateName.setToolTipText("Ask the universe for a name!");
+		generateName.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				displayname.setText(NameGenerator.generateRandomName());
+			}
+		});
 	}
 	
 	private void addInfo(String text)

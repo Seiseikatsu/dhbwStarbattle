@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.starbattle.client.model.validate.PasswordChecker;
+import com.starbattle.client.views.register.validate.PasswordChecker;
 
 public class PasswordCheckTest {
 

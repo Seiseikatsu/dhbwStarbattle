@@ -1,4 +1,4 @@
-package com.starbattle.client.model.validate;
+package com.starbattle.client.views.register.validate;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
