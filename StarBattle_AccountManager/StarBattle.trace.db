@@ -1338,3 +1338,116 @@ org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
 org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
 10-20 20:01:38 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-24 12:01:10 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: ","; SQL statement:
+CREATE TABLE PLAYER (account_id,  player_id int auto:increment primary key, Level int, exp int, gold int, display_name varchar(255), foreign key (account_id) references Account(account_id)) [50004-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3963)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3826)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5723)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-24 12:02:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "PLAYER" not found; SQL statement:
+DROP TABLE PLAYER [42102-176]
+10-24 12:02:57 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Unknown data type: ","; SQL statement:
+CREATE TABLE PLAYER (account_id,  player_id int auto_increment primary key, Level int, exp int, gold int, display_name varchar(255), foreign key (account_id) references Account(account_id)) [50004-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.command.Parser.parseColumnWithType(Parser.java:3963)
+	at org.h2.command.Parser.parseColumnForTable(Parser.java:3826)
+	at org.h2.command.Parser.parseCreateTable(Parser.java:5723)
+	at org.h2.command.Parser.parseCreate(Parser.java:4122)
+	at org.h2.command.Parser.parsePrepared(Parser.java:351)
+	at org.h2.command.Parser.parse(Parser.java:306)
+	at org.h2.command.Parser.parse(Parser.java:278)
+	at org.h2.command.Parser.prepareCommand(Parser.java:243)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+10-24 12:03:28 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "PLAYER" not found; SQL statement:
+DROP TABLE PLAYER [42102-176]
+10-24 13:29:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Column count does not match; SQL statement:
+INSERT INTO PLAYER (display_name, account_id) VALUES (?) [21002-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.message.DbException.get(DbException.java:143)
+	at org.h2.command.dml.Insert.prepare(Insert.java:266)
+	at org.h2.command.Parser.prepareCommand(Parser.java:248)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.registerAccount(AccountManagerImpl.java:65)
+	at tests.AccountManagerTest.setUpBeforeClass(AccountManagerTest.java:39)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:47)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:44)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:24)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.eclipse.jdt.internal.junit4.runner.JUnit4TestReference.run(JUnit4TestReference.java:50)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:467)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:683)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:390)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:197)
+10-24 13:29:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-24 13:29:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-24 13:31:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-24 13:33:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: No data is available [2000-176]
+10-24 13:37:05 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "PLAYER[*] SELECT * FROM PLAYER"; expected "PREPARE, {"; SQL statement:
+PLAYER SELECT * FROM PLAYER [42001-176]
+10-24 13:47:19 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'' (PLAYER: PLAYER_ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_240D66F8_1292_4325_BE5F_B3332BF1851D) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_240D66F8_1292_4325_BE5F_B3332BF1851D)"; SQL statement:
+INSERT INTO "PUBLIC"."PLAYER"("ACCOUNT_ID","PLAYER_ID","LEVEL","EXP","GOLD","DISPLAY_NAME")VALUES(?,?,?,?,?,?) -- (?1, ?2, ?3, ?4, ?5, ?6) [22018-176]
+10-24 13:47:19 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'' (PLAYER: PLAYER_ID INT DEFAULT (NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_240D66F8_1292_4325_BE5F_B3332BF1851D) NOT NULL NULL_TO_DEFAULT SEQUENCE PUBLIC.SYSTEM_SEQUENCE_240D66F8_1292_4325_BE5F_B3332BF1851D)"; SQL statement:
+INSERT INTO "PUBLIC"."PLAYER"("ACCOUNT_ID","PLAYER_ID","LEVEL","EXP","GOLD","DISPLAY_NAME")VALUES(?,?,?,?,?,?) -- (?1, ?2, ?3, ?4, ?5, ?6) [22018-176]
+10-24 13:47:39 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'' (PLAYER: LEVEL INT)"; SQL statement:
+INSERT INTO "PUBLIC"."PLAYER"("ACCOUNT_ID","PLAYER_ID","LEVEL","EXP","GOLD","DISPLAY_NAME")VALUES(?,?,?,?,?,?) -- (?1, ?2, ?3, ?4, ?5, ?6) [22018-176]
+10-24 13:47:39 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'' (PLAYER: LEVEL INT)"; SQL statement:
+INSERT INTO "PUBLIC"."PLAYER"("ACCOUNT_ID","PLAYER_ID","LEVEL","EXP","GOLD","DISPLAY_NAME")VALUES(?,?,?,?,?,?) -- (?1, ?2, ?3, ?4, ?5, ?6) [22018-176]

@@ -21,7 +21,7 @@ public interface AccountManager {
 
 	public void updateAccount(String accountName, AccountUpdate update);
 	
-	public List<Integer> getItemList(String accountName);
+	public List<Integer> getItemList(int playerId) throws AccountException;
 	
 	public void tryResetPassword(String accountName, String email) throws AccountException;
 
@@ -34,8 +34,9 @@ public interface AccountManager {
 	 * 
 	 * @param accountName
 	 * @return PlayerFriends object
+	 * @throws AccountException 
 	 */
-	public PlayerFriends getFriendRelations(String accountName);
+	public PlayerFriends getFriendRelations(String accountName) throws AccountException;
 	
 	/**
 	 * Trying to create a new friend request for the account with name accountName.

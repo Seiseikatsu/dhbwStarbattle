@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.starbattle.accounts.database.DatabaseConnection;
@@ -24,7 +25,7 @@ public class AccountManagerImpl implements AccountManager {
 	private PreparedStatement stmt;
 	private ResultSet rs;
 	private Connection conn;
-	private String[] tables = {"ACCOUNT", "PLAYER", "INVENTAR"};
+	private String[] tables = {"PLAYER", "FRIENDS", "ACCOUNT"};
 
 	public AccountManagerImpl() {
 		try {
@@ -39,17 +40,20 @@ public class AccountManagerImpl implements AccountManager {
 		}
 
 	}
-
+	@Override
 	public void registerAccount(PlayerAccount account) throws AccountException {
 		try {
 
-			if (canRegisterAccount(account).equals(RegisterState.Register_Ok)) {
+			if (canRegisterAccount(account).equals(RegisterState.Register_Ok) && canRegisterPlayer(account).equals(RegisterState.Register_Ok)) {
 
-				String sqlPlayer = "INSERT INTO PLAYER (display_name) VALUES (?)";
-				String sqlAccount = "INSERT INTO ACCOUNT (NAME, PLAYER_ID, PASSWORD, EMAIL) VALUES ( ?, ?, ?, ? )";
-				stmt = databaseConnection.getConnection().prepareStatement(sqlPlayer, PreparedStatement.RETURN_GENERATED_KEYS);
+				String sqlAccount = "INSERT INTO ACCOUNT (NAME, PASSWORD, EMAIL) VALUES ( ?, ?, ? )";
+				String sqlPlayer = "INSERT INTO PLAYER (display_name, account_id) VALUES (?, ?)";
+
+				stmt = databaseConnection.getConnection().prepareStatement(sqlAccount, PreparedStatement.RETURN_GENERATED_KEYS);
 
 				stmt.setString(1, account.getName());
+				stmt.setString(2, account.getPassword());
+				stmt.setString(3, account.getEmail());
 				stmt.execute();
 				rs = stmt.getGeneratedKeys();
 
@@ -58,12 +62,9 @@ public class AccountManagerImpl implements AccountManager {
 					id = (int) rs.getInt(1);
 				}
 
-				stmt = databaseConnection.getConnection().prepareStatement(
-						sqlAccount);
-				stmt.setString(1, account.getName());
+				stmt = databaseConnection.getConnection().prepareStatement(sqlPlayer);
+				stmt.setString(1, account.getDisplayName());
 				stmt.setInt(2, id);
-				stmt.setString(3, account.getPassword());
-				stmt.setString(4, account.getEmail());
 				stmt.execute();
 			}
 
@@ -76,34 +77,32 @@ public class AccountManagerImpl implements AccountManager {
 
 	public void deleteAccount(int id) throws AccountException {
 		
-		for (int i = 0; i < tables.length; i++) {
-			try {
-				stmt = databaseConnection.getConnection().prepareStatement("DELETE " + tables[i]+ " WHERE PLAYER_ID = ?");
-				stmt.setInt(1, id);
-				stmt.execute();
-	
-			} catch (SQLException e) {
-				throw new AccountException("SQL Failure", e);
-			}
+		try {
+		stmt = databaseConnection.getConnection().prepareStatement("SELECT player_id from player where account_id = ?");
+		stmt.setInt(1, id);
+		stmt.executeQuery();
+		
+		int j = 1;
+		while(rs.next()){
+			stmt = databaseConnection.getConnection().prepareStatement("DELETE INVENTAR WHERE player_id = ?");
+			stmt.setInt(1, rs.getInt(j));
+			stmt.executeQuery();
+			j++;
 		}
-
-	}
-
-	public void deleteAccount(String name) throws AccountException {
-		int id = getId(name);
 		
 		for (int i = 0; i < tables.length; i++) {
-			try {
-				stmt = databaseConnection.getConnection().prepareStatement("DELETE " + tables[i]+ " WHERE PLAYER_ID = ?");
+			
+				stmt = databaseConnection.getConnection().prepareStatement("DELETE " + tables[i]+ " WHERE account_id = ?");
 				stmt.setInt(1, id);
 				stmt.execute();
 	
-			} catch (SQLException e) {
-				throw new AccountException("SQL Failure", e);
-			}
 		}
-
+		
+		} catch (SQLException e) {
+			throw new AccountException("SQL Failure", e);
+		}
 	}
+
 
 	public LoginState canLogin(String name, String password) throws AccountException {
 		try {
@@ -128,7 +127,30 @@ public class AccountManagerImpl implements AccountManager {
 
 	}
 
+	public RegisterState canRegisterPlayer(PlayerAccount account){
+		// display_name invalid
+		
+
+		try {
+			stmt = conn.prepareStatement("SELECT count(*) FROM player WHERE display_name = ?");
+			stmt.setString(1, account.getDisplayName());
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			System.out.println(rs.getInt(1));
+
+			if (rs.getInt(1) > 0) { // Display_name already exists
+				return RegisterState.Displayname_Exists;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return RegisterState.Register_Ok;
+		
+	}
 	public RegisterState canRegisterAccount(PlayerAccount account) {	
+		// accountName invalid
 
 		try {
 			stmt = conn.prepareStatement("SELECT count(*) FROM account WHERE name = ?");
@@ -153,18 +175,18 @@ public class AccountManagerImpl implements AccountManager {
 		PlayerAccount player = new PlayerAccount();
 		
 		try {
-			stmt = conn.prepareStatement("SELECT player_id, name, email, gold FROM account WHERE name = ?");
+			stmt = conn.prepareStatement("SELECT account_id, name, email FROM account WHERE name = ?");
 			stmt.setString(1, accountName);
 			ResultSet rs = stmt.executeQuery();
 			
 			player.setEmail( rs.getString("email"));
 			player.setName( rs.getString("accountName"));
-			player.setGold(  rs.getInt("gold"));
 			
-			stmt = conn.prepareStatement("SELECT display_name FROM player WHERE player_id = ?");
-			stmt.setInt(1, rs.getInt("player_id"));
+			stmt = conn.prepareStatement("SELECT display_name, gold FROM player WHERE player_id = ?");
+			stmt.setInt(1, rs.getInt("account_id"));
 			
 			player.setDisplayName("display_name");
+			player.setGold(rs.getInt("gold"));
 			
 			return player;
 		} catch (SQLException e) {
@@ -178,7 +200,7 @@ public class AccountManagerImpl implements AccountManager {
 	
 	public void tryResetPassword(String accountName, String email) throws AccountException{
 		try {
-			stmt = conn.prepareStatement("SELECT player_id FROM account WHERE name = ? AND email = ? ");
+			stmt = conn.prepareStatement("SELECT account_id FROM account WHERE name = ? AND email = ? ");
 			stmt.setString(1, accountName);
 			stmt.setString(2, email);
 			ResultSet rs = stmt.executeQuery();
@@ -207,7 +229,7 @@ public class AccountManagerImpl implements AccountManager {
 	
 	public int getId(String name) throws AccountException{
 		try {
-			stmt = conn.prepareStatement("SELECT  player_id FROM account WHERE name = ?");
+			stmt = conn.prepareStatement("SELECT  account_id FROM account WHERE name = ?");
 			stmt.setString(1, name);
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
@@ -220,9 +242,23 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	public List<Integer> getItemList(String accountName) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Integer> getItemList(int playerId) throws AccountException {
+		List<Integer> items = new ArrayList<Integer>();
+		try {
+			stmt = conn.prepareStatement("SELECT  item_id FROM inventar WHERE name = ?");
+			stmt.setInt(1, playerId);
+			ResultSet rs = stmt.executeQuery();
+			
+			int i = 1;
+			while(rs.next()){
+				items.add(rs.getInt(i));
+				i++;
+			}
+			
+		} catch (SQLException e) {
+			throw new AccountException("SQL error");
+		}
+		return items;
 	}
 	
 	public String getPassword(String accountName){
@@ -236,15 +272,30 @@ public class AccountManagerImpl implements AccountManager {
 			return rs.getString(1);
 		} catch (SQLException e) {
 			return "false";
-		}
-	
-		
+		}	
 		
 	}
 
 	@Override
-	public PlayerFriends getFriendRelations(String accountName) {
-		// TODO Auto-generated method stub
+	public PlayerFriends getFriendRelations(String accountName) throws AccountException {
+		try {
+			stmt = databaseConnection.getConnection().prepareStatement("SELECT account_id from account where name = ?");
+			stmt.setString(1, accountName);
+			stmt.executeQuery();
+			
+			rs.getInt(1);
+			
+			for (int i = 0; i < tables.length; i++) {
+				
+					stmt = databaseConnection.getConnection().prepareStatement("DELETE " + tables[i]+ " WHERE account_id = ?");
+					stmt.setInt(1, 2);
+					stmt.execute();
+		
+			}
+			
+			} catch (SQLException e) {
+				throw new AccountException("SQL Failure", e);
+			}
 		return null;
 	}
 
@@ -255,7 +306,8 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	public void handleFriendRequest(String accountName, String friendDisplayname, boolean accept) {
+	public void handleFriendRequest(String accountName,
+			String friendDisplayname, boolean accept) {
 		// TODO Auto-generated method stub
 		
 	}

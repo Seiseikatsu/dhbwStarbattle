@@ -60,9 +60,9 @@ public class AccountManagerTest {
 	 @AfterClass
 	 public static void afterTest() throws AccountException{
 	
-	 ami.deleteAccount("Geraldine1");
-	 ami.deleteAccount("Roland1");
-	 ami.deleteAccount("Sebastian1");
+	 ami.deleteAccount(ami.getId("Geraldine1"));
+	 ami.deleteAccount(ami.getId("Roland1"));
+	 ami.deleteAccount(ami.getId("Sebastian1"));
 	 }
 
 }
