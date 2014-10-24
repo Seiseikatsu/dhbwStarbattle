@@ -1,6 +1,7 @@
 package com.starbattle.client.views.lobby;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -19,8 +20,8 @@ public class PicturePanel extends BackgroundViewModel {
 	private void initLayout()
 	{
 		view.setBackgroundImage(ResourceLoader.loadImage("space_background.jpg"));
-		view.startRotating(300, 300, 0.2f);
-		view.setBorder(BorderFactory.createLoweredBevelBorder());
+		view.startRotating(340, 340, 1.2f);
+		view.setBorder(BorderFactory.createLineBorder(new Color(50,50,50), 3));
 		view.setLayout(new BorderLayout());
 	
 		

@@ -10,9 +10,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import org.omg.CORBA.FREE_MEM;
-
 import com.starbattle.client.connection.NetworkConnection;
+import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.views.lobby.friends.FriendPanel;
 import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.window.ContentView;
@@ -32,10 +31,10 @@ public class LobbyView extends ContentView{
 		picturePanel=new PicturePanel();
 		
 		JPanel topPanel=new JPanel(new FlowLayout());
-		JButton logout=new JButton("Disconnect");
-		JButton profile=new JButton("Profile");
-		JButton find=new JButton("Play");
-		JButton shop=new JButton("Shop");
+		JButton logout=new DesignButton("Disconnect");
+		JButton profile=new DesignButton("Profile");
+		JButton find=new DesignButton("Play");
+		JButton shop=new DesignButton("Shop");
 		JPanel blocker=new JPanel();
 		JPanel centerPanel=new JPanel(new BorderLayout());
 		JPanel southWestPanel=new JPanel(new BorderLayout());
@@ -57,15 +56,11 @@ public class LobbyView extends ContentView{
 		startPanel.setPreferredSize(new Dimension(0,200));
 		
 		shop.setPreferredSize(new Dimension(140,100));
-		shop.setOpaque(true);
-		shop.setBackground(new Color(20,140,20));
 		startPanel.add(shop);
 		blocker.setPreferredSize(new Dimension(150,150));
 		blocker.setBackground(startPanel.getBackground());
 		startPanel.add(blocker);
 		find.setPreferredSize(new Dimension(240,180));
-		find.setOpaque(true);
-		find.setBackground(new Color(20,20,140));
 		startPanel.add(find);
 		southWestPanel.add(startPanel, BorderLayout.SOUTH);
 		centerPanel.add(southWestPanel, BorderLayout.CENTER);

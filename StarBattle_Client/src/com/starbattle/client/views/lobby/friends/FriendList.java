@@ -1,42 +1,44 @@
 package com.starbattle.client.views.lobby.friends;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.layout.StandardViewModel;
 import com.starbattle.client.layout.VerticalLayout;
 import com.starbattle.client.resource.ResourceLoader;
 
 public class FriendList extends StandardViewModel{
 
-	private JButton showHide=new JButton();
+	private JButton showHide;
 	private JPanel content=new JPanel();
 	private String name;
 	
 	public FriendList(String title, String icon)
 	{
 		this.name=title;
-		showHide.setText(title);
-		showHide.setIcon(ResourceLoader.loadIcon(icon));
+		showHide=new DesignButton(title, ResourceLoader.loadIcon(icon));
 		initLayout();
 	}
 	
 	private void initLayout()
 	{
 		view.setLayout(new BorderLayout(0,0));	
-		showHide.setPreferredSize(new Dimension(280,25));
+		view.setOpaque(false);
+		showHide.setPreferredSize(new Dimension(280,30));
 		showHide.setHorizontalAlignment(SwingConstants.LEFT);
-		showHide.setBackground(new Color(20,140,220));
-		showHide.setForeground(new Color(200,250,200));
+
 		view.add(showHide,BorderLayout.NORTH);
+		content.setOpaque(false);
 		view.add(content,BorderLayout.CENTER);
+		content.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 		content.setLayout(new VerticalLayout());
 		content.setVisible(false);
 		

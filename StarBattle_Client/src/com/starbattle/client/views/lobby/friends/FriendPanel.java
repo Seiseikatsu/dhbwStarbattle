@@ -7,18 +7,20 @@ import java.awt.Dimension;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import com.starbattle.client.layout.StandardViewModel;
+import com.starbattle.client.layout.BackgroundViewModel;
+import com.starbattle.client.layout.DesignLabel;
 import com.starbattle.client.layout.VerticalLayout;
 import com.starbattle.client.resource.ResourceLoader;
 
-public class FriendPanel extends StandardViewModel{
+public class FriendPanel extends BackgroundViewModel{
 
 	
 
-	private String[] friendPanelNames={"Online","Offline","Friend Requests","Request sent"};
+	private String[] friendPanelNames={"Online","Offline","Friend Requests","Requests sent"};
 	private String[] friendPanelIcons={"user.png","user_offline.png","user_add.png","user_go.png"};
 	private FriendList[] friendPanels=new FriendList[4];
 	
@@ -29,15 +31,14 @@ public class FriendPanel extends StandardViewModel{
 	
 	private void initLayout()
 	{
-		
+		view.setBackgroundImage(ResourceLoader.loadImage("friendlistBackground.jpg"));
 		view.setPreferredSize(new Dimension(300,0));
-		view.setBorder(BorderFactory.createEtchedBorder());
+		view.setBorder(BorderFactory.createLineBorder(new Color(50,50,50),3));
 		
 		view.setLayout(new BorderLayout());
 		JPanel content=new JPanel();
+	    content.setOpaque(false);
 		content.setLayout(new VerticalLayout());
-		//content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS)); 
-		content.setBackground(new Color(0,100,130));
 		
 		for(int i=0; i<friendPanels.length; i++)
 		{
@@ -50,11 +51,18 @@ public class FriendPanel extends StandardViewModel{
 		JScrollPane scrollPane=new JScrollPane(content);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		//scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
+		JScrollBar bar=scrollPane.getVerticalScrollBar();
+		bar.setPreferredSize(new Dimension(12,0));
+		bar.setBackground(new Color(50,50,50));
 		
+	
+		scrollPane.setOpaque(false);
+		scrollPane.getViewport().setOpaque(false);
 		view.add(scrollPane,BorderLayout.CENTER);
 		
-		header.setBackground(new Color(150,210,240));
-		JLabel title=new JLabel("Friends",ResourceLoader.loadIcon("user.png"),0);
+		header.setBackground(new Color(100,100,100));
+		JLabel title=new DesignLabel("Friends","user.png");
 		header.add(title);
 		
 		
@@ -66,8 +74,10 @@ public class FriendPanel extends StandardViewModel{
 		friendPanels[1].addRelation(new FriendRelation("Max der Coole", 0, false));
 		friendPanels[1].addRelation(new FriendRelation("Hossa", 0, false));
 		friendPanels[2].addRelation(new FriendRelation("Jürgen Jürgens", 1, false));
-		friendPanels[3].addRelation(new FriendRelation("Peter Peternsens", 2, false));
-	
+		for(int i=0; i<30; i++)
+		{
+		friendPanels[3].addRelation(new FriendRelation("Peter Peternsens "+i, 2, false));
+		}
 	}
 	
 	
