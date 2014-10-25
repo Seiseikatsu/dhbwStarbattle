@@ -20,6 +20,8 @@ public class PlayView extends ContentView{
 	
 	
 	public PlayView(final NetworkConnection networkConnection){
+		windowSize = new Dimension(1000, 600);
+			
 		JPanel bottomPanel = new JPanel();
 		JPanel centerPanel = new JPanel();
 		JButton play = new JButton("Play");
