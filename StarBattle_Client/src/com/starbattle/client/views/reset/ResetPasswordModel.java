@@ -1,34 +1,29 @@
 package com.starbattle.client.views.reset;
 
 import java.awt.Color;
-import java.awt.Dimension;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import com.starbattle.client.layout.VerticalLayout;
-import com.starbattle.client.layout.StandardViewModel;
+import com.starbattle.client.layout.ViewModel;
 import com.starbattle.client.resource.ResourceLoader;
 
-public class ResetPasswordModel extends StandardViewModel{
+public class ResetPasswordModel extends ViewModel {
 
 	private JTextField username = new JTextField(22);
-	private JTextField email = new JTextField(22);	
-	private JTextArea info=new JTextArea(5,22);
-	
+	private JTextField email = new JTextField(22);
+	private JTextArea info = new JTextArea(5, 22);
+
 	public ResetPasswordModel() {
-		
-		
-		
-		
+
 		view.setLayout(new VerticalLayout());
 		view.setBorder(BorderFactory.createEmptyBorder(20, 70, 20, 50));
-		view.setBackground(new Color(200,200,200));
-		
+		view.setBackground(new Color(200, 200, 200));
+
 		view.add(createText("Accountname", "user.png"));
 		view.add(username);
 		view.add(Box.createVerticalStrut(5));
@@ -40,23 +35,21 @@ public class ResetPasswordModel extends StandardViewModel{
 		info.setOpaque(false);
 		info.append("Password reset: \n");
 		info.append("You will get a new password by email. \n");
-		
+
 	}
 
 	private JLabel createText(String t, String iconName) {
 		JLabel l = new JLabel(t, ResourceLoader.loadIcon(iconName), 0);
 		l.setFont(l.getFont().deriveFont(14f));
-		l.setForeground(new Color(50,50,50));
+		l.setForeground(new Color(50, 50, 50));
 		return l;
 	}
-
 
 	public String getUserName() {
 		return username.getText();
 	}
-	
-	public String getEmail()
-	{
+
+	public String getEmail() {
 		return email.getText();
 	}
 

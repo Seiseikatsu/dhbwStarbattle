@@ -11,12 +11,12 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import com.starbattle.client.layout.BackgroundViewModel;
+import com.starbattle.client.layout.ViewModel;
 import com.starbattle.client.layout.DesignLabel;
 import com.starbattle.client.layout.VerticalLayout;
 import com.starbattle.client.resource.ResourceLoader;
 
-public class FriendPanel extends BackgroundViewModel{
+public class FriendPanel extends ViewModel{
 
 	
 
@@ -31,7 +31,7 @@ public class FriendPanel extends BackgroundViewModel{
 	
 	private void initLayout()
 	{
-		view.setBackgroundImage(ResourceLoader.loadImage("friendlistBackground.jpg"));
+		setBackgroundImage(ResourceLoader.loadImage("friendlistBackground.jpg"));
 		view.setPreferredSize(new Dimension(300,0));
 		view.setBorder(BorderFactory.createLineBorder(new Color(50,50,50),3));
 		

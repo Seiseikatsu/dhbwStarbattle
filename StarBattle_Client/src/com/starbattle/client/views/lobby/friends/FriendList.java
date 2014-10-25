@@ -11,11 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import com.starbattle.client.layout.DesignButton;
-import com.starbattle.client.layout.StandardViewModel;
 import com.starbattle.client.layout.VerticalLayout;
+import com.starbattle.client.layout.ViewModel;
 import com.starbattle.client.resource.ResourceLoader;
 
-public class FriendList extends StandardViewModel{
+public class FriendList extends ViewModel{
 
 	private JButton showHide;
 	private JPanel content=new JPanel();

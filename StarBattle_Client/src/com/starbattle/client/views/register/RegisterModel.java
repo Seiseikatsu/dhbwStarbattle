@@ -1,7 +1,6 @@
 package com.starbattle.client.views.register;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
@@ -17,12 +16,12 @@ import javax.swing.JTextField;
 
 import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.layout.DesignLabel;
-import com.starbattle.client.layout.StandardViewModel;
 import com.starbattle.client.layout.VerticalLayout;
+import com.starbattle.client.layout.ViewModel;
 import com.starbattle.client.resource.ResourceLoader;
 import com.starbattle.client.views.register.validate.NameGenerator;
 
-public class RegisterModel extends StandardViewModel {
+public class RegisterModel extends ViewModel {
 
 	private JTextField accountname = new JTextField(22);
 	private JTextField displayname = new JTextField(22);

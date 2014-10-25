@@ -14,11 +14,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.starbattle.client.layout.CustomPaintPanelInterface;
-import com.starbattle.client.layout.CustomViewModel;
 import com.starbattle.client.layout.DesignButton;
+import com.starbattle.client.layout.ViewModel;
 import com.starbattle.client.resource.ResourceLoader;
 
-public class FriendRelationView extends CustomViewModel {
+public class FriendRelationView extends ViewModel {
 
 	private static int iconSize = 16;
 	private static Icon deleteIcon = ResourceLoader.loadIcon("cross.png", iconSize, iconSize);
@@ -33,7 +33,8 @@ public class FriendRelationView extends CustomViewModel {
 	private boolean isMouseOver = false;
 
 	public FriendRelationView(FriendRelation friend) {
-		this.initCustomModelView(new BackgroundPainter());
+
+		setCustomPaintPanel(new BackgroundPainter());
 		name.setText("  " + friend.getName());
 		initLayout();
 		switch (friend.getState()) {
@@ -62,7 +63,7 @@ public class FriendRelationView extends CustomViewModel {
 		view.add(actions, BorderLayout.EAST);
 		name.setFont(name.getFont().deriveFont(12f));
 		name.setForeground(new Color(50, 50, 50));
-		//view.setBorder(BorderFactory.createEtchedBorder());
+		// view.setBorder(BorderFactory.createEtchedBorder());
 		actions.setLayout(new FlowLayout(FlowLayout.TRAILING, 2, 2));
 		actions.setBackground(new Color(120, 190, 230));
 	}
@@ -92,12 +93,12 @@ public class FriendRelationView extends CustomViewModel {
 
 			int w = view.getWidth();
 			int h = view.getHeight();
-			
+
 			Color c = null;
 			if (isMouseOver) {
-				c = new Color(255,200,120, 200);
+				c = new Color(255, 200, 120, 200);
 			} else {
-				c = new Color(255,200,120, 150);
+				c = new Color(255, 200, 120, 150);
 			}
 			g.setColor(c);
 

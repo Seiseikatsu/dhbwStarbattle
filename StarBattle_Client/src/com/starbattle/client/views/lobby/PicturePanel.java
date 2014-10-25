@@ -7,11 +7,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
-import com.starbattle.client.layout.BackgroundViewModel;
+import com.starbattle.client.layout.ViewModel;
 import com.starbattle.client.layout.DesignLabel;
 import com.starbattle.client.resource.ResourceLoader;
 
-public class PicturePanel extends BackgroundViewModel {
+public class PicturePanel extends ViewModel {
 
 	
 	public PicturePanel() {
@@ -20,8 +20,9 @@ public class PicturePanel extends BackgroundViewModel {
 	
 	private void initLayout()
 	{
-		view.setBackgroundImage(ResourceLoader.loadImage("space_background.jpg"));
-		view.startRotating(340, 340, 1.2f);
+		setBackgroundImage(ResourceLoader.loadImage("space_background.jpg"));
+		setMovementCircle(340, 340, 1.2f);
+		startAnimation();
 		view.setBorder(BorderFactory.createLineBorder(new Color(50,50,50), 3));
 		view.setLayout(new BorderLayout());
 	

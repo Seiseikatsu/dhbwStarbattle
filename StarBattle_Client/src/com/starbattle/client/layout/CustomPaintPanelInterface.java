@@ -4,7 +4,5 @@ import java.awt.Graphics;
 
 public interface CustomPaintPanelInterface {
 
-	
 	public void paint(Graphics g);
-	
 }
