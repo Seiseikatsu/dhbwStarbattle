@@ -20,13 +20,14 @@ import com.starbattle.network.connection.objects.NP_Logout;
 public class LobbyView extends ContentView{
 
 	public final static int VIEW_ID = 3;
-	private Dimension windowSize=new Dimension(1000,600);
+	
 	
 	private FriendPanel friendPanel;
 	private PicturePanel picturePanel;
 	
 	public LobbyView(final NetworkConnection networkConnection)
 	{
+		windowSize=new Dimension(1000,600);
 		friendPanel=new FriendPanel();
 		picturePanel=new PicturePanel();
 		

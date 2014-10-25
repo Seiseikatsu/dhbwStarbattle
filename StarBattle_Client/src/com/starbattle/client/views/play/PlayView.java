@@ -17,7 +17,7 @@ import com.starbattle.network.connection.objects.NP_Logout;
 
 public class PlayView extends ContentView{
 	public final static int VIEW_ID = 4;
-	private Dimension windowSize=new Dimension(1000,600);
+	
 	
 	public PlayView(final NetworkConnection networkConnection){
 		JPanel bottomPanel = new JPanel();
@@ -47,19 +47,17 @@ public class PlayView extends ContentView{
 	
 	@Override
 	protected void initView() {
-		// TODO Auto-generated method stub
-		resizeWindow(windowSize);
+		
 	}
 
 	@Override
 	protected void onClosing() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public int getViewID() {
-		// TODO Auto-generated method stub
+
 		return VIEW_ID;
 	}
 
