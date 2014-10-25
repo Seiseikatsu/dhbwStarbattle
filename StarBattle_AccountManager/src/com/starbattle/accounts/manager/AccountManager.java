@@ -46,8 +46,9 @@ public interface AccountManager {
 	 * @param accountName
 	 * @param friendDisplayname
 	 * @return true or false 
+	 * @throws AccountException 
 	 */
-	public boolean newFriendRequest(String accountName, String friendDisplayname);
+	public boolean newFriendRequest(String accountName, String friendDisplayname) throws AccountException;
 	
 	
 	/**
@@ -63,8 +64,9 @@ public interface AccountManager {
 	 * @param accountName
 	 * @param friendDisplayname
 	 * @param accept
+	 * @throws AccountException 
 	 */
-	public void handleFriendRequest(String accountName, String friendDisplayname, boolean accept);
+	public void handleFriendRequest(String accountName, String accountNameFriend, boolean accept) throws AccountException;
 
 	
 }
