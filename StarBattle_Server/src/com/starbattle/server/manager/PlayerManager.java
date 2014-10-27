@@ -2,10 +2,15 @@ package com.starbattle.server.manager;
 
 import com.starbattle.accounts.manager.AccountException;
 import com.starbattle.accounts.manager.AccountManager;
-import com.starbattle.accounts.manager.PlayerAccount;
-import com.starbattle.accounts.manager.impl.TestAccountManager;
+import com.starbattle.accounts.manager.impl.AccountManagerImpl;
+import com.starbattle.accounts.player.FriendRelation;
+import com.starbattle.accounts.player.PlayerAccount;
+import com.starbattle.accounts.player.PlayerFriends;
 import com.starbattle.accounts.validation.LoginState;
 import com.starbattle.accounts.validation.RegisterState;
+import com.starbattle.network.connection.objects.NP_FriendRequest;
+import com.starbattle.network.connection.objects.NP_HandleFriendRequest;
+import com.starbattle.network.connection.objects.NP_LobbyFriends;
 import com.starbattle.network.connection.objects.NP_Login;
 import com.starbattle.network.connection.objects.NP_Register;
 import com.starbattle.network.connection.objects.NP_ResetEmail;
@@ -24,7 +29,46 @@ public class PlayerManager {
 		// TODO Auto-generated constructor stub
 		this.sendConnection = sendConnection;
 		this.playerContainer = playerContainer;
-		accountManager = new TestAccountManager();
+		accountManager = new AccountManagerImpl();
+	}
+
+	public void handleFriendRequest(PlayerConnection player, NP_HandleFriendRequest handle) {
+		String name = handle.friendName;
+		boolean accept = handle.accept;
+		try {
+			accountManager.handleFriendRequest(player.getPlayerName(), name, accept);
+			sendCurrentFriends(player); // update me
+			// TODO: update friend
+		} catch (AccountException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void trySendFriendRequest(PlayerConnection player, NP_FriendRequest friendRequest) {
+		String name = friendRequest.inputName;
+		try {
+			if (accountManager.newFriendRequest(player.getPlayerName(), name)) {
+				sendCurrentFriends(player); // send update to client
+			}
+		} catch (AccountException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void sendCurrentFriends(PlayerConnection player) {
+		try {
+			PlayerFriends friends = accountManager.getFriendRelations(player.getPlayerName());
+			NP_LobbyFriends npfriends = new NP_LobbyFriends();
+			for (FriendRelation f : friends.getFriends()) {
+				npfriends.friendNames.add(f.getAccountName());
+				npfriends.relationStates.add((byte) f.getRelationState().getId());
+				npfriends.friendOnline.add(false);
+			}
+			player.sendTCP(npfriends);
+		} catch (AccountException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void tryResetEmail(NP_ResetEmail reset) {

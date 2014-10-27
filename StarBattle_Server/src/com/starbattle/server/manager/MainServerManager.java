@@ -2,9 +2,14 @@ package com.starbattle.server.manager;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.starbattle.network.connection.ConnectionListener;
+import com.starbattle.network.connection.objects.NP_FriendRequest;
+import com.starbattle.network.connection.objects.NP_HandleFriendRequest;
+import com.starbattle.network.connection.objects.NP_Login;
+import com.starbattle.network.connection.objects.NP_Logout;
+import com.starbattle.network.connection.objects.NP_Register;
+import com.starbattle.network.connection.objects.NP_ResetEmail;
 import com.starbattle.network.server.NetworkServer;
 import com.starbattle.network.server.PlayerConnection;
-import com.starbattle.network.connection.objects.*;
 import com.starbattle.server.player.PlayerContainer;
 
 public class MainServerManager {
@@ -61,8 +66,13 @@ public class MainServerManager {
 			playerManager.tryRegister(player, (NP_Register) object);
 		} else if (object instanceof NP_Logout) {
 			playerManager.logoutPlayer(player);
-		}  else if (object instanceof NP_ResetEmail) {
-			playerManager.tryResetEmail((NP_ResetEmail)object);
+		} else if (object instanceof NP_ResetEmail) {
+			playerManager.tryResetEmail((NP_ResetEmail) object);
+		} else if (object instanceof NP_FriendRequest) {
+			playerManager.trySendFriendRequest(player, (NP_FriendRequest) object);
+		} else if (object instanceof NP_HandleFriendRequest) {
+			playerManager.handleFriendRequest(player, (NP_HandleFriendRequest) object);
 		}
+
 	}
 }
