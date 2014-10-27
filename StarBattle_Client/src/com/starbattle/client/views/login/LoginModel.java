@@ -2,6 +2,7 @@ package com.starbattle.client.views.login;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
@@ -13,20 +14,22 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.starbattle.client.layout.DesignLabel;
+import com.starbattle.client.layout.DesignTextField;
 import com.starbattle.client.layout.VerticalLayout;
 import com.starbattle.client.layout.ViewModel;
 import com.starbattle.client.views.register.validate.PasswordHasher;
 
 public class LoginModel extends ViewModel {
 
-	private JTextField username = new JTextField(19);
+	private JTextField username;
 	private JPasswordField password = new JPasswordField(22);
 	private JLabel errorText = new DesignLabel(null,"error.png",new Color(250, 100, 100));
 	private JCheckBox rememberName = new JCheckBox("Remember Name", false);
 	private JButton forgotPassword = new JButton("Forgot password?");
 
-	public LoginModel() {
+	public LoginModel(final ActionListener textfieldListener) {
 		
+		username=new DesignTextField(19, 16f,textfieldListener);
 		errorText.setOpaque(true);
 		errorText.setBackground(new Color(0,0,0));
 		rememberName.setOpaque(false);
@@ -34,10 +37,6 @@ public class LoginModel extends ViewModel {
 		password.setCaretColor(Color.WHITE);
 	    password.setOpaque(false);
 		password.setForeground(Color.WHITE);
-		username.setOpaque(false);
-		username.setForeground(new Color(200, 200, 250));
-		username.setFont(username.getFont().deriveFont(16f));
-		username.setCaretColor(Color.WHITE);
 		view.setOpaque(false);
 
 		view.setBorder(BorderFactory.createEmptyBorder(5, 15, 10, 0));
@@ -53,6 +52,26 @@ public class LoginModel extends ViewModel {
 		forgotPassword.setBorderPainted(false);
 		forgotPassword.setForeground(new Color(100, 100, 250));
 		view.add(forgotPassword);
+		
+		password.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					textfieldListener.actionPerformed(null);
+				}
+			}
+		});
 	}
 
 	public void setUsername(String name) {
@@ -78,10 +97,5 @@ public class LoginModel extends ViewModel {
 
 	public String getHashedPassword() {
 		return PasswordHasher.hashPassword(new String(password.getPassword()));
-	}
-
-	public void addKeyListener(KeyListener listener) {
-		username.addKeyListener(listener);
-		password.addKeyListener(listener);
 	}
 }

@@ -33,14 +33,12 @@ public class RegisterView extends ContentView {
 	private JButton backButton = new DesignButton("Back");
 	private JButton registerButton = new DesignButton("Register");
 	private RegisterModel registerModel = new RegisterModel();
-	private SendServerConnection sendConnection;
-
+	private NetworkConnection networkConnection;
+	
 	public RegisterView(NetworkConnection connection) {
 
 		windowSize=new Dimension(400,500);
-		
-		connection.setRegistrationListener(new Registration());
-		sendConnection = connection.getSendConnection();
+		this.networkConnection=connection;
 		
 		view.setBorder(BorderFactory.createLineBorder(new Color(100,50,10),3));
 		view.setBackground(new Color(170,110,40));
@@ -81,7 +79,7 @@ public class RegisterView extends ContentView {
 				reg.password = PasswordHasher.hashPassword(password);
 				reg.accountName = registerModel.getAccountName();
 				reg.displayName= registerModel.getDisplayName();
-				sendConnection.sendTCP(reg);
+				networkConnection.getSendConnection().sendTCP(reg);
 			} else {
 				registerModel.setErrorText("Invalid password!");
 			}
@@ -93,6 +91,7 @@ public class RegisterView extends ContentView {
 	@Override
 	protected void initView() {
 		
+		networkConnection.setRegistrationListener(new Registration());
 	}
 
 	@Override

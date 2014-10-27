@@ -30,24 +30,26 @@ public class LoginView extends ContentView {
 
 	private JButton loginButton = new DesignButton("Login");
 	private JButton registerButton = new DesignButton("Create Account");
-	private LoginModel loginModel = new LoginModel();
-	private SendServerConnection sendConnection;
-
+	private LoginModel loginModel;
+	private NetworkConnection networkConnection;
 	private String rememberUsername = "login.rememberUsername";
 
 	public LoginView(NetworkConnection connection) {
 
 		windowSize = new Dimension(600, 600);
 
-		sendConnection = connection.getSendConnection();
-		connection.setRegistrationListener(new Registration());
+		this.networkConnection = connection;
 
 		view.setCustomPaintInterface(new LoginBackgroundAnimation());
 		view.setBackgroundImage(ResourceLoader.loadImage("backgroundScreen.jpg"));
 
 		view.setLayout(new BorderLayout());
 
-		loginModel.addKeyListener(new KeyEnter());
+		loginModel = new LoginModel(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tryLogin();
+			}
+		});
 
 		JPanel footer = new JPanel();
 		footer.setLayout(new FlowLayout());
@@ -95,7 +97,7 @@ public class LoginView extends ContentView {
 		NP_Login login = new NP_Login();
 		login.playerName = name;
 		login.password = password;
-		sendConnection.sendTCP(login);
+		networkConnection.getSendConnection().sendTCP(login);
 	}
 
 	private class Registration implements RegistrationListener {
@@ -111,26 +113,10 @@ public class LoginView extends ContentView {
 		}
 	}
 
-	private class KeyEnter implements KeyListener {
-
-		@Override
-		public void keyPressed(KeyEvent e) {
-			if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-				tryLogin();
-			}
-		}
-
-		@Override
-		public void keyReleased(KeyEvent e) {
-		}
-
-		@Override
-		public void keyTyped(KeyEvent e) {
-		}
-	}
-
 	@Override
 	protected void initView() {
+
+		networkConnection.setRegistrationListener(new Registration());
 		loginModel.setErrorText(null);
 		resizeWindow(windowSize);
 

@@ -3,18 +3,23 @@ package com.starbattle.client.views.lobby.friends;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-import com.starbattle.client.layout.ViewModel;
+import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.layout.DesignLabel;
 import com.starbattle.client.layout.VerticalLayout;
+import com.starbattle.client.layout.ViewModel;
 import com.starbattle.client.resource.ResourceLoader;
+import com.starbattle.client.views.lobby.LobbyView;
 
 public class FriendPanel extends ViewModel{
 
@@ -23,10 +28,18 @@ public class FriendPanel extends ViewModel{
 	private String[] friendPanelNames={"Online","Offline","Friend Requests","Requests sent"};
 	private String[] friendPanelIcons={"user.png","user_offline.png","user_add.png","user_go.png"};
 	private FriendList[] friendPanels=new FriendList[4];
+	private JButton addNew=new DesignButton("Add Friend", ResourceLoader.loadIcon("add.png"));
 	
-	public FriendPanel()
+	public FriendPanel(final LobbyView lobbyView)
 	{
 		initLayout();	
+
+		addNew.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				lobbyView.openWindowView(AddFriendView.VIEW_ID);
+			}
+		});
 	}
 	
 	private void initLayout()
@@ -64,6 +77,8 @@ public class FriendPanel extends ViewModel{
 		header.setBackground(new Color(100,100,100));
 		JLabel title=new DesignLabel("Friends","user.png");
 		header.add(title);
+		header.add(addNew);
+		
 		
 		
 		// ADD test friends

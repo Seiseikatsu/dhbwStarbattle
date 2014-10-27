@@ -1,10 +1,9 @@
-package com.starbattle.client.views.reset;
+package com.starbattle.client.views.lobby.friends;
 
 import java.awt.Color;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
-import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -13,30 +12,26 @@ import com.starbattle.client.layout.VerticalLayout;
 import com.starbattle.client.layout.ViewModel;
 import com.starbattle.client.resource.ResourceLoader;
 
-public class ResetPasswordModel extends ViewModel {
+public class AddFriendModel extends ViewModel {
 
 	private JTextField username = new JTextField(22);
-	private JTextField email = new JTextField(22);
 	private JTextArea info = new JTextArea(5, 22);
-	private Color labelColor=new Color(50, 50, 50);
-	
-	public ResetPasswordModel() {
+
+	public AddFriendModel() {
 
 		view.setLayout(new VerticalLayout());
 		view.setBorder(BorderFactory.createEmptyBorder(20, 70, 20, 50));
 		view.setBackground(new Color(200, 200, 200));
 
-		view.add(new DesignLabel("Accountname", "user.png",labelColor));
+		view.add(new DesignLabel("Friend Name", ResourceLoader.loadIcon("user.png"),new Color(50,50,50),16));
 		view.add(username);
 		view.add(Box.createVerticalStrut(5));
-		view.add(new DesignLabel("EMail", "email.png",labelColor));
-		view.add(email);
 		view.add(Box.createVerticalStrut(50));
 		view.add(info);
 		info.setEditable(false);
 		info.setOpaque(false);
-		info.append("Password reset: \n");
-		info.append("You will get a new password by email. \n");
+		info.append("New Friend Request: \n");
+		info.append(" \n");
 
 	}
 
@@ -45,8 +40,5 @@ public class ResetPasswordModel extends ViewModel {
 		return username.getText();
 	}
 
-	public String getEmail() {
-		return email.getText();
-	}
 
 }

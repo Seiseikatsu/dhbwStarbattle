@@ -40,7 +40,7 @@ public class LobbyView extends ContentView {
 	}
 
 	private void initLayout() {
-		friendPanel = new FriendPanel();
+		friendPanel = new FriendPanel(this);
 		picturePanel = new PicturePanel();
 
 		JPanel topPanel = new JPanel(new BorderLayout());
