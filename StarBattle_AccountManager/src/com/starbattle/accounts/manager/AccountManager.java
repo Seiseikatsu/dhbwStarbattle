@@ -66,7 +66,7 @@ public interface AccountManager {
 	 * @param accept
 	 * @throws AccountException 
 	 */
-	public void handleFriendRequest(String accountName, String accountNameFriend, boolean accept) throws AccountException;
+	public String handleFriendRequest(String accountName, String displayNameFriend, boolean accept) throws AccountException;
 
 	
 }

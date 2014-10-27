@@ -275,7 +275,27 @@ public class AccountManagerImpl implements AccountManager {
 
 			PlayerFriends friends = new PlayerFriends();
 			int accountId = getAccountId(accountName);
-
+			
+			/*
+			 * TODO:
+			 * 
+			 * Die PlayerFriends soll zu einem Spieler (über den accountName) alle
+			 * FriendRelations ausgeben. 
+			 * 
+			 * Dh.
+			 * new FriendRelation(freundName, State)
+			 * 
+			 * die Freunde mit State Request und Friends sind einfach zu finden mit deiner bisherigen Query.
+			 * Für die Freunde mit dem Status Pending, musst du schauen bei welchen Spielern dieser
+			 * Account in der zweiten (passiven, Empfänger) Spalte der tabelle gelistet ist, und der State
+			 * der Relation auf Request steht. Nur in diesem Fall ist aus der Sicht dieses Accounts ein
+			 * Panding State.
+			 * 
+			 * Achtung: momentan stimmen deine FriendRelations auch nicht. anstatt der namen der Freunde
+			 * füllst du einfach seinen eigenen account name in die relation ein!
+			 * 
+			 */
+						
 			stmt = databaseConnection.getConnection().prepareStatement("Select account_id_friend, status FROM friends WHERE account_id = ?");
 			stmt.setInt(1, accountId);
 			ResultSet rs = stmt.executeQuery();
@@ -324,8 +344,29 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	public void handleFriendRequest(String accountName, String accountNameFriend, boolean accept) throws AccountException {
+	public String handleFriendRequest(String accountName, String accountNameFriend, boolean accept) throws AccountException {
 		int accountId;
+		
+		/*
+		 * 
+		 * TODO: 
+		 * 
+		 * accountNameFriend zu displayNameFriend ändern.
+		 * Der Accountname das Freundes kann vom Server nicht aus dem
+		 * Displayname erzeugt werden. Das kannst nur du hier mit der Datenbank.
+		 * Daher die Änderung.
+		 * 
+		 * 
+		 * TODO:
+		 * 
+		 * Zusäztlich benötige ich noch den AccountName zu dem displayNameFriend als returnwert,
+		 * damit ich an den Freundaccount ebenfalls eine Aktuallisierung senden kann.
+		 * Dh. einfach den Displayname zugehörigen Accountname zurückgeben, falls es kein gültiger
+		 * Displayname ist kannst du ganz normal eine AccountException schmeissen.
+		 * 
+		 * 
+		 */
+		
 		try {
 			accountId = getAccountId(accountName);
 			int accountIdFriend = getAccountId(accountNameFriend);
@@ -346,6 +387,7 @@ public class AccountManagerImpl implements AccountManager {
 			throw new AccountException("SQL error");
 		}
 
+		return null;
 	}
 
 	private int getAccountId(String accountName) throws AccountException {
