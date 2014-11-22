@@ -13,6 +13,7 @@ public class StarbattleServer {
 	}
 	
 	private NetworkServer server;
+	private MainServerManager manager;
 	
 	public StarbattleServer()
 	{
@@ -20,7 +21,7 @@ public class StarbattleServer {
 		try {
 			
 			//Create MainServer Manager
-			MainServerManager manager=new MainServerManager(server);
+			manager=new MainServerManager(server);
 			server.setServerListener(manager.createListener());		
 			
 			server.open(56777, 56777);

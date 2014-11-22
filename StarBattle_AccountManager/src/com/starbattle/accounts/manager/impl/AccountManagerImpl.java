@@ -17,6 +17,7 @@ import com.starbattle.accounts.player.FriendRelation;
 import com.starbattle.accounts.player.FriendRelationState;
 import com.starbattle.accounts.player.PlayerAccount;
 import com.starbattle.accounts.player.PlayerFriends;
+import com.starbattle.accounts.utils.Validations;
 import com.starbattle.accounts.validation.LoginState;
 import com.starbattle.accounts.validation.PasswordHasher;
 import com.starbattle.accounts.validation.RegisterState;
@@ -126,8 +127,13 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	public RegisterState canRegisterPlayer(PlayerAccount account) {
-		// display_name invalid
-
+		if(!Validations.isPlayerNameValid(account.getDisplayName())){
+			return RegisterState.Accountname_Invalid;
+		}
+		if(NamesEqual(account.getDisplayName(), account.getName()))
+			return RegisterState.Names_equal;
+			
+		
 		try {
 			stmt = conn.prepareStatement("SELECT count(*) FROM player WHERE display_name = ?");
 			stmt.setString(1, account.getDisplayName());
@@ -145,9 +151,18 @@ public class AccountManagerImpl implements AccountManager {
 		return RegisterState.Register_Ok;
 
 	}
+	
+	private boolean NamesEqual(String displayName, String accountName){
+		if(displayName.equalsIgnoreCase(accountName))
+			return true;
+		else
+			return false;
+	}
 
 	public RegisterState canRegisterAccount(PlayerAccount account) {
-		// accountName invalid
+		if(!Validations.isAccountNameVaild(account.getName())){
+			return RegisterState.Accountname_Invalid;
+		}
 
 		try {
 			stmt = conn.prepareStatement("SELECT count(*) FROM account WHERE name = ?");
@@ -275,36 +290,36 @@ public class AccountManagerImpl implements AccountManager {
 
 			PlayerFriends friends = new PlayerFriends();
 			int accountId = getAccountId(accountName);
-			
-			/*
-			 * TODO:
-			 * 
-			 * Die PlayerFriends soll zu einem Spieler (über den accountName) alle
-			 * FriendRelations ausgeben. 
-			 * 
-			 * Dh.
-			 * new FriendRelation(freundName, State)
-			 * 
-			 * die Freunde mit State Request und Friends sind einfach zu finden mit deiner bisherigen Query.
-			 * Für die Freunde mit dem Status Pending, musst du schauen bei welchen Spielern dieser
-			 * Account in der zweiten (passiven, Empfänger) Spalte der tabelle gelistet ist, und der State
-			 * der Relation auf Request steht. Nur in diesem Fall ist aus der Sicht dieses Accounts ein
-			 * Panding State.
-			 * 
-			 * Achtung: momentan stimmen deine FriendRelations auch nicht. anstatt der namen der Freunde
-			 * füllst du einfach seinen eigenen account name in die relation ein!
-			 * 
-			 */
-						
+					
 			stmt = databaseConnection.getConnection().prepareStatement("Select account_id_friend, status FROM friends WHERE account_id = ?");
 			stmt.setInt(1, accountId);
-			ResultSet rs = stmt.executeQuery();
-
-			while (rs.next()) {
-				if (rs.getInt("status") == 1) {
-					friends.addRelation(new FriendRelation(accountName, FriendRelationState.Request));
+			ResultSet rsFriendRequester = stmt.executeQuery();
+			
+			stmt = databaseConnection.getConnection().prepareStatement("Select account_id, status FROM friends WHERE account_id_friend = ?");
+			stmt.setInt(1, accountId);
+			ResultSet rsFriendAnswer = stmt.executeQuery();
+			
+			while (rsFriendRequester.next()) {
+				stmt = databaseConnection.getConnection().prepareStatement("Select name FROM account WHERE account_id = ?");
+				stmt.setInt(1,rsFriendRequester.getInt("account_id_friend"));
+				ResultSet rsFriendName = stmt.executeQuery();
+				
+				if (rsFriendRequester.getInt("status") == 1) {
+					friends.addRelation(new FriendRelation(rsFriendName.getString("name"), FriendRelationState.Request));
 				} else {
-					friends.addRelation(new FriendRelation(accountName, FriendRelationState.Friends));
+					friends.addRelation(new FriendRelation(rsFriendName.getString("name"), FriendRelationState.Friends));
+				}
+			}
+			
+			while (rsFriendAnswer.next()) {
+				stmt = databaseConnection.getConnection().prepareStatement("Select name FROM account WHERE account_id = ?");
+				stmt.setInt(1,rsFriendAnswer.getInt("account_id"));
+				ResultSet rsFriendName = stmt.executeQuery();
+				
+				if (rsFriendRequester.getInt("status") == 1) {
+					friends.addRelation(new FriendRelation(rsFriendName.getString("name"), FriendRelationState.Pending));
+				} else {
+					friends.addRelation(new FriendRelation(rsFriendName.getString("name"), FriendRelationState.Friends));
 				}
 			}
 			return friends;
@@ -344,30 +359,20 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	public String handleFriendRequest(String accountName, String accountNameFriend, boolean accept) throws AccountException {
+	public String handleFriendRequest(String accountName, String displayNameFriend, boolean accept) throws AccountException {
 		int accountId;
-		
-		/*
-		 * 
-		 * TODO: 
-		 * 
-		 * accountNameFriend zu displayNameFriend ändern.
-		 * Der Accountname das Freundes kann vom Server nicht aus dem
-		 * Displayname erzeugt werden. Das kannst nur du hier mit der Datenbank.
-		 * Daher die Änderung.
-		 * 
-		 * 
-		 * TODO:
-		 * 
-		 * Zusäztlich benötige ich noch den AccountName zu dem displayNameFriend als returnwert,
-		 * damit ich an den Freundaccount ebenfalls eine Aktuallisierung senden kann.
-		 * Dh. einfach den Displayname zugehörigen Accountname zurückgeben, falls es kein gültiger
-		 * Displayname ist kannst du ganz normal eine AccountException schmeissen.
-		 * 
-		 * 
-		 */
+		String accountNameFriend;
 		
 		try {
+			
+
+			stmt = databaseConnection.getConnection().prepareStatement("SELECT name from account where account_id = ? ");
+			stmt.setInt(1, getAccountId(displayNameFriend));
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			accountNameFriend = rs.getString("name");
+			
+			
 			accountId = getAccountId(accountName);
 			int accountIdFriend = getAccountId(accountNameFriend);
 
@@ -387,7 +392,7 @@ public class AccountManagerImpl implements AccountManager {
 			throw new AccountException("SQL error");
 		}
 
-		return null;
+		return accountNameFriend;
 	}
 
 	private int getAccountId(String accountName) throws AccountException {
