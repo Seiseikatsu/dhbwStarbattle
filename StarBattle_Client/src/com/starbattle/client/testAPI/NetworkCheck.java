@@ -1,13 +1,14 @@
 package com.starbattle.client.testAPI;
 
-public class ToleranceCheck {
+public class NetworkCheck {
 
 	private boolean checkOk = false;
 	private long lastMilli;
-
-	public ToleranceCheck(ToleranceCheckTask task) {
+	
+	public NetworkCheck(ToleranceCheckTask task) {
 		check(task);
 	}
+	
 
 	private void check(ToleranceCheckTask task) {
 		lastMilli = System.currentTimeMillis();
@@ -27,7 +28,7 @@ public class ToleranceCheck {
 		int diff = (int) (milli - lastMilli);
 
 		float seconds = diff / 1000f;
-		if (seconds <= ClientAutomate.toleranceSeconds) {
+		if (seconds <= ClientAutomate.networkTimeout) {
 			return true;
 		}
 		return false;

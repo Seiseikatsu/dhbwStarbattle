@@ -39,7 +39,7 @@ public class LoginView extends ContentView {
 		windowSize = new Dimension(600, 600);
 
 		this.networkConnection = connection;
-
+		loginButton.setName("Button_Login");
 		view.setCustomPaintInterface(new LoginBackgroundAnimation());
 		view.setBackgroundImage(ResourceLoader.loadImage("backgroundScreen.jpg"));
 

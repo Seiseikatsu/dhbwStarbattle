@@ -30,6 +30,8 @@ public class LoginModel extends ViewModel {
 	public LoginModel(final ActionListener textfieldListener) {
 		
 		username=new DesignTextField(19, 16f,textfieldListener);
+		username.setName("Login_Name");
+		password.setName("Login_Password");
 		errorText.setOpaque(true);
 		errorText.setBackground(new Color(0,0,0));
 		rememberName.setOpaque(false);
