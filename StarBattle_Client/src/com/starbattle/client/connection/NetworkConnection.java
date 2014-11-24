@@ -3,6 +3,8 @@ package com.starbattle.client.connection;
 import java.io.IOException;
 
 import com.esotericsoftware.kryonet.Connection;
+import com.starbattle.client.connection.listener.NetworkFriendListener;
+import com.starbattle.client.connection.listener.NetworkRegistrationListener;
 import com.starbattle.network.client.NetworkClient;
 import com.starbattle.network.client.SendServerConnection;
 import com.starbattle.network.connection.ConnectionListener;
@@ -24,8 +26,13 @@ public class NetworkConnection {
 		client.connect(ip, tcp_port, udp_port);
 	}
 
-	public void setRegistrationListener(RegistrationListener listener) {
+	public void setRegistrationListener(NetworkRegistrationListener listener) {
 		networkObjectResolver.setRegistrationListener(listener);
+	}
+	
+	public void setFriendListener(NetworkFriendListener listener)
+	{
+		networkObjectResolver.setFriendListener(listener);
 	}
 	
 	public SendServerConnection getSendConnection()

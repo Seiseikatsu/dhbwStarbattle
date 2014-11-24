@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.starbattle.client.connection.NetworkConnection;
-import com.starbattle.client.connection.RegistrationListener;
+import com.starbattle.client.connection.listener.NetworkRegistrationListener;
 import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.resource.ClientConfiguration;
 import com.starbattle.client.resource.ResourceLoader;
@@ -100,7 +100,7 @@ public class LoginView extends ContentView {
 		networkConnection.getSendConnection().sendTCP(login);
 	}
 
-	private class Registration implements RegistrationListener {
+	private class Registration implements NetworkRegistrationListener {
 
 		@Override
 		public void registrationOk() {

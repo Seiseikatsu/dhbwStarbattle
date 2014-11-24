@@ -20,9 +20,11 @@ public class FriendList extends ViewModel{
 	private JButton showHide;
 	private JPanel content=new JPanel();
 	private String name;
+	private FriendActionListener friendActionListener;
 	
-	public FriendList(String title, String icon)
+	public FriendList(String title, String icon, FriendActionListener friendActionListener)
 	{
+		this.friendActionListener=friendActionListener;
 		this.name=title;
 		showHide=new DesignButton(title, ResourceLoader.loadIcon(icon));
 		initLayout();
@@ -58,7 +60,7 @@ public class FriendList extends ViewModel{
 	
 	public void addRelation(FriendRelation relation)
 	{
-		FriendRelationView view=new FriendRelationView(relation);
+		FriendRelationView view=new FriendRelationView(relation,friendActionListener);
 		content.add(view.getView());
 		showHide.setText(name+" ("+content.getComponentCount()+")");
 	}

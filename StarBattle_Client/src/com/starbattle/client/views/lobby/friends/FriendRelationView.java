@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -31,9 +33,13 @@ public class FriendRelationView extends ViewModel {
 	private JButton viewProfil = new DesignButton(profilIcon);
 	private JPanel actions = new JPanel();
 	private boolean isMouseOver = false;
+	private FriendActionListener friendActionListener;
+	private String friendName;
 
-	public FriendRelationView(FriendRelation friend) {
+	public FriendRelationView(FriendRelation friend, FriendActionListener friendActionListener) {
 
+		this.friendName = friend.getName();
+		this.friendActionListener = friendActionListener;
 		setCustomPaintPanel(new BackgroundPainter());
 		name.setText("  " + friend.getName());
 		initLayout();
@@ -66,18 +72,40 @@ public class FriendRelationView extends ViewModel {
 		// view.setBorder(BorderFactory.createEtchedBorder());
 		actions.setLayout(new FlowLayout(FlowLayout.TRAILING, 2, 2));
 		actions.setBackground(new Color(120, 190, 230));
+
+		decline.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				friendActionListener.delete(friendName);
+			}
+		});
 	}
 
 	private void initFriendLayout(boolean online) {
 		if (online) {
 			JButton write = new DesignButton(mailIcon);
 			actions.add(write);
+			write.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					friendActionListener.openChat(friendName);
+				}
+			});
 		}
 	}
 
 	private void initRequestLayout() {
 		JButton accept = new DesignButton(acceptIcon);
 		actions.add(accept);
+		accept.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				friendActionListener.accept(friendName);
+			}
+		});
 		actions.add(decline);
 	}
 

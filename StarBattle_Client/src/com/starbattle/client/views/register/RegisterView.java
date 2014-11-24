@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.starbattle.client.connection.NetworkConnection;
-import com.starbattle.client.connection.RegistrationListener;
+import com.starbattle.client.connection.listener.NetworkRegistrationListener;
 import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.layout.DesignLabel;
 import com.starbattle.client.views.lobby.LobbyView;
@@ -104,7 +104,7 @@ public class RegisterView extends ContentView {
 		return VIEW_ID;
 	}
 
-	private class Registration implements RegistrationListener {
+	private class Registration implements NetworkRegistrationListener {
 
 		@Override
 		public void registrationOk() {

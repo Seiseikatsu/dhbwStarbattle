@@ -13,6 +13,9 @@ import javax.swing.JPanel;
 
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.layout.DesignButton;
+import com.starbattle.client.views.lobby.chat.ChatManager;
+import com.starbattle.client.views.lobby.control.FriendActionReceiver;
+import com.starbattle.client.views.lobby.control.FriendConnectionReceiver;
 import com.starbattle.client.views.lobby.friends.FriendPanel;
 import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.views.play.PlayView;
@@ -31,16 +34,22 @@ public class LobbyView extends ContentView {
 	private MoneyDisplay moneyDisplay = new MoneyDisplay();
 	private JButton playButton = new DesignButton("Play");
 	private JButton shopButton = new DesignButton("Shop");
-	private SendServerConnection sendConnection;
+	private NetworkConnection networkConnection;
+	private ChatManager chatManager;
+	private FriendConnectionReceiver friendConnectionListener;
+	private FriendActionReceiver friendActionReceiver;
 
 	public LobbyView(final NetworkConnection networkConnection) {
-		sendConnection = networkConnection.getSendConnection();
+		this.networkConnection = networkConnection;
 		windowSize = new Dimension(1000, 600);
+		chatManager = new ChatManager(networkConnection.getSendConnection(), this.view);
+		friendActionReceiver = new FriendActionReceiver(chatManager, networkConnection.getSendConnection());
 		initLayout();
+		friendConnectionListener = new FriendConnectionReceiver(chatManager, friendPanel);
 	}
 
 	private void initLayout() {
-		friendPanel = new FriendPanel(this);
+		friendPanel = new FriendPanel(this, friendActionReceiver);
 		picturePanel = new PicturePanel();
 
 		JPanel topPanel = new JPanel(new BorderLayout());
@@ -91,7 +100,7 @@ public class LobbyView extends ContentView {
 
 		logout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				sendConnection.sendTCP(new NP_Logout());
+				networkConnection.getSendConnection().sendTCP(new NP_Logout());
 				openView(LoginView.VIEW_ID);
 			}
 		});
@@ -105,19 +114,17 @@ public class LobbyView extends ContentView {
 
 	@Override
 	protected void initView() {
-		// TODO Auto-generated method stub
 		resizeWindow(windowSize);
+		networkConnection.setFriendListener(friendConnectionListener);
 	}
 
 	@Override
 	protected void onClosing() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public int getViewID() {
-		// TODO Auto-generated method stub
 		return VIEW_ID;
 	}
 

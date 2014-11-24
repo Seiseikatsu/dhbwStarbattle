@@ -13,7 +13,12 @@ public class DesignTextField extends JTextField {
 		super(width);
 		init(action);
 	}
-
+	
+	public DesignTextField( ActionListener action) {
+		super();
+		init(action);
+	}
+	
 	public DesignTextField(int width, float fontSize, ActionListener action) {
 		super(width);
 		init(action);

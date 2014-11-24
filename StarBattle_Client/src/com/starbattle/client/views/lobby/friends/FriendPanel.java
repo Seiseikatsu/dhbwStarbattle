@@ -20,6 +20,7 @@ import com.starbattle.client.layout.VerticalLayout;
 import com.starbattle.client.layout.ViewModel;
 import com.starbattle.client.resource.ResourceLoader;
 import com.starbattle.client.views.lobby.LobbyView;
+import com.starbattle.network.connection.objects.NP_LobbyFriends;
 
 public class FriendPanel extends ViewModel{
 
@@ -29,9 +30,11 @@ public class FriendPanel extends ViewModel{
 	private String[] friendPanelIcons={"user.png","user_offline.png","user_add.png","user_go.png"};
 	private FriendList[] friendPanels=new FriendList[4];
 	private JButton addNew=new DesignButton("Add Friend", ResourceLoader.loadIcon("add.png"));
+	private FriendActionListener friendActionListener;
 	
-	public FriendPanel(final LobbyView lobbyView)
+	public FriendPanel(final LobbyView lobbyView, FriendActionListener friendActionListener)
 	{
+		this.friendActionListener=friendActionListener;
 		initLayout();	
 
 		addNew.addActionListener(new ActionListener() {			
@@ -40,6 +43,11 @@ public class FriendPanel extends ViewModel{
 				lobbyView.openWindowView(AddFriendView.VIEW_ID);
 			}
 		});
+	}
+	
+	public void update(NP_LobbyFriends friends)
+	{
+		
 	}
 	
 	private void initLayout()
@@ -55,7 +63,7 @@ public class FriendPanel extends ViewModel{
 		
 		for(int i=0; i<friendPanels.length; i++)
 		{
-			friendPanels[i]=new FriendList(friendPanelNames[i],friendPanelIcons[i]);	
+			friendPanels[i]=new FriendList(friendPanelNames[i],friendPanelIcons[i],friendActionListener);	
 			content.add(friendPanels[i].getView());
 		}
 		
@@ -95,5 +103,5 @@ public class FriendPanel extends ViewModel{
 		}
 	}
 	
-	
+
 }
