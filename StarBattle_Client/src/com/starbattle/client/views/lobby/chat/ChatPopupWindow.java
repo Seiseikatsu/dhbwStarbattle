@@ -75,4 +75,9 @@ public class ChatPopupWindow {
 		}
 		
 	}
+
+
+	public void close() {
+		window.dispose();
+	}
 }

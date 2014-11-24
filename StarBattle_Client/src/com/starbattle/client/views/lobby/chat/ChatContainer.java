@@ -32,5 +32,9 @@ public class ChatContainer {
 		//open chat window on receive (if its closed)
 		window.open();
 	}
+
+	public void forceClose() {
+		window.close();
+	}
 	
 }

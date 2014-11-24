@@ -93,9 +93,18 @@ public class LobbyView extends ContentView {
 		startPanel.add(blocker);
 		playButton.setPreferredSize(new Dimension(240, 180));
 		startPanel.add(playButton);
-		southWestPanel.add(startPanel, BorderLayout.SOUTH);
+		
+		JPanel bottomPanel=new JPanel();
+		bottomPanel.setBackground(new Color(100,100,100));
+		bottomPanel.setLayout(new BorderLayout());
+		bottomPanel.add(startPanel,BorderLayout.CENTER);
+		
+		southWestPanel.add(bottomPanel, BorderLayout.SOUTH);
 		centerPanel.add(southWestPanel, BorderLayout.CENTER);
-
+		
+		bottomPanel.add(chatManager.getChatListPanel(),BorderLayout.SOUTH);
+		
+		
 		view.add(centerPanel, BorderLayout.CENTER);
 
 		logout.addActionListener(new ActionListener() {

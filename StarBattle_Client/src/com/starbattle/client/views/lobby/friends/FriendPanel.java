@@ -92,6 +92,11 @@ public class FriendPanel extends ViewModel{
 		// ADD test friends
 		friendPanels[0].addRelation(new FriendRelation("Hans", 0, true));
 		friendPanels[0].addRelation(new FriendRelation("Peter", 0, true));
+		friendPanels[0].addRelation(new FriendRelation("Htetef", 0, true));
+		friendPanels[0].addRelation(new FriendRelation("342sdsa", 0, true));
+		friendPanels[0].addRelation(new FriendRelation("ogdioa2", 0, true));
+		friendPanels[0].addRelation(new FriendRelation("scuion23##", 0, true));
+		
 		friendPanels[1].addRelation(new FriendRelation("Dieter", 0, false));
 		friendPanels[1].addRelation(new FriendRelation("Olaf heinz", 0, false));
 		friendPanels[1].addRelation(new FriendRelation("Max der Coole", 0, false));
