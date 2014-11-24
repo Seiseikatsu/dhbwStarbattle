@@ -12,7 +12,7 @@ Feature: Login is working if there are no errors
     Given I am on the login view
     When I type name "TimoTester" 
     And I type password "test" 
-    And I click on button "login"
+    And I click on button "Login"
     Then I am on the login view
     And I receive an error message saying "Wrong Password"
 
@@ -21,7 +21,7 @@ Feature: Login is working if there are no errors
     Given I am on the login view
     When I type name "TimoTeste" 
     And I type password "test"
-    And I click on button "login"
+    And I click on button "Login"
     Then I am on the login view
     And I receive an error message saying "Wrong Username"
 
