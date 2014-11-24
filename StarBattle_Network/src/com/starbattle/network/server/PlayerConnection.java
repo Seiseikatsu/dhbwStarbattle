@@ -4,19 +4,19 @@ import com.esotericsoftware.kryonet.Connection;
 
 public class PlayerConnection extends Connection{
 
-	private String playerName=null;
-	
-	public String getPlayerName() {
-		return playerName;
+	private String accountName=null;
+		
+	public String getAccountName() {
+		return accountName;
 	}
 	
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
+	public void setAccountName(String playerName) {
+		this.accountName = playerName;
 	}
 	
 	public boolean isPlayerRegistered()
 	{
-		if(playerName==null)
+		if(accountName==null)
 		{
 			return false;
 		}

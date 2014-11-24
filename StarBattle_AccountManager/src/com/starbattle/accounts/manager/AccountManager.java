@@ -25,8 +25,9 @@ public interface AccountManager {
 	
 	public void tryResetPassword(String accountName, String email) throws AccountException;
 
+	public String getDisplayName(String accountName) throws AccountException;
 	
-	
+	public String getAccountName(String displayName) throws AccountException;
 	
 		
 	/**

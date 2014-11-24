@@ -289,7 +289,7 @@ public class AccountManagerImpl implements AccountManager {
 		try {
 
 			PlayerFriends friends = new PlayerFriends();
-			int accountId = getAccountId(accountName);
+			int accountId = getAccountIdForAccountname(accountName);
 					
 			stmt = databaseConnection.getConnection().prepareStatement("Select account_id_friend, status FROM friends WHERE account_id = ?");
 			stmt.setInt(1, accountId);
@@ -328,13 +328,13 @@ public class AccountManagerImpl implements AccountManager {
 		}
 	}
 
-	private int getAccountName(int accountId) throws AccountException {
+	private String getAccountName(int accountId) throws AccountException {
 		try {
 			stmt = databaseConnection.getConnection().prepareStatement("SELECT name from account where account_id = ? ");
 			stmt.setInt(1, accountId);
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
-			return rs.getInt(1);
+			return rs.getString(1);
 		} catch (SQLException e) {
 			throw new AccountException("SQL error");
 		}
@@ -342,8 +342,8 @@ public class AccountManagerImpl implements AccountManager {
 
 	@Override
 	public boolean newFriendRequest(String accountName, String friendDisplayname) throws AccountException {
-		int accountId = getAccountId(accountName);
-		int accountIdFriend = getAccountId(friendDisplayname);
+		int accountId = getAccountIdForAccountname(accountName);
+		int accountIdFriend = getAccountIdForDisplayname(friendDisplayname);
 
 		try {
 			stmt = databaseConnection.getConnection().prepareStatement("INSERT INTO FRIENDS (account_id, account_id_friend, status) VALUES ( ?, ?, ? )");
@@ -367,14 +367,14 @@ public class AccountManagerImpl implements AccountManager {
 			
 
 			stmt = databaseConnection.getConnection().prepareStatement("SELECT name from account where account_id = ? ");
-			stmt.setInt(1, getAccountId(displayNameFriend));
+			stmt.setInt(1, getAccountIdForAccountname(displayNameFriend));
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
 			accountNameFriend = rs.getString("name");
 			
 			
-			accountId = getAccountId(accountName);
-			int accountIdFriend = getAccountId(accountNameFriend);
+			accountId = getAccountIdForAccountname(accountName);
+			int accountIdFriend = getAccountIdForDisplayname(accountNameFriend);
 
 			if (accept) {
 				stmt = databaseConnection.getConnection().prepareStatement("UPDATE friends SET status = ? WHERE account_id = ? AND account_id_friend = ?");
@@ -395,7 +395,7 @@ public class AccountManagerImpl implements AccountManager {
 		return accountNameFriend;
 	}
 
-	private int getAccountId(String accountName) throws AccountException {
+	private int getAccountIdForAccountname(String accountName) throws AccountException {
 		try {
 			stmt = databaseConnection.getConnection().prepareStatement("SELECT account_id from account where name = ? ");
 			stmt.setString(1, accountName);
@@ -407,5 +407,40 @@ public class AccountManagerImpl implements AccountManager {
 		}
 
 	}
+	
+	private String getDisplayNameForAccountName(String accountName)  throws AccountException
+	{
+		try {
+			stmt = databaseConnection.getConnection().prepareStatement("SELECT display_name from player where account_id = ? ");
+			stmt.setString(1, accountName);
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			return rs.getString(1);
+		} catch (SQLException e) {
+			throw new AccountException("SQL error");
+		}
+	}
 
+	private int getAccountIdForDisplayname(String displayName) throws AccountException {
+		try {
+			stmt = databaseConnection.getConnection().prepareStatement("SELECT account_id from player where display_name = ? ");
+			stmt.setString(1, displayName);
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		} catch (SQLException e) {
+			throw new AccountException("SQL error");
+		}
+
+	}
+
+	@Override
+	public String getDisplayName(String accountName) throws AccountException {
+		return getDisplayNameForAccountName(accountName);
+	}
+	
+	@Override
+	public String getAccountName(String displayName) throws AccountException {
+		return getAccountName(getAccountIdForDisplayname(displayName));
+	}
 }

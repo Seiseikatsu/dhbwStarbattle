@@ -8,6 +8,7 @@ import com.starbattle.accounts.player.PlayerAccount;
 import com.starbattle.accounts.player.PlayerFriends;
 import com.starbattle.accounts.validation.LoginState;
 import com.starbattle.accounts.validation.RegisterState;
+import com.starbattle.network.connection.objects.NP_ChatMessage;
 import com.starbattle.network.connection.objects.NP_FriendRequest;
 import com.starbattle.network.connection.objects.NP_HandleFriendRequest;
 import com.starbattle.network.connection.objects.NP_LobbyFriends;
@@ -36,7 +37,7 @@ public class PlayerManager {
 		String name = handle.friendName;
 		boolean accept = handle.accept;
 		try {
-			accountManager.handleFriendRequest(player.getPlayerName(), name, accept);
+			accountManager.handleFriendRequest(player.getAccountName(), name, accept);
 			sendCurrentFriends(player); // update me
 			// TODO: update friend
 		} catch (AccountException e) {
@@ -47,7 +48,7 @@ public class PlayerManager {
 	public void trySendFriendRequest(PlayerConnection player, NP_FriendRequest friendRequest) {
 		String name = friendRequest.inputName;
 		try {
-			if (accountManager.newFriendRequest(player.getPlayerName(), name)) {
+			if (accountManager.newFriendRequest(player.getAccountName(), name)) {
 				sendCurrentFriends(player); // send update to client
 			}
 		} catch (AccountException e) {
@@ -57,7 +58,7 @@ public class PlayerManager {
 
 	public void sendCurrentFriends(PlayerConnection player) {
 		try {
-			PlayerFriends friends = accountManager.getFriendRelations(player.getPlayerName());
+			PlayerFriends friends = accountManager.getFriendRelations(player.getAccountName());
 			NP_LobbyFriends npfriends = new NP_LobbyFriends();
 			for (FriendRelation f : friends.getFriends()) {
 				npfriends.friendNames.add(f.getAccountName());
@@ -129,18 +130,19 @@ public class PlayerManager {
 	}
 
 	private void loginPlayer(PlayerConnection player, String name) {
-		player.setPlayerName(name);
+		player.setAccountName(name);
 		playerContainer.loginPlayer(player);
 		// send no response string, just open-game-command to true
 		System.out.println("Player login: " + name);
 		sendAnswer(player, true, null);
+		sendCurrentFriends(player); // send friends to player
 	}
 
 	public void logoutPlayer(PlayerConnection player) {
 		if (player.isConnected()) {// if its connected, remove player object
 									// from accountlist
-			playerContainer.logoutPlayer(player.getPlayerName());
-			System.out.println("Player logout: " + player.getPlayerName());
+			playerContainer.logoutPlayer(player.getAccountName());
+			System.out.println("Player logout: " + player.getAccountName());
 		}
 	}
 
@@ -149,6 +151,24 @@ public class PlayerManager {
 		answer.openGame = login;
 		answer.errorMessage = text;
 		player.sendTCP(answer);
+	}
+
+	public void sendChat(PlayerConnection player, NP_ChatMessage message) {
+		try {
+			// Get Displayname for Accountname of the sending player
+			String fromDisplayname = accountManager.getDisplayName(player.getAccountName());
+			// Get the Accountname (to get the connection) of the receiver
+			String toAccountName = accountManager.getAccountName(message.name);
+
+			// Create chat message
+			NP_ChatMessage chat = new NP_ChatMessage();
+			chat.message = message.message;
+			chat.name = fromDisplayname;
+			// Send chat to receiver player
+			playerContainer.getPlayer(toAccountName).getConnection().sendTCP(chat);
+		} catch (AccountException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

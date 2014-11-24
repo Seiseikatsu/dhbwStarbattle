@@ -2,6 +2,7 @@ package com.starbattle.server.manager;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.starbattle.network.connection.ConnectionListener;
+import com.starbattle.network.connection.objects.NP_ChatMessage;
 import com.starbattle.network.connection.objects.NP_FriendRequest;
 import com.starbattle.network.connection.objects.NP_HandleFriendRequest;
 import com.starbattle.network.connection.objects.NP_Login;
@@ -72,6 +73,8 @@ public class MainServerManager {
 			playerManager.trySendFriendRequest(player, (NP_FriendRequest) object);
 		} else if (object instanceof NP_HandleFriendRequest) {
 			playerManager.handleFriendRequest(player, (NP_HandleFriendRequest) object);
+		} else if (object instanceof NP_ChatMessage)	{
+			playerManager.sendChat(player,(NP_ChatMessage)object);
 		}
 
 	}
