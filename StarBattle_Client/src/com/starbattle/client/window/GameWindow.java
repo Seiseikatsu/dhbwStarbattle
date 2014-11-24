@@ -116,4 +116,8 @@ public class GameWindow {
 	public JFrame getWindow() {
 		return window;
 	}
+	
+	public WindowContent getContent() {
+		return content;
+	}
 }

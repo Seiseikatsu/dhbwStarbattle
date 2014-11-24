@@ -19,11 +19,19 @@ public class DesignButton extends JButton {
 	private static Color fontColor = new Color(255, 255, 255);
 	private static Color selectedFontColor = new Color(0, 0, 0);
 	private boolean designBackground = true;
-
+	private int buttonStyle=0;
 	public DesignButton(String text) {
 		super(text);
 		init();
 
+	}
+	
+	public void setButtonStyle(int buttonStyle) {
+		this.buttonStyle = buttonStyle;
+		if(buttonStyle==1)
+		{
+			this.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+		}
 	}
 
 	public DesignButton(String text, Icon icon) {
@@ -89,9 +97,9 @@ public class DesignButton extends JButton {
 
 			Image img = null;
 			if (isMouseOver) {
-				img = GUIDesign.buttonSelected.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+				img = GUIDesign.buttonSelected[buttonStyle].getScaledInstance(w, h, Image.SCALE_SMOOTH);
 			} else {
-				img = GUIDesign.button.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+				img = GUIDesign.button[buttonStyle].getScaledInstance(w, h, Image.SCALE_SMOOTH);
 			}
 			g.drawImage(img, 0, 0, null);
 		}

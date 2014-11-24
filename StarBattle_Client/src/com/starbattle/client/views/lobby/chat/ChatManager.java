@@ -21,8 +21,8 @@ public class ChatManager {
 		this.parentPanel = parent;
 		this.serverConnection=serverConnection;
 		chatListPanel.setOpaque(false);
-		chatListPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		chatListPanel.setPreferredSize(new Dimension(0,30));
+		chatListPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,10));
+		//chatListPanel.setPreferredSize(new Dimension(0,20));
 	}
 
 	

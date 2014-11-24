@@ -21,10 +21,11 @@ public class ChatContentPanel extends JPanel{
 	private String friend;
 	private JTextField input;
 	private JPanel content=new JPanel();
-	private JButton send=new DesignButton("Write");
+	private DesignButton send=new DesignButton("Send");
 	
 	public ChatContentPanel(String to, WriteMessageListener writeMessageListener)
 	{
+		send.setButtonStyle(1);
 		this.friend=to;
 		this.writeMessageListener=writeMessageListener;
 		content.setLayout(new VerticalLayout());
@@ -35,6 +36,7 @@ public class ChatContentPanel extends JPanel{
 	{
 		ActionListener write=new Write();
 		input=new DesignTextField(write);
+		send.addActionListener(write);
 		content.setBackground(new Color(180,180,180));
 		this.setLayout(new BorderLayout());
 		JScrollPane scroll=new JScrollPane(content, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

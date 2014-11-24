@@ -1,11 +1,9 @@
 package com.starbattle.client.views.lobby.chat;
 
-import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import com.starbattle.client.layout.DesignButton;
@@ -24,10 +22,14 @@ public class ChatListItem extends JPanel {
 
 	private void initLayout() {
 		this.setOpaque(false);
-		setBorder(BorderFactory.createEmptyBorder(-5, 0, 0, 10));		
-		JButton open= new DesignButton(chatName,ResourceLoader.loadIcon("email.png"));
+		DesignButton open= new DesignButton(chatName,ResourceLoader.loadIcon("email.png"));
+		open.setMargin(new Insets(0,0,0,0));
+		open.setBorder(null);
+		open.setButtonStyle(1);
 		add(open);
-		JButton close = new DesignButton(ResourceLoader.loadIcon("cross.png"));
+		DesignButton close = new DesignButton(ResourceLoader.loadIcon("cross.png"));
+		close.setMargin(new Insets(0,0,0,0));
+		close.setBorder(null);
 		add(close);
 
 		open.addActionListener(new ActionListener() {

@@ -136,5 +136,9 @@ public class LobbyView extends ContentView {
 	public int getViewID() {
 		return VIEW_ID;
 	}
+	
+	public FriendPanel getFriendPanel() {
+		return friendPanel;
+	}
 
 }

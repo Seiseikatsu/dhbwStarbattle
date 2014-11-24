@@ -31,6 +31,11 @@ public class WindowContent extends JPanel{
 		
 	}
 	
+	public int getCurrentViewID()	
+	{
+		return currentView.getViewID();
+	}
+	
 	public void createView(ContentView view)
 	{
 		int id=view.getViewID();
@@ -119,5 +124,8 @@ public class WindowContent extends JPanel{
 	}
 	
 
+	public HashMap<Integer, ContentView> getViews() {
+		return views;
+	}
 	
 }

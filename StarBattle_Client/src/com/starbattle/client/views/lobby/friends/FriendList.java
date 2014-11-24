@@ -4,9 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -17,16 +16,18 @@ import com.starbattle.client.resource.ResourceLoader;
 
 public class FriendList extends ViewModel{
 
-	private JButton showHide;
+	private DesignButton showHide;
 	private JPanel content=new JPanel();
 	private String name;
 	private FriendActionListener friendActionListener;
+	private ArrayList<FriendRelation> relations=new ArrayList<FriendRelation>();
 	
 	public FriendList(String title, String icon, FriendActionListener friendActionListener)
 	{
 		this.friendActionListener=friendActionListener;
 		this.name=title;
 		showHide=new DesignButton(title, ResourceLoader.loadIcon(icon));
+		showHide.setButtonStyle(1);
 		initLayout();
 	}
 	
@@ -40,7 +41,6 @@ public class FriendList extends ViewModel{
 		view.add(showHide,BorderLayout.NORTH);
 		content.setOpaque(false);
 		view.add(content,BorderLayout.CENTER);
-		content.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 0));
 		content.setLayout(new VerticalLayout());
 		content.setVisible(false);
 		
@@ -56,13 +56,19 @@ public class FriendList extends ViewModel{
 	public void initList()
 	{
 		content.removeAll();
+		relations.clear();
 	}
 	
 	public void addRelation(FriendRelation relation)
 	{
 		FriendRelationView view=new FriendRelationView(relation,friendActionListener);
 		content.add(view.getView());
+		relations.add(relation);
 		showHide.setText(name+" ("+content.getComponentCount()+")");
+	}
+	
+	public ArrayList<FriendRelation> getRelations() {
+		return relations;
 	}
 	
 	
