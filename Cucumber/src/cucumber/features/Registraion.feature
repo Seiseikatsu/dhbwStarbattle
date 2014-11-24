@@ -7,6 +7,7 @@ Feature: Registration is working if there are no errors
     And I type password "test123!"
     And I type reppassword "test123!"
     And I type email "stiff@stiff.de"
+    And I click on button "Register"
     Then I am on the lobby view
 
 
@@ -17,6 +18,7 @@ Feature: Registration is working if there are no errors
     And I type password "test123!"
     And I type reppassword "test123!"
     And I type email "stiff@stiff.de"
+    And I click on button "Register"
     Then I am on the registration view
     And I receive an error message saying "Existing Accountname"
 
@@ -28,6 +30,7 @@ Feature: Registration is working if there are no errors
     And I type password "test123!"
     And I type reppassword "test123!"
     And I type email "stiff@stiff.de"
+    And I click on button "Register"
     Then I am on the registration view
     And I receive an error message saying "Existing Displayname"
 
