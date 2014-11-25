@@ -21,6 +21,11 @@ public class StepDefinitions {
 		client=ClientTestInterface.createNewTestClient();
 	}
 	
+	@Given("^I start my application$")
+	public void i_start_my_application() throws Throwable {
+		initClient(); 
+	}
+	
 	@Given("^I am logged in as \"(.*?)\"$")
 	public void i_am_logged_in_as(String arg1) throws Throwable {
 	    // Write code here that turns the phrase above into concrete actions
@@ -97,9 +102,6 @@ public class StepDefinitions {
 
 	@Then("^I am on the login view$")
 	public void i_am_on_the_login_view() throws Throwable {
-		
-		initClient(); 
-		
 		assertEquals(true,client.isInView(LoginView.VIEW_ID));
 	}
 
