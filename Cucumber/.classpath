@@ -9,5 +9,10 @@
 	<classpathentry kind="lib" path="Cucumber_Libs/cucumber-jvm-deps-1.0.3.jar"/>
 	<classpathentry kind="lib" path="Cucumber_Libs/gherkin-2.12.2.jar"/>
 	<classpathentry kind="lib" path="Cucumber_Libs/gherkin-jvm-deps-1.0.2.jar"/>
+	<classpathentry kind="lib" path="src/StarBattle_Client_TestInterface.jar"/>
+	<classpathentry kind="lib" path="src/StarBattle_Client.jar"/>
+	<classpathentry kind="lib" path="src/StarBattle_Network.jar"/>
+	<classpathentry kind="lib" path="src/kryonet-2.21-all.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

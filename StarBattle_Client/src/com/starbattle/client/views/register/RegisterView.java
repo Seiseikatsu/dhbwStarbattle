@@ -39,6 +39,8 @@ public class RegisterView extends ContentView {
 
 		windowSize=new Dimension(400,500);
 		this.networkConnection=connection;
+		registerButton.setName("Register_Button");
+		backButton.setName("Register_Back_Button");
 		
 		view.setBorder(BorderFactory.createLineBorder(new Color(100,50,10),3));
 		view.setBackground(new Color(170,110,40));
