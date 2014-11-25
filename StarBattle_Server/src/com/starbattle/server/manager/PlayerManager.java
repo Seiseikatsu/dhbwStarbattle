@@ -30,7 +30,9 @@ public class PlayerManager {
 		// TODO Auto-generated constructor stub
 		this.sendConnection = sendConnection;
 		this.playerContainer = playerContainer;
+		
 		accountManager = new AccountManagerImpl();
+		
 	}
 
 	public void handleFriendRequest(PlayerConnection player, NP_HandleFriendRequest handle) {

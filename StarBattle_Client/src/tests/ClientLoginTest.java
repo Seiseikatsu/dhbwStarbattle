@@ -25,19 +25,22 @@ public class ClientLoginTest {
 	@Test
 	public void testLogin() {
 
+		boolean login=false;
 		try {
 
 			tester.fillIn("Login_Name", "TimoTester");
 			tester.fillIn("Login_Password", "Timotest#1");
 			tester.click("Button_Login");
 			NP_StartAnswer start = (NP_StartAnswer) tester.waitForNetworkReceive(NP_StartAnswer.class);
-			assertEquals(true, start.openGame);
-
+			login=start.openGame;
+			
 		} catch (NetworkTimeoutException e) {
 			e.printStackTrace();
+			
 		} catch (GUIElementNotFoundException | WrongGUIElementException e) {
 			e.printStackTrace();
 		}
+		assertEquals(true, login);
 
 	}
 
