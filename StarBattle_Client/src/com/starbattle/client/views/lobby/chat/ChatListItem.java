@@ -36,6 +36,7 @@ public class ChatListItem extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
 				itemChatListener.showChat(chatName);
 			}
 		});

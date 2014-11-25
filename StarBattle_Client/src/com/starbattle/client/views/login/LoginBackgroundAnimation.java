@@ -15,9 +15,9 @@ import com.starbattle.client.window.CustomPaintInterface;
 public class LoginBackgroundAnimation extends CustomPaintInterface {
 
 	private Image planet = ResourceLoader.loadImage("backgroundPlanet.png");
-	private Image title = ResourceLoader.loadImage("title.png");
 	private Image light = ResourceLoader.loadImage("backgroundLight.png");
-	
+	private Image title = ResourceLoader.loadImage("title.png");
+
 	private int planetx = 92, planety = 124;
 	private double angle;
 

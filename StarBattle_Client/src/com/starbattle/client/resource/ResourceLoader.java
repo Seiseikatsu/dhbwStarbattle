@@ -46,6 +46,14 @@ public class ResourceLoader {
 		}
 	}
 
+	public static Image loadImage(String name, float scale)
+	{
+		Image image=loadImage(name);
+		int w=(int) (image.getWidth(null)*scale);
+		int h=(int) (image.getHeight(null)*scale);
+		return image.getScaledInstance(w, h, Image.SCALE_SMOOTH);
+	}
+	
 	public static Image loadImage(String name, int width, int height) {
 		return loadImage(name).getScaledInstance(width, height,
 				Image.SCALE_SMOOTH);

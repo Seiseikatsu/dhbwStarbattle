@@ -49,7 +49,7 @@ public class LobbyView extends ContentView {
 	}
 
 	private void initLayout() {
-		friendPanel = new FriendPanel(this, friendActionReceiver);
+		friendPanel = new FriendPanel(this,chatManager, friendActionReceiver);
 		picturePanel = new PicturePanel();
 
 		JPanel topPanel = new JPanel(new BorderLayout());
@@ -101,9 +101,7 @@ public class LobbyView extends ContentView {
 		
 		southWestPanel.add(bottomPanel, BorderLayout.SOUTH);
 		centerPanel.add(southWestPanel, BorderLayout.CENTER);
-		
-		bottomPanel.add(chatManager.getChatListPanel(),BorderLayout.SOUTH);
-		
+	
 		
 		view.add(centerPanel, BorderLayout.CENTER);
 

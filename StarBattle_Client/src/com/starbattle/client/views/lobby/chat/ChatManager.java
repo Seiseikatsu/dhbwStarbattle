@@ -1,10 +1,7 @@
 package com.starbattle.client.views.lobby.chat;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.Component;
 import java.util.HashMap;
-
-import javax.swing.JPanel;
 
 import com.starbattle.client.window.ContentPanel;
 import com.starbattle.network.client.SendServerConnection;
@@ -15,13 +12,11 @@ public class ChatManager {
 	private HashMap<String, ChatContainer> chats = new HashMap<String, ChatContainer>();
 	private ContentPanel parentPanel;
 	private SendServerConnection serverConnection;
-	private JPanel chatListPanel=new JPanel();
+	private ChatListPopupMenu popup;
 	
 	public ChatManager(SendServerConnection serverConnection,ContentPanel parent) {
 		this.parentPanel = parent;
 		this.serverConnection=serverConnection;
-		chatListPanel.setOpaque(false);
-		chatListPanel.setLayout(new FlowLayout(FlowLayout.LEFT,0,10));
 		//chatListPanel.setPreferredSize(new Dimension(0,20));
 	}
 
@@ -29,17 +24,12 @@ public class ChatManager {
 		return chats;
 	}	
 	
-	private void updateChatListlayout()
+	public void openChatListPopup()
 	{
-		chatListPanel.removeAll();
-		ChatItemListener removeChatListener=new RemoveListener();
-		for(String chatName: chats.keySet())
-		{
-			ChatListItem chat=new ChatListItem(chatName, removeChatListener);
-			chatListPanel.add(chat);
-		}
-		chatListPanel.revalidate();
-		chatListPanel.repaint();
+		popup=new ChatListPopupMenu(chats.values(), new ChatItemWatcher());
+		int x=800;
+		int y=50;
+		popup.show(parentPanel, x,y);
 	}
 	
 	public void closeChat(String to)
@@ -48,7 +38,6 @@ public class ChatManager {
 		{
 			chats.get(to).forceClose();
 			chats.remove(to);
-			updateChatListlayout();
 		}
 	}
 	
@@ -59,16 +48,12 @@ public class ChatManager {
 			// Create new chat window
 			ChatContainer chat = new ChatContainer(to, parentPanel, new WriteListener());
 			chats.put(to, chat);
-			updateChatListlayout();
 		} else {
 			// Reopen closed windows
 			chats.get(to).forceOpen();
 		}	
 	}
 	
-	public JPanel getChatListPanel() {
-		return chatListPanel;
-	}
 
 	public void receiveMessage(NP_ChatMessage message) {
 		String from = message.name;
@@ -80,19 +65,6 @@ public class ChatManager {
 		chats.get(from).receiveMessage(message.message);
 	}
 
-	private class RemoveListener implements ChatItemListener{
-
-		@Override
-		public void removeChat(String name) {
-			closeChat(name);
-		}
-
-		@Override
-		public void showChat(String name) {
-			openChat(name);
-		}
-		
-	}
 	
 	private class WriteListener implements WriteMessageListener {
 
@@ -106,6 +78,25 @@ public class ChatManager {
 			serverConnection.sendTCP(message);
 		}
 
+	}
+	
+	private class ChatItemWatcher implements ChatItemListener{
+
+		@Override
+		public void removeChat(String name) {
+			chats.get(name).forceClose();
+			chats.remove(name);
+			popup.setVisible(false);
+		}
+		
+
+		@Override
+		public void showChat(String name) {
+			chats.get(name).forceOpen();
+			popup.setVisible(false);
+
+		}
+		
 	}
 
 }

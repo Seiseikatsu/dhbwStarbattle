@@ -3,6 +3,7 @@ package com.starbattle.client.views.lobby.friends;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import com.starbattle.client.layout.VerticalLayout;
 import com.starbattle.client.layout.ViewModel;
 import com.starbattle.client.resource.ResourceLoader;
 import com.starbattle.client.views.lobby.LobbyView;
+import com.starbattle.client.views.lobby.chat.ChatManager;
 import com.starbattle.network.connection.objects.NP_Constants;
 import com.starbattle.network.connection.objects.NP_FriendUpdate;
 import com.starbattle.network.connection.objects.NP_LobbyFriends;
@@ -30,20 +32,30 @@ public class FriendPanel extends ViewModel {
 	private String[] friendPanelNames = { "Online", "Offline", "Friend Requests", "Requests sent" };
 	private String[] friendPanelIcons = { "user.png", "user_offline.png", "user_add.png", "user_go.png" };
 	private FriendList[] friendPanels = new FriendList[4];
-	private JButton addNew = new DesignButton("Add Friend", ResourceLoader.loadIcon("add.png"));
+	private DesignButton addNew = new DesignButton("Add Friend", ResourceLoader.loadIcon("add.png"));
+	private DesignButton openList =new DesignButton(ResourceLoader.loadIcon("comments.png"));
 	private FriendActionListener friendActionListener;
-
+	
 	public final static int FRIEND_LIST_ONLINE = 0, FRIEND_LIST_OFFLINE = 1, FRIEND_LIST_REQUESTS = 2,
 			FRIEND_LIST_PENDING = 3;
 
-	public FriendPanel(final LobbyView lobbyView, FriendActionListener friendActionListener) {
+	public FriendPanel(final LobbyView lobbyView,final ChatManager chatManager, FriendActionListener friendActionListener) {
 		this.friendActionListener = friendActionListener;
 		initLayout();
-
+		
+		addNew.setFontSize(12f);
 		addNew.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				lobbyView.openWindowView(AddFriendView.VIEW_ID);
+			}
+		});
+		
+		openList.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				chatManager.openChatListPopup();
 			}
 		});
 	}
@@ -111,7 +123,7 @@ public class FriendPanel extends ViewModel {
 			content.add(friendPanels[i].getView());
 		}
 
-		JPanel header = new JPanel();
+		JPanel header = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		view.add(header, BorderLayout.NORTH);
 		JScrollPane scrollPane = new JScrollPane(content);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -129,6 +141,7 @@ public class FriendPanel extends ViewModel {
 		JLabel title = new DesignLabel("Friends", "user.png");
 		header.add(title);
 		header.add(addNew);
+		header.add(openList);
 
 		// ADD test friends
 		friendPanels[0].addRelation(new FriendRelation("Hans", 0, true));

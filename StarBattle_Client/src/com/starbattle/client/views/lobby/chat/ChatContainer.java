@@ -14,7 +14,7 @@ public class ChatContainer {
 	public ChatContainer(String name, ContentPanel parent, WriteMessageListener writeMessageListener)
 	{		
 		this.friendName=name;
-		window=new ChatPopupWindow(new Dimension(300,400), "Chat with "+friendName);
+		window=new ChatPopupWindow(new Dimension(300,400), "@"+friendName);
 		view=new ChatContentPanel(friendName,writeMessageListener);
 		window.setContent(view);
 		window.init(parent);
