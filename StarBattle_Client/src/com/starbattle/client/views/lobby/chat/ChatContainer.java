@@ -37,4 +37,12 @@ public class ChatContainer {
 		window.close();
 	}
 	
+	public String getFriendName() {
+		return friendName;
+	}
+	
+	public ChatContentPanel getView() {
+		return view;
+	}
+	
 }

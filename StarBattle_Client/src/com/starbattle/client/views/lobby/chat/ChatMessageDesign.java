@@ -10,9 +10,11 @@ import com.starbattle.client.layout.DesignLabel;
 
 public class ChatMessageDesign extends JPanel{
 
+	private String chatText;
 	
 	public ChatMessageDesign( String message, boolean right)
 	{
+		this.chatText=message;
 		Color c=null;
 		if(right)
 		{
@@ -32,5 +34,9 @@ public class ChatMessageDesign extends JPanel{
 		setOpaque(false);
 		JLabel text=new DesignLabel(message, c, 14);
 		add(text);
+	}
+	
+	public String getChatText() {
+		return chatText;
 	}
 }

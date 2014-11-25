@@ -1,16 +1,17 @@
 package com.starbattle.client.testinterface.tester;
 
-import java.awt.Component;
-import java.awt.Container;
-
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.starbattle.client.connection.NetworkConnection;
-import com.starbattle.client.connection.listener.NetworkCommunctionListener;
+import com.starbattle.client.testinterface.exceptions.GUIElementNotFoundException;
+import com.starbattle.client.testinterface.exceptions.LoginFailureException;
+import com.starbattle.client.testinterface.exceptions.NetworkTimeoutException;
+import com.starbattle.client.testinterface.exceptions.WrongGUIElementException;
 import com.starbattle.client.views.lobby.LobbyView;
+import com.starbattle.client.views.lobby.chat.ChatContainer;
+import com.starbattle.client.views.lobby.chat.ChatManager;
 import com.starbattle.client.views.lobby.friends.FriendRelation;
 import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.views.register.validate.PasswordHasher;
@@ -21,24 +22,24 @@ import com.starbattle.network.connection.objects.NP_StartAnswer;
 
 public class ClientAutomate {
 
-	private NetworkConnection connection;
+	private ClientNetworkInterface clientNetwork;
 	private GameWindow window;
 	public static float toleranceSeconds = 5;
 	public static float networkTimeout = 10;
 	public static float stepDelay = 1f;
-	private Object networkObject;
 
 	public ClientAutomate(NetworkConnection connection, GameWindow window) {
-		this.connection = connection;
-		this.window = window;
-		connection.setNetworkCommunctionListener(new NetworkCommunctionListener() {
 
-			@Override
-			public void received(Object object) {
-				networkObject = object;
-			}
-		});
+		clientNetwork = new ClientNetworkInterface(connection);
+		this.window = window;
+
 	}
+	
+	
+	/*
+	 * DO STEP METHODES
+	 * 
+	 */
 
 	public void doLogin(String accountName, String password) throws LoginFailureException {
 		step();
@@ -47,7 +48,7 @@ public class ClientAutomate {
 		NP_Login login = new NP_Login();
 		login.password = pw;
 		login.playerName = accountName;
-		connection.getSendConnection().sendTCP(login);
+		clientNetwork.sendTCP(login);
 		try {
 			NP_StartAnswer answer = (NP_StartAnswer) waitForNetworkReceive(NP_StartAnswer.class);
 			if (answer.openGame) {
@@ -61,7 +62,7 @@ public class ClientAutomate {
 		}
 	}
 
-	public void click(String buttonName) throws GUIElementNotFoundException, WrongGUIElementException {
+	public void clickButton(String buttonName) throws GUIElementNotFoundException, WrongGUIElementException {
 		step();
 		try {
 			JComponent component = findGUI(buttonName);
@@ -81,7 +82,7 @@ public class ClientAutomate {
 		}
 	}
 
-	public void fillIn(String textfieldName, String text) throws GUIElementNotFoundException, WrongGUIElementException {
+	public void fillInTextfield(String textfieldName, String text) throws GUIElementNotFoundException, WrongGUIElementException {
 		step();
 		try {
 			JComponent component = findGUI(textfieldName);
@@ -105,6 +106,50 @@ public class ClientAutomate {
 		step();
 		window.getContent().showView(viewID);
 	}
+	
+	
+	/*
+	 * CHECK STEP METHODES
+	 */
+	
+	public int getChatMessagesCount(final String chatFriendName) throws GUIElementNotFoundException
+	{
+	
+		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
+			public boolean check(){
+				LobbyView lobby = getLobbyView();
+				ChatManager chatM=lobby.getChatManager();
+				if(chatM.getChats().containsKey(chatFriendName))
+				{
+					return true;
+				}
+				return false;
+			}
+		});
+		
+		if(check.isCheckOk())
+		{
+			LobbyView lobby = getLobbyView();
+			return lobby.getChatManager().getChats().get(chatFriendName).getView().getChatContent().getComponentCount();
+		}
+		else
+		{
+			throw new GUIElementNotFoundException("Couldnt find Chat to '"+chatFriendName+"'");
+		}
+	}
+	
+	public boolean hasChatToFriend(final String friendName) 
+	{
+		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
+			public boolean check(){
+				LobbyView lobby = getLobbyView();
+				ChatManager chatM=lobby.getChatManager();
+				return chatM.getChats().containsKey(friendName);
+			}
+		});
+		return check.isCheckOk();
+	}
+	
 
 	public boolean isInView(final int viewID) {
 		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
@@ -121,8 +166,7 @@ public class ClientAutomate {
 	public boolean friendRelationStateIs(final String friend, final int relationType) {
 		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
 			public boolean check() {
-				ContentView view = window.getContent().getViews().get(LobbyView.VIEW_ID);
-				LobbyView lobby = (LobbyView) view;
+				LobbyView lobby = getLobbyView();
 				FriendRelation relation = lobby.getFriendPanel().getFriendRelationTo(friend);
 				if (relation != null) {
 					if (relationType == relation.getState()) {
@@ -138,8 +182,7 @@ public class ClientAutomate {
 	public boolean hasFriendRelation(final String friend) {
 		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
 			public boolean check() {
-				ContentView view = window.getContent().getViews().get(LobbyView.VIEW_ID);
-				LobbyView lobby = (LobbyView) view;
+				LobbyView lobby = getLobbyView();
 				FriendRelation relation = lobby.getFriendPanel().getFriendRelationTo(friend);
 				if (relation != null) {
 					return true;
@@ -150,52 +193,20 @@ public class ClientAutomate {
 		return check.isCheckOk();
 	}
 
+	private LobbyView getLobbyView()
+	{
+		ContentView view = window.getContent().getViews().get(LobbyView.VIEW_ID);
+		LobbyView lobby = (LobbyView) view;
+		return lobby;
+	}
+	
 	public Object waitForNetworkReceive(final Class<?> requestedObject) throws NetworkTimeoutException {
-		NetworkCheck check = new NetworkCheck(new ToleranceCheckTask() {
-			public boolean check() {
-
-				if (networkObject != null) {
-					if (networkObject.getClass().equals(requestedObject)) {
-						return true;
-					}
-				}
-				return false;
-			}
-		});
-		if (networkObject == null) {
-			throw new NetworkTimeoutException();
-		}
-		if (!check.isCheckOk()) {
-			throw new NetworkTimeoutException();
-		}
-		Object o = networkObject;
-		networkObject = null;
-		return o;
+		return clientNetwork.waitForNetworkReceive(requestedObject);
 	}
 
 	private JComponent findGUI(String name) {
-		foundComponent = null;
-		findElement(name, window.getContent());
-		return foundComponent;
-	}
-
-	private JComponent foundComponent;
-
-	private void findElement(String name, Container c) {
-		Component[] components = c.getComponents();
-
-		for (Component com : components) {
-			String cn = com.getName();
-
-			if (cn != null) {
-				if (cn.equals(name)) {
-					foundComponent = (JComponent) com;
-				}
-			}
-			if (com instanceof Container) {
-				findElement(name, (Container) com);
-			}
-		}
+		ComponentFinder.findElement(name, window.getContent());
+		return ComponentFinder.getFoundComponent();
 	}
 
 	private void step() {

@@ -22,7 +22,7 @@ public class MainServerManager {
 	public MainServerManager(NetworkServer server) {
 		this.server = server;
 		playerContainer = new PlayerContainer();
-		playerManager = new PlayerManager(server.getSendConnection(), playerContainer);
+		playerManager = new PlayerManager(playerContainer);
 	}
 
 	public ConnectionListener createListener() {

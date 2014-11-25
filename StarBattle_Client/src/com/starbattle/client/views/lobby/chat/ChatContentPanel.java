@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -36,7 +35,9 @@ public class ChatContentPanel extends JPanel{
 	{
 		ActionListener write=new Write();
 		input=new DesignTextField(write);
+		input.setName("Chat_Text");
 		send.addActionListener(write);
+		send.setName("Chat_Send");
 		content.setBackground(new Color(180,180,180));
 		this.setLayout(new BorderLayout());
 		JScrollPane scroll=new JScrollPane(content, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -67,7 +68,7 @@ public class ChatContentPanel extends JPanel{
 	private void write(String text)
 	{
 		addMessage(text, false);
-//		writeMessageListener.writeMessage(friend,text);
+		writeMessageListener.writeMessage(friend,text);
 	}
 	
 	private class Write implements ActionListener{
@@ -82,5 +83,9 @@ public class ChatContentPanel extends JPanel{
 			}
 		}
 		
+	}
+	
+	public JPanel getChatContent() {
+		return content;
 	}
 }

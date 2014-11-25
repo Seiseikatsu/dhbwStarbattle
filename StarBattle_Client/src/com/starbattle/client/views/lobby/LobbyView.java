@@ -140,5 +140,9 @@ public class LobbyView extends ContentView {
 	public FriendPanel getFriendPanel() {
 		return friendPanel;
 	}
+	
+	public ChatManager getChatManager() {
+		return chatManager;
+	}
 
 }

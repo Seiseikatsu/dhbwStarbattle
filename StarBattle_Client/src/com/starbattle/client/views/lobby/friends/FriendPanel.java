@@ -160,4 +160,7 @@ public class FriendPanel extends ViewModel {
 		return null;
 	}
 
+	public FriendList[] getFriendPanels() {
+		return friendPanels;
+	}
 }

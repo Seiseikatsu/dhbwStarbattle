@@ -25,6 +25,9 @@ public class ChatManager {
 		//chatListPanel.setPreferredSize(new Dimension(0,20));
 	}
 
+	public HashMap<String, ChatContainer> getChats() {
+		return chats;
+	}	
 	
 	private void updateChatListlayout()
 	{

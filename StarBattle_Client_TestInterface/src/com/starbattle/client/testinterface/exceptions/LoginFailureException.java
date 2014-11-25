@@ -1,4 +1,4 @@
-package com.starbattle.client.testinterface.tester;
+package com.starbattle.client.testinterface.exceptions;
 
 public class LoginFailureException extends Exception {
 
