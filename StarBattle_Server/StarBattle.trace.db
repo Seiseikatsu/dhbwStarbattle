@@ -1,0 +1,60 @@
+11-24 15:54:44 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNT" nicht gefunden
+Table "ACCOUNT" not found; SQL statement:
+SELECT password, name FROM account WHERE name = ? [42102-176]
+11-24 15:56:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNT" nicht gefunden
+Table "ACCOUNT" not found; SQL statement:
+SELECT password, name FROM account WHERE name = ? [42102-176]
+11-24 16:00:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNT" nicht gefunden
+Table "ACCOUNT" not found; SQL statement:
+SELECT password, name FROM account WHERE name = ? [42102-176]
+11-24 16:00:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNT" nicht gefunden
+Table "ACCOUNT" not found; SQL statement:
+SELECT password, name FROM account WHERE name = ? [42102-176]
+11-24 16:01:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNT" nicht gefunden
+Table "ACCOUNT" not found; SQL statement:
+SELECT password, name FROM account WHERE name = ? [42102-176]
+11-24 16:08:14 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNT" nicht gefunden
+Table "ACCOUNT" not found; SQL statement:
+SELECT password, name FROM account WHERE name = ? [42102-176]
+11-24 16:08:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNT" nicht gefunden
+Table "ACCOUNT" not found; SQL statement:
+SELECT password, name FROM account WHERE name = ? [42102-176]
+11-24 16:09:39 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNT" nicht gefunden
+Table "ACCOUNT" not found; SQL statement:
+SELECT password, name FROM account WHERE name = ? [42102-176]
+11-24 16:20:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNT" nicht gefunden
+Table "ACCOUNT" not found; SQL statement:
+SELECT password, name FROM account WHERE name = ? [42102-176]
+11-24 16:41:34 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNT" nicht gefunden
+Table "ACCOUNT" not found; SQL statement:
+SELECT password, name FROM account WHERE name = ? [42102-176]
+11-24 16:42:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNT" nicht gefunden
+Table "ACCOUNT" not found; SQL statement:
+SELECT password, name FROM account WHERE name = ? [42102-176]
+11-24 16:43:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNT" nicht gefunden
+Table "ACCOUNT" not found; SQL statement:
+SELECT password, name FROM account WHERE name = ? [42102-176]
+11-24 16:44:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNT" nicht gefunden
+Table "ACCOUNT" not found; SQL statement:
+SELECT password, name FROM account WHERE name = ? [42102-176]
+11-25 10:16:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNT" nicht gefunden
+Table "ACCOUNT" not found; SQL statement:
+SELECT password, name FROM account WHERE name = ? [42102-176]
+11-25 10:17:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNT" nicht gefunden
+Table "ACCOUNT" not found; SQL statement:
+SELECT password, name FROM account WHERE name = ? [42102-176]

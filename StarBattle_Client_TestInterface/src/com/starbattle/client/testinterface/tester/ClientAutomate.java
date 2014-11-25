@@ -1,4 +1,4 @@
-package com.starbattle.client.testAPI;
+package com.starbattle.client.testinterface.tester;
 
 import java.awt.Component;
 import java.awt.Container;
