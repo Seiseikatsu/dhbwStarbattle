@@ -1,6 +1,6 @@
 Feature: Login is working if there are no errors
 
-  Scenario: Normal Login
+  Scenario: Normal Login 
     Given I am on the login view    
     When I type name "TimoTester"
     And I type password "test12!"
