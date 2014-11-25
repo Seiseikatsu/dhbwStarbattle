@@ -63,7 +63,10 @@ public class NetworkConnection {
 		@Override
 		public void onReceive(Connection connection, Object message) {
 			networkObjectResolver.income(message);
+			if(networkCommunctionListener!=null)
+			{
 			networkCommunctionListener.received(message);
+			}
 		}
 
 	}

@@ -21,6 +21,8 @@ import com.starbattle.client.layout.VerticalLayout;
 import com.starbattle.client.layout.ViewModel;
 import com.starbattle.client.resource.ResourceLoader;
 import com.starbattle.client.views.lobby.LobbyView;
+import com.starbattle.network.connection.objects.NP_Constants;
+import com.starbattle.network.connection.objects.NP_FriendUpdate;
 import com.starbattle.network.connection.objects.NP_LobbyFriends;
 
 public class FriendPanel extends ViewModel {
@@ -30,6 +32,9 @@ public class FriendPanel extends ViewModel {
 	private FriendList[] friendPanels = new FriendList[4];
 	private JButton addNew = new DesignButton("Add Friend", ResourceLoader.loadIcon("add.png"));
 	private FriendActionListener friendActionListener;
+
+	public final static int FRIEND_LIST_ONLINE = 0, FRIEND_LIST_OFFLINE = 1, FRIEND_LIST_REQUESTS = 2,
+			FRIEND_LIST_PENDING = 3;
 
 	public FriendPanel(final LobbyView lobbyView, FriendActionListener friendActionListener) {
 		this.friendActionListener = friendActionListener;
@@ -43,8 +48,52 @@ public class FriendPanel extends ViewModel {
 		});
 	}
 
-	public void update(NP_LobbyFriends friends) {
+	private int getListNumberForType(int relationType, boolean online) {
+		int listNumber = relationType;
+		if (listNumber > 0) {
+			listNumber++;
+		} else {
+			if (!online) {
+				listNumber = 1;
+			}
+		}
+		return listNumber;
+	}
 
+	public void updateFriendList(NP_LobbyFriends friends) {
+		for (int i = 0; i < 4; i++) {
+			friendPanels[i].initList();
+		}
+		for (int i = 0; i < friends.friendNames.size(); i++) {
+			String friendName = friends.friendNames.get(i);
+			int relationState = friends.relationStates.get(i);
+			boolean online = friends.friendOnline.get(i);
+			int listNR = getListNumberForType(relationState, online);
+			FriendRelation relation = new FriendRelation(friendName, relationState, online);
+			friendPanels[listNR].addRelation(relation);
+		}
+	}
+
+	private void deleteFriendFromLists(String name) {
+		for (int i = 0; i < 4; i++) {
+			friendPanels[i].deleteRelation(name);
+		}
+	}
+
+	public void friendUpdate(NP_FriendUpdate update) {
+		String name = update.name;
+		int updateType = update.updateType;
+		boolean online = update.online;
+		deleteFriendFromLists(name);
+		// Add Friend or online update is the same in this context
+		if (updateType != NP_Constants.FRIEND_UPDATE_TYPE_DELTEFRIEND) {
+			FriendRelation newRelation = new FriendRelation(name, FriendRelation.RELATION_FRIENDS, online);
+			if (online) {
+				friendPanels[FRIEND_LIST_ONLINE].addRelation(newRelation);
+			} else {
+				friendPanels[FRIEND_LIST_OFFLINE].addRelation(newRelation);
+			}
+		}
 	}
 
 	private void initLayout() {

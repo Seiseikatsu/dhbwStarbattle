@@ -75,7 +75,6 @@ public class MainServerManager {
 			playerManager.handleFriendRequest(player, (NP_HandleFriendRequest) object);
 		} else if (object instanceof NP_ChatMessage)	{
 			playerManager.sendChat(player,(NP_ChatMessage)object);
-		}
-
+		} 
 	}
 }

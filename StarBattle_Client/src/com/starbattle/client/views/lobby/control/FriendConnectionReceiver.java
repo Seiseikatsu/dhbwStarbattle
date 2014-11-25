@@ -4,6 +4,7 @@ import com.starbattle.client.connection.listener.NetworkFriendListener;
 import com.starbattle.client.views.lobby.chat.ChatManager;
 import com.starbattle.client.views.lobby.friends.FriendPanel;
 import com.starbattle.network.connection.objects.NP_ChatMessage;
+import com.starbattle.network.connection.objects.NP_FriendUpdate;
 import com.starbattle.network.connection.objects.NP_LobbyFriends;
 
 public class FriendConnectionReceiver implements NetworkFriendListener{
@@ -24,7 +25,12 @@ public class FriendConnectionReceiver implements NetworkFriendListener{
 
 	@Override
 	public void receivedFriendList(NP_LobbyFriends friends) {
-		friendPanel.update(friends);
+		friendPanel.updateFriendList(friends);
+	}
+
+	@Override
+	public void receivedFriendUpdate(NP_FriendUpdate update) {
+		friendPanel.friendUpdate( update);
 	}
 
 }

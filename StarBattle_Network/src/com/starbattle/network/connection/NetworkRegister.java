@@ -19,6 +19,11 @@ public class NetworkRegister {
 		addNetworkClass(NP_StartAnswer.class);
 		addNetworkClass(NP_Logout.class);
 		addNetworkClass(NP_ResetEmail.class);
+		addNetworkClass(NP_ChatMessage.class);
+		addNetworkClass(NP_FriendRequest.class);
+		addNetworkClass(NP_FriendUpdate.class);
+		addNetworkClass(NP_LobbyFriends.class);
+		addNetworkClass(NP_HandleFriendRequest.class);
 	}
 	
 	public void register(EndPoint endPoint) {
