@@ -82,3 +82,21 @@ SELECT * FROM Account [42102-176]
 org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNTS" nicht gefunden
 Table "ACCOUNTS" not found; SQL statement:
 SELECT * FROM Accounts [42102-176]
+11-26 13:53:19 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "INVENTAR" not found; SQL statement:
+DROP TABLE INVENTAR [42102-176]
+11-26 13:53:19 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "ACCOUNT" not found; SQL statement:
+DROP TABLE ACCOUNT [42102-176]
+11-26 13:53:19 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "PLAYER" not found; SQL statement:
+DROP TABLE PLAYER [42102-176]
+11-26 13:53:19 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Table "FRIENDS" not found; SQL statement:
+DROP TABLE FRIENDS [42102-176]
+11-26 13:54:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "Geraldine"; SQL statement:
+SELECT display_name from player where account_id = ?  [22018-176]
+11-26 14:05:08 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "Geraldine"; SQL statement:
+SELECT display_name from player where account_id = ?  [22018-176]

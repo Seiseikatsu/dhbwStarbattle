@@ -420,10 +420,11 @@ public class AccountManagerImpl implements AccountManager {
 			throw new AccountException("SQL error");
 		}
 	}
+	
 
 	private int getAccountIdForDisplayname(String displayName) throws AccountException {
 		try {
-			stmt = databaseConnection.getConnection().prepareStatement("SELECT account_id from player where display_name = ? ");
+			stmt = databaseConnection.getConnection().prepareStatement("SELECT account_name from account, player where account.account_id = player.account_id AND player.display_name = ? ");
 			stmt.setString(1, displayName);
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
