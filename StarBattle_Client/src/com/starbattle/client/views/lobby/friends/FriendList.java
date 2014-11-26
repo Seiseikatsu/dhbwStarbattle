@@ -65,6 +65,8 @@ public class FriendList extends ViewModel {
 		content.add(view.getView());
 		relations.add(relation);
 		showHide.setText(name + " (" + content.getComponentCount() + ")");
+		content.revalidate();
+		this.view.repaint();
 	}
 
 	public ArrayList<FriendRelation> getRelations() {

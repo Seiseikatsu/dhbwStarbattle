@@ -177,21 +177,11 @@ public class FriendPanel extends ViewModel {
 		header.add(openList);
 
 		// ADD test friends
-		friendPanels[0].addRelation(new FriendRelation("Hans", 0, true));
-		friendPanels[0].addRelation(new FriendRelation("Peter", 0, true));
-		friendPanels[0].addRelation(new FriendRelation("Htetef", 0, true));
-		friendPanels[0].addRelation(new FriendRelation("342sdsa", 0, true));
-		friendPanels[0].addRelation(new FriendRelation("ogdioa2", 0, true));
-		friendPanels[0].addRelation(new FriendRelation("scuion23##", 0, true));
+		friendPanels[FRIEND_LIST_ONLINE].addRelation(new FriendRelation("TestFriend_online", 0, true));
+		friendPanels[FRIEND_LIST_OFFLINE].addRelation(new FriendRelation("TestFriend_offline", 0, true));
+		friendPanels[FRIEND_LIST_REQUESTS].addRelation(new FriendRelation("TestFriend_request", 0, true));
+		friendPanels[FRIEND_LIST_PENDING].addRelation(new FriendRelation("TestFriend_pending", 0, true));
 
-		friendPanels[1].addRelation(new FriendRelation("Dieter", 0, false));
-		friendPanels[1].addRelation(new FriendRelation("Olaf heinz", 0, false));
-		friendPanels[1].addRelation(new FriendRelation("Max der Coole", 0, false));
-		friendPanels[1].addRelation(new FriendRelation("Hossa", 0, false));
-		friendPanels[2].addRelation(new FriendRelation("Jürgen Jürgens", 1, false));
-		for (int i = 0; i < 30; i++) {
-			friendPanels[3].addRelation(new FriendRelation("Peter Peternsens " + i, 2, false));
-		}
 	}
 
 	public FriendRelation getFriendRelationTo(String name) {
