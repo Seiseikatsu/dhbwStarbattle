@@ -2,6 +2,7 @@ package com.starbattle.client.views.lobby.friends;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -41,7 +42,8 @@ public class FriendList extends ViewModel {
 		view.add(content, BorderLayout.CENTER);
 		content.setLayout(new VerticalLayout());
 		content.setVisible(false);
-
+		
+	
 		// change visibility of content on click
 		showHide.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -51,6 +53,8 @@ public class FriendList extends ViewModel {
 		});
 	}
 
+
+	
 	public void initList() {
 		content.removeAll();
 		relations.clear();
@@ -78,4 +82,7 @@ public class FriendList extends ViewModel {
 		}
 	}
 
+	public JPanel getContent() {
+		return content;
+	}
 }

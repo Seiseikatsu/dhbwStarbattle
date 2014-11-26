@@ -1,7 +1,12 @@
 package com.starbattle.client.views.lobby.chat;
 
 import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.util.HashMap;
+
+import javax.swing.event.PopupMenuEvent;
+import javax.swing.event.PopupMenuListener;
 
 import com.starbattle.client.window.ContentPanel;
 import com.starbattle.network.client.SendServerConnection;
@@ -12,48 +17,38 @@ public class ChatManager {
 	private HashMap<String, ChatContainer> chats = new HashMap<String, ChatContainer>();
 	private ContentPanel parentPanel;
 	private SendServerConnection serverConnection;
-	private ChatListPopupMenu popup;
-	
-	public ChatManager(SendServerConnection serverConnection,ContentPanel parent) {
+	private ChatListPanel chatListPanel;
+
+	public ChatManager(SendServerConnection serverConnection, ContentPanel parent) {
 		this.parentPanel = parent;
-		this.serverConnection=serverConnection;
-		//chatListPanel.setPreferredSize(new Dimension(0,20));
+		this.serverConnection = serverConnection;
+		this.chatListPanel = new ChatListPanel(this, new ChatItemWatcher());
+		// chatListPanel.setPreferredSize(new Dimension(0,20));
 	}
 
 	public HashMap<String, ChatContainer> getChats() {
 		return chats;
-	}	
-	
-	public void openChatListPopup()
-	{
-		popup=new ChatListPopupMenu(chats.values(), new ChatItemWatcher());
-		int x=800;
-		int y=50;
-		popup.show(parentPanel, x,y);
 	}
-	
-	public void closeChat(String to)
-	{
-		if(chats.containsKey(to))
-		{
+
+	public void closeChat(String to) {
+		if (chats.containsKey(to)) {
 			chats.get(to).forceClose();
 			chats.remove(to);
+			chatListPanel.update();
 		}
 	}
-	
-	
-	
+
 	public void openChat(String to) {
 		if (!chats.containsKey(to)) {
 			// Create new chat window
 			ChatContainer chat = new ChatContainer(to, parentPanel, new WriteListener());
 			chats.put(to, chat);
+			chatListPanel.update();
 		} else {
 			// Reopen closed windows
 			chats.get(to).forceOpen();
-		}	
+		}
 	}
-	
 
 	public void receiveMessage(NP_ChatMessage message) {
 		String from = message.name;
@@ -65,38 +60,36 @@ public class ChatManager {
 		chats.get(from).receiveMessage(message.message);
 	}
 
-	
 	private class WriteListener implements WriteMessageListener {
 
 		@Override
 		public void writeMessage(String to, String text) {
-			
-			//Send Chat Message
-			NP_ChatMessage message=new NP_ChatMessage();
-			message.name=to;
-			message.message=text;
+
+			// Send Chat Message
+			NP_ChatMessage message = new NP_ChatMessage();
+			message.name = to;
+			message.message = text;
 			serverConnection.sendTCP(message);
 		}
 
 	}
-	
-	private class ChatItemWatcher implements ChatItemListener{
+
+	private class ChatItemWatcher implements ChatItemListener {
 
 		@Override
 		public void removeChat(String name) {
-			chats.get(name).forceClose();
-			chats.remove(name);
-			popup.setVisible(false);
+			closeChat(name);
 		}
-		
 
 		@Override
 		public void showChat(String name) {
-			chats.get(name).forceOpen();
-			popup.setVisible(false);
-
+			openChat(name);
 		}
-		
+
+	}
+
+	public ChatListPanel getChatListPanel() {
+		return chatListPanel;
 	}
 
 }

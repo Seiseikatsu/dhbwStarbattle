@@ -4,17 +4,19 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 
 import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.layout.DesignLabel;
@@ -33,16 +35,18 @@ public class FriendPanel extends ViewModel {
 	private String[] friendPanelIcons = { "user.png", "user_offline.png", "user_add.png", "user_go.png" };
 	private FriendList[] friendPanels = new FriendList[4];
 	private DesignButton addNew = new DesignButton("Add Friend", ResourceLoader.loadIcon("add.png"));
-	private DesignButton openList =new DesignButton(ResourceLoader.loadIcon("comments.png"));
+	private DesignButton openList = new DesignButton(ResourceLoader.loadIcon("comments.png"));
 	private FriendActionListener friendActionListener;
-	
+	private JScrollPane friendPanelContent;
+	private JPanel chatPanel;
 	public final static int FRIEND_LIST_ONLINE = 0, FRIEND_LIST_OFFLINE = 1, FRIEND_LIST_REQUESTS = 2,
 			FRIEND_LIST_PENDING = 3;
 
-	public FriendPanel(final LobbyView lobbyView,final ChatManager chatManager, FriendActionListener friendActionListener) {
+	public FriendPanel(final LobbyView lobbyView, final ChatManager chatManager,
+			FriendActionListener friendActionListener) {
 		this.friendActionListener = friendActionListener;
 		initLayout();
-		
+		chatPanel = chatManager.getChatListPanel().getView();
 		addNew.setFontSize(12f);
 		addNew.addActionListener(new ActionListener() {
 			@Override
@@ -50,14 +54,30 @@ public class FriendPanel extends ViewModel {
 				lobbyView.openWindowView(AddFriendView.VIEW_ID);
 			}
 		});
-		
+
 		openList.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				chatManager.openChatListPopup();
+				showHideChats();
 			}
 		});
+	}
+
+	private void showHideChats() {
+		if (friendPanelContent.isVisible()) {
+			friendPanelContent.setVisible(false);
+			chatPanel.setVisible(true);
+			view.remove(friendPanelContent);
+			view.add(chatPanel, BorderLayout.CENTER);
+		} else {
+			friendPanelContent.setVisible(true);
+			chatPanel.setVisible(false);
+			view.remove(chatPanel);
+			view.add(friendPanelContent, BorderLayout.CENTER);
+		}
+		view.revalidate();
+		view.repaint();
 	}
 
 	private int getListNumberForType(int relationType, boolean online) {
@@ -125,17 +145,17 @@ public class FriendPanel extends ViewModel {
 
 		JPanel header = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		view.add(header, BorderLayout.NORTH);
-		JScrollPane scrollPane = new JScrollPane(content);
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		friendPanelContent = new JScrollPane(content);
+		friendPanelContent.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		friendPanelContent.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		// scrollPane.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 5));
-		JScrollBar bar = scrollPane.getVerticalScrollBar();
+		JScrollBar bar = friendPanelContent.getVerticalScrollBar();
 		bar.setPreferredSize(new Dimension(12, 0));
 		bar.setBackground(new Color(50, 50, 50));
 
-		scrollPane.setOpaque(false);
-		scrollPane.getViewport().setOpaque(false);
-		view.add(scrollPane, BorderLayout.CENTER);
+		friendPanelContent.setOpaque(false);
+		friendPanelContent.getViewport().setOpaque(false);
+		view.add(friendPanelContent, BorderLayout.CENTER);
 
 		header.setBackground(new Color(100, 100, 100));
 		JLabel title = new DesignLabel("Friends", "user.png");

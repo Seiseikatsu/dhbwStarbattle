@@ -56,7 +56,6 @@ public class ChatPopupWindow {
 	public void init(ContentPanel parent) {
 		Point ppos = parent.getLocationOnScreen();
 		Dimension psize = parent.getSize();
-		System.out.println(ppos);
 		int x = ppos.x + psize.width / 2 - size.width / 2;
 		int y = ppos.y + psize.height / 2 - size.height / 2;
 		window.setLocation(x, y);
