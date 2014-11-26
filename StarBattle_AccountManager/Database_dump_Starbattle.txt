@@ -1,0 +1,9 @@
+DROP TABLE INVENTAR;
+DROP TABLE ACCOUNT;
+DROP TABLE PLAYER ;
+DROP TABLE FRIENDS;
+
+CREATE TABLE ACCOUNT(account_id int auto_increment primary key,name varchar(255), password varchar(255), email varchar(255));
+CREATE TABLE PLAYER (account_id int,  player_id int auto_increment primary key, Level int, exp int, gold int, display_name varchar(255), foreign key (account_id) references Account(account_id));
+CREATE TABLE INVENTAR(PLAYER_ID int , item_id int, price int, expire_date date, buy_date date,primary key(PLAYER_ID, item_id) );
+CREATE TABLE FRIENDS(account_id varchar(255), account_id_friend varchar(255), status int, PRIMARY KEY(account_id, account_id_friend));
