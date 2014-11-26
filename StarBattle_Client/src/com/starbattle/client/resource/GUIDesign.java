@@ -13,7 +13,7 @@ public class GUIDesign {
 		buttonFont=ResourceLoader.loadFont("OratorStd.otf").deriveFont(20f);
 		labelFont=ResourceLoader.loadFont("OratorStd.otf").deriveFont(20f);
 		
-		int buttons=2;
+		int buttons=3;
 		button=new Image[buttons];
 		buttonSelected=new Image[buttons];
 		

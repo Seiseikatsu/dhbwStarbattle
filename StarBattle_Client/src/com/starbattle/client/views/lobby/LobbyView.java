@@ -32,8 +32,8 @@ public class LobbyView extends ContentView {
 	private PicturePanel picturePanel;
 	private LevelBarDisplay levelBarDisplay = new LevelBarDisplay();
 	private MoneyDisplay moneyDisplay = new MoneyDisplay();
-	private JButton playButton = new DesignButton("Play");
-	private JButton shopButton = new DesignButton("Shop");
+	private DesignButton playButton = new DesignButton("Play");
+	private DesignButton shopButton = new DesignButton("Shop");
 	private NetworkConnection networkConnection;
 	private ChatManager chatManager;
 	private FriendConnectionReceiver friendConnectionListener;
@@ -52,6 +52,10 @@ public class LobbyView extends ContentView {
 		friendPanel = new FriendPanel(this,chatManager, friendActionReceiver);
 		picturePanel = new PicturePanel();
 
+		playButton.setButtonStyle(2);
+		shopButton.setButtonStyle(2);
+		playButton.setFontSize(40f);
+		shopButton.setFontSize(30f);
 		JPanel topPanel = new JPanel(new BorderLayout());
 		JButton logout = new DesignButton("Disconnect");
 		JButton profile = new DesignButton("Profile");
@@ -91,7 +95,7 @@ public class LobbyView extends ContentView {
 		blocker.setPreferredSize(new Dimension(150, 150));
 		blocker.setBackground(startPanel.getBackground());
 		startPanel.add(blocker);
-		playButton.setPreferredSize(new Dimension(240, 180));
+		playButton.setPreferredSize(new Dimension(200, 150));
 		startPanel.add(playButton);
 		
 		JPanel bottomPanel=new JPanel();

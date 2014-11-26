@@ -32,10 +32,7 @@ public class DesignButton extends JButton {
 	
 	public void setButtonStyle(int buttonStyle) {
 		this.buttonStyle = buttonStyle;
-		if(buttonStyle==1)
-		{
-			this.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
-		}
+		this.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 	}
 
 	public DesignButton(String text, Icon icon) {

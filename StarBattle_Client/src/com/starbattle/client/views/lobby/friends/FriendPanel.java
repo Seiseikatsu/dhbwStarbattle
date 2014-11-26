@@ -142,7 +142,7 @@ public class FriendPanel extends ViewModel {
 	}
 
 	private void initLayout() {
-		setBackgroundImage(ResourceLoader.loadImage("friendlistBackground.jpg"));
+		setBackgroundImage(ResourceLoader.loadImage("space_background.jpg"));
 		view.setPreferredSize(new Dimension(300, 0));
 		view.setBorder(BorderFactory.createLineBorder(new Color(50, 50, 50), 3));
 
