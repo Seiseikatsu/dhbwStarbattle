@@ -1,13 +1,10 @@
 package com.starbattle.client.views.lobby.chat;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 
 import com.starbattle.client.window.BorderMouseListener;
 import com.starbattle.client.window.ContentPanel;

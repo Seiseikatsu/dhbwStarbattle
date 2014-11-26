@@ -18,6 +18,7 @@ import com.starbattle.client.views.lobby.LobbyView;
 import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.window.ContentView;
 import com.starbattle.network.client.SendServerConnection;
+import com.starbattle.network.connection.objects.NP_FriendRequest;
 import com.starbattle.network.connection.objects.NP_ResetEmail;
 
 public class AddFriendView extends ContentView {
@@ -65,7 +66,13 @@ public class AddFriendView extends ContentView {
 	}
 
 	private void addFriend() {
-	
+	//Send Friend Request	
+	String friendName=model.getFriendName();
+	NP_FriendRequest request=new NP_FriendRequest();
+	request.inputName=friendName;
+	sendConnection.sendTCP(request);
+	//close window
+	openView(LobbyView.VIEW_ID);
 	}
 
 	@Override

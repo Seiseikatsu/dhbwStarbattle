@@ -86,10 +86,23 @@ public class FriendsManager {
 	}
 
 	public void trySendFriendRequest(PlayerConnection player, NP_FriendRequest friendRequest) {
-		String name = friendRequest.inputName;
+		String friendDisplayname = friendRequest.inputName;
 		try {
-			if (accountManager.newFriendRequest(player.getAccountName(), name)) {
-				sendCurrentFriends(player); // send update to client
+			if (accountManager.newFriendRequest(player.getAccountName(), friendDisplayname)) {
+				//sendCurrentFriends(player); // send update to client
+			    
+				//send update to me (state: pending)
+				NP_FriendUpdate update=new NP_FriendUpdate();
+				update.name=friendDisplayname;
+				update.updateType=NP_Constants.FRIEND_UPDATE_TYPE_ADDFRIENDPENDING;
+				player.sendTCP(update);
+				
+				//send update to friend (state: request)
+				update=new NP_FriendUpdate();
+				update.name=accountManager.getDisplayName(player.getAccountName());
+				update.updateType=NP_Constants.FRIEND_UPDATE_TYPE_ADDFRIENDREQUEST;
+				player.sendTCP(update);
+				
 			}
 		} catch (AccountException e) {
 			e.printStackTrace();

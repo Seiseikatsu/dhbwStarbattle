@@ -116,7 +116,20 @@ public class FriendPanel extends ViewModel {
 		String name = update.name;
 		int updateType = update.updateType;
 		boolean online = update.online;
+		//delete old relations to this friend for updated gui
 		deleteFriendFromLists(name);
+		//Add new friend request
+		if (updateType == NP_Constants.FRIEND_UPDATE_TYPE_ADDFRIENDREQUEST) {
+			FriendRelation newRelation = new FriendRelation(name, FriendRelation.RELATION_REQUEST, false);
+			friendPanels[FRIEND_LIST_REQUESTS].addRelation(newRelation);
+			return;
+		}
+		//add new pending
+		if (updateType == NP_Constants.FRIEND_UPDATE_TYPE_ADDFRIENDPENDING) {
+			FriendRelation newRelation = new FriendRelation(name, FriendRelation.RELATION_PENDING, false);
+			friendPanels[FRIEND_LIST_PENDING].addRelation(newRelation);
+			return;
+		}
 		// Add Friend or online update is the same in this context
 		if (updateType != NP_Constants.FRIEND_UPDATE_TYPE_DELTEFRIEND) {
 			FriendRelation newRelation = new FriendRelation(name, FriendRelation.RELATION_FRIENDS, online);
