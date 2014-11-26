@@ -53,20 +53,24 @@ public class FriendList extends ViewModel {
 		});
 	}
 
-
+	private void update()
+	{
+		showHide.setText(name + " (" + content.getComponentCount() + ")");
+		content.revalidate();
+		this.view.repaint();
+	}
 	
 	public void initList() {
 		content.removeAll();
 		relations.clear();
+		update();
 	}
 
 	public void addRelation(FriendRelation relation) {
 		FriendRelationView view = new FriendRelationView(relation, friendActionListener);
 		content.add(view.getView());
-		relations.add(relation);
-		showHide.setText(name + " (" + content.getComponentCount() + ")");
-		content.revalidate();
-		this.view.repaint();
+		relations.add(relation);	
+		update();
 	}
 
 	public ArrayList<FriendRelation> getRelations() {
@@ -74,14 +78,19 @@ public class FriendList extends ViewModel {
 	}
 
 	public void deleteRelation(String name) {
-		if (relations.contains(name)) {
-			int id = relations.indexOf(name);
-			relations.remove(name);
-			// remove view component
-			content.remove(id);
-			content.revalidate();
-			view.repaint();
+		for(int i=0; i<relations.size(); i++)
+		{
+			FriendRelation relation=relations.get(i);
+			if(relation.getName().equals(name))
+			{
+				relations.remove(name);
+				// remove view component	
+				content.remove(i);
+				System.out.println("Removed  "+name+" Relation (id:"+i+")");
+				update();
+			}
 		}
+
 	}
 
 	public JPanel getContent() {

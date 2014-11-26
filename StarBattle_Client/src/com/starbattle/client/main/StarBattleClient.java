@@ -9,7 +9,9 @@ import com.starbattle.client.resource.ClientConfiguration;
 import com.starbattle.client.resource.GUIDesign;
 import com.starbattle.client.views.error.ConnectionErrorView;
 import com.starbattle.client.views.lobby.LobbyView;
+import com.starbattle.client.views.lobby.friends.AddFriendView;
 import com.starbattle.client.views.login.LoginView;
+import com.starbattle.client.views.play.PlayView;
 import com.starbattle.client.views.register.RegisterView;
 import com.starbattle.client.views.reset.ResetPasswordView;
 import com.starbattle.client.window.GameWindow;
@@ -56,6 +58,8 @@ public class StarBattleClient {
 		window.addView(new RegisterView(connection));
 		window.addView(new ResetPasswordView(connection));
 		window.addView(new LobbyView(connection));
+		window.addView(new PlayView(connection));
+		window.addView(new AddFriendView(connection));		
 		// open login window
 		window.open(LoginView.VIEW_ID);
 	}

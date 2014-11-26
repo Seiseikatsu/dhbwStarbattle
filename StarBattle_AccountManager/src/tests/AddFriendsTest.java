@@ -30,11 +30,11 @@ public class AddFriendsTest {
 	public static void setUpBeforeClass() {
 		ami = new AccountManagerImpl();
 
-		account1 = new PlayerAccount("Sebastian1", "RufeMichAn!:)2", "hallo@web.de");
+	/*	account1 = new PlayerAccount("Sebastian1", "RufeMichAn!:)2", "hallo@web.de");
 		account2 = new PlayerAccount("Sebastian1", "RufeMichAn!:)2", "hallo@web.de");
 		account3 = new PlayerAccount("Geraldine1", "RufeMichAn!:)2", "geri@web.de");
 		account4 = new PlayerAccount("Roland1", "29RufeMichAn!:)293", "roland@web.de");
-
+*/
 		assertTrue("Registration successful", ami.canRegisterAccount(account1).equals(RegisterState.Register_Ok));
 		assertTrue("Registration successful", ami.canRegisterAccount(account3).equals(RegisterState.Register_Ok));
 		assertTrue("Registration successful", ami.canRegisterAccount(account4).equals(RegisterState.Register_Ok));
@@ -70,9 +70,9 @@ public class AddFriendsTest {
 	 @AfterClass
 	 public static void afterTest() throws AccountException{
 	
-	 ami.deleteAccount(ami.getId("Geraldine1"));
+	/* ami.deleteAccount(ami.getId("Geraldine1"));
 	 ami.deleteAccount(ami.getId("Roland1"));
-	 ami.deleteAccount(ami.getId("Sebastian1"));
+	 ami.deleteAccount(ami.getId("Sebastian1"));*/
 	 }
 
 

@@ -117,17 +117,20 @@ public class FriendPanel extends ViewModel {
 		int updateType = update.updateType;
 		boolean online = update.online;
 		//delete old relations to this friend for updated gui
+		System.out.println("Delete old Relation to: "+name);
 		deleteFriendFromLists(name);
 		//Add new friend request
 		if (updateType == NP_Constants.FRIEND_UPDATE_TYPE_ADDFRIENDREQUEST) {
 			FriendRelation newRelation = new FriendRelation(name, FriendRelation.RELATION_REQUEST, false);
 			friendPanels[FRIEND_LIST_REQUESTS].addRelation(newRelation);
+			System.out.println("Add Request from "+name);
 			return;
 		}
 		//add new pending
 		if (updateType == NP_Constants.FRIEND_UPDATE_TYPE_ADDFRIENDPENDING) {
 			FriendRelation newRelation = new FriendRelation(name, FriendRelation.RELATION_PENDING, false);
 			friendPanels[FRIEND_LIST_PENDING].addRelation(newRelation);
+			System.out.println("Add Pending to "+name);
 			return;
 		}
 		// Add Friend or online update is the same in this context
@@ -175,12 +178,6 @@ public class FriendPanel extends ViewModel {
 		header.add(title);
 		header.add(addNew);
 		header.add(openList);
-
-		// ADD test friends
-		friendPanels[FRIEND_LIST_ONLINE].addRelation(new FriendRelation("TestFriend_online", 0, true));
-		friendPanels[FRIEND_LIST_OFFLINE].addRelation(new FriendRelation("TestFriend_offline", 0, true));
-		friendPanels[FRIEND_LIST_REQUESTS].addRelation(new FriendRelation("TestFriend_request", 0, true));
-		friendPanels[FRIEND_LIST_PENDING].addRelation(new FriendRelation("TestFriend_pending", 0, true));
 
 	}
 

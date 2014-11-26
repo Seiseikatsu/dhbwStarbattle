@@ -100,3 +100,239 @@ SELECT display_name from player where account_id = ?  [22018-176]
 11-26 14:05:08 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: Data conversion error converting "Geraldine"; SQL statement:
 SELECT display_name from player where account_id = ?  [22018-176]
+11-26 19:59:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feld "ACCOUNT.ACCOUNT_NAME" nicht gefunden
+Column "ACCOUNT.ACCOUNT_NAME" not found; SQL statement:
+SELECT display_name from player, account where account.account_id = player.account_id AND account.account_name= ?  [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:148)
+	at org.h2.expression.Comparison.optimize(Comparison.java:179)
+	at org.h2.expression.ConditionAndOr.optimize(ConditionAndOr.java:132)
+	at org.h2.command.dml.Select.prepare(Select.java:834)
+	at org.h2.command.Parser.prepareCommand(Parser.java:248)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.getDisplayNameForAccountName(AccountManagerImpl.java:428)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.getDisplayName(AccountManagerImpl.java:456)
+	at com.starbattle.server.manager.FriendsManager.updateFriendsMyOnlineStatus(FriendsManager.java:30)
+	at com.starbattle.server.manager.PlayerManager.loginPlayer(PlayerManager.java:96)
+	at com.starbattle.server.manager.PlayerManager.tryRegister(PlayerManager.java:76)
+	at com.starbattle.server.manager.MainServerManager.receivedObject(MainServerManager.java:67)
+	at com.starbattle.server.manager.MainServerManager.access$2(MainServerManager.java:62)
+	at com.starbattle.server.manager.MainServerManager$1.onReceive(MainServerManager.java:47)
+	at com.starbattle.network.server.ServerConnectionController.receivedObject(ServerConnectionController.java:72)
+	at com.starbattle.network.server.NetworkServer$2.received(NetworkServer.java:40)
+	at com.esotericsoftware.kryonet.Server$1.received(Server.java:61)
+	at com.esotericsoftware.kryonet.Connection.notifyReceived(Connection.java:246)
+	at com.esotericsoftware.kryonet.Server.update(Server.java:208)
+	at com.esotericsoftware.kryonet.Server.run(Server.java:356)
+	at java.lang.Thread.run(Unknown Source)
+11-26 20:00:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "ACCOUNPLAYER" nicht gefunden
+Table "ACCOUNPLAYER" not found; SQL statement:
+SELECT * FROM ACCOUNPLAYER T [42102-176]
+11-26 20:12:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-26 20:14:11 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feld "ELONGATIUS" nicht gefunden
+Column "ELONGATIUS" not found; SQL statement:
+SELECT account_id from player where display_name = Elongatius [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:148)
+	at org.h2.expression.Comparison.optimize(Comparison.java:181)
+	at org.h2.command.dml.Select.prepare(Select.java:834)
+	at org.h2.command.Parser.prepareCommand(Parser.java:248)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+11-26 20:14:17 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feld "Elongatius" nicht gefunden
+Column "Elongatius" not found; SQL statement:
+SELECT account_id from player where display_name = "Elongatius" [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:148)
+	at org.h2.expression.Comparison.optimize(Comparison.java:181)
+	at org.h2.command.dml.Select.prepare(Select.java:834)
+	at org.h2.command.Parser.prepareCommand(Parser.java:248)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+11-26 20:14:24 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feld "Geri" nicht gefunden
+Column "Geri" not found; SQL statement:
+SELECT account_id from player where display_name = "Geri" [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:148)
+	at org.h2.expression.Comparison.optimize(Comparison.java:181)
+	at org.h2.command.dml.Select.prepare(Select.java:834)
+	at org.h2.command.Parser.prepareCommand(Parser.java:248)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+11-26 20:15:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feld "Geri" nicht gefunden
+Column "Geri" not found; SQL statement:
+SELECT ACCOUNT_ID FROM PLAYER WHERE DISPLAY_NAME LIKE  "Geri" [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:148)
+	at org.h2.expression.CompareLike.optimize(CompareLike.java:89)
+	at org.h2.command.dml.Select.prepare(Select.java:834)
+	at org.h2.command.Parser.prepareCommand(Parser.java:248)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+11-26 20:15:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feld "Geri" nicht gefunden
+Column "Geri" not found; SQL statement:
+SELECT account_id FROM player where display_name = "Geri" [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:148)
+	at org.h2.expression.Comparison.optimize(Comparison.java:181)
+	at org.h2.command.dml.Select.prepare(Select.java:834)
+	at org.h2.command.Parser.prepareCommand(Parser.java:248)
+	at org.h2.engine.Session.prepareLocal(Session.java:442)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:172)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:160)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1391)
+	at org.h2.server.web.WebApp.query(WebApp.java:1064)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1026)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:1013)
+	at org.h2.server.web.WebThread.process(WebThread.java:168)
+	at org.h2.server.web.WebThread.run(WebThread.java:94)
+	at java.lang.Thread.run(Unknown Source)
+11-26 20:21:35 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-26 20:22:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-26 20:22:56 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-26 20:23:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-26 20:23:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-26 20:28:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-26 20:28:01 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-26 20:29:25 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-26 20:32:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-26 20:32:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-26 20:37:12 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-26 20:48:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feld "account_id" nicht gefunden
+Column "account_id" not found [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3148)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3210)
+	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:340)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.getFriendRelations(AccountManagerImpl.java:313)
+	at com.starbattle.server.manager.FriendsManager.sendCurrentFriends(FriendsManager.java:117)
+	at com.starbattle.server.manager.PlayerManager.loginPlayer(PlayerManager.java:94)
+	at com.starbattle.server.manager.PlayerManager.tryLogin(PlayerManager.java:52)
+	at com.starbattle.server.manager.MainServerManager.receivedObject(MainServerManager.java:65)
+	at com.starbattle.server.manager.MainServerManager.access$2(MainServerManager.java:62)
+	at com.starbattle.server.manager.MainServerManager$1.onReceive(MainServerManager.java:47)
+	at com.starbattle.network.server.ServerConnectionController.receivedObject(ServerConnectionController.java:72)
+	at com.starbattle.network.server.NetworkServer$2.received(NetworkServer.java:40)
+	at com.esotericsoftware.kryonet.Server$1.received(Server.java:61)
+	at com.esotericsoftware.kryonet.Connection.notifyReceived(Connection.java:246)
+	at com.esotericsoftware.kryonet.Server.update(Server.java:208)
+	at com.esotericsoftware.kryonet.Server.run(Server.java:356)
+	at java.lang.Thread.run(Unknown Source)
+11-26 20:48:53 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Feld "account_id" nicht gefunden
+Column "account_id" not found [42122-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.jdbc.JdbcResultSet.getColumnIndex(JdbcResultSet.java:3148)
+	at org.h2.jdbc.JdbcResultSet.get(JdbcResultSet.java:3210)
+	at org.h2.jdbc.JdbcResultSet.getInt(JdbcResultSet.java:340)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.getFriendRelations(AccountManagerImpl.java:313)
+	at com.starbattle.server.manager.FriendsManager.updateFriendsMyOnlineStatus(FriendsManager.java:29)
+	at com.starbattle.server.manager.PlayerManager.loginPlayer(PlayerManager.java:96)
+	at com.starbattle.server.manager.PlayerManager.tryLogin(PlayerManager.java:52)
+	at com.starbattle.server.manager.MainServerManager.receivedObject(MainServerManager.java:65)
+	at com.starbattle.server.manager.MainServerManager.access$2(MainServerManager.java:62)
+	at com.starbattle.server.manager.MainServerManager$1.onReceive(MainServerManager.java:47)
+	at com.starbattle.network.server.ServerConnectionController.receivedObject(ServerConnectionController.java:72)
+	at com.starbattle.network.server.NetworkServer$2.received(NetworkServer.java:40)
+	at com.esotericsoftware.kryonet.Server$1.received(Server.java:61)
+	at com.esotericsoftware.kryonet.Connection.notifyReceived(Connection.java:246)
+	at com.esotericsoftware.kryonet.Server.update(Server.java:208)
+	at com.esotericsoftware.kryonet.Server.run(Server.java:356)
+	at java.lang.Thread.run(Unknown Source)
+11-26 20:52:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]

@@ -17,14 +17,12 @@ public class FriendsManager {
 
 	private PlayerContainer playerContainer;
 	private AccountManager accountManager;
-	
-	public FriendsManager(PlayerContainer playerContainer, AccountManager accountManager)
-	{
-		this.accountManager=accountManager;
-		this.playerContainer=playerContainer;
+
+	public FriendsManager(PlayerContainer playerContainer, AccountManager accountManager) {
+		this.accountManager = accountManager;
+		this.playerContainer = playerContainer;
 	}
-	
-	
+
 	public void updateFriendsMyOnlineStatus(String account, boolean imOnline) {
 		try {
 			String myDisplayName = accountManager.getDisplayName(account);
@@ -48,38 +46,36 @@ public class FriendsManager {
 		}
 	}
 
-	private void sendFriendUpdate(String selfAccount, String friendAccount, int relationType, boolean online) {
-		try {
+	private void sendFriendUpdate(String fromDisplayName, String toAccount, int relationType, boolean online) {
 			NP_FriendUpdate update = new NP_FriendUpdate();
-			update.name = accountManager.getDisplayName(selfAccount); // to
-																		// player
-																		// 2
+			update.name = fromDisplayName; 
 			update.online = online;
 			update.updateType = relationType;
 			// Send to Player 2 new relation update, if player 2 is connected
-			if (playerContainer.playerConnected(friendAccount)) {
-				playerContainer.getPlayer(friendAccount).getConnection().sendTCP(update);
+			if (playerContainer.playerConnected(toAccount)) {
+				playerContainer.getPlayer(toAccount).getConnection().sendTCP(update);
 			}
-		} catch (AccountException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public void handleFriendRequest(PlayerConnection player, NP_HandleFriendRequest handle) {
+		System.out.println("Handle FriendRerquest!");
 		String name = handle.friendName;
 		boolean accept = handle.accept;
 		try {
 			String myAccount = player.getAccountName();
 			String friendAccountName = accountManager.handleFriendRequest(player.getAccountName(), name, accept);
-			int state = NP_Constants.FRIEND_UPDATE_TYPE_ADDFRIEND;
-			if (accept == false) {
-				state = NP_Constants.FRIEND_UPDATE_TYPE_DELTEFRIEND;
+			if (friendAccountName != null) {
+				int state = NP_Constants.FRIEND_UPDATE_TYPE_ADDFRIEND;
+				if (accept == false) {
+					state = NP_Constants.FRIEND_UPDATE_TYPE_DELTEFRIEND;
+				}
+				String myDisplayName=accountManager.getDisplayName(myAccount);
+				// Send update to both accounts
+				boolean imOnline = playerContainer.playerConnected(myAccount);
+				sendFriendUpdate(myDisplayName, friendAccountName, state, imOnline);
+				boolean friendOnline = playerContainer.playerConnected(friendAccountName);
+				sendFriendUpdate(name, myAccount, state, friendOnline);
 			}
-			// Send update to both accounts
-			boolean imOnline = playerContainer.playerConnected(myAccount);
-			sendFriendUpdate(myAccount, friendAccountName, state, imOnline);
-			boolean friendOnline = playerContainer.playerConnected(friendAccountName);
-			sendFriendUpdate(friendAccountName, myAccount, state, friendOnline);
 		} catch (AccountException e) {
 			e.printStackTrace();
 		}
@@ -89,20 +85,22 @@ public class FriendsManager {
 		String friendDisplayname = friendRequest.inputName;
 		try {
 			if (accountManager.newFriendRequest(player.getAccountName(), friendDisplayname)) {
-				//sendCurrentFriends(player); // send update to client
-			    
-				//send update to me (state: pending)
-				NP_FriendUpdate update=new NP_FriendUpdate();
-				update.name=friendDisplayname;
-				update.updateType=NP_Constants.FRIEND_UPDATE_TYPE_ADDFRIENDPENDING;
+
+				// send update to me (state: pending)
+				NP_FriendUpdate update = new NP_FriendUpdate();
+				update.name = friendDisplayname;
+				update.updateType = NP_Constants.FRIEND_UPDATE_TYPE_ADDFRIENDPENDING;
 				player.sendTCP(update);
-				
-				//send update to friend (state: request)
-				update=new NP_FriendUpdate();
-				update.name=accountManager.getDisplayName(player.getAccountName());
-				update.updateType=NP_Constants.FRIEND_UPDATE_TYPE_ADDFRIENDREQUEST;
-				player.sendTCP(update);
-				
+
+				String friendAccountName = accountManager.getAccountName(friendDisplayname);
+				if (playerContainer.playerConnected(friendAccountName)) {
+					// send update to friend (state: request) (if online)
+					update = new NP_FriendUpdate();
+					update.name = accountManager.getDisplayName(player.getAccountName());
+					update.updateType = NP_Constants.FRIEND_UPDATE_TYPE_ADDFRIENDREQUEST;
+					playerContainer.getPlayer(friendAccountName).getConnection().sendTCP(friendAccountName);
+				}
+
 			}
 		} catch (AccountException e) {
 			e.printStackTrace();
@@ -116,7 +114,7 @@ public class FriendsManager {
 			for (FriendRelation f : friends.getFriends()) {
 
 				String friendAccountName = f.getAccountName();
-				String friendDisplayName = accountManager.getDisplayName(friendAccountName);
+				String friendDisplayName = f.getDisplayName();
 				npfriends.friendNames.add(friendDisplayName);
 				npfriends.relationStates.add((byte) f.getRelationState().getId());
 				boolean online = playerContainer.playerConnected(friendAccountName);
@@ -128,7 +126,7 @@ public class FriendsManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void sendChat(PlayerConnection player, NP_ChatMessage message) {
 		try {
 			// Get Displayname for Accountname of the sending player
@@ -146,5 +144,5 @@ public class FriendsManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 }

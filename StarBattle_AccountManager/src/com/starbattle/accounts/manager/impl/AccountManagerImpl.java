@@ -47,12 +47,14 @@ public class AccountManagerImpl implements AccountManager {
 	public void registerAccount(PlayerAccount account) throws AccountException {
 		try {
 
-			if (canRegisterAccount(account).equals(RegisterState.Register_Ok) && canRegisterPlayer(account).equals(RegisterState.Register_Ok)) {
+			if (canRegisterAccount(account).equals(RegisterState.Register_Ok)
+					&& canRegisterPlayer(account).equals(RegisterState.Register_Ok)) {
 
 				String sqlAccount = "INSERT INTO ACCOUNT (NAME, PASSWORD, EMAIL) VALUES ( ?, ?, ? )";
 				String sqlPlayer = "INSERT INTO PLAYER (display_name, account_id) VALUES (?, ?)";
 
-				stmt = databaseConnection.getConnection().prepareStatement(sqlAccount, PreparedStatement.RETURN_GENERATED_KEYS);
+				stmt = databaseConnection.getConnection().prepareStatement(sqlAccount,
+						PreparedStatement.RETURN_GENERATED_KEYS);
 
 				stmt.setString(1, account.getName());
 				stmt.setString(2, account.getPassword());
@@ -80,7 +82,8 @@ public class AccountManagerImpl implements AccountManager {
 	public void deleteAccount(int id) throws AccountException {
 
 		try {
-			stmt = databaseConnection.getConnection().prepareStatement("SELECT player_id from player where account_id = ?");
+			stmt = databaseConnection.getConnection().prepareStatement(
+					"SELECT player_id from player where account_id = ?");
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 
@@ -93,7 +96,8 @@ public class AccountManagerImpl implements AccountManager {
 			}
 
 			for (int i = 0; i < tables.length; i++) {
-				stmt = databaseConnection.getConnection().prepareStatement("DELETE " + tables[i] + " WHERE account_id = ?");
+				stmt = databaseConnection.getConnection().prepareStatement(
+						"DELETE " + tables[i] + " WHERE account_id = ?");
 				stmt.setInt(1, id);
 				stmt.execute();
 			}
@@ -105,7 +109,8 @@ public class AccountManagerImpl implements AccountManager {
 
 	public LoginState canLogin(String name, String password) throws AccountException {
 		try {
-			stmt = databaseConnection.getConnection().prepareStatement("SELECT password, name FROM account WHERE name = ?");
+			stmt = databaseConnection.getConnection().prepareStatement(
+					"SELECT password, name FROM account WHERE name = ?");
 			stmt.setString(1, name);
 
 			ResultSet rs = stmt.executeQuery();
@@ -127,13 +132,12 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	public RegisterState canRegisterPlayer(PlayerAccount account) {
-		if(!Validations.isPlayerNameValid(account.getDisplayName())){
+		if (!Validations.isPlayerNameValid(account.getDisplayName())) {
 			return RegisterState.Accountname_Invalid;
 		}
-		if(NamesEqual(account.getDisplayName(), account.getName()))
+		if (NamesEqual(account.getDisplayName(), account.getName()))
 			return RegisterState.Names_equal;
-			
-		
+
 		try {
 			stmt = conn.prepareStatement("SELECT count(*) FROM player WHERE display_name = ?");
 			stmt.setString(1, account.getDisplayName());
@@ -151,16 +155,16 @@ public class AccountManagerImpl implements AccountManager {
 		return RegisterState.Register_Ok;
 
 	}
-	
-	private boolean NamesEqual(String displayName, String accountName){
-		if(displayName.equalsIgnoreCase(accountName))
+
+	private boolean NamesEqual(String displayName, String accountName) {
+		if (displayName.equalsIgnoreCase(accountName))
 			return true;
 		else
 			return false;
 	}
 
 	public RegisterState canRegisterAccount(PlayerAccount account) {
-		if(!Validations.isAccountNameVaild(account.getName())){
+		if (!Validations.isAccountNameVaild(account.getName())) {
 			return RegisterState.Accountname_Invalid;
 		}
 
@@ -236,19 +240,6 @@ public class AccountManagerImpl implements AccountManager {
 
 	}
 
-	public int getId(String name) throws AccountException {
-		try {
-			stmt = conn.prepareStatement("SELECT  account_id FROM account WHERE name = ?");
-			stmt.setString(1, name);
-			ResultSet rs = stmt.executeQuery();
-			rs.next();
-
-			return rs.getInt(1);
-		} catch (SQLException e) {
-			throw new AccountException("SQL error");
-		}
-	}
-
 	@Override
 	public List<Integer> getItemList(int playerId) throws AccountException {
 		List<Integer> items = new ArrayList<Integer>();
@@ -290,36 +281,48 @@ public class AccountManagerImpl implements AccountManager {
 
 			PlayerFriends friends = new PlayerFriends();
 			int accountId = getAccountIdForAccountname(accountName);
-					
-			stmt = databaseConnection.getConnection().prepareStatement("Select account_id_friend, status FROM friends WHERE account_id = ?");
+
+			stmt = databaseConnection.getConnection().prepareStatement(
+					"Select account_id_friend, status FROM friends WHERE account_id = ?");
 			stmt.setInt(1, accountId);
 			ResultSet rsFriendRequester = stmt.executeQuery();
-			
-			stmt = databaseConnection.getConnection().prepareStatement("Select account_id, status FROM friends WHERE account_id_friend = ?");
+
+			stmt = databaseConnection.getConnection().prepareStatement(
+					"Select account_id, status FROM friends WHERE account_id_friend = ?");
 			stmt.setInt(1, accountId);
 			ResultSet rsFriendAnswer = stmt.executeQuery();
-			
+
 			while (rsFriendRequester.next()) {
-				stmt = databaseConnection.getConnection().prepareStatement("Select name FROM account WHERE account_id = ?");
-				stmt.setInt(1,rsFriendRequester.getInt("account_id_friend"));
-				ResultSet rsFriendName = stmt.executeQuery();
-				
-				if (rsFriendRequester.getInt("status") == 1) {
-					friends.addRelation(new FriendRelation(rsFriendName.getString("name"), FriendRelationState.Request));
+				int accountIDFriend = rsFriendRequester.getInt("account_id_friend");
+				int status = rsFriendRequester.getInt("status");
+				String accountNameFriend = getAccountNameForAccountID(accountIDFriend);
+				String displayNameFriend = getDisplayNameForAccountID(accountIDFriend);
+
+				if (status == 1) {
+					// Request
+					friends.addRelation(new FriendRelation(accountNameFriend, displayNameFriend,
+							FriendRelationState.Request));
 				} else {
-					friends.addRelation(new FriendRelation(rsFriendName.getString("name"), FriendRelationState.Friends));
+					// Friends
+					friends.addRelation(new FriendRelation(accountNameFriend, displayNameFriend,
+							FriendRelationState.Friends));
 				}
 			}
-			
+
 			while (rsFriendAnswer.next()) {
-				stmt = databaseConnection.getConnection().prepareStatement("Select name FROM account WHERE account_id = ?");
-				stmt.setInt(1,rsFriendAnswer.getInt("account_id"));
-				ResultSet rsFriendName = stmt.executeQuery();
-				
-				if (rsFriendRequester.getInt("status") == 1) {
-					friends.addRelation(new FriendRelation(rsFriendName.getString("name"), FriendRelationState.Pending));
+				int accountIDFriend = rsFriendAnswer.getInt("account_id");
+				int status = rsFriendAnswer.getInt("status");
+				String accountNameFriend = getAccountNameForAccountID(accountIDFriend);
+				String displayNameFriend = getDisplayNameForAccountID(accountIDFriend);
+
+				if (status == 1) {
+					// Pending
+					friends.addRelation(new FriendRelation(accountNameFriend, displayNameFriend,
+							FriendRelationState.Pending));
 				} else {
-					friends.addRelation(new FriendRelation(rsFriendName.getString("name"), FriendRelationState.Friends));
+					// Friends
+					friends.addRelation(new FriendRelation(accountNameFriend, displayNameFriend,
+							FriendRelationState.Friends));
 				}
 			}
 			return friends;
@@ -328,9 +331,10 @@ public class AccountManagerImpl implements AccountManager {
 		}
 	}
 
-	private String getAccountName(int accountId) throws AccountException {
+	private String getAccountNameForAccountID(int accountId) throws AccountException {
 		try {
-			stmt = databaseConnection.getConnection().prepareStatement("SELECT name from account where account_id = ? ");
+			stmt = databaseConnection.getConnection()
+					.prepareStatement("SELECT name from account where account_id = ? ");
 			stmt.setInt(1, accountId);
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
@@ -343,10 +347,16 @@ public class AccountManagerImpl implements AccountManager {
 	@Override
 	public boolean newFriendRequest(String accountName, String friendDisplayname) throws AccountException {
 		int accountId = getAccountIdForAccountname(accountName);
-		int accountIdFriend = getAccountIdForDisplayname(friendDisplayname);
+		int accountIdFriend = 0;
+		try {
+			accountIdFriend = getAccountIdForDisplayname(friendDisplayname);
+		} catch (Exception e) {
+			return false; // no friend for display name found
+		}
 
 		try {
-			stmt = databaseConnection.getConnection().prepareStatement("INSERT INTO FRIENDS (account_id, account_id_friend, status) VALUES ( ?, ?, ? )");
+			stmt = databaseConnection.getConnection().prepareStatement(
+					"INSERT INTO FRIENDS (account_id, account_id_friend, status) VALUES ( ?, ?, ? )");
 			stmt.setInt(1, accountId);
 			stmt.setInt(2, accountIdFriend);
 			stmt.setInt(3, 1);
@@ -359,35 +369,27 @@ public class AccountManagerImpl implements AccountManager {
 	}
 
 	@Override
-	public String handleFriendRequest(String accountName, String displayNameFriend, boolean accept) throws AccountException {
-		int accountId;
-		String accountNameFriend;
-		
+	public String handleFriendRequest(String accountName, String displayNameFriend, boolean accept)
+			throws AccountException {
+		String accountNameFriend = null;
 		try {
-			
-
-			stmt = databaseConnection.getConnection().prepareStatement("SELECT name from account where account_id = ? ");
-			stmt.setInt(1, getAccountIdForAccountname(displayNameFriend));
-			ResultSet rs = stmt.executeQuery();
-			rs.next();
-			accountNameFriend = rs.getString("name");
-			
-			
-			accountId = getAccountIdForAccountname(accountName);
-			int accountIdFriend = getAccountIdForDisplayname(accountNameFriend);
-
+			int accountId = getAccountIdForAccountname(accountName);
+			int accountIdFriend = getAccountIdForDisplayname(displayNameFriend);
 			if (accept) {
-				stmt = databaseConnection.getConnection().prepareStatement("UPDATE friends SET status = ? WHERE account_id = ? AND account_id_friend = ?");
+				stmt = databaseConnection.getConnection().prepareStatement(
+						"UPDATE friends SET status = ? WHERE account_id = ? AND account_id_friend = ?");
 				stmt.setInt(1, 2);
 				stmt.setInt(2, accountId);
 				stmt.setInt(3, accountIdFriend);
-				stmt.execute();
+				stmt.executeUpdate();
 			} else {
-				stmt = databaseConnection.getConnection().prepareStatement("DELETE FROM friends where account_id = ? AND account_id_friend = ?");
+				stmt = databaseConnection.getConnection().prepareStatement(
+						"DELETE FROM friends where account_id = ? AND account_id_friend = ?");
 				stmt.setInt(1, accountId);
 				stmt.setInt(2, accountIdFriend);
 				stmt.execute();
 			}
+			accountNameFriend = getAccountNameForDisplayname(displayNameFriend);
 		} catch (SQLException e) {
 			throw new AccountException("SQL error");
 		}
@@ -397,7 +399,8 @@ public class AccountManagerImpl implements AccountManager {
 
 	private int getAccountIdForAccountname(String accountName) throws AccountException {
 		try {
-			stmt = databaseConnection.getConnection().prepareStatement("SELECT account_id from account where name = ? ");
+			stmt = databaseConnection.getConnection()
+					.prepareStatement("SELECT account_id from account where name = ? ");
 			stmt.setString(1, accountName);
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
@@ -407,11 +410,40 @@ public class AccountManagerImpl implements AccountManager {
 		}
 
 	}
-	
-	private String getDisplayNameForAccountName(String accountName)  throws AccountException
-	{
+
+	private int getAccountIdForDisplayname(String displayName) throws AccountException {
 		try {
-			stmt = databaseConnection.getConnection().prepareStatement("SELECT display_name from player where account_id = ? ");
+			stmt = databaseConnection.getConnection().prepareStatement(
+					"SELECT account_id from player where display_name = ? ");
+			stmt.setString(1, displayName);
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		} catch (SQLException e) {
+			throw new AccountException("SQL error");
+		}
+	}
+
+	private String getDisplayNameForAccountID(int accountID) throws AccountException {
+		try {
+			stmt = databaseConnection.getConnection().prepareStatement(
+					"SELECT display_name  from player where account_id = ? ");
+			stmt.setInt(1, accountID);
+			;
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			return rs.getString(1);
+		} catch (SQLException e) {
+			throw new AccountException("SQL error");
+		}
+	}
+
+	private String getDisplayNameForAccountName(String accountName) throws AccountException {
+		try {
+			stmt = databaseConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT display_name from player, account where account.account_id = player.account_id AND account.name= ? ");
 			stmt.setString(1, accountName);
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
@@ -420,28 +452,29 @@ public class AccountManagerImpl implements AccountManager {
 			throw new AccountException("SQL error");
 		}
 	}
-	
 
-	private int getAccountIdForDisplayname(String displayName) throws AccountException {
+	private String getAccountNameForDisplayname(String displayName) throws AccountException {
 		try {
-			stmt = databaseConnection.getConnection().prepareStatement("SELECT account_name from account, player where account.account_id = player.account_id AND player.display_name = ? ");
+			stmt = databaseConnection
+					.getConnection()
+					.prepareStatement(
+							"SELECT name from account, player where account.account_id = player.account_id AND player.display_name = ? ");
 			stmt.setString(1, displayName);
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
-			return rs.getInt(1);
+			return rs.getString(1);
 		} catch (SQLException e) {
 			throw new AccountException("SQL error");
 		}
-
 	}
 
 	@Override
 	public String getDisplayName(String accountName) throws AccountException {
 		return getDisplayNameForAccountName(accountName);
 	}
-	
+
 	@Override
 	public String getAccountName(String displayName) throws AccountException {
-		return getAccountName(getAccountIdForDisplayname(displayName));
+		return getAccountNameForDisplayname(displayName);
 	}
 }

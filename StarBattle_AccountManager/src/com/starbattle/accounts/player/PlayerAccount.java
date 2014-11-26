@@ -13,17 +13,12 @@ public class PlayerAccount {
 		
 	}
 	
-	public PlayerAccount(String name, String passwort, String email){
-		this.name = name; 
-		this.password = passwort;
-		this.email = email;
-	}
 	
-	public PlayerAccount(String name, String displayName, String email, int gold) {
+	public PlayerAccount(String name, String displayName,String password, String email) {
 		this.name = name;
-		this.setDisplayName(displayName);
+		this.displayName=displayName;
 		this.email = email;
-		this.gold = gold;
+		this.password=password;
 	}
 
 	public void setGold(int gold) {

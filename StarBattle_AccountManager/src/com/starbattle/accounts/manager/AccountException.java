@@ -6,8 +6,9 @@ public class AccountException extends Exception{
 		super(error);
 	}
 	
-	public AccountException(String error, Throwable t) {
-		super(error, t);
+	public AccountException(String error, Exception e) {		
+		super(error);
+		e.printStackTrace();
 	}
 	
 }

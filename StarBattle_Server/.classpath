@@ -5,7 +5,7 @@
 	<classpathentry kind="lib" path="src/kryonet-2.21-all.jar"/>
 	<classpathentry kind="lib" path="src/StarBattle_Network.jar"/>
 	<classpathentry kind="lib" path="src/h2-1.3.176.jar"/>
-	<classpathentry kind="lib" path="src/StarBattle_AccountManager.jar"/>
+	<classpathentry kind="lib" path="src/StarBattle_AccountManager.jar" sourcepath="/StarBattle_AccountManager"/>
 	<classpathentry kind="lib" path="src/javax.mail-1.5.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

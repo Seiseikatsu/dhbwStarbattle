@@ -97,7 +97,7 @@ public class PlayerManager {
 	}
 
 	public void logoutPlayer(PlayerConnection player) {
-		if (player.isConnected()) {// if its connected, remove player object
+		if (player.isPlayerRegistered()) {// if hes registered, logout
 									// from accountlist
 			// update other player my online status (online=false)
 			friendsManager.updateFriendsMyOnlineStatus(player.getAccountName(), false);
