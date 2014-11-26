@@ -40,7 +40,6 @@ public class AccountManagerImpl implements AccountManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
@@ -374,21 +373,28 @@ public class AccountManagerImpl implements AccountManager {
 		String accountNameFriend = null;
 		try {
 			int accountId = getAccountIdForAccountname(accountName);
+			System.out.println("accountId : " + accountId + ", accountName: " + accountName);
+			
 			int accountIdFriend = getAccountIdForDisplayname(displayNameFriend);
+			System.out.println("accountId : " + accountIdFriend + ", accountName: " + accountNameFriend);
 			if (accept) {
 				stmt = databaseConnection.getConnection().prepareStatement(
 						"UPDATE friends SET status = ? WHERE account_id = ? AND account_id_friend = ?");
+				System.out.println("UPDATE friends SET status = " + 2 + " WHERE account_id = " + accountIdFriend + " AND account_id_friend = " + accountId);
 				stmt.setInt(1, 2);
-				stmt.setInt(2, accountId);
-				stmt.setInt(3, accountIdFriend);
-				stmt.executeUpdate();
+				stmt.setInt(2, accountIdFriend);
+				stmt.setInt(3, accountId);
+				//stmt.executeUpdate();
+				System.out.println(stmt.executeUpdate());
 			} else {
 				stmt = databaseConnection.getConnection().prepareStatement(
 						"DELETE FROM friends where account_id = ? AND account_id_friend = ?");
-				stmt.setInt(1, accountId);
-				stmt.setInt(2, accountIdFriend);
+				stmt.setInt(1, accountIdFriend);
+				stmt.setInt(2, accountId);
 				stmt.execute();
 			}
+			
+			databaseConnection.getConnection().commit();
 			accountNameFriend = getAccountNameForDisplayname(displayNameFriend);
 		} catch (SQLException e) {
 			throw new AccountException("SQL error");
