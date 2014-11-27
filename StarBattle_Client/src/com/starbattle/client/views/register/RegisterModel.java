@@ -35,7 +35,7 @@ public class RegisterModel extends ViewModel {
 	public RegisterModel() {
 		
 		accountname.setName("Register_Accountname");
-		displayname.setName("Register_Accountname");
+		displayname.setName("Register_Displayname");
 		email.setName("Register_Email");
 		password.setName("Register_Password");
 		password2.setName("Register_Repeat_Password");
