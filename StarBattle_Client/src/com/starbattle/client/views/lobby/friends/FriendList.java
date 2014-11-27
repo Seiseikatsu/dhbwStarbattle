@@ -83,11 +83,11 @@ public class FriendList extends ViewModel {
 			FriendRelation relation=relations.get(i);
 			if(relation.getName().equals(name))
 			{
-				relations.remove(name);
+				relations.remove(i);
 				// remove view component	
 				content.remove(i);
-				System.out.println("Removed  "+name+" Relation (id:"+i+")");
 				update();
+				break;
 			}
 		}
 

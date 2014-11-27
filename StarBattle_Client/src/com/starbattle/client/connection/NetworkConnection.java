@@ -36,8 +36,6 @@ public class NetworkConnection {
 		networkObjectResolver.setRegistrationListener(listener);
 	}
 	
-
-	
 	public void setFriendListener(NetworkFriendListener listener)
 	{
 		networkObjectResolver.setFriendListener(listener);

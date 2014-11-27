@@ -93,6 +93,8 @@ public class FriendPanel extends ViewModel {
 	}
 
 	public void updateFriendList(NP_LobbyFriends friends) {
+		System.out.println("Client received FriendList ("+friends.friendNames.size()+" Friends)");
+		LobbyView.debugText("Client received FriendList ("+friends.friendNames.size()+" Friends)");
 		for (int i = 0; i < 4; i++) {
 			friendPanels[i].initList();
 		}
@@ -117,13 +119,14 @@ public class FriendPanel extends ViewModel {
 		int updateType = update.updateType;
 		boolean online = update.online;
 		//delete old relations to this friend for updated gui
-		System.out.println("Delete old Relation to: "+name);
+		System.out.println("Client received FriendUpdate for Relation to "+name+" Type:"+updateType);
 		deleteFriendFromLists(name);
 		//Add new friend request
 		if (updateType == NP_Constants.FRIEND_UPDATE_TYPE_ADDFRIENDREQUEST) {
 			FriendRelation newRelation = new FriendRelation(name, FriendRelation.RELATION_REQUEST, false);
 			friendPanels[FRIEND_LIST_REQUESTS].addRelation(newRelation);
 			System.out.println("Add Request from "+name);
+			LobbyView.debugText("FriendUpdate for Relation to "+name+"  Add Request from "+name);
 			return;
 		}
 		//add new pending
@@ -131,14 +134,19 @@ public class FriendPanel extends ViewModel {
 			FriendRelation newRelation = new FriendRelation(name, FriendRelation.RELATION_PENDING, false);
 			friendPanels[FRIEND_LIST_PENDING].addRelation(newRelation);
 			System.out.println("Add Pending to "+name);
+			LobbyView.debugText("FriendUpdate for Relation to "+name+"  Add Pending to "+name);
 			return;
 		}
 		// Add Friend or online update is the same in this context
 		if (updateType != NP_Constants.FRIEND_UPDATE_TYPE_DELTEFRIEND) {
 			FriendRelation newRelation = new FriendRelation(name, FriendRelation.RELATION_FRIENDS, online);
 			if (online) {
+				System.out.println("Add online update from "+name);
+				LobbyView.debugText("FriendUpdate for Relation to "+name+"  Add Online update from "+name);
 				friendPanels[FRIEND_LIST_ONLINE].addRelation(newRelation);
 			} else {
+				System.out.println("Add offline update from "+name);
+				LobbyView.debugText("FriendUpdate for Relation to "+name+"  Add Offline update from "+name);
 				friendPanels[FRIEND_LIST_OFFLINE].addRelation(newRelation);
 			}
 		}

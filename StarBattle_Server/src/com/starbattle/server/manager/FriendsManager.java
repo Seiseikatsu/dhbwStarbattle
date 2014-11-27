@@ -25,6 +25,7 @@ public class FriendsManager {
 
 	public void updateFriendsMyOnlineStatus(String account, boolean imOnline) {
 		try {
+			System.out.println(account+" Updates for my Friends: im Online:"+imOnline);
 			String myDisplayName = accountManager.getDisplayName(account);
 			PlayerFriends friends = accountManager.getFriendRelations(account);
 			for (FriendRelation relation : friends.getFriends()) {
@@ -37,6 +38,7 @@ public class FriendsManager {
 						update.name = myDisplayName;
 						update.online = imOnline;
 						update.updateType = NP_Constants.FRIEND_UPDATE_TYPE_ONLINEUPDATE;
+						System.out.println("Send my update to friend "+friendAccount);
 						playerContainer.getPlayer(friendAccount).getConnection().sendTCP(update);
 					}
 				}
@@ -139,7 +141,11 @@ public class FriendsManager {
 			chat.message = message.message;
 			chat.name = fromDisplayname;
 			// Send chat to receiver player
+			//check if player is login
+			if(playerContainer.playerConnected(toAccountName))
+			{
 			playerContainer.getPlayer(toAccountName).getConnection().sendTCP(chat);
+			}
 		} catch (AccountException e) {
 			e.printStackTrace();
 		}

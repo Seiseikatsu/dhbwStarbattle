@@ -2,10 +2,10 @@ package com.starbattle.client.connection;
 
 import com.starbattle.client.connection.listener.NetworkFriendListener;
 import com.starbattle.client.connection.listener.NetworkRegistrationListener;
+import com.starbattle.client.views.lobby.LobbyView;
 import com.starbattle.network.connection.objects.NP_ChatMessage;
 import com.starbattle.network.connection.objects.NP_FriendUpdate;
 import com.starbattle.network.connection.objects.NP_LobbyFriends;
-import com.starbattle.network.connection.objects.NP_Login;
 import com.starbattle.network.connection.objects.NP_StartAnswer;
 
 public class NetworkObjectResolver {
@@ -43,7 +43,9 @@ public class NetworkObjectResolver {
 				friendListener.receivedFriendUpdate((NP_FriendUpdate)object);
 			}			
 		} catch (Exception e) {
-			System.out.println("WARNING: Received Object, but no Listener set!");
+			System.out.println("WARNING: Received Object, but no Listener set!  NP:"+object.getClass().getSimpleName());
+			LobbyView.debugText("WARNING: Received Object, but no Listener set!  NP:"+object.getClass().getSimpleName());
+			e.printStackTrace();
 		}
 	}
 
