@@ -15,6 +15,7 @@ import com.starbattle.client.views.play.PlayView;
 import com.starbattle.client.views.register.RegisterView;
 import com.starbattle.client.views.reset.ResetPasswordView;
 import com.starbattle.client.window.GameWindow;
+import com.starbattle.client.window.LoadingWindow;
 
 public class StarBattleClient {
 
@@ -24,27 +25,48 @@ public class StarBattleClient {
 
 	private GameWindow window;
 	private NetworkConnection connection;
+	private LoadingWindow loadingWindow;
 	private boolean shutdown = false;
 
 	public StarBattleClient() {
 		initClient();
 	}
+	
 
 	public void initClient() {
+
+		// Create Loading Window
+		loadingWindow = new LoadingWindow();
+		loadingWindow.setMaxProgress(11);// max progress count
+		Thread loadingWindowThread=new Thread(new Runnable() {		
+			@Override
+			public void run() {
+				loadingWindow.open();
+			}
+		});
+		loadingWindowThread.start();
+
+		//init client
 		GUIDesign.load();
+		loadingWindow.loadProgress();
 
 		window = new GameWindow(null, "StarBattle Client");
 		ClientConfiguration.loadConfiguration();
+		loadingWindow.loadProgress();
 
 		// create network connection
 		connection = new NetworkConnection(new NetworkConnectionHandler());
+		loadingWindow.loadProgress();
 
 		// add connection error view
 		window.addView(new ConnectionErrorView(new ConnectionErrorHandler()));
+		loadingWindow.loadProgress();
 		try {
 
 			connection.start("localhost", 56777, 56777);
+			loadingWindow.loadProgress();
 			openWindow();
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			if (!shutdown) {
@@ -64,14 +86,23 @@ public class StarBattleClient {
 	private void openWindow() {
 		// create views
 		window.addView(new LoginView(connection));
+		loadingWindow.loadProgress();
 		window.addView(new RegisterView(connection));
+		loadingWindow.loadProgress();
 		window.addView(new ResetPasswordView(connection));
+		loadingWindow.loadProgress();
 		window.addView(new LobbyView(connection));
+		loadingWindow.loadProgress();
 		window.addView(new PlayView(connection));
+		loadingWindow.loadProgress();
 		window.addView(new AddFriendView(connection));
+		loadingWindow.loadProgress();
 		// open login window
 		window.open(LoginView.VIEW_ID);
+		loadingWindow.loadProgress();
+		loadingWindow.close();
 	}
+
 
 	// reacts if connection to server opened/closed
 	private class NetworkConnectionHandler implements NetworkConnectionListener {

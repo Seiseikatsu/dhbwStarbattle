@@ -2,7 +2,6 @@ package com.starbattle.client.connection;
 
 import com.starbattle.client.connection.listener.NetworkFriendListener;
 import com.starbattle.client.connection.listener.NetworkRegistrationListener;
-import com.starbattle.client.views.lobby.LobbyView;
 import com.starbattle.network.connection.objects.NP_ChatMessage;
 import com.starbattle.network.connection.objects.NP_FriendUpdate;
 import com.starbattle.network.connection.objects.NP_LobbyFriends;
@@ -26,27 +25,22 @@ public class NetworkObjectResolver {
 	}
 
 	public void income(Object object) {
-		try {
-			if (object instanceof NP_StartAnswer) {
-				NP_StartAnswer answer = (NP_StartAnswer) object;
-				if (answer.openGame) {
-					registrationListener.registrationOk();
-				} else {
-					registrationListener.registrationFailed(answer.errorMessage);
-				}
-			} else if (object instanceof NP_ChatMessage) {
-				friendListener.receivedChat((NP_ChatMessage) object);
-			} else if (object instanceof NP_LobbyFriends) {
-				friendListener.receivedFriendList((NP_LobbyFriends) object);
-			} else if(object instanceof NP_FriendUpdate)
-			{
-				friendListener.receivedFriendUpdate((NP_FriendUpdate)object);
-			}			
-		} catch (Exception e) {
-			System.out.println("WARNING: Received Object, but no Listener set!  NP:"+object.getClass().getSimpleName());
-			LobbyView.debugText("WARNING: Received Object, but no Listener set!  NP:"+object.getClass().getSimpleName());
-			e.printStackTrace();
+
+		if (object instanceof NP_StartAnswer) {
+			NP_StartAnswer answer = (NP_StartAnswer) object;
+			if (answer.openGame) {
+				registrationListener.registrationOk();
+			} else {
+				registrationListener.registrationFailed(answer.errorMessage);
+			}
+		} else if (object instanceof NP_ChatMessage) {
+			friendListener.receivedChat((NP_ChatMessage) object);
+		} else if (object instanceof NP_LobbyFriends) {
+			friendListener.receivedFriendList((NP_LobbyFriends) object);
+		} else if (object instanceof NP_FriendUpdate) {
+			friendListener.receivedFriendUpdate((NP_FriendUpdate) object);
 		}
+
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.starbattle.client.testinterface.tester;
 
+import com.starbattle.client.testinterface.main.ClientTestInterface;
+
 public class ToleranceCheck {
 
 	private boolean checkOk = false;
@@ -32,7 +34,7 @@ public class ToleranceCheck {
 		int diff = (int) (milli - lastMilli);
 
 		float seconds = diff / 1000f;
-		if (seconds <= ClientAutomate.toleranceSeconds) {
+		if (seconds <= ClientTestInterface.toleranceSeconds) {
 			return true;
 		}
 		return false;

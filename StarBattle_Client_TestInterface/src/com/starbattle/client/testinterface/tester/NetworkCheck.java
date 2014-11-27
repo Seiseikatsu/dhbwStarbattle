@@ -1,5 +1,7 @@
 package com.starbattle.client.testinterface.tester;
 
+import com.starbattle.client.testinterface.main.ClientTestInterface;
+
 public class NetworkCheck {
 
 	private boolean checkOk = false;
@@ -34,7 +36,7 @@ public class NetworkCheck {
 		int diff = (int) (milli - lastMilli);
 
 		float seconds = diff / 1000f;
-		if (seconds <= ClientAutomate.networkTimeout) {
+		if (seconds <= ClientTestInterface.networkTimeout) {
 			return true;
 		}
 		return false;

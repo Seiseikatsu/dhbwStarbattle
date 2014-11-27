@@ -35,7 +35,6 @@ public class LobbyView extends ContentView {
 	private NetworkConnection networkConnection;
 	private ChatManager chatManager;
 	private FriendActionReceiver friendActionReceiver;
-	private static JLabel debugLabel=new JLabel("Debug Label");
 
 	public LobbyView(final NetworkConnection networkConnection) {
 		this.networkConnection = networkConnection;
@@ -47,17 +46,12 @@ public class LobbyView extends ContentView {
 		networkConnection.setFriendListener(friendConnectionListener);
 	}
 	
-	public static void debugText(String text)
-	{
-		debugLabel.setText(text);
-	}
+
 
 	private void initLayout() {
 		friendPanel = new FriendPanel(this,chatManager, friendActionReceiver);
 		picturePanel = new PicturePanel();
-		debugLabel.setForeground(new Color(255,100,100));
-		debugLabel.setFont(debugLabel.getFont().deriveFont(12f));
-		playButton.setButtonStyle(2);
+			playButton.setButtonStyle(2);
 		shopButton.setButtonStyle(2);
 		playButton.setFontSize(40f);
 		shopButton.setFontSize(30f);
@@ -107,7 +101,6 @@ public class LobbyView extends ContentView {
 		bottomPanel.setBackground(new Color(100,100,100));
 		bottomPanel.setLayout(new BorderLayout());
 		bottomPanel.add(startPanel,BorderLayout.CENTER);
-		bottomPanel.add(debugLabel,BorderLayout.SOUTH);	
 		southWestPanel.add(bottomPanel, BorderLayout.SOUTH);
 		centerPanel.add(southWestPanel, BorderLayout.CENTER);
 	

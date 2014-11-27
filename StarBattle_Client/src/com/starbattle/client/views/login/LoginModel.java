@@ -34,6 +34,7 @@ public class LoginModel extends ViewModel {
 		password.setName("Login_Password");
 		errorText.setOpaque(true);
 		errorText.setBackground(new Color(0,0,0));
+		rememberName.setFocusable(false);
 		rememberName.setOpaque(false);
 		rememberName.setForeground(new Color(200, 200, 200));
 		password.setCaretColor(Color.WHITE);

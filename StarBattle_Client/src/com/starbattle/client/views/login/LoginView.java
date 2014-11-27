@@ -52,7 +52,7 @@ public class LoginView extends ContentView {
 		});
 
 		JPanel footer = new JPanel();
-		footer.setLayout(new FlowLayout());
+		footer.setLayout(new FlowLayout(FlowLayout.LEFT));
 		footer.setOpaque(false);
 		footer.add(registerButton);
 		footer.add(loginButton);

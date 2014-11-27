@@ -2,16 +2,16 @@ package com.starbattle.client.testinterface.tester;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.main.StarBattleClient;
 import com.starbattle.client.testinterface.exceptions.GUIElementNotFoundException;
 import com.starbattle.client.testinterface.exceptions.LoginFailureException;
 import com.starbattle.client.testinterface.exceptions.NetworkTimeoutException;
 import com.starbattle.client.testinterface.exceptions.WrongGUIElementException;
+import com.starbattle.client.testinterface.main.ClientTestInterface;
 import com.starbattle.client.views.lobby.LobbyView;
-import com.starbattle.client.views.lobby.chat.ChatContainer;
 import com.starbattle.client.views.lobby.chat.ChatManager;
 import com.starbattle.client.views.lobby.friends.FriendRelation;
 import com.starbattle.client.views.login.LoginView;
@@ -19,15 +19,12 @@ import com.starbattle.client.views.register.validate.PasswordHasher;
 import com.starbattle.client.window.ContentView;
 import com.starbattle.client.window.GameWindow;
 import com.starbattle.network.connection.objects.NP_Login;
-import com.starbattle.network.connection.objects.NP_StartAnswer;
 
 public class ClientAutomate {
 
 	private ClientNetworkInterface clientNetwork;
 	private GameWindow window;
-	public static float toleranceSeconds = 5;
-	public static float networkTimeout = 10;
-	public static float stepDelay = 1f;
+	
 	private StarBattleClient client;
 	
 	public ClientAutomate(StarBattleClient client) {
@@ -37,6 +34,11 @@ public class ClientAutomate {
 		this.client=client;
 	}
 	
+	public void hideClientWindow()
+	{
+		//minimize window
+		window.getWindow().setState(JFrame.ICONIFIED);
+	}
 	
 	/*
 	 * DO STEP METHODES
@@ -208,7 +210,7 @@ public class ClientAutomate {
 
 	private void step() {
 		try {
-			Thread.sleep((long) (1000f * stepDelay));
+			Thread.sleep((long) (1000f * ClientTestInterface.stepDelay));
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

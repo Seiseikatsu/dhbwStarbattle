@@ -27,8 +27,6 @@ public class FriendActionReceiver implements FriendActionListener{
 		NP_HandleFriendRequest handle=new NP_HandleFriendRequest();
 		handle.accept=false;
 		handle.friendName=friend;
-		System.out.println("Client delete Friend: "+friend);
-		LobbyView.debugText("Client delete Friend: "+friend);
 		sendServerConnection.sendTCP(handle);
 	}
 
@@ -37,8 +35,6 @@ public class FriendActionReceiver implements FriendActionListener{
 		NP_HandleFriendRequest handle=new NP_HandleFriendRequest();
 		handle.accept=true;
 		handle.friendName=friend;
-		System.out.println("Client accept Friend: "+friend);
-		LobbyView.debugText("Client accept Friend: "+friend);
 		sendServerConnection.sendTCP(handle);		
 	}
 

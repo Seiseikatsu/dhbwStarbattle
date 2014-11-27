@@ -16,29 +16,23 @@ import cucumber.api.java.en.When;
 
 public class StepDefinitions {
 
-	private ClientAutomate client, anotherClient;
+	private ClientAutomate client;
 
 	@cucumber.api.java.Before	
-	public void before()
+	public void init()
 	{
-		System.out.println("BEFORE");
+		//set simulation parameters
+		ClientTestInterface.shutdownDelaySeconds=1;
+		ClientTestInterface.stepDelay=0.5f;
+		//init default application
+		client = ClientTestInterface.createNewTestClient();		
 	}
 	
 	@cucumber.api.java.After
-	public void after()
+	public void tidyUp()
 	{
-		System.out.println("AFTER");
-		if (client != null) {
-			client.shutdown();
-		}
-		if (anotherClient != null) {
-			anotherClient.shutdown();
-		}
-	}
-	
-	@Given("^I start my application$")
-	public void i_start_my_application() throws Throwable {
-		client = ClientTestInterface.createNewTestClient();
+		//shut down all applications from this test
+		ClientTestInterface.shutdown();	
 	}
 
 	@Given("^I am on the login view$")
@@ -83,9 +77,9 @@ public class StepDefinitions {
 	@Given("^another application is logged in with \"(.*?)\" and \"(.*?)\"$")
 	public void another_application_is_logged_in_with_and(String name, String pw) throws Throwable {
 
-		anotherClient = ClientTestInterface.createNewTestClient();
+		ClientAutomate anotherClient = ClientTestInterface.createNewTestClient();
 		anotherClient.doLogin(name, pw);
-		
+		anotherClient.hideClientWindow(); //minimize second client window so we can see our target client
 	}
 
 }
