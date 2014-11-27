@@ -15,7 +15,7 @@ import com.starbattle.client.resource.ResourceLoader;
 public class AddFriendModel extends ViewModel {
 
 	private JTextField friendname = new JTextField(22);
-	private JTextArea info = new JTextArea(5, 22);
+	private DesignLabel error=new DesignLabel("", Color.RED,12);
 
 	public AddFriendModel() {
 
@@ -27,14 +27,14 @@ public class AddFriendModel extends ViewModel {
 		view.add(friendname);
 		view.add(Box.createVerticalStrut(5));
 		view.add(Box.createVerticalStrut(50));
-		view.add(info);
-		info.setEditable(false);
-		info.setOpaque(false);
-		info.append("New Friend Request: \n");
-		info.append(" \n");
+		view.add(error);
 
 	}
 
+	public void setErrorText(String text)
+	{
+		error.setText(text);
+	}
 
 	public String getFriendName() {
 		return friendname.getText();

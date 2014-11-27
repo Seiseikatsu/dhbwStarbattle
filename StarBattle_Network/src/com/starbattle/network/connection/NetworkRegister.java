@@ -24,6 +24,8 @@ public class NetworkRegister {
 		addNetworkClass(NP_FriendUpdate.class);
 		addNetworkClass(NP_LobbyFriends.class);
 		addNetworkClass(NP_HandleFriendRequest.class);
+		addNetworkClass(NP_ChatException.class);
+		addNetworkClass(NP_FriendRequestAnswer.class);
 	}
 	
 	public void register(EndPoint endPoint) {

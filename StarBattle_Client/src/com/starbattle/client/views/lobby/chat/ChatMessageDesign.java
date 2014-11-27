@@ -29,6 +29,13 @@ public class ChatMessageDesign extends JPanel{
 		initLayout(message,c);
 	}
 	
+	public ChatMessageDesign(String error)
+	{
+		this.chatText=error;
+		setLayout(new FlowLayout(FlowLayout.CENTER));
+		initLayout(error,Color.RED);
+	}
+	
 	private void initLayout(String message, Color c)
 	{
 		setOpaque(false);

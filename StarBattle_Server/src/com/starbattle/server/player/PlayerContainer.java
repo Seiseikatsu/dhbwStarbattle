@@ -13,9 +13,9 @@ public class PlayerContainer {
 		
 	}
 	
-	public void loginPlayer(PlayerConnection connection)
+	public void loginPlayer(PlayerConnection connection, String displayName)
 	{
-		player.put(connection.getAccountName(), new Player(connection));
+		player.put(connection.getAccountName(), new Player(connection,displayName));
 	}
 	
 	public void logoutPlayer(String playerName)

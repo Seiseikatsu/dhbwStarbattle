@@ -32,6 +32,11 @@ public class ChatContainer {
 		//open chat window on receive (if its closed)
 		window.open();
 	}
+	
+    public void receiveException(String string) {
+		view.receiveError(string);
+		
+	}
 
 	public void forceClose() {
 		window.close();
@@ -44,5 +49,7 @@ public class ChatContainer {
 	public ChatContentPanel getView() {
 		return view;
 	}
+
+	
 	
 }

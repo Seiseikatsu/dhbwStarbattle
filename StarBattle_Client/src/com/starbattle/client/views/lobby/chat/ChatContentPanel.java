@@ -56,13 +56,19 @@ public class ChatContentPanel extends JPanel{
 		addMessage(text, true);
 	}
 	
+	public void receiveError(String string) {
+		ChatMessageDesign message=new ChatMessageDesign(string);
+		content.add(message);
+		content.revalidate();
+		this.repaint();
+	}
+	
 	private void addMessage(String text, boolean fromFriend)
 	{
 		ChatMessageDesign message=new ChatMessageDesign(text, fromFriend);
 		content.add(message);
 		content.revalidate();
-		this.repaint();
-		
+		this.repaint();		
 	}
 	
 	private void write(String text)
@@ -88,4 +94,6 @@ public class ChatContentPanel extends JPanel{
 	public JPanel getChatContent() {
 		return content;
 	}
+
+	
 }

@@ -10,6 +10,7 @@ import javax.swing.event.PopupMenuListener;
 
 import com.starbattle.client.window.ContentPanel;
 import com.starbattle.network.client.SendServerConnection;
+import com.starbattle.network.connection.objects.NP_ChatException;
 import com.starbattle.network.connection.objects.NP_ChatMessage;
 
 public class ChatManager {
@@ -59,6 +60,13 @@ public class ChatManager {
 		// send message to window
 		chats.get(from).receiveMessage(message.message);
 	}
+	
+	public void receiveException(NP_ChatException chat) {
+		String from=chat.chatName;
+		if (chats.containsKey(from)) {
+			chats.get(from).receiveException("Message could not be send");
+		}
+	}
 
 	private class WriteListener implements WriteMessageListener {
 
@@ -91,5 +99,7 @@ public class ChatManager {
 	public ChatListPanel getChatListPanel() {
 		return chatListPanel;
 	}
+
+
 
 }

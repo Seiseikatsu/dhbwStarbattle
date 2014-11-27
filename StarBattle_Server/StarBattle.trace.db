@@ -336,3 +336,24 @@ Column "account_id" not found [42122-176]
 11-26 20:52:52 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
 No data is available [2000-176]
+11-27 21:19:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-27 21:19:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-27 21:19:31 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-27 21:29:47 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-27 21:31:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-27 21:31:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+11-27 21:31:43 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]

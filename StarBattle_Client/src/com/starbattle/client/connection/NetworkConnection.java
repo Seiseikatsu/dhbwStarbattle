@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.esotericsoftware.kryonet.Connection;
 import com.starbattle.client.connection.listener.NetworkCommunctionListener;
 import com.starbattle.client.connection.listener.NetworkFriendListener;
+import com.starbattle.client.connection.listener.NetworkFriendRequestListener;
 import com.starbattle.client.connection.listener.NetworkRegistrationListener;
 import com.starbattle.network.client.NetworkClient;
 import com.starbattle.network.client.SendServerConnection;
@@ -35,6 +36,11 @@ public class NetworkConnection {
 	public void setRegistrationListener(NetworkRegistrationListener listener) {
 		networkObjectResolver.setRegistrationListener(listener);
 	}
+	
+	public void setFriendRequestListener(NetworkFriendRequestListener listener) {
+		networkObjectResolver.setFriendRequestListener(listener);
+	}
+	
 	
 	public void setFriendListener(NetworkFriendListener listener)
 	{

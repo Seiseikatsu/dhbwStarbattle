@@ -88,7 +88,14 @@ public class PlayerManager {
 
 	private void loginPlayer(PlayerConnection player, String name) {
 		player.setAccountName(name);
-		playerContainer.loginPlayer(player);
+		String displayName=null;
+		try {
+			displayName = accountManager.getDisplayName(name);
+		} catch (AccountException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		playerContainer.loginPlayer(player,displayName);
 		// send no response string, just open-game-command to true
 		System.out.println("Player login: " + name);
 		sendAnswer(player, true, null);
