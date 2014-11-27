@@ -15,6 +15,12 @@ public class NetworkCheck {
 
 		do {
 			checkOk = task.check();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+	
 		} while (checkOk == false && isToleranceRunning());
 
 	}

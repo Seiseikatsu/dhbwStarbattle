@@ -9,11 +9,11 @@ public class ClientTestInterface {
 	public static ClientAutomate createNewTestClient()
 	{
 		StarBattleClient client=new StarBattleClient();
-		return new ClientAutomate(client.getConnection(), client.getWindow());
+		return new ClientAutomate(client);
 	}
 	
 	public static ClientAutomate createClientAutomate(StarBattleClient client)
 	{
-		return new ClientAutomate(client.getConnection(), client.getWindow());
+		return new ClientAutomate(client);
 	}
 }

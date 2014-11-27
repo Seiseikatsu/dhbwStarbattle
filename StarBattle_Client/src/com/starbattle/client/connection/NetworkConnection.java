@@ -69,4 +69,8 @@ public class NetworkConnection {
 
 	}
 
+	public NetworkClient getClient() {
+		return client;
+	}
+	
 }

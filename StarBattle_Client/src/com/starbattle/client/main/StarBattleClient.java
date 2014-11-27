@@ -24,6 +24,7 @@ public class StarBattleClient {
 
 	private GameWindow window;
 	private NetworkConnection connection;
+	private boolean shutdown = false;
 
 	public StarBattleClient() {
 		initClient();
@@ -31,25 +32,33 @@ public class StarBattleClient {
 
 	public void initClient() {
 		GUIDesign.load();
-		
+
 		window = new GameWindow(null, "StarBattle Client");
 		ClientConfiguration.loadConfiguration();
-		
+
 		// create network connection
 		connection = new NetworkConnection(new NetworkConnectionHandler());
-		
+
 		// add connection error view
 		window.addView(new ConnectionErrorView(new ConnectionErrorHandler()));
-			try {
-	
+		try {
+
 			connection.start("localhost", 56777, 56777);
 			openWindow();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			ConnectionErrorView.setErrorInfo(e);
-			window.open(ConnectionErrorView.VIEW_ID);
+			if (!shutdown) {
+				e.printStackTrace();
+				ConnectionErrorView.setErrorInfo(e);
+				window.open(ConnectionErrorView.VIEW_ID);
+			}
 		}
+	}
+
+	public void shutdown() {
+		shutdown = true;
+		window.getWindow().dispose();
+		connection.getClient().close();
 	}
 
 	private void openWindow() {
@@ -59,7 +68,7 @@ public class StarBattleClient {
 		window.addView(new ResetPasswordView(connection));
 		window.addView(new LobbyView(connection));
 		window.addView(new PlayView(connection));
-		window.addView(new AddFriendView(connection));		
+		window.addView(new AddFriendView(connection));
 		// open login window
 		window.open(LoginView.VIEW_ID);
 	}
@@ -74,7 +83,9 @@ public class StarBattleClient {
 
 		@Override
 		public void onDisconnect() {
-			window.open(ConnectionErrorView.VIEW_ID);
+			if (!shutdown) {
+				window.open(ConnectionErrorView.VIEW_ID);
+			}
 		}
 
 	}
@@ -97,13 +108,13 @@ public class StarBattleClient {
 		}
 
 	}
-	
+
 	public NetworkConnection getConnection() {
 		return connection;
 	}
-	
+
 	public GameWindow getWindow() {
 		return window;
 	}
-	
+
 }

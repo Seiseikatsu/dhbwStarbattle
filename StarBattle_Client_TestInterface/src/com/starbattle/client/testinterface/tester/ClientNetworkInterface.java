@@ -21,6 +21,11 @@ public class ClientNetworkInterface {
 		});
 	}
 	
+	public void close()
+	{
+		connection.getClient().close();
+	}
+	
 	public void sendTCP(Object object)
 	{
 		connection.getSendConnection().sendTCP(object);

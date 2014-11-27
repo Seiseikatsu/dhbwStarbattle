@@ -5,6 +5,7 @@ import javax.swing.JComponent;
 import javax.swing.JTextField;
 
 import com.starbattle.client.connection.NetworkConnection;
+import com.starbattle.client.main.StarBattleClient;
 import com.starbattle.client.testinterface.exceptions.GUIElementNotFoundException;
 import com.starbattle.client.testinterface.exceptions.LoginFailureException;
 import com.starbattle.client.testinterface.exceptions.NetworkTimeoutException;
@@ -27,12 +28,13 @@ public class ClientAutomate {
 	public static float toleranceSeconds = 5;
 	public static float networkTimeout = 10;
 	public static float stepDelay = 1f;
+	private StarBattleClient client;
+	
+	public ClientAutomate(StarBattleClient client) {
 
-	public ClientAutomate(NetworkConnection connection, GameWindow window) {
-
-		clientNetwork = new ClientNetworkInterface(connection);
-		this.window = window;
-
+		clientNetwork = new ClientNetworkInterface(client.getConnection());
+		this.window = client.getWindow();
+		this.client=client;
 	}
 	
 	
@@ -49,16 +51,9 @@ public class ClientAutomate {
 		login.password = pw;
 		login.playerName = accountName;
 		clientNetwork.sendTCP(login);
-		try {
-			NP_StartAnswer answer = (NP_StartAnswer) waitForNetworkReceive(NP_StartAnswer.class);
-			if (answer.openGame) {
-				return;
-			} else {
-				throw new LoginFailureException(answer.errorMessage);
-			}
-		} catch (NetworkTimeoutException e) {
-			e.printStackTrace();
-			throw new LoginFailureException();
+		if(!isInView(LobbyView.VIEW_ID))
+		{
+			throw new LoginFailureException("Failed to login with "+accountName+" "+password);
 		}
 	}
 
@@ -154,7 +149,9 @@ public class ClientAutomate {
 	public boolean isInView(final int viewID) {
 		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
 			public boolean check() {
-				if (viewID == window.getContent().getCurrentViewID()) {
+				int view=window.getContent().getCurrentViewID();
+				//System.out.println("CHECK "+viewID+" =? "+view);
+				if (viewID == view) {
 					return true;
 				}
 				return false;
@@ -217,4 +214,9 @@ public class ClientAutomate {
 		}
 	}
 
+	public void shutdown()
+	{
+		client.shutdown();
+	}
+	
 }

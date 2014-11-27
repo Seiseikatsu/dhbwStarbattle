@@ -13,6 +13,8 @@
 	<classpathentry kind="lib" path="src/StarBattle_Client.jar"/>
 	<classpathentry kind="lib" path="src/StarBattle_Network.jar"/>
 	<classpathentry kind="lib" path="src/kryonet-2.21-all.jar"/>
+	<classpathentry kind="lib" path="src/StarBattle_Server.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="StarBattle_AccountManager.jar" sourcepath="/StarBattle_AccountManager"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

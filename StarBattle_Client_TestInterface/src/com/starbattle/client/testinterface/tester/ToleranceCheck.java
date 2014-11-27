@@ -4,7 +4,7 @@ public class ToleranceCheck {
 
 	private boolean checkOk = false;
 	private long lastMilli;
-
+	
 	public ToleranceCheck(ToleranceCheckTask task) {
 		check(task);
 	}
@@ -14,6 +14,11 @@ public class ToleranceCheck {
 
 		do {
 			checkOk = task.check();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		} while (checkOk == false && isToleranceRunning());
 
 	}

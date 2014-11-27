@@ -21,7 +21,8 @@ public class PlayerManager {
 	private AccountManager accountManager;
 	private FriendsManager friendsManager;
 	private PlayerContainer playerContainer;
-
+	public final static String playerAlreadyLoginMessage="Player is already logged in!";
+	
 	public PlayerManager(PlayerContainer playerContainer) {
 		this.playerContainer = playerContainer;
 		accountManager = new AccountManagerImpl();
@@ -52,7 +53,7 @@ public class PlayerManager {
 					loginPlayer(player, name);
 					return;
 				}
-				errorText = "Player is already logged in!";
+				errorText = PlayerManager.playerAlreadyLoginMessage;
 			}
 			// error case
 			sendAnswer(player, false, errorText);
