@@ -3,7 +3,6 @@ package com.starbattle.client.testinterface.main;
 import java.util.ArrayList;
 
 import com.starbattle.client.main.StarBattleClient;
-import com.starbattle.client.main.debug.ClientLoadingListener;
 import com.starbattle.client.testinterface.tester.ClientAutomate;
 
 public class ClientTestInterface {
@@ -38,14 +37,5 @@ public class ClientTestInterface {
 				client.shutdown();
 			}
 		}
-	}
-
-	private class ClientLoaded implements ClientLoadingListener{
-
-		@Override
-		public void finishedLoading() {
-			
-		}
-		
 	}
 }
