@@ -1,6 +1,7 @@
 package com.starbattle.client.main.debug;
 
 import com.starbattle.client.connection.NetworkConnection;
+import com.starbattle.client.player.PlayerValues;
 import com.starbattle.client.resource.ClientConfiguration;
 import com.starbattle.client.resource.GUIDesign;
 import com.starbattle.client.views.lobby.LobbyView;
@@ -21,6 +22,7 @@ public class StarBattleClientDebug {
 		GameWindow window = new GameWindow(null, "Client DEBUG Modus");
 		System.out.println("Client DEBUG Modus| Open Client in debug modus");
 		NetworkConnection debugConnection=new DebugNetworkConnection(null);
+		
 		
 		//add views to test
 		window.addView(new LoginView(debugConnection));

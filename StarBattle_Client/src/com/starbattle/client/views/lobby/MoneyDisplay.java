@@ -1,6 +1,7 @@
 package com.starbattle.client.views.lobby;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 import javax.swing.BorderFactory;
@@ -22,9 +23,10 @@ public class MoneyDisplay extends ViewModel{
 	
 	private void initLayout()
 	{
+		view.setPreferredSize(new Dimension(250,30));
 		view.setLayout(new FlowLayout());
 		view.setBackground(new Color(90,90,90));
-		view.setBorder(BorderFactory.createLineBorder(new Color(150,150,150), 1));
+		view.setBorder(BorderFactory.createLineBorder(new Color(200,200,200), 1));
 		money.setBorder(BorderFactory.createEmptyBorder());
 		
 		view.add(money);

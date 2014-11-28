@@ -16,7 +16,7 @@ import com.starbattle.client.resource.GUIDesign;
 
 public class LevelBarDisplay extends ViewModel {
 
-	private Dimension size = new Dimension(300, 25);
+	private Dimension size = new Dimension(300, 30);
 	private int min, max, value;
 	private double barPercentFilled;
 	private Font experienceFont = GUIDesign.labelFont.deriveFont(Font.ITALIC, 14f);
@@ -52,7 +52,7 @@ public class LevelBarDisplay extends ViewModel {
 
 	private void initLayout() {
 		view.setPreferredSize(size);
-		view.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200), 2));
+		view.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200), 1));
 		setCustomPaintPanel(new BarPainter());
 	}
 
@@ -84,8 +84,10 @@ public class LevelBarDisplay extends ViewModel {
 
 			Graphics2D g2d = (Graphics2D) g;
 			// draw bar background
-			g2d.setPaint(new GradientPaint(0, 0, new Color(140, 140, 140), 0, h, new Color(50,50,50)));
-			g2d.fillRect(0, 0, w, h);
+			//g2d.setPaint(new GradientPaint(0, 0, new Color(140, 140, 140), 0, h, new Color(50,50,50)));
+			//g2d.fillRect(0, 0, w, h);
+			g.setColor(new Color(90,90,90));
+			g.fillRect(0, 0, w, h);
 
 			int fw = (int) (w * barPercentFilled);
 			// draw bar

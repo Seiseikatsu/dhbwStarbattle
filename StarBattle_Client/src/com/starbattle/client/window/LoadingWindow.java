@@ -29,6 +29,7 @@ public class LoadingWindow {
 	private void initWindow()
 	{
 		window=new JFrame();
+		window.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		window.setIconImage(ResourceLoader.loadImage("windowIcon.png"));
 		window.setUndecorated(true);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -89,6 +90,7 @@ public class LoadingWindow {
 	}
 	
 	public void setMaxProgress(int maxProgress) {
+		progress=0;
 		this.maxProgress = maxProgress;
 	}
 	

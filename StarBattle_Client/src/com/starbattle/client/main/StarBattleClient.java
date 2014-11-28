@@ -27,7 +27,8 @@ public class StarBattleClient {
 	private NetworkConnection connection;
 	private LoadingWindow loadingWindow;
 	private boolean shutdown = false;
-
+	private Thread loadingWindowThread;
+	
 	public StarBattleClient() {
 		initClient();
 	}
@@ -72,6 +73,7 @@ public class StarBattleClient {
 			if (!shutdown) {
 				e.printStackTrace();
 				ConnectionErrorView.setErrorInfo(e);
+				loadingWindow.close();
 				window.open(ConnectionErrorView.VIEW_ID);
 			}
 		}
@@ -115,6 +117,7 @@ public class StarBattleClient {
 		@Override
 		public void onDisconnect() {
 			if (!shutdown) {
+				loadingWindow.close();
 				window.open(ConnectionErrorView.VIEW_ID);
 			}
 		}

@@ -9,12 +9,15 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
 import com.starbattle.client.layout.CustomPaintPanelInterface;
 import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.layout.ViewModel;
+import com.starbattle.client.views.lobby.control.StartPanelListener;
 
 public class StartPanelDisplay extends ViewModel{
 
@@ -22,10 +25,11 @@ public class StartPanelDisplay extends ViewModel{
 	private DesignButton shopButton = new DesignButton("Shop");
 	private DesignButton logoutButton =new DesignButton("Exit");
 	private DesignButton settingsButton =new DesignButton("Settings");
+	private StartPanelListener startPanelListener;
 	
-	
-	public StartPanelDisplay()
+	public StartPanelDisplay(StartPanelListener startPanelListener)
 	{
+		this.startPanelListener=startPanelListener;
 		view.setPreferredSize(new Dimension(0, 200));
 		initLayout();
 	}
@@ -51,7 +55,42 @@ public class StartPanelDisplay extends ViewModel{
 		view.add(topLine,BorderLayout.NORTH);
 		view.add(botLine,BorderLayout.SOUTH);	
 		view.add(control.getView(),BorderLayout.CENTER);
-
+			
+		addListeners();
+	}
+	
+	private void addListeners()
+	{
+		logoutButton.addActionListener(new ActionListener() {			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				startPanelListener.disconnect();
+			}
+		});
+		
+		settingsButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				startPanelListener.openSettings();
+			}
+		});		
+		
+		playButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				startPanelListener.startGame();
+			}
+		});
+		
+		shopButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				startPanelListener.openShop();
+			}
+		});
 	}
 	
 	private class ControlView extends ViewModel{
