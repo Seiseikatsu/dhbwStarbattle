@@ -2,6 +2,7 @@ package com.starbattle.client.views.login;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -28,7 +29,7 @@ public class LoginBackgroundAnimation extends CustomPaintInterface {
 	}
 
 	@Override
-	public void paintPanel(Graphics g) {
+	public void paintPanel(Graphics g, Dimension size) {
 
 		Graphics2D g2d = (Graphics2D) g;
 

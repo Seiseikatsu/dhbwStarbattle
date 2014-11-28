@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.layout.DesignButton;
+import com.starbattle.client.main.StarBattleClient;
 import com.starbattle.client.views.lobby.chat.ChatManager;
 import com.starbattle.client.views.lobby.control.FriendActionReceiver;
 import com.starbattle.client.views.lobby.control.FriendConnectionReceiver;
@@ -20,6 +21,9 @@ import com.starbattle.client.views.lobby.control.StartPanelListener;
 import com.starbattle.client.views.lobby.friends.FriendPanel;
 import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.views.play.PlayView;
+import com.starbattle.client.views.profile.PlayerProfileView;
+import com.starbattle.client.views.settings.SettingsView;
+import com.starbattle.client.views.shop.ShopView;
 import com.starbattle.client.window.ContentView;
 import com.starbattle.network.connection.objects.NP_Logout;
 
@@ -38,7 +42,7 @@ public class LobbyView extends ContentView {
 
 	public LobbyView(final NetworkConnection networkConnection) {
 		this.networkConnection = networkConnection;
-		windowSize = new Dimension(1000, 600);
+		windowSize = StarBattleClient.windowSize;
 		chatManager = new ChatManager(networkConnection.getSendConnection(), this.view);
 		friendActionReceiver = new FriendActionReceiver(chatManager, networkConnection.getSendConnection());
 		initLayout();
@@ -56,11 +60,11 @@ public class LobbyView extends ContentView {
 			}			
 			@Override
 			public void openShop() {
-				
+				openView(ShopView.VIEW_ID);
 			}			
 			@Override
 			public void openSettings() {
-				
+				openWindowView(SettingsView.VIEW_ID);
 			}			
 			@Override
 			public void disconnect() {
@@ -72,7 +76,7 @@ public class LobbyView extends ContentView {
 		playerProfileDisplay = new PlayerBarDisplay(new PlayerBarListener() {			
 			@Override
 			public void showPlayerProfile() {
-				
+				openView(PlayerProfileView.VIEW_ID);
 			}
 		});
 

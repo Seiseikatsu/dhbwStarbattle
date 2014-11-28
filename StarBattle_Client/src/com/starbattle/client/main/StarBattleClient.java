@@ -1,5 +1,6 @@
 package com.starbattle.client.main;
 
+import java.awt.Dimension;
 import java.io.IOException;
 
 import com.starbattle.client.connection.NetworkConnection;
@@ -12,8 +13,11 @@ import com.starbattle.client.views.lobby.LobbyView;
 import com.starbattle.client.views.lobby.friends.AddFriendView;
 import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.views.play.PlayView;
+import com.starbattle.client.views.profile.PlayerProfileView;
 import com.starbattle.client.views.register.RegisterView;
 import com.starbattle.client.views.reset.ResetPasswordView;
+import com.starbattle.client.views.settings.SettingsView;
+import com.starbattle.client.views.shop.ShopView;
 import com.starbattle.client.window.GameWindow;
 import com.starbattle.client.window.LoadingWindow;
 
@@ -27,7 +31,7 @@ public class StarBattleClient {
 	private NetworkConnection connection;
 	private LoadingWindow loadingWindow;
 	private boolean shutdown = false;
-	private Thread loadingWindowThread;
+	public static Dimension windowSize=new Dimension(1000,600);
 	
 	public StarBattleClient() {
 		initClient();
@@ -98,6 +102,12 @@ public class StarBattleClient {
 		window.addView(new PlayView(connection));
 		loadingWindow.loadProgress();
 		window.addView(new AddFriendView(connection));
+		loadingWindow.loadProgress();
+		window.addView(new SettingsView(connection));
+		loadingWindow.loadProgress();
+		window.addView(new ShopView(connection));
+		loadingWindow.loadProgress();
+		window.addView(new PlayerProfileView(connection));
 		loadingWindow.loadProgress();
 		// open login window
 		window.open(LoginView.VIEW_ID);

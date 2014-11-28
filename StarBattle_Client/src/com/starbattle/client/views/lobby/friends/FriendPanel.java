@@ -172,7 +172,7 @@ public class FriendPanel extends ViewModel {
 		view.add(friendPanelContent, BorderLayout.CENTER);
 
 		header.setBackground(new Color(100, 100, 100));
-		JLabel title = new DesignLabel("Friends", "user.png");
+		JLabel title = new DesignLabel("Friends", "users_3.png");
 		header.add(title);
 		header.add(addNew);
 		header.add(openList);

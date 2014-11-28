@@ -1,5 +1,6 @@
 package com.starbattle.client.window;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -34,7 +35,8 @@ public class ContentPanel extends JPanel{
 		}
 		if(customPaintInterface!=null)
 		{
-			customPaintInterface.paintPanel(g);
+			Dimension size=new Dimension(this.getWidth(),this.getHeight());
+			customPaintInterface.paintPanel(g,size);
 		}
 	}
 	

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import com.starbattle.client.resource.GUIDesign;
@@ -61,6 +62,12 @@ public class DesignLabel extends JLabel {
 		init(color);
 	}
 
+
+	public DesignLabel(String text, ImageIcon icon, int size) {
+		super(text, icon, 0);
+		init(DEFAULT_COLOR);
+		setFontSize(size);
+	}
 
 	private void init(Color color) {
 		this.setOpaque(false);

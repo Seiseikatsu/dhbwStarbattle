@@ -1,13 +1,14 @@
 package com.starbattle.client.window;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 
 public abstract class CustomPaintInterface {
 
 	
-	private ContentPanel parentView;
+	protected ContentPanel parentView;
 	
-	public abstract void paintPanel(Graphics g);
+	public abstract void paintPanel(Graphics g, Dimension size);
 	
 	public void setParentView(ContentPanel contentPanel) {
 		this.parentView = contentPanel;

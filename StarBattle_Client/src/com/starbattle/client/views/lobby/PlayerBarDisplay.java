@@ -81,6 +81,7 @@ public class PlayerBarDisplay extends ViewModel {
 			button.setBorder(BorderFactory.createLineBorder(Color.WHITE,1));
 			button.setBorderPainted(true);
 			button.setOpaque(true);
+			button.addActionListener(listener);
 			this.view.add(button);
 			name.setFont(name.getFont().deriveFont(Font.BOLD));
 			this.view.add(name);

@@ -1,0 +1,74 @@
+
+
+
+-----------------------------------------
+Starbattle Network Architecture & Traffic
+-----------------------------------------
+
+
+Archticture:
+--------------------------
+
+USER   |   Client    ||||<== Network ==>||||   Server  | DB
+
+
+Network Objects Workflow:
+------------------------
+
+
+/////////////////// Login Workflow /////////////
+
+User fills in Logindata and press Loginbutton 
+=> Client receives Action with GUI Listeners
+=> Client sends NP_Login with given Data
+
+... 
+
+Server receives NP_Login
+=> PlayerManager reads Data 
+=> AccountManager compares Data with DB Entries
+=> On successful login, server adds player account to online player list and sends online update NP_FriendUpdate to all of my logged in friends
+=> Server sends back NP_StartAnswer with 
+NP_StartAnswer.AnswerMessage = Displayname of Playeraccount or Errortext if login failed
+NP_StartAnswer.startGame = Login failed true/false
+=> On successful login, server also sends me my whole Friendlist with NP_LobbyFriends
+...
+
+Client receives NP_StartAnswer
+=> Starts Game if Data says login successful, else display error message
+Client receives NP_LobbyFriends
+=> Add all friends from data to my gui 
+
+Other logged in player whos my friend receives NP_FriendUpdate
+=> Updates GUI for this FriendRelation 
+
+
+////////////////////// Register Workflow //////////////
+
+User fills in Registerdata and press Registerbutton
+=> Client receives Action with GUI Listeners
+=> Client compares my two given passwords and validate them
+=> If password is legal, Client sends NP_Register with given Data
+
+...
+
+Server receives NP_Register
+=> PlayerManager reads Data
+=> AccountManager validates Username and Displayname, if legal writes new data in DB
+=> On successful registration server does the same as in login (send NP_StartAnswer and NP_LobbyFriends)
+
+...
+
+Client receives NP_StartAnswer
+=> If data says successful => Open lobby
+=> If data not successful => Display registration error text
+
+
+
+							
+
+
+
+
+
+
