@@ -14,6 +14,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import javax.swing.plaf.SliderUI;
 
 import com.starbattle.client.resource.GUIDesign;
 
@@ -33,6 +34,10 @@ public class DesignButton extends JButton {
 	public void setButtonStyle(int buttonStyle) {
 		this.buttonStyle = buttonStyle;
 		this.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+		if(buttonStyle==2)
+		{
+			selectedFontColor=fontColor;
+		}
 	}
 
 	public DesignButton(String text, Icon icon) {
@@ -49,6 +54,10 @@ public class DesignButton extends JButton {
 		this.setBorder(BorderFactory.createEmptyBorder());
 	}
 
+	public void setFontSize(float size, int style)
+	{
+		this.setFont(this.getFont().deriveFont(size).deriveFont(style));
+	}
 	public void setFontSize(float size)
 	{
 		this.setFont(this.getFont().deriveFont(size));

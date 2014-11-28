@@ -96,9 +96,9 @@ public class PlayerManager {
 			e.printStackTrace();
 		}
 		playerContainer.loginPlayer(player,displayName);
-		// send no response string, just open-game-command to true
+		// send player displayname as answer string, just open-game-command to true
 		System.out.println("Player login: " + name);
-		sendAnswer(player, true, null);
+		sendAnswer(player, true, displayName);
 		friendsManager.sendCurrentFriends(player); // send friends to player
 		// update other player my online status
 		friendsManager.updateFriendsMyOnlineStatus(name, true);
@@ -117,7 +117,7 @@ public class PlayerManager {
 	private void sendAnswer(PlayerConnection player, boolean login, String text) {
 		NP_StartAnswer answer = new NP_StartAnswer();
 		answer.openGame = login;
-		answer.errorMessage = text;
+		answer.answerMessage = text;
 		player.sendTCP(answer);
 	}
 

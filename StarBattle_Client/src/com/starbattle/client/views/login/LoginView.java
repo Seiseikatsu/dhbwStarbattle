@@ -5,23 +5,20 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.connection.listener.NetworkRegistrationListener;
 import com.starbattle.client.layout.DesignButton;
+import com.starbattle.client.player.PlayerValues;
 import com.starbattle.client.resource.ClientConfiguration;
 import com.starbattle.client.resource.ResourceLoader;
 import com.starbattle.client.views.lobby.LobbyView;
 import com.starbattle.client.views.register.RegisterView;
 import com.starbattle.client.views.reset.ResetPasswordView;
 import com.starbattle.client.window.ContentView;
-import com.starbattle.network.client.SendServerConnection;
 import com.starbattle.network.connection.objects.NP_Login;
 
 public class LoginView extends ContentView {
@@ -104,7 +101,8 @@ public class LoginView extends ContentView {
 	private class Registration implements NetworkRegistrationListener {
 
 		@Override
-		public void registrationOk() {
+		public void registrationOk(String playerName) {
+			PlayerValues.setPlayerDisplayName(playerName);
 			openView(LobbyView.VIEW_ID);
 		}
 
@@ -117,6 +115,9 @@ public class LoginView extends ContentView {
 	@Override
 	protected void initView() {
 
+		//reset playername 
+		PlayerValues.setPlayerDisplayName(null);
+		
 		networkConnection.setRegistrationListener(new Registration());
 		loginModel.setErrorText(null);
 		resizeWindow(windowSize);

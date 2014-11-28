@@ -17,6 +17,7 @@ import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.connection.listener.NetworkRegistrationListener;
 import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.layout.DesignLabel;
+import com.starbattle.client.player.PlayerValues;
 import com.starbattle.client.views.lobby.LobbyView;
 import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.views.register.validate.PasswordChecker;
@@ -109,7 +110,8 @@ public class RegisterView extends ContentView {
 	private class Registration implements NetworkRegistrationListener {
 
 		@Override
-		public void registrationOk() {
+		public void registrationOk(String playerName) {
+			PlayerValues.setPlayerDisplayName(playerName);
 			openView(LobbyView.VIEW_ID); // login after register
 		}
 

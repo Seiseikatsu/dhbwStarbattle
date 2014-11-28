@@ -117,10 +117,10 @@ public class FriendRelationView extends ViewModel {
 	private class BackgroundPainter implements CustomPaintPanelInterface {
 
 		@Override
-		public void paint(Graphics g) {
+		public void paint(Graphics g,Dimension size) {
 
-			int w = view.getWidth();
-			int h = view.getHeight();
+			int w = size.width;
+			int h = size.height;
 
 			Color c = null;
 			if (isMouseOver) {

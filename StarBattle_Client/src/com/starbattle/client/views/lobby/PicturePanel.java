@@ -1,8 +1,8 @@
 package com.starbattle.client.views.lobby;
 
-import java.awt.AlphaComposite;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -43,7 +43,7 @@ public class PicturePanel extends ViewModel {
 	private class BackgroundPainter implements CustomPaintPanelInterface {
 
 		@Override
-		public void paint(Graphics g) {
+		public void paint(Graphics g, Dimension cSize) {
 			g.drawImage(background, 0, 0, null);
 			Graphics2D g2d = (Graphics2D) g;
 

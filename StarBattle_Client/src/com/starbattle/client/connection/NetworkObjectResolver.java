@@ -37,9 +37,9 @@ public class NetworkObjectResolver {
 		if (object instanceof NP_StartAnswer) {
 			NP_StartAnswer answer = (NP_StartAnswer) object;
 			if (answer.openGame) {
-				registrationListener.registrationOk();
+				registrationListener.registrationOk(answer.answerMessage);
 			} else {
-				registrationListener.registrationFailed(answer.errorMessage);
+				registrationListener.registrationFailed(answer.answerMessage);
 			}
 		} else if (object instanceof NP_ChatMessage) {
 			friendListener.receivedChat((NP_ChatMessage) object);

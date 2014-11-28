@@ -1,5 +1,6 @@
 package com.starbattle.client.layout;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -73,7 +74,8 @@ public class ViewModelPanel extends JPanel {
 			}
 		}
 		if (customPaintPanelInterface != null) {
-			customPaintPanelInterface.paint(g);
+			Dimension size=new Dimension(this.getWidth(),this.getHeight());
+			customPaintPanelInterface.paint(g,size);
 		}
 	}
 

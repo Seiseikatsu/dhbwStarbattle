@@ -77,7 +77,7 @@ public class LevelBarDisplay extends ViewModel {
 	private class BarPainter implements CustomPaintPanelInterface {
 
 		@Override
-		public void paint(Graphics g) {
+		public void paint(Graphics g, Dimension size) {
 
 			int w = size.width;
 			int h = size.height;
