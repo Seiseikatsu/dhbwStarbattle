@@ -48,6 +48,7 @@ public class FriendPanel extends ViewModel {
 		initLayout();
 		chatPanel = chatManager.getChatListPanel().getView();
 		addNew.setFontSize(12f);
+		addNew.setName("Add_Friend");
 		addNew.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

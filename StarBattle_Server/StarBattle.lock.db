@@ -1,4 +1,9 @@
 #FileLock
+<<<<<<< HEAD
 #Fri Nov 28 16:24:24 CET 2014
 id=149f700c0ca3ee9a1e33ece56bde354c7287742fbed
+=======
+#Fri Nov 28 15:57:11 CET 2014
+id=149f6e7d663f50dbe6cad87aba05e859af78970662a
+>>>>>>> branch 'master' of https://github.com/Seiseikatsu/dhbwStarbattle.git
 method=file

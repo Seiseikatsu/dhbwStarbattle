@@ -81,5 +81,11 @@ public class StepDefinitions {
 		anotherClient.doLogin(name, pw);
 		anotherClient.hideClientWindow(); //minimize second client window so we can see our target client
 	}
+	
+	@Given("^Given I am logged in as \"(.*?)\" with password \"(.*?)\"$")
+	public void i_am_logged_in_as_with_password(String name, String pw) throws Throwable {
+		client.doLogin(name, pw);
+	}
+	
 
 }
