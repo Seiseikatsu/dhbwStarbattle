@@ -3,6 +3,7 @@ package com.starbattle.client.views.play;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -16,42 +17,78 @@ import com.starbattle.client.resource.ResourceLoader;
 public class GameSettingsDisplay extends ViewModel{
 
 	
+	private ArrayList<GameModeEntry> modes=new ArrayList<GameModeEntry>();
+	private ViewModel content;
+	private ModeSelectionListener selectionListener=new SelectionListener();
+	
 	public GameSettingsDisplay()
 	{
 		initLayout();
+		initGameModes();
 	}
+	
 	
 	private void initLayout()
 	{
 		view.setLayout(new BorderLayout());
 		JPanel header=new JPanel(new FlowLayout(FlowLayout.LEFT));
-		header.setBackground(new Color(100,100,100));
+		header.setBackground(new Color(70,70,70));
 		header.setBorder(BorderFactory.createLineBorder(new Color(50,50,50), 2));
 		header.add(Box.createHorizontalStrut(50));
 		header.add(new DesignLabel("Playmode", ResourceLoader.loadIcon("group.png")));
 		header.add(Box.createHorizontalStrut(100));
 		header.add(new DesignLabel("Map", ResourceLoader.loadIcon("tree.png")));
 		
-		JPanel content=new JPanel();
-		content.setBackground(new Color(150,150,150));
-		content.setLayout(new VerticalLayout());
-		content.setBorder(BorderFactory.createEmptyBorder(5, 50, 5, 50));
+	    content=new ListContainer();
+		//content.setBackground(new Color(150,150,150));
+	  
 		
-		for(int i=0; i<5; i++)
-		{
-			GameModeEntry entry=new GameModeEntry("3v3", "Testmap");
-			if(i==3)
-			{
-				entry.setSelected(true);
-			}
-			content.add(entry.getView());
-		}
-		
-		view.add(content,BorderLayout.CENTER);
+		view.add(content.getView(),BorderLayout.CENTER);
 		view.add(header,BorderLayout.NORTH);
-		
+	}
+	
+	private void initGameModes()
+	{
+		addGameMode("3v3","Testmap");
+		addGameMode("5v5","Testmap");
+		addGameMode("10v10","Testmap");	
+		//select first one so we dont have to manage a state where no mode is selected
+		modes.get(0).setSelected(true);
+	}
+	
+	private void addGameMode(String mode, String map)
+	{
+		GameModeEntry entry=new GameModeEntry(mode, map);
+		entry.setSelectionListener(selectionListener);
+		modes.add(entry);
+		content.getView().add(entry.getView());
 	}
 	
 	
+	private class ListContainer extends ViewModel{
+		
+		public ListContainer()
+		{
+			this.view.setLayout(new VerticalLayout());
+			this.view.setBorder(BorderFactory.createEmptyBorder(5, 50, 5, 50));
+			this.view.setBackgroundImage(ResourceLoader.loadImage("space_background.jpg"),0,0);
+		}
+		
+	}
+	
+	private class SelectionListener implements ModeSelectionListener{
+
+		@Override
+		public void seletMode(GameModeEntry entry) {
+			
+			//set all on false
+			for(GameModeEntry mode: modes)
+			{
+				mode.setSelected(false);
+			}
+			//set selected on true
+			entry.setSelected(true);
+		}		
+	}
 	
 }

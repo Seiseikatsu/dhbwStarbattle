@@ -15,12 +15,17 @@ public class GameModeEntry extends ViewModel{
 	private String mode,map;
 	private boolean mouseHover=false;
 	private boolean isSelected=false;
+	private ModeSelectionListener selectionListener;
 	
 	public GameModeEntry(String mode, String map)
 	{
 		this.map=map;
 		this.mode=mode;
 		initLayout();
+	}
+	
+	public void setSelectionListener(ModeSelectionListener selectionListener) {
+		this.selectionListener = selectionListener;
 	}
 	
 	private void initLayout()
@@ -36,13 +41,17 @@ public class GameModeEntry extends ViewModel{
 				if(isSelected)
 				{
 					g.setColor(new Color(90,200,255));
-					g.fillRect(0,0,componentSize.width,componentSize.height);
 				}
 				else if(mouseHover)
 				{
-					g.setColor(new Color(0,0,0,50));
-					g.fillRect(0,0,componentSize.width,componentSize.height);
+					g.setColor(new Color(250,250,250,150));
 				}
+				else
+				{
+					g.setColor(new Color(200,200,200,100));
+				}
+				g.fillRect(0,0,componentSize.width,componentSize.height);
+				
 				g.setFont(GUIDesign.labelFont);
 				g.setColor(Color.WHITE);
 				g.drawString(mode,50,y);
@@ -53,10 +62,15 @@ public class GameModeEntry extends ViewModel{
 			
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
+				
 			}
 			
 			@Override
 			public void mousePressed(MouseEvent arg0) {
+			 if(!isSelected)
+			 {
+				 selectionListener.seletMode(GameModeEntry.this);
+			 }
 			}
 			
 			@Override
