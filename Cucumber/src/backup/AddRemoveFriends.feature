@@ -3,14 +3,12 @@ Feature: You can add and remove friends from your friendlist
   Scenario: Send friend request
     Given I am logged in as "TimoTester" with password "TimoTest#1"
     When I click on button "Add_Friend"
-    And I type "Hans"
-    And I click on button "send request"
+    And I type "Displayname" in "Friendname"
+    And I click on button "Send_Request"
     Then I am on the lobby view
-    And List counter "Request sent" increased by 1
+    And I see a friendrequest for "Displayname"
 
   Scenario: Accept friend request
-    Given I am logged in as "TimoTester" with password "TimoTest#1"
-    When I expand list "Friend requests"
-    And I click on "accept" on list item "Jürgen Jürgens"
+    Given I am logged in as "Accname" with password "Password"
     Then I am on the lobby view
-    And List counter "Friend requests" decreased by 1
+    And I see a incoming friendrequest from "Timo"
