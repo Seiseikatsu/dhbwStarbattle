@@ -24,7 +24,8 @@ import com.starbattle.client.window.LoadingWindow;
 public class StarBattleClient {
 
 	public static void main(String[] args) {
-		new StarBattleClient();
+		StarBattleClient client=new StarBattleClient();
+		client.initClient();
 	}
 
 	private GameWindow window;
@@ -34,7 +35,7 @@ public class StarBattleClient {
 	public static Dimension windowSize=new Dimension(1000,600);
 	
 	public StarBattleClient() {
-		initClient();
+		
 	}
 	
 
@@ -85,6 +86,7 @@ public class StarBattleClient {
 
 	public void shutdown() {
 		shutdown = true;
+		window.getContent().getModalWindowViewer().close();
 		window.getWindow().dispose();
 		connection.getClient().close();
 	}

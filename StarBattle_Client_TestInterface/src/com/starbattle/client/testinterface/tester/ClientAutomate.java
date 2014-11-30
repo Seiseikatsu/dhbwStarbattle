@@ -61,7 +61,6 @@ public class ClientAutomate {
 
 	public void clickButton(String buttonName) throws GUIElementNotFoundException, WrongGUIElementException {
 		step();
-		try {
 			JComponent component = findGUI(buttonName);
 			if (component != null) {
 				if (component instanceof JButton) {
@@ -73,15 +72,10 @@ public class ClientAutomate {
 			} else {
 				throw new GUIElementNotFoundException(buttonName);
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
 	}
 
 	public void fillInTextfield(String textfieldName, String text) throws GUIElementNotFoundException, WrongGUIElementException {
 		step();
-		try {
 			JComponent component = findGUI(textfieldName);
 			if (component != null) {
 				if (component instanceof JTextField) {
@@ -93,10 +87,6 @@ public class ClientAutomate {
 			} else {
 				throw new GUIElementNotFoundException(textfieldName);
 			}
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
 	}
 
 	public void setInView(int viewID) {
@@ -204,8 +194,8 @@ public class ClientAutomate {
 	}
 
 	private JComponent findGUI(String name) {
-		ComponentFinder.findElement(name, window.getContent());
-		return ComponentFinder.getFoundComponent();
+
+		return ComponentFinder.findElement(name, window.getContent());
 	}
 
 	private void step() {
@@ -218,6 +208,7 @@ public class ClientAutomate {
 
 	public void shutdown()
 	{
+		
 		client.shutdown();
 	}
 	

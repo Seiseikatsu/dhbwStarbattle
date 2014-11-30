@@ -3,13 +3,16 @@ package cucumber.features;
 import static org.junit.Assert.assertEquals;
 
 import com.starbattle.accounts.validation.LoginState;
+import com.starbattle.accounts.validation.RegisterState;
 import com.starbattle.client.testinterface.main.ClientTestInterface;
 import com.starbattle.client.testinterface.tester.ClientAutomate;
 import com.starbattle.client.views.lobby.LobbyView;
 import com.starbattle.client.views.login.LoginView;
+import com.starbattle.client.views.register.RegisterView;
 import com.starbattle.network.connection.objects.NP_StartAnswer;
 import com.starbattle.server.manager.PlayerManager;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -40,6 +43,17 @@ public class StepDefinitions {
 		assertEquals(true, client.isInView(LoginView.VIEW_ID));
 	}
 
+	@Then("^I delete user \"(.*?)\"$")
+	public void i_delete_user(String arg1) throws Throwable {
+	    // Write code here that turns the phrase above into concrete actions
+	    throw new PendingException();
+	}
+
+	@Then("^I am on the register view$")
+	public void i_am_on_the_register_view() throws Throwable {
+		assertEquals(true, client.isInView(RegisterView.VIEW_ID));
+	}
+	
 	@When("^I type \"(.*?)\" in \"(.*?)\"$")
 	public void i_type_in(String text, String field) throws Throwable {
 		client.fillInTextfield(field, text);
@@ -60,7 +74,8 @@ public class StepDefinitions {
 	public void i_receive_an_error_message_saying(String error) throws Throwable {
 
 		NP_StartAnswer startUp = (NP_StartAnswer) client.waitForNetworkReceive(NP_StartAnswer.class);
-		String message = startUp.errorMessage;
+		String message = startUp.answerMessage;
+		assertEquals(true, startUp.openGame); //check if its errror
 		switch (error) {
 		case "Wrong Username":
 			assertEquals(message, LoginState.Wrong_Username.getText());
@@ -71,6 +86,18 @@ public class StepDefinitions {
 		case "User already logged in":
 			assertEquals(message, PlayerManager.playerAlreadyLoginMessage);
 			break;
+		case "Existing Accountname":
+			assertEquals(message, RegisterState.Accountname_Exists);
+			break;
+		case "Existing Displayname":
+			assertEquals(message, RegisterState.Displayname_Exists);
+			break;
+		case "Invalid Accountname":
+			assertEquals(message, RegisterState.Accountname_Invalid);
+			break;
+		case "Invalid Displayname":
+			assertEquals(message, RegisterState.Displayname_Invalid);
+			break;	
 		}
 	}
 

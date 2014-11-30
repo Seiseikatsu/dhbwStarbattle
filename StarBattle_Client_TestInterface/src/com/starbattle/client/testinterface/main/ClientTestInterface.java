@@ -15,16 +15,14 @@ public class ClientTestInterface {
 
 	public static ClientAutomate createNewTestClient() {
 		StarBattleClient client = new StarBattleClient();
+		client.initClient();
+		
 		ClientAutomate simulation = new ClientAutomate(client);
 		simulations.add(simulation);
 		return simulation;
 	}
 
-	public static ClientAutomate createClientAutomate(StarBattleClient client) {
-		ClientAutomate simulation = new ClientAutomate(client);
-		simulations.add(simulation);
-		return simulation;
-	}
+
 
 	public static void shutdown() {
 		try {
@@ -38,4 +36,9 @@ public class ClientTestInterface {
 			}
 		}
 	}
+	
+	
+
 }
+
+
