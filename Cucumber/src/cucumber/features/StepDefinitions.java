@@ -33,12 +33,14 @@ public class StepDefinitions {
 		//start server
 			System.out.println("HALLO SERVER INIT!");
 		server=new StarbattleServer();
+		
+		/*
 		   try {
 			server.getManager().getPlayerManager().getAccountManager().deleteAccount("HansTester");
 		} catch (AccountException e) {
 			e.printStackTrace();
-		}
-
+		}*/
+		   
 		initServer=true;
 		}
 		//set simulation parameters

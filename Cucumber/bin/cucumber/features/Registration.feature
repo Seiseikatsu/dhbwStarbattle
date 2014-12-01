@@ -10,7 +10,7 @@ Feature: Registration is working if there are no errors
     And I type "stiff@stiff.de" in "Register_Email"
     And I click on button "Register_Button"
     Then I am on the lobby view
-    And I delete account "hansTester"
+    And I delete account "HansTester"
 
 
   Scenario: existing Accountname
