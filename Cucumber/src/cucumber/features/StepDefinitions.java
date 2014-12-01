@@ -72,7 +72,7 @@ public class StepDefinitions {
 
 	@Then("^I receive an error message saying \"(.*?)\"$")
 	public void i_receive_an_error_message_saying(String error) throws Throwable {
-
+	
 		NP_StartAnswer startUp = (NP_StartAnswer) client.waitForNetworkReceive(NP_StartAnswer.class);
 		String message = startUp.answerMessage;
 		assertEquals(true, startUp.openGame); //check if its errror
@@ -87,16 +87,16 @@ public class StepDefinitions {
 			assertEquals(message, PlayerManager.playerAlreadyLoginMessage);
 			break;
 		case "Existing Accountname":
-			assertEquals(message, RegisterState.Accountname_Exists);
+			assertEquals(message, RegisterState.Accountname_Exists.getText());
 			break;
 		case "Existing Displayname":
-			assertEquals(message, RegisterState.Displayname_Exists);
+			assertEquals(message, RegisterState.Displayname_Exists.getText());
 			break;
 		case "Invalid Accountname":
-			assertEquals(message, RegisterState.Accountname_Invalid);
+			assertEquals(message, RegisterState.Accountname_Invalid.getText());
 			break;
 		case "Invalid Displayname":
-			assertEquals(message, RegisterState.Displayname_Invalid);
+			assertEquals(message, RegisterState.Displayname_Invalid.getText());
 			break;	
 		}
 	}
