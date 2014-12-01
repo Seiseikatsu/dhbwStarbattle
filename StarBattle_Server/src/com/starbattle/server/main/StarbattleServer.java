@@ -33,5 +33,9 @@ public class StarbattleServer {
 		}
 	}
 	
+	public void close()
+	{
+		server.close();
+	}
 	
 }

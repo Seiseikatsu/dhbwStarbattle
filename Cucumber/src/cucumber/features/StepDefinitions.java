@@ -10,6 +10,7 @@ import com.starbattle.client.views.lobby.LobbyView;
 import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.views.register.RegisterView;
 import com.starbattle.network.connection.objects.NP_StartAnswer;
+import com.starbattle.server.main.StarbattleServer;
 import com.starbattle.server.manager.PlayerManager;
 
 import cucumber.api.PendingException;
@@ -20,13 +21,18 @@ import cucumber.api.java.en.When;
 public class StepDefinitions {
 
 	private ClientAutomate client;
-
+	private StarbattleServer server;
+	
 	@cucumber.api.java.Before	
 	public void init()
 	{
+		
+		//start server
+		server=new StarbattleServer();
+
 		//set simulation parameters
 		ClientTestInterface.shutdownDelaySeconds=1;
-		ClientTestInterface.stepDelay=0.5f;
+		ClientTestInterface.stepDelay=1f;
 		//init default application
 		client = ClientTestInterface.createNewTestClient();		
 	}
@@ -36,6 +42,9 @@ public class StepDefinitions {
 	{
 		//shut down all applications from this test
 		ClientTestInterface.shutdown();	
+		
+		//end server
+		server.close();
 	}
 
 	@Given("^I am on the login view$")

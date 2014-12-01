@@ -20,6 +20,8 @@ public class AccountManagerTest {
 	static private PlayerAccount account2;
 	static private PlayerAccount account3;
 	static private PlayerAccount account4;
+	static private PlayerAccount account5;
+	static private PlayerAccount account6;
 	private static AccountManagerImpl ami;
 
 	@BeforeClass
@@ -28,12 +30,14 @@ public class AccountManagerTest {
 
 		account1 = new PlayerAccount("Sebastian1","Sebi", "RufeMichAn!:)2", "hallo@web.de");
 		account2 = new PlayerAccount("Sebastian1","Sebi", "RufeMichAn!:)2", "hallo@web.de");
-		account3 = new PlayerAccount("Geraldine1","", "RufeMichAn!:)2", "geri@web.de");
-		account4 = new PlayerAccount("Roland1","", "29RufeMichAn!:)293", "roland@web.de");
+		account3 = new PlayerAccount("Geraldine1","Gerii", "RufeMichAn!:)2", "geri@web.de");
+		account4 = new PlayerAccount("Roland1","Rollii", "29RufeMichAn!:)293", "roland@web.de");
+		account5 = new PlayerAccount("","Gerii", "RufeMichAn!:)2", "geri@web.de");
+		account6 = new PlayerAccount("Roland1","", "29RufeMichAn!:)293", "roland@web.de");
 
 		assertTrue("Registration successful", ami.canRegisterAccount(account1).equals(RegisterState.Register_Ok));
-		assertTrue("Registration successful", ami.canRegisterAccount(account3).equals(RegisterState.Register_Ok));
-		assertTrue("Registration successful", ami.canRegisterAccount(account4).equals(RegisterState.Register_Ok));
+		assertTrue("Registration successful", ami.canRegisterAccount(account5).equals(RegisterState.Accountname_Invalid));
+		assertTrue("Registration successful", ami.canRegisterAccount(account6).equals(RegisterState.Displayname_Invalid));
 		
 		try {
 			ami.registerAccount(account1);
