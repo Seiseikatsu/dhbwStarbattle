@@ -71,3 +71,15 @@ Feature: Registration is working if there are no errors
     And I click on button "Register_Button"
     Then I am on the register view
     And I receive an error message saying "Invalid Password"
+
+  Scenario: Passwords do not match
+    Given I am on the login view
+    When I click on button "Button_Register"
+    When I type "sdfsdfwerwemrwe" in "Register_Accountname"
+    And I type "pjfdlafjfaf" in "Register_Displayname"
+    And I type "Tf1!" in "Register_Password"
+    And I type "Tfjasdkf1!" in "Register_Repeat_Password"
+    And I type "stiff@stiff.de" in "Register_Email"
+    And I click on button "Register_Button"
+    Then I am on the register view
+    And I receive an error message saying "Passwords don't match"

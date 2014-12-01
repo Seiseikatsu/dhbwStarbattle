@@ -3,6 +3,7 @@ package com.starbattle.client.testinterface.tester;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.starbattle.client.main.StarBattleClient;
@@ -15,6 +16,7 @@ import com.starbattle.client.views.lobby.LobbyView;
 import com.starbattle.client.views.lobby.chat.ChatManager;
 import com.starbattle.client.views.lobby.friends.FriendRelation;
 import com.starbattle.client.views.login.LoginView;
+import com.starbattle.client.views.register.RegisterView;
 import com.starbattle.client.views.register.validate.PasswordHasher;
 import com.starbattle.client.window.ContentView;
 import com.starbattle.client.window.GameWindow;
@@ -187,6 +189,23 @@ public class ClientAutomate {
 		ContentView view = window.getContent().getViews().get(LobbyView.VIEW_ID);
 		LobbyView lobby = (LobbyView) view;
 		return lobby;
+	}
+	
+	public String getPwError() throws GUIElementNotFoundException, WrongGUIElementException {
+		String message = "";
+		step();
+		JComponent component = findGUI("Error_Text");
+		if (component != null) {
+			if (component instanceof JLabel) {
+				JLabel l = (JLabel) component;
+				message = l.getText();
+			} else {
+				throw new WrongGUIElementException(component.getClass(), JButton.class);
+			}
+		} else {
+			throw new GUIElementNotFoundException("Error_Text");
+		}
+		return message;
 	}
 	
 	public Object waitForNetworkReceive(final Class<?> requestedObject) throws NetworkTimeoutException {

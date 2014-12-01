@@ -115,7 +115,13 @@ public class StepDefinitions {
 			break;
 		case "Invalid Displayname":
 			assertEquals(message, RegisterState.Displayname_Invalid.getText());
-			break;	
+			break;
+		case "Invalid Password":
+			passwordError(RegisterView.pwInvalid);
+			break;
+		case "Passwords don't match":
+			passwordError(RegisterView.pwDoNotMatch);
+			break;
 		}
 	}
 
@@ -132,5 +138,8 @@ public class StepDefinitions {
 		client.doLogin(name, pw);
 	}
 	
+	public void passwordError(String error) throws Throwable{
+		assertEquals(error, client.getPwError());
+	}
 
 }
