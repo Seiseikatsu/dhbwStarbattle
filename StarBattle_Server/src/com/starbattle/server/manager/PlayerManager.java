@@ -68,6 +68,7 @@ public class PlayerManager {
 	public void tryRegister(PlayerConnection player, NP_Register register) {
 		PlayerAccount account = PlayerAccountGenerator.generateAccount(register);
 		RegisterState registerState = accountManager.canRegisterAccount(account);
+		String errorText=registerState.getText();
 		if (registerState == RegisterState.Register_Ok) {
 			// account is valid
 			try {
@@ -79,11 +80,11 @@ public class PlayerManager {
 			} catch (AccountException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				errorText="Internal Server Error!";
 			}
 		}
-
 		// error case
-		sendAnswer(player, false, registerState.getText());
+		sendAnswer(player, false, errorText);
 	}
 
 	private void loginPlayer(PlayerConnection player, String name) {
