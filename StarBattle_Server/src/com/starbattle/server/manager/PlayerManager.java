@@ -135,4 +135,7 @@ public class PlayerManager {
 		friendsManager.sendChat(player, message);
 	}
 
+	public AccountManager getAccountManager() {
+		return accountManager;
+	}
 }

@@ -1,5 +1,16 @@
 Feature: Registration is working if there are no errors
 
+  Scenario: normal registration
+    Given I am on the login view
+    When I click on button "Button_Register"
+    When I type "HansTester" in "Register_Accountname"
+    And I type "SuperHans" in "Register_Displayname"
+    And I type "Test123!" in "Register_Password"
+    And I type "Test123!" in "Register_Repeat_Password"
+    And I type "stiff@stiff.de" in "Register_Email"
+    And I click on button "Register_Button"
+    Then I am on the lobby view
+    And I delete account "hansTester"
 
 
   Scenario: existing Accountname

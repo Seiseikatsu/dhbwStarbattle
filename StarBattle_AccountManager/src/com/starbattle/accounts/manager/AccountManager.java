@@ -11,7 +11,7 @@ public interface AccountManager {
 
 	public void registerAccount(PlayerAccount account) throws AccountException;
 
-	public void deleteAccount(int id) throws AccountException;
+	public void deleteAccount(String accountName) throws AccountException;
 
 	public LoginState canLogin(String name, String password) throws AccountException;
 

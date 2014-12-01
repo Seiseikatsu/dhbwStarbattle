@@ -2,6 +2,7 @@ package cucumber.features;
 
 import static org.junit.Assert.assertEquals;
 
+import com.starbattle.accounts.manager.AccountException;
 import com.starbattle.accounts.validation.LoginState;
 import com.starbattle.accounts.validation.RegisterState;
 import com.starbattle.client.testinterface.main.ClientTestInterface;
@@ -20,19 +21,29 @@ import cucumber.api.java.en.When;
 
 public class StepDefinitions {
 
-	private ClientAutomate client;
-	private StarbattleServer server;
-	
-	@cucumber.api.java.Before	
-	public void init()
-	{
+	private static ClientAutomate client;
+	private static StarbattleServer server;
+	private static boolean initServer=false;
 		
+	@cucumber.api.java.Before	
+	public static void init()
+	{
+		if(initServer==false)
+		{
 		//start server
+			System.out.println("HALLO SERVER INIT!");
 		server=new StarbattleServer();
+		   try {
+			server.getManager().getPlayerManager().getAccountManager().deleteAccount("HansTester");
+		} catch (AccountException e) {
+			e.printStackTrace();
+		}
 
+		initServer=true;
+		}
 		//set simulation parameters
-		ClientTestInterface.shutdownDelaySeconds=1;
-		ClientTestInterface.stepDelay=1f;
+		ClientTestInterface.shutdownDelaySeconds=1f;
+		ClientTestInterface.stepDelay=0.5f;
 		//init default application
 		client = ClientTestInterface.createNewTestClient();		
 	}
@@ -42,9 +53,6 @@ public class StepDefinitions {
 	{
 		//shut down all applications from this test
 		ClientTestInterface.shutdown();	
-		
-		//end server
-		server.close();
 	}
 
 	@Given("^I am on the login view$")
@@ -52,10 +60,9 @@ public class StepDefinitions {
 		assertEquals(true, client.isInView(LoginView.VIEW_ID));
 	}
 
-	@Then("^I delete user \"(.*?)\"$")
-	public void i_delete_user(String arg1) throws Throwable {
-	    // Write code here that turns the phrase above into concrete actions
-	    throw new PendingException();
+	@Then("^I delete account \"(.*?)\"$")
+	public void i_delete_account(String name) throws Throwable {
+	   server.getManager().getPlayerManager().getAccountManager().deleteAccount(name);
 	}
 
 	@Then("^I am on the register view$")
@@ -84,7 +91,7 @@ public class StepDefinitions {
 	
 		NP_StartAnswer startUp = (NP_StartAnswer) client.waitForNetworkReceive(NP_StartAnswer.class);
 		String message = startUp.answerMessage;
-		assertEquals(true, startUp.openGame); //check if its errror
+		assertEquals(false, startUp.openGame); //check if its errror
 		switch (error) {
 		case "Wrong Username":
 			assertEquals(message, LoginState.Wrong_Username.getText());

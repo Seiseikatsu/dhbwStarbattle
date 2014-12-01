@@ -77,4 +77,8 @@ public class MainServerManager {
 			playerManager.sendChat(player,(NP_ChatMessage)object);
 		} 
 	}
+	
+	public PlayerManager getPlayerManager() {
+		return playerManager;
+	}
 }

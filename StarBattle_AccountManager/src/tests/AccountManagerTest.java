@@ -35,7 +35,7 @@ public class AccountManagerTest {
 		account5 = new PlayerAccount("","Gerii", "RufeMichAn!:)2", "geri@web.de");
 		account6 = new PlayerAccount("Roland1","", "29RufeMichAn!:)293", "roland@web.de");
 
-		assertTrue("Registration successful", ami.canRegisterAccount(account1).equals(RegisterState.Register_Ok));
+		//assertTrue("Registration successful", ami.canRegisterAccount(account1).equals(RegisterState.Register_Ok));
 		assertTrue("Registration successful", ami.canRegisterAccount(account5).equals(RegisterState.Accountname_Invalid));
 		assertTrue("Registration successful", ami.canRegisterAccount(account6).equals(RegisterState.Displayname_Invalid));
 		

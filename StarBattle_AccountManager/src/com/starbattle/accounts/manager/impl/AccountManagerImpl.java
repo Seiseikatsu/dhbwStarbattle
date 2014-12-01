@@ -46,8 +46,7 @@ public class AccountManagerImpl implements AccountManager {
 	public void registerAccount(PlayerAccount account) throws AccountException {
 		try {
 
-			if (canRegisterAccount(account).equals(RegisterState.Register_Ok)
-					&& canRegisterPlayer(account).equals(RegisterState.Register_Ok)) {
+			if (canRegisterAccount(account).equals(RegisterState.Register_Ok)) {
 
 				String sqlAccount = "INSERT INTO ACCOUNT (NAME, PASSWORD, EMAIL) VALUES ( ?, ?, ? )";
 				String sqlPlayer = "INSERT INTO PLAYER (display_name, account_id) VALUES (?, ?)";
@@ -78,9 +77,10 @@ public class AccountManagerImpl implements AccountManager {
 
 	}
 
-	public void deleteAccount(int id) throws AccountException {
+	public void deleteAccount(String accountName) throws AccountException {
 
 		try {
+			int id=getAccountIdForAccountname(accountName);
 			stmt = databaseConnection.getConnection().prepareStatement(
 					"SELECT player_id from player where account_id = ?");
 			stmt.setInt(1, id);
@@ -90,7 +90,7 @@ public class AccountManagerImpl implements AccountManager {
 			while (rs.next()) {
 				stmt = databaseConnection.getConnection().prepareStatement("DELETE INVENTAR WHERE player_id = ?");
 				stmt.setInt(1, rs.getInt(j));
-				stmt.execute();
+				stmt.executeUpdate();
 				j++;
 			}
 
@@ -98,7 +98,7 @@ public class AccountManagerImpl implements AccountManager {
 				stmt = databaseConnection.getConnection().prepareStatement(
 						"DELETE " + tables[i] + " WHERE account_id = ?");
 				stmt.setInt(1, id);
-				stmt.execute();
+				stmt.executeUpdate();
 			}
 
 		} catch (SQLException e) {
@@ -130,34 +130,6 @@ public class AccountManagerImpl implements AccountManager {
 
 	}
 
-	public RegisterState canRegisterPlayer(PlayerAccount account) {
-		if (!Validations.isPlayerNameValid(account.getDisplayName())) {
-			return RegisterState.Accountname_Invalid;
-		}
-		if (!Validations.isPlayerNameValid(account.getDisplayName())) {
-			return RegisterState.Displayname_Invalid;
-		}
-		
-		if (NamesEqual(account.getDisplayName(), account.getName()))
-			return RegisterState.Names_equal;
-
-		try {
-			stmt = conn.prepareStatement("SELECT count(*) FROM player WHERE display_name = ?");
-			stmt.setString(1, account.getDisplayName());
-			ResultSet rs = stmt.executeQuery();
-			rs.next();
-
-			if (rs.getInt(1) > 0) { // Display_name already exists
-				return RegisterState.Displayname_Exists;
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		return RegisterState.Register_Ok;
-
-	}
 
 	private boolean NamesEqual(String displayName, String accountName) {
 		if (displayName.equalsIgnoreCase(accountName))
@@ -182,6 +154,15 @@ public class AccountManagerImpl implements AccountManager {
 
 			if (rs.getInt(1) > 0) { // User already exists
 				return RegisterState.Accountname_Exists;
+			}
+			
+			stmt = conn.prepareStatement("SELECT count(*) FROM player WHERE display_name = ?");
+			stmt.setString(1, account.getDisplayName());
+		    rs = stmt.executeQuery();
+			rs.next();
+
+			if (rs.getInt(1) > 0) { // Display_name already exists
+				return RegisterState.Displayname_Exists;
 			}
 
 		} catch (SQLException e) {

@@ -33,6 +33,10 @@ public class StarbattleServer {
 		}
 	}
 	
+	public MainServerManager getManager() {
+		return manager;
+	}
+	
 	public void close()
 	{
 		server.close();
