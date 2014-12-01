@@ -134,6 +134,10 @@ public class AccountManagerImpl implements AccountManager {
 		if (!Validations.isPlayerNameValid(account.getDisplayName())) {
 			return RegisterState.Accountname_Invalid;
 		}
+		if (!Validations.isPlayerNameValid(account.getDisplayName())) {
+			return RegisterState.Displayname_Invalid;
+		}
+		
 		if (NamesEqual(account.getDisplayName(), account.getName()))
 			return RegisterState.Names_equal;
 
@@ -165,6 +169,9 @@ public class AccountManagerImpl implements AccountManager {
 	public RegisterState canRegisterAccount(PlayerAccount account) {
 		if (!Validations.isAccountNameVaild(account.getName())) {
 			return RegisterState.Accountname_Invalid;
+		}
+		if (!Validations.isPlayerNameValid(account.getDisplayName())) {
+			return RegisterState.Displayname_Invalid;
 		}
 
 		try {
