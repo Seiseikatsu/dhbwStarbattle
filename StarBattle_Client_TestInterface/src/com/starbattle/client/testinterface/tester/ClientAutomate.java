@@ -191,21 +191,33 @@ public class ClientAutomate {
 		return lobby;
 	}
 	
-	public String getPwError() throws GUIElementNotFoundException, WrongGUIElementException {
-		String message = "";
-		step();
-		JComponent component = findGUI("Error_Text");
-		if (component != null) {
-			if (component instanceof JLabel) {
-				JLabel l = (JLabel) component;
-				message = l.getText();
-			} else {
-				throw new WrongGUIElementException(component.getClass(), JButton.class);
+	public boolean isPwError(final String error) throws GUIElementNotFoundException, WrongGUIElementException {
+	
+		
+		
+		
+		ToleranceCheck check=new ToleranceCheck(new ToleranceCheckTask() {
+			
+			@Override
+			public boolean check() {
+				JComponent component = findGUI("Error_Text");
+				if (component != null) {
+					if (component instanceof JLabel) {
+						JLabel passwordLabel = (JLabel) component;
+						if(passwordLabel.getText().equals(error))
+						{
+							return true;
+						}	
+					} else {
+					//	throw new WrongGUIElementException(component.getClass(), JButton.class);
+					}
+				} else {
+				//	throw new GUIElementNotFoundException("Error_Text");
+				}
+				return false;
 			}
-		} else {
-			throw new GUIElementNotFoundException("Error_Text");
-		}
-		return message;
+		});
+		return check.isCheckOk();
 	}
 	
 	public Object waitForNetworkReceive(final Class<?> requestedObject) throws NetworkTimeoutException {

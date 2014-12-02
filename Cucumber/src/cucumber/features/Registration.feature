@@ -70,7 +70,7 @@ Feature: Registration is working if there are no errors
     And I type "stiff@stiff.de" in "Register_Email"
     And I click on button "Register_Button"
     Then I am on the register view
-    And I receive an error message saying "Invalid Password"
+    And I see an error message saying "Invalid Password"
 
   Scenario: Passwords do not match
     Given I am on the login view
@@ -82,4 +82,4 @@ Feature: Registration is working if there are no errors
     And I type "stiff@stiff.de" in "Register_Email"
     And I click on button "Register_Button"
     Then I am on the register view
-    And I receive an error message saying "Passwords don't match"
+    And I see an error message saying "Passwords don't match"
