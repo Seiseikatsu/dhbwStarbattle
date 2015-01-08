@@ -5,11 +5,11 @@ import org.newdawn.slick.SlickException;
 
 import com.starbattle.ingame.exception.ClientLaunchException;
 import com.starbattle.ingame.exception.ServerConnectionException;
+import com.starbattle.ingame.game.GameStateInit;
 import com.starbattle.ingame.network.ClientNetworkConnection;
 import com.starbattle.ingame.network.ConnectionChangeInterface;
 import com.starbattle.ingame.render.RenderSettings;
 import com.starbattle.ingame.settings.GameclientSettings;
-import com.starbattle.ingame.window.GameStateInit;
 
 public class InGameClient {
 

@@ -1,4 +1,4 @@
-package com.starbattle.ingame.window;
+package com.starbattle.ingame.game;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -15,8 +15,7 @@ public class GameStateInit extends StateBasedGame
     public GameStateInit(ClientNetworkConnection networkConnection)
     {
         super("Starbattle Client");
-        this.networkConnection=networkConnection;
-        
+        this.networkConnection=networkConnection;      
     }
     
     public void setRenderSettings(RenderSettings settings)
@@ -27,8 +26,7 @@ public class GameStateInit extends StateBasedGame
     @Override
     public void initStatesList(GameContainer container) throws SlickException
     {
-        
-        
+      addState(new TestState());
     }
 
     
