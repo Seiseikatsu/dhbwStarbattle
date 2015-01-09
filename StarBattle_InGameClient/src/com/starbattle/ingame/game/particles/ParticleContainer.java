@@ -33,7 +33,7 @@ public class ParticleContainer
             count+=effect.render();
         }
         g.setColor(new Color(255,255,255));
-        g.drawString("PC: "+count,10,30);
+        g.drawString("PEC: "+count,10,30);
     }
     
     public void update(int delta)
