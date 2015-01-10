@@ -2,15 +2,20 @@ package com.starbattle.gameserver.player;
 
 import com.starbattle.gameserver.game.Team;
 import com.starbattle.gameserver.game.action.Damage;
+import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
+import com.starbattle.gameserver.map.SpawnPoint;
 
 public class GamePlayer {
 
 	private Team team;
 	private Health health;
 	private float x,y;
+	private int points;
 	private String playerName;
 	private int playerID;
 	private boolean carriesFlag;
+	private RespawnTimer respawnTimer;
+	private PlayerRespawnListener respawnListener;
 	
 	public GamePlayer(String playerName, int playerID)
 	{
@@ -25,7 +30,28 @@ public class GamePlayer {
 	
 	public void takeDamge(Damage damage)
 	{
+		if(!health.isDead())
+		{
 		health.takeDamage(damage);
+		}
+	}
+	
+	public void startRespawntimer(final SpawnPoint spawnpoint, int time)	
+	{
+		respawnTimer.startRespawnTimer(time, new RespawnListener() {		
+			@Override
+			public void doRespawn() {
+				respawnPlayer(spawnpoint.getX(), spawnpoint.getY());
+			}
+		});
+	}
+	
+	private void respawnPlayer(float x, float y)
+	{
+		respawnListener.playerRespawned(this);
+		this.x=x;
+		this.y=y;
+		health.revive();
 	}
 	
 	
@@ -47,5 +73,17 @@ public class GamePlayer {
 	
 	public boolean isCarriesFlag() {
 		return carriesFlag;
+	}
+
+	public void setRespawnListener(PlayerRespawnListener respawnListener) {
+		this.respawnListener=respawnListener;
+	}
+	
+	public int getPoints() {
+		return points;
+	}
+	
+	public void setPoints(int points) {
+		this.points = points;
 	}
 }

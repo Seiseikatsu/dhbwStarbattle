@@ -32,6 +32,11 @@ public class ServerMap {
 		
 	}
 	
+	public void removeAllTiles(int tileID)
+	{
+		GameTileLoader.removeTiles(map,gameLayerID,tileID);
+	}
+	
 	public int getBlockID(int x, int y)
 	{
 		return map.getTileId(x, y, gameLayerID);

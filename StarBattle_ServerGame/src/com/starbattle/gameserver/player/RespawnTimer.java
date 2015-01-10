@@ -7,14 +7,16 @@ public class RespawnTimer {
 
 	private Timer timer;
 	private int respawnTime;
+	private RespawnListener listener;
 	
 	public RespawnTimer()
 	{
 		
 	}
 	
-	public void startRespawnTimer(int time)
+	public void startRespawnTimer(int time, RespawnListener listener)
 	{
+		this.listener=listener;
 		respawnTime=time;
 		timer=new Timer();
 		timer.schedule(new TimerUpdate(), time);
@@ -26,7 +28,6 @@ public class RespawnTimer {
 		{
 			timer.cancel();
 			timer=null;
-			
 		}
 	}
 	
@@ -37,6 +38,7 @@ public class RespawnTimer {
 			respawnTime--;
 			if(respawnTime==0)
 			{
+				listener.doRespawn();
 				this.cancel();		
 			}
 		}

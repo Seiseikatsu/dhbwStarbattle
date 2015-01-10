@@ -17,4 +17,6 @@ public interface GameModeInterface {
 	
 	public void onLandingOnTile(GamePlayer player, int tileID);
 	
+	public void onPlayerRespawn(GamePlayer player);
+	
 }

@@ -24,4 +24,6 @@ public enum Team {
 	{
 		return id!=team.getTeamId();
 	}
+	
+	
 }
