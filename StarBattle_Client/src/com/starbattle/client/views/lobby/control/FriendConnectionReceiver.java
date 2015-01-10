@@ -1,10 +1,12 @@
 package com.starbattle.client.views.lobby.control;
 
 import com.starbattle.client.connection.listener.NetworkFriendListener;
+import com.starbattle.client.player.PlayerValues;
 import com.starbattle.client.views.lobby.chat.ChatManager;
 import com.starbattle.client.views.lobby.friends.FriendPanel;
 import com.starbattle.network.connection.objects.NP_ChatException;
 import com.starbattle.network.connection.objects.NP_ChatMessage;
+import com.starbattle.network.connection.objects.NP_Constants;
 import com.starbattle.network.connection.objects.NP_FriendUpdate;
 import com.starbattle.network.connection.objects.NP_LobbyFriends;
 
@@ -31,6 +33,8 @@ public class FriendConnectionReceiver implements NetworkFriendListener{
 
 	@Override
 	public void receivedFriendUpdate(NP_FriendUpdate update) {
+		
+		System.out.println(PlayerValues.getPlayerDisplayName()+": received update: "+update.name+" type:"+update.updateType);
 		friendPanel.friendUpdate( update);
 	}
 

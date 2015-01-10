@@ -1,6 +1,7 @@
 package com.starbattle.server.main;
 
 import java.io.IOException;
+import java.net.InetAddress;
 
 import com.starbattle.network.server.NetworkServer;
 import com.starbattle.server.manager.MainServerManager;
@@ -18,6 +19,7 @@ public class StarbattleServer {
 	public StarbattleServer()
 	{
 		server=new NetworkServer();
+		
 		try {
 			
 			//Create MainServer Manager
@@ -25,7 +27,7 @@ public class StarbattleServer {
 			server.setServerListener(manager.createListener());		
 			
 			server.open(56777, 56777);
-			System.out.println("MainServer started!");
+			System.out.println("MainServer started at "+InetAddress.getLocalHost());
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

@@ -69,7 +69,7 @@ public class StarBattleClient {
 		loadingWindow.loadProgress();
 		try {
 
-			connection.start("localhost", 56777, 56777);
+			connection.start("172.16.51.103", 56777, 56777);
 			loadingWindow.loadProgress();
 			openWindow();
 

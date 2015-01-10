@@ -26,9 +26,9 @@ public class LevelBarDisplay extends ViewModel {
 	public LevelBarDisplay() {
 		initLayout();
 		setExperienceMinValue(0);
-		setExperienceMaxValue(10000);
-		setExperienceValue(6000);
-		setLevel(36);
+		setExperienceMaxValue(100);
+		setExperienceValue(0);
+		setLevel(1);
 	}
 
 	public void setExperienceMaxValue(int max) {

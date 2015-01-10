@@ -33,8 +33,8 @@ public class MoneyDisplay extends ViewModel{
 		view.add(Box.createHorizontalStrut(10));
 		view.add(points);
 		
-		setGold(1500);
-		setPoints(300);
+		setGold(0);
+		setPoints(0);
 	}
 	
 	public void setGold(int gold)

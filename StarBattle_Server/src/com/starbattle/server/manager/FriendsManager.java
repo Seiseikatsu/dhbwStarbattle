@@ -43,6 +43,7 @@ public class FriendsManager {
 						System.out.println("Send my update to friend " + friendAccount);
 						playerContainer.getPlayer(friendAccount).getConnection().sendTCP(update);
 					}
+				
 				}
 			}
 		} catch (AccountException e) {
@@ -96,6 +97,7 @@ public class FriendsManager {
 				update.name = friendDisplayname;
 				update.updateType = NP_Constants.FRIEND_UPDATE_TYPE_ADDFRIENDPENDING;
 				player.sendTCP(update);
+				
 				String friendAccountName = accountManager.getAccountName(friendDisplayname);
 				if (playerContainer.playerConnected(friendAccountName)) {
 					// send update to friend (state: request) (if online)
