@@ -41,5 +41,9 @@ public class ServerMap {
 		return spawnPoints;
 	}
 	
+	public TiledMap getMap() {
+		return map;
+	}
+	
 	
 }
