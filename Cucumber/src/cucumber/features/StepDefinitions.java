@@ -34,12 +34,12 @@ public class StepDefinitions {
 			System.out.println("HALLO SERVER INIT!");
 		server=new StarbattleServer();
 		
-		/*
-		   try {
-			server.getManager().getPlayerManager().getAccountManager().deleteAccount("HansTester");
-		} catch (AccountException e) {
-			e.printStackTrace();
-		}*/
+		
+//		   try {
+//			server.getManager().getPlayerManager().getAccountManager().deleteAccount("HansTester");
+//		} catch (AccountException e) {
+//			e.printStackTrace();
+//		}
 		   
 		initServer=true;
 		}
@@ -115,7 +115,7 @@ public class StepDefinitions {
 			break;
 		case "Invalid Displayname":
 			assertEquals(message, RegisterState.Displayname_Invalid.getText());
-			break;	
+			break;
 		}
 	}
 
@@ -127,10 +127,21 @@ public class StepDefinitions {
 		anotherClient.hideClientWindow(); //minimize second client window so we can see our target client
 	}
 	
+	@Given("^I see an error message saying \"(.*?)\"$")
+	public void passwordError(String error)throws Throwable{
+		switch(error){
+			case "Invalid Password":
+				assertEquals(true, client.isPwError(RegisterView.pwInvalid));
+				break;
+			case "Passwords don't match":
+				assertEquals(true, client.isPwError(RegisterView.pwDoNotMatch));
+				break;
+		}
+	}
+	
 	@Given("^Given I am logged in as \"(.*?)\" with password \"(.*?)\"$")
 	public void i_am_logged_in_as_with_password(String name, String pw) throws Throwable {
 		client.doLogin(name, pw);
 	}
-	
 
 }

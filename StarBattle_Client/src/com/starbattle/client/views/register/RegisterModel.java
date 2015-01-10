@@ -39,6 +39,7 @@ public class RegisterModel extends ViewModel {
 		email.setName("Register_Email");
 		password.setName("Register_Password");
 		password2.setName("Register_Repeat_Password");
+		errorText.setName("Error_Text");
 		
 		view.setBackground(new Color(200,200,200));
 		view.setLayout(new VerticalLayout());

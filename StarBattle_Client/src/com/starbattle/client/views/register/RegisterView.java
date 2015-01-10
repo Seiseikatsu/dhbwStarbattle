@@ -29,7 +29,8 @@ import com.starbattle.network.connection.objects.NP_Register;
 public class RegisterView extends ContentView {
 
 	public final static int VIEW_ID = 1;
-
+	public final static String pwDoNotMatch = "Passwords dont match!";
+	public final static String pwInvalid = "Invalid password!";
 	
 	private JButton backButton = new DesignButton("Back");
 	private JButton registerButton = new DesignButton("Register");
@@ -84,10 +85,10 @@ public class RegisterView extends ContentView {
 				reg.displayName= registerModel.getDisplayName();
 				networkConnection.getSendConnection().sendTCP(reg);
 			} else {
-				registerModel.setErrorText("Invalid password!");
+				registerModel.setErrorText(pwInvalid);
 			}
 		} else {
-			registerModel.setErrorText("Passwords dont match!");
+			registerModel.setErrorText(pwDoNotMatch);
 		}
 	}
 

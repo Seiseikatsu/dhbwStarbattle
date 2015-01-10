@@ -513,3 +513,12 @@ No data is available [2000-176]
 12-01 10:53:01 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
 No data is available [2000-176]
+12-01 17:40:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+12-02 11:04:03 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+12-02 12:28:45 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
