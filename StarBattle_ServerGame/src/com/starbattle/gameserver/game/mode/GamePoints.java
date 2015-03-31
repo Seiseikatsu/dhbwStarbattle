@@ -2,13 +2,13 @@ package com.starbattle.gameserver.game.mode;
 
 import com.starbattle.gameserver.game.Team;
 import com.starbattle.gameserver.player.GamePlayer;
-import com.starbattle.gameserver.player.PlayerList;
+import com.starbattle.gameserver.player.PlayerAccount;
 
 public class GamePoints {
 
-	private PlayerList players;
+	private PlayerAccount players;
 	
-	public GamePoints(PlayerList players)
+	public GamePoints(PlayerAccount players)
 	{
 		this.players=players;		
 	}

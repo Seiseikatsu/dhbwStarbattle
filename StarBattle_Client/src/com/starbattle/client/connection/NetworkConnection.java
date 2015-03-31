@@ -17,9 +17,9 @@ public class NetworkConnection {
 	private NetworkObjectResolver networkObjectResolver;
 	private NetworkConnectionListener networkConnectionListener;
 	private NetworkCommunctionListener networkCommunctionListener;
-	
+
 	public NetworkConnection(NetworkConnectionListener networkConnectionListener) {
-		this.networkConnectionListener=networkConnectionListener;
+		this.networkConnectionListener = networkConnectionListener;
 		networkObjectResolver = new NetworkObjectResolver();
 		client = new NetworkClient();
 	}
@@ -32,23 +32,20 @@ public class NetworkConnection {
 	public void setNetworkCommunctionListener(NetworkCommunctionListener networkCommunctionListener) {
 		this.networkCommunctionListener = networkCommunctionListener;
 	}
-	
+
 	public void setRegistrationListener(NetworkRegistrationListener listener) {
 		networkObjectResolver.setRegistrationListener(listener);
 	}
-	
+
 	public void setFriendRequestListener(NetworkFriendRequestListener listener) {
 		networkObjectResolver.setFriendRequestListener(listener);
 	}
-	
-	
-	public void setFriendListener(NetworkFriendListener listener)
-	{
+
+	public void setFriendListener(NetworkFriendListener listener) {
 		networkObjectResolver.setFriendListener(listener);
 	}
-	
-	public SendServerConnection getSendConnection()
-	{
+
+	public SendServerConnection getSendConnection() {
 		return client.getSendConnection();
 	}
 
@@ -67,9 +64,8 @@ public class NetworkConnection {
 		@Override
 		public void onReceive(Connection connection, Object message) {
 			networkObjectResolver.income(message);
-			if(networkCommunctionListener!=null)
-			{
-			networkCommunctionListener.received(message);
+			if (networkCommunctionListener != null) {
+				networkCommunctionListener.received(message);
 			}
 		}
 
@@ -78,5 +74,5 @@ public class NetworkConnection {
 	public NetworkClient getClient() {
 		return client;
 	}
-	
+
 }

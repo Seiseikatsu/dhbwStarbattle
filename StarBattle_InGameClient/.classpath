@@ -14,7 +14,9 @@
 	<classpathentry kind="lib" path="libs/lwjgl_util.jar"/>
 	<classpathentry kind="lib" path="libs/lwjgl.jar"/>
 	<classpathentry kind="lib" path="libs/slick.jar"/>
-	<classpathentry kind="lib" path="src/StarBattle_Network.jar"/>
-	<classpathentry kind="lib" path="src/kryonet-2.21-all.jar"/>
+	<classpathentry kind="lib" path="/StarBattle_Network/bin"/>
+	<classpathentry kind="lib" path="/KryoNet/bin"/>
+	<classpathentry kind="lib" path="src/jsonbeans-0.5.jar"/>
+	<classpathentry kind="lib" path="src/kryo-2.23.1-SNAPSHOT-all-debug.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

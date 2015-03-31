@@ -5,14 +5,14 @@ import java.util.HashMap;
 
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
 
-public class PlayerList {
+public class PlayerAccount {
 
 	
 	private ArrayList<GamePlayer> players=new ArrayList<GamePlayer>();
 	private HashMap<String, Integer> playerIDs=new HashMap<String,Integer>();
 	private PlayerRespawnListener respawnListener;
 	
-	public PlayerList(PlayerRespawnListener respawnListener)
+	public PlayerAccount(PlayerRespawnListener respawnListener)
 	{
 		this.respawnListener=respawnListener;
 	}

@@ -66,5 +66,15 @@ public class NetworkServer {
 	public void setServerListener(ConnectionListener listener) {
 		connectionController.setListener(listener);
 	}
+	
+	public int getTcpPort()
+	{
+		return server.getTcpPort();
+	}
+	
+	public int getUdpPort()
+	{
+		return server.getUdpPort();
+	}
 
 }
