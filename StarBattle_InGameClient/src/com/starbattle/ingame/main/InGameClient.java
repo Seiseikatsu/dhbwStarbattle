@@ -19,6 +19,7 @@ public class InGameClient {
     private GameclientSettings settings;
     private ClientNetworkConnection networkConnection;
     
+    
 	public InGameClient(GameclientSettings settings)
 	{
 	    this.settings=settings;

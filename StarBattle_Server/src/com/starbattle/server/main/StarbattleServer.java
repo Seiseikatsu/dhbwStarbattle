@@ -25,10 +25,12 @@ public class StarbattleServer {
 			//Create MainServer Manager
 			manager=new MainServerManager(server);
 			server.setServerListener(manager.createListener());		
+			server.open(0,0);
 			
-			server.open(56777, 56777);
+//			server.open(56777, 56777);
 			System.out.println("MainServer started at "+InetAddress.getLocalHost());
-			
+			int sc=server.getServer().getConnections()[0].getRemoteAddressTCP().getPort();
+			System.out.println(sc);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
