@@ -12,6 +12,7 @@ import com.starbattle.gameserver.main.StarbattleGameServer;
 public class GameManager {
 
 	private List<StarbattleGameServer> servers = new ArrayList<StarbattleGameServer>();
+
 	private int battleID;
 
 	public GameManager() {
@@ -43,6 +44,7 @@ public class GameManager {
 		}
 		battleID++;
 	}
+
 
 	private void removeServer(StarbattleGameServer server) {
 		servers.remove(server);

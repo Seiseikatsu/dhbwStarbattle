@@ -9,6 +9,7 @@ public class StarbattleGameServer {
 
 	private BattleEndListener battleEndListener;
 	private BattleSettings battleSettings;
+
 	private GameServerInterface serverInterface;
 	private GameContainer game;
 	private int gameID;
@@ -48,4 +49,5 @@ public class StarbattleGameServer {
 	public int getGameID() {
 		return gameID;
 	}
+
 }
