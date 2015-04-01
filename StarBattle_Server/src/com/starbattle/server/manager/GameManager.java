@@ -12,16 +12,15 @@ import com.starbattle.gameserver.main.StarbattleGameServer;
 public class GameManager {
 
 	private List<StarbattleGameServer> servers = new ArrayList<StarbattleGameServer>();
-
-	private int battleID;
-
+	private int gameID;
+	
 	public GameManager() {
 
 	}
 
 	public void openGame(BattleSettings battleSettings) {
 
-		final StarbattleGameServer server = new StarbattleGameServer(battleID);
+		final StarbattleGameServer server = new StarbattleGameServer(gameID);
 		servers.add(server);
 		try {
 			server.start(battleSettings, new BattleEndListener() {
@@ -42,9 +41,8 @@ public class GameManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		battleID++;
+		gameID++;
 	}
-
 
 	private void removeServer(StarbattleGameServer server) {
 		servers.remove(server);
