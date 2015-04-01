@@ -13,7 +13,8 @@ public class NetworkServer {
 
 	private Server server;
 	private ServerConnectionController connectionController;
-
+	private boolean isRunning=false;
+	
 	public NetworkServer() {
 		server = new Server() {
 			protected Connection newConnection() {
@@ -45,6 +46,7 @@ public class NetworkServer {
 	public void open(int tcp_port, int udp_port) throws IOException {
 		server.bind(tcp_port, udp_port);
 		server.start();
+		isRunning=true;
 	}
 
 	public Server getServer() {
@@ -57,6 +59,7 @@ public class NetworkServer {
 
 	public void close() {
 		server.close();
+		isRunning=false;
 	}
 
 	public SendClientConnection getSendConnection() {
@@ -77,4 +80,7 @@ public class NetworkServer {
 		return server.getUdpPort();
 	}
 
+	public boolean isRunning() {
+		return isRunning;
+	}
 }

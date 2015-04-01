@@ -7,11 +7,11 @@ import com.starbattle.gameserver.exceptions.ServerStartException;
 import com.starbattle.gameserver.main.BattleEndListener;
 import com.starbattle.gameserver.main.BattleResults;
 import com.starbattle.gameserver.main.BattleSettings;
-import com.starbattle.gameserver.main.StarbattleGameServer;
+import com.starbattle.gameserver.main.StarbattleGameControl;
 
 public class GameManager {
 
-	private List<StarbattleGameServer> servers = new ArrayList<StarbattleGameServer>();
+	private List<StarbattleGameControl> games = new ArrayList<StarbattleGameControl>();
 	private int gameID;
 	
 	public GameManager() {
@@ -20,20 +20,20 @@ public class GameManager {
 
 	public void openGame(BattleSettings battleSettings) {
 
-		final StarbattleGameServer server = new StarbattleGameServer(gameID);
-		servers.add(server);
+		final StarbattleGameControl game = new StarbattleGameControl(gameID);
+		games.add(game);
 		try {
-			server.start(battleSettings, new BattleEndListener() {
+			game.start(battleSettings, new BattleEndListener() {
 
 				@Override
 				public void serverError() {
 
-					removeServer(server);
+					removeGame(game);
 				}
 
 				@Override
 				public void battleEnd(BattleResults results) {
-					removeServer(server);
+					removeGame(game);
 
 				}
 			});
@@ -44,8 +44,8 @@ public class GameManager {
 		gameID++;
 	}
 
-	private void removeServer(StarbattleGameServer server) {
-		servers.remove(server);
+	private void removeGame(StarbattleGameControl game) {
+		games.remove(game);
 	}
 
 }

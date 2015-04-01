@@ -5,7 +5,7 @@ import com.starbattle.gameserver.game.GameContainer;
 import com.starbattle.gameserver.server.GameServerInterface;
 import com.starbattle.gameserver.server.SimpleDeployedServer;
 
-public class StarbattleGameServer {
+public class StarbattleGameControl {
 
 	private BattleEndListener battleEndListener;
 	private BattleSettings battleSettings;
@@ -14,7 +14,7 @@ public class StarbattleGameServer {
 	private GameContainer game;
 	private int gameID;
 
-	public StarbattleGameServer(int id) {
+	public StarbattleGameControl(int id) {
 		this.gameID=id;
 	}
 
