@@ -10,15 +10,11 @@ import java.sql.SQLException;
 import org.h2.server.web.WebServer;
 import org.h2.tools.Server;
 
-import com.starbattle.accounts.manager.AccountException;
-import com.starbattle.accounts.manager.impl.AccountManagerImpl;
-import com.starbattle.accounts.player.PlayerAccount;
-
 public class DatabaseConnection {
 	private static final String CONNSTRING = "jdbc:h2:./StarBattle";
 	private static final String USERNAME = "StarBattle";
 	private static final String PASSWD = "notSecure";
-	Connection conn;
+	private Connection conn;
 
 	public DatabaseConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("org.h2.Driver");
@@ -41,8 +37,7 @@ public class DatabaseConnection {
 		return conn;
 	}
 	
-	@Override
-	protected void finalize() throws Throwable {
+	public void finalize() throws Throwable {
 		super.finalize();
 		conn.close();
 	}

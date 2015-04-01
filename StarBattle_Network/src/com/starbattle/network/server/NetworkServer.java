@@ -58,7 +58,7 @@ public class NetworkServer {
 	}
 
 	public void close() {
-		server.close();
+		server.stop();
 		isRunning=false;
 	}
 

@@ -73,4 +73,5 @@ public class StarbattleGameControl implements StarbattleGame {
 		}
 	}
 
+
 }

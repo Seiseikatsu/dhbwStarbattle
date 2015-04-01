@@ -72,7 +72,7 @@ public class FriendsManager {
 			if (friendAccountName != null) {
 				int state = NP_Constants.FRIEND_UPDATE_TYPE_ADDFRIEND;
 				if (accept == false) {
-					state = NP_Constants.FRIEND_UPDATE_TYPE_DELTEFRIEND;
+					state = NP_Constants.FRIEND_UPDATE_TYPE_DELETEFRIEND;
 				}
 				String myDisplayName = playerContainer.getPlayer(myAccount).getDisplayName();
 				// Send update to both accounts

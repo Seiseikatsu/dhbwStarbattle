@@ -90,4 +90,10 @@ public class GameManager {
 		games.remove(game);
 	}
 
+	public void close() {
+		// stop game and update loops
+		gameLoop.stop();
+		updateLoop.stop();
+	}
+
 }

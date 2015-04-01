@@ -86,4 +86,9 @@ public class MainServerManager {
 	public PlayerManager getPlayerManager() {
 		return playerManager;
 	}
+
+	public void close() {
+		playerManager.close();
+		gameManager.close();
+	}
 }

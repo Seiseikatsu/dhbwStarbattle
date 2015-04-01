@@ -471,4 +471,13 @@ public class AccountManagerImpl implements AccountManager {
 	public String getAccountName(String displayName) throws AccountException {
 		return getAccountNameForDisplayname(displayName);
 	}
+
+	@Override
+	public void closeDB() {
+		try {
+			databaseConnection.finalize();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+	}
 }

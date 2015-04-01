@@ -132,7 +132,7 @@ public class FriendPanel extends ViewModel {
 				return;
 		}
 		// Add Friend or online update is the same in this context
-		if (updateType != NP_Constants.FRIEND_UPDATE_TYPE_DELTEFRIEND) {
+		if (updateType != NP_Constants.FRIEND_UPDATE_TYPE_DELETEFRIEND) {
 			FriendRelation newRelation = new FriendRelation(name, FriendRelation.RELATION_FRIENDS, online);
 			if (online) {
 				friendPanels[FRIEND_LIST_ONLINE].addRelation(newRelation);

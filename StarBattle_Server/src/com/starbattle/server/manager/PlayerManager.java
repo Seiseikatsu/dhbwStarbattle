@@ -138,4 +138,10 @@ public class PlayerManager {
 	public AccountManager getAccountManager() {
 		return accountManager;
 	}
+
+
+	public void close() {
+		//close db connection
+		accountManager.closeDB();
+	}
 }

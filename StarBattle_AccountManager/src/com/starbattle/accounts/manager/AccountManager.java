@@ -9,6 +9,8 @@ import com.starbattle.accounts.validation.RegisterState;
 
 public interface AccountManager {
 
+	public void closeDB();
+	
 	public void registerAccount(PlayerAccount account) throws AccountException;
 
 	public void deleteAccount(String accountName) throws AccountException;
@@ -28,6 +30,7 @@ public interface AccountManager {
 	public String getDisplayName(String accountName) throws AccountException;
 	
 	public String getAccountName(String displayName) throws AccountException;
+	
 	
 		
 	/**
