@@ -1,53 +1,76 @@
 package com.starbattle.gameserver.main;
 
-import com.starbattle.gameserver.exceptions.ServerStartException;
-import com.starbattle.gameserver.game.GameContainer;
-import com.starbattle.gameserver.server.GameServerInterface;
-import com.starbattle.gameserver.server.SimpleDeployedServer;
+import java.util.List;
 
-public class StarbattleGameControl {
+import com.starbattle.gameserver.game.GameContainer;
+import com.starbattle.network.connection.objects.game.NP_GameUpdate;
+import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
+import com.starbattle.network.server.PlayerConnection;
+
+public class StarbattleGameControl implements StarbattleGame {
 
 	private BattleEndListener battleEndListener;
 	private BattleSettings battleSettings;
+	private List<BattleParticipant> battleParticipants;
 
-	private GameServerInterface serverInterface;
 	private GameContainer game;
 	private int gameID;
 
 	public StarbattleGameControl(int id) {
-		this.gameID=id;
+		this.gameID = id;
 	}
 
-
-	public void start(BattleSettings settings, BattleEndListener battleEndListener) throws ServerStartException {
-		this.battleSettings = settings;
-		this.battleEndListener = battleEndListener;
-		createGameServer();
-		game=new GameContainer( serverInterface);
-		serverInterface.openConnection();
-		game.startGame();
-	}
-	
-	private void createGameServer()
-	{
-		serverInterface=new SimpleDeployedServer();
-	}
-
-	public void closeServer()
-	{
-		serverInterface.closeConnection();
-	}
-	
 	public BattleSettings getBattleSettings() {
 		return battleSettings;
 	}
-	
+
 	public GameContainer getGame() {
 		return game;
 	}
-	
+
 	public int getGameID() {
 		return gameID;
+	}
+
+	@Override
+	public void startBattle(BattleInitialization battleInitialization, BattleEndListener battleEndListener) {
+		this.battleSettings = battleInitialization.getBattleSettings();
+		this.battleParticipants = battleInitialization.getBattleParticipants();
+		this.battleEndListener = battleEndListener;
+		game = new GameContainer();
+		game.startGame();
+	}
+
+	@Override
+	public NP_GameUpdate getGameUpdate() {
+		return game.getGameUpdate().getGameUpdate();
+	}
+
+	@Override
+	public void updatePlayer(NP_PlayerUpdate update, String accountName) {
+		game.getGameUpdate().receivedPlayerUpdate(update, accountName);
+	}
+
+	@Override
+	public void playerConnected(String accountName) {
+		game.getGameUpdate().playerConnected(accountName);
+	}
+
+	@Override
+	public void playerDisconnected(String accountName) {
+		game.getGameUpdate().playerDisonnected(accountName);
+	}
+
+	@Override
+	public void updateGame(double delta) {
+		game.updateGame(delta);
+	}
+
+	@Override
+	public void sendToAllPlayersUDP(Object object) {
+		for (BattleParticipant battleParticipant : battleParticipants) {
+			battleParticipant.getConnection().sendUDP(object);
+		}
 	}
 
 }

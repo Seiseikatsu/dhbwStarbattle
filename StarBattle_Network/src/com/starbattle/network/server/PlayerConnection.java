@@ -4,7 +4,9 @@ import com.esotericsoftware.kryonet.Connection;
 
 public class PlayerConnection extends Connection{
 
+	public final static int IN_LOBBY=-1;
 	private String accountName=null;
+	private int gameID=IN_LOBBY;
 		
 	public String getAccountName() {
 		return accountName;
@@ -22,5 +24,14 @@ public class PlayerConnection extends Connection{
 		}
 		return true;
 	}
+	
+	public int getGameID() {
+		return gameID;
+	}
+	
+	public void setGameID(int gameID) {
+		this.gameID = gameID;
+	}
+	
 	
 }

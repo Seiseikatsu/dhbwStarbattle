@@ -9,6 +9,7 @@ import com.starbattle.network.connection.objects.NP_Login;
 import com.starbattle.network.connection.objects.NP_Logout;
 import com.starbattle.network.connection.objects.NP_Register;
 import com.starbattle.network.connection.objects.NP_ResetEmail;
+import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
 import com.starbattle.network.server.NetworkServer;
 import com.starbattle.network.server.PlayerConnection;
 import com.starbattle.server.player.PlayerContainer;
@@ -18,11 +19,13 @@ public class MainServerManager {
 	private NetworkServer server;
 	private PlayerManager playerManager;
 	private PlayerContainer playerContainer;
+	private GameManager gameManager;
 
 	public MainServerManager(NetworkServer server) {
 		this.server = server;
 		playerContainer = new PlayerContainer();
 		playerManager = new PlayerManager(playerContainer);
+		gameManager = new GameManager();
 	}
 
 	public ConnectionListener createListener() {
@@ -73,11 +76,13 @@ public class MainServerManager {
 			playerManager.trySendFriendRequest(player, (NP_FriendRequest) object);
 		} else if (object instanceof NP_HandleFriendRequest) {
 			playerManager.handleFriendRequest(player, (NP_HandleFriendRequest) object);
-		} else if (object instanceof NP_ChatMessage)	{
-			playerManager.sendChat(player,(NP_ChatMessage)object);
-		} 
+		} else if (object instanceof NP_ChatMessage) {
+			playerManager.sendChat(player, (NP_ChatMessage) object);
+		} else if (object instanceof NP_PlayerUpdate) {
+			gameManager.receivedPlayerUpdate((NP_PlayerUpdate) object, player);
+		}
 	}
-	
+
 	public PlayerManager getPlayerManager() {
 		return playerManager;
 	}

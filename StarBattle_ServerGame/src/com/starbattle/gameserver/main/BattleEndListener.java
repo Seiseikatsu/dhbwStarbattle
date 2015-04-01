@@ -4,6 +4,6 @@ public interface BattleEndListener {
 
 	public void battleEnd(BattleResults result);
 	
-	public void serverError();
+	public void battleError();
 	
 }

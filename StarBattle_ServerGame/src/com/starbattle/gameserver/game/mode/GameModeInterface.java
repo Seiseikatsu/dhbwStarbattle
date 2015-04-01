@@ -1,5 +1,6 @@
 package com.starbattle.gameserver.game.mode;
 
+import com.starbattle.gameserver.game.GameContainer;
 import com.starbattle.gameserver.game.action.Damage;
 import com.starbattle.gameserver.game.item.GameItem;
 import com.starbattle.gameserver.player.GamePlayer;
@@ -7,7 +8,7 @@ import com.starbattle.gameserver.player.GamePlayer;
 public interface GameModeInterface {
 
 	
-	public void onGameInit();
+	public void onGameInit(GameContainer game);
 	
 	public void onTakingDamage(GamePlayer player, Damage damage);
 	

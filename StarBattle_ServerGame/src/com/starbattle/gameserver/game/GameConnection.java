@@ -1,31 +1,34 @@
 package com.starbattle.gameserver.game;
 
-import com.starbattle.gameserver.server.PlayerUpdateListener;
+import com.starbattle.network.connection.objects.game.NP_GameUpdate;
 import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
 
-public class PlayerUpdate implements PlayerUpdateListener {
+public class GameConnection  {
 
 	private GameContainer game;
 	
-	public  PlayerUpdate(GameContainer game) {
+	public  GameConnection(GameContainer game) {
 		this.game=game;
 	}
 	
 
-
-	@Override
 	public void playerConnected(String accountName) {
 		
 	}
 
-	@Override
+
 	public void playerDisonnected(String accountName) {
 		
 	}
 
-	@Override
+	
 	public void receivedPlayerUpdate(NP_PlayerUpdate data, String accountName) {
 		
+	}
+	
+	public NP_GameUpdate getGameUpdate()
+	{
+			return null;
 	}
 
 }

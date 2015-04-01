@@ -1,22 +1,31 @@
 package com.starbattle.gameserver.main;
 
-import java.util.List;
-
 import com.starbattle.gameserver.game.mode.GameMode;
 
 public class BattleSettings {
 
-	private GameMode mode;
+	private GameMode gameMode;
+	private String mapName;
 	
-	/*
-	 * TODO: Add player
-	 */
-	
-	private List<String> accountNames;
-	
-	
-	public boolean isPlayerInGame(String accountName)
-	{
-		return accountNames.contains(accountName);
+
+	public BattleSettings() {
+
 	}
+	
+	public void setGameMode(GameMode gameMode) {
+		this.gameMode = gameMode;
+	}
+	
+	public void setMapName(String mapName) {
+		this.mapName = mapName;
+	}
+
+	public String getMapName() {
+		return mapName;
+	}
+	
+	public GameMode getMode() {
+		return gameMode;
+	}
+
 }
