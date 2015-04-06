@@ -23,7 +23,7 @@ public class CommandParser {
 		// find command name
 		for (ConsoleCommands cmd : ConsoleCommands.values()) {
 			String cmdName = cmd.name().toLowerCase();
-			if (syntaxString.startsWith(text)) {
+			if (text.startsWith(cmdName)) {
 				command = cmd;
 				// skip
 				syntaxString.skip(cmdName);

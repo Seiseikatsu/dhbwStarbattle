@@ -11,6 +11,7 @@ import com.starbattle.network.client.NetworkClient;
 import com.starbattle.network.client.SendServerConnection;
 import com.starbattle.network.connection.ConnectionListener;
 
+
 public class NetworkConnection {
 
 	private NetworkClient client;

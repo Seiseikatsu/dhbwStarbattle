@@ -20,7 +20,9 @@
 package com.esotericsoftware.kryonet;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.CancelledKeyException;
 import java.nio.channels.SelectionKey;
@@ -597,6 +599,7 @@ public class Server implements EndPoint {
 	public Connection[] getConnections () {
 		return connections;
 	}
+	
 	
 	public int getTcpPort()
 	{

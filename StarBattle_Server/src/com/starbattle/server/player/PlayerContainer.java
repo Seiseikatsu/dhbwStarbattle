@@ -37,5 +37,10 @@ public class PlayerContainer {
 		return player.containsKey(name);
 	}
 	
+	public int getNumberOfPlayers()
+	{
+		return player.size();
+	}
+	
 	
 }

@@ -96,4 +96,8 @@ public class GameManager {
 		updateLoop.stop();
 	}
 
+	public int getNumberOfGames()
+	{
+		return games.size();
+	}
 }

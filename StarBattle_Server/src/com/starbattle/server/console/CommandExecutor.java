@@ -25,6 +25,13 @@ public class CommandExecutor {
 			server.shutdown(stopString);
 
 			break;
+		case INFO:
+			// shows info 
+			int player=server.getManager().getPlayerContainer().getNumberOfPlayers();
+			int games=server.getManager().getGameManager().getNumberOfGames();
+			System.out.println("Connected Players: "+player);
+			System.out.println("Running Games: "+games);
+		break;
 		}
 	}
 

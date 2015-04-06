@@ -12,11 +12,7 @@ public class SyntaxString {
 		return code;
 	}
 	
-	public boolean startsWith(String text)
-	{
-		return code.startsWith(text);
-	}
-
+	
 	// skips to part
 	public void skip(String sign) throws SyntaxError {
 		int index = code.indexOf(sign);

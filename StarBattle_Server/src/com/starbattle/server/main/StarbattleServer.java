@@ -2,6 +2,7 @@ package com.starbattle.server.main;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.SocketAddress;
 
 import com.starbattle.network.connection.objects.NP_ServerStop;
 import com.starbattle.network.server.NetworkServer;
@@ -32,12 +33,11 @@ public class StarbattleServer {
 			//Create MainServer Manager
 			manager=new MainServerManager(server);
 			server.setServerListener(manager.createListener());		
-			server.open(0,0);
+//			server.open(0,0);
 			
 			
-//			server.open(56777, 56777);
-			System.out.println("MainServer started at "+InetAddress.getLocalHost());
-			
+			server.open(56777, 56777);
+
 			//open console controle
 			consoleControl=new ServerConsoleControl(this);
 			
