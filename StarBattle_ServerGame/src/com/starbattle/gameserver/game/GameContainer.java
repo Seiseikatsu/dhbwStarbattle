@@ -4,11 +4,11 @@ import com.starbattle.gameserver.game.mode.GameMode;
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
 import com.starbattle.gameserver.map.ServerMap;
 import com.starbattle.gameserver.player.GamePlayer;
-import com.starbattle.gameserver.player.PlayerAccount;
+import com.starbattle.gameserver.player.PlayerList;
 
 public class GameContainer {
 
-	private PlayerAccount playerList;
+	private PlayerList playerList;
 	private ServerMap serverMap;
 	private GameMode gameMode;
 	private GameConnection gameUpdate;
@@ -22,7 +22,7 @@ public class GameContainer {
 
 	public void startGame() {
 		// setup objects
-		playerList = new PlayerAccount(new PlayerRespawnListener() {
+		playerList = new PlayerList(new PlayerRespawnListener() {
 			@Override
 			public void playerRespawned(GamePlayer player) {
 				gameMode.onPlayerRespawn(player);
@@ -39,7 +39,7 @@ public class GameContainer {
 		return gameUpdate;
 	}
 
-	public PlayerAccount getPlayerList() {
+	public PlayerList getPlayerList() {
 		return playerList;
 	}
 

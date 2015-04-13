@@ -3,29 +3,32 @@ package com.starbattle.gameserver.player;
 import com.starbattle.gameserver.game.Team;
 import com.starbattle.gameserver.game.action.Damage;
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
+import com.starbattle.gameserver.game.physics.ObjectMovement;
 import com.starbattle.gameserver.map.SpawnPoint;
 
 public class GamePlayer {
 
 	private Team team;
 	private Health health;
-	private float x,y;
 	private int points;
 	private String playerName;
 	private int playerID;
 	private boolean carriesFlag;
 	private RespawnTimer respawnTimer;
 	private PlayerRespawnListener respawnListener;
+	private ObjectMovement objectMovement;
+	private float weaponAngle;
 	
 	public GamePlayer(String playerName, int playerID)
 	{
 		this.playerID=playerID;
 		this.playerName=playerName;
+		objectMovement=new ObjectMovement();
 	}
 	
 	public void update(float delta)
 	{
-		
+		objectMovement.update(delta);
 	}
 	
 	public void takeDamge(Damage damage)
@@ -49,8 +52,6 @@ public class GamePlayer {
 	private void respawnPlayer(float x, float y)
 	{
 		respawnListener.playerRespawned(this);
-		this.x=x;
-		this.y=y;
 		health.revive();
 	}
 	
@@ -85,5 +86,17 @@ public class GamePlayer {
 	
 	public void setPoints(int points) {
 		this.points = points;
+	}
+	
+	public ObjectMovement getObjectMovement() {
+		return objectMovement;
+	}
+	
+	public float getWeaponAngle() {
+		return weaponAngle;
+	}
+	
+	public void setWeaponAngle(float weaponAngle) {
+		this.weaponAngle = weaponAngle;
 	}
 }
