@@ -1,102 +1,58 @@
 package com.starbattle.gameserver.player;
 
-import com.starbattle.gameserver.game.Team;
-import com.starbattle.gameserver.game.action.Damage;
+import com.starbattle.gameserver.game.input.PlayerInput;
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
-import com.starbattle.gameserver.game.physics.ObjectMovement;
 import com.starbattle.gameserver.map.SpawnPoint;
+import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
 
 public class GamePlayer {
 
-	private Team team;
-	private Health health;
-	private int points;
-	private String playerName;
-	private int playerID;
-	private boolean carriesFlag;
+	private PlayerAttributes attributes = new PlayerAttributes();
 	private RespawnTimer respawnTimer;
 	private PlayerRespawnListener respawnListener;
-	private ObjectMovement objectMovement;
-	private float weaponAngle;
+	private PlayerMovement playerMovement;
+	private PlayerInput playerInput = new PlayerInput();
+	private Jetpack jetpack =new Jetpack();
 	
-	public GamePlayer(String playerName, int playerID)
-	{
-		this.playerID=playerID;
-		this.playerName=playerName;
-		objectMovement=new ObjectMovement();
+
+	public GamePlayer(String playerName, int playerID) {
+		attributes.setPlayerID(playerID);
+		attributes.setPlayerName(playerName);
+		playerMovement = new PlayerMovement(playerInput, this);
 	}
-	
-	public void update(float delta)
-	{
-		objectMovement.update(delta);
+
+	public void processInput(NP_PlayerUpdate update) {
+		playerInput.process(update);
 	}
-	
-	public void takeDamge(Damage damage)
-	{
-		if(!health.isDead())
-		{
-		health.takeDamage(damage);
-		}
+
+	public void update(float delta) {
+		playerMovement.update(delta);
 	}
-	
-	public void startRespawntimer(final SpawnPoint spawnpoint, int time)	
-	{
-		respawnTimer.startRespawnTimer(time, new RespawnListener() {		
+
+	public void startRespawntimer(final SpawnPoint spawnpoint, int time) {
+		respawnTimer.startRespawnTimer(time, new RespawnListener() {
 			@Override
 			public void doRespawn() {
 				respawnPlayer(spawnpoint.getX(), spawnpoint.getY());
 			}
 		});
 	}
-	
-	private void respawnPlayer(float x, float y)
-	{
+
+	private void respawnPlayer(float x, float y) {
+		playerMovement.spawnAtPosition(x, y);
 		respawnListener.playerRespawned(this);
-		health.revive();
-	}
-	
-	
-	public Health getHealth() {
-		return health;
-	}
-	
-	public String getPlayerName() {
-		return playerName;
-	}
-	
-	public Team getTeam() {
-		return team;
-	}
-	
-	public int getPlayerID() {
-		return playerID;
-	}
-	
-	public boolean isCarriesFlag() {
-		return carriesFlag;
+		attributes.getHealth().revive();
 	}
 
 	public void setRespawnListener(PlayerRespawnListener respawnListener) {
-		this.respawnListener=respawnListener;
+		this.respawnListener = respawnListener;
+	}
+
+	public PlayerAttributes getAttributes() {
+		return attributes;
 	}
 	
-	public int getPoints() {
-		return points;
-	}
-	
-	public void setPoints(int points) {
-		this.points = points;
-	}
-	
-	public ObjectMovement getObjectMovement() {
-		return objectMovement;
-	}
-	
-	public float getWeaponAngle() {
-		return weaponAngle;
-	}
-	
-	public void setWeaponAngle(float weaponAngle) {
-		this.weaponAngle = weaponAngle;
+	public Jetpack getJetpack() {
+		return jetpack;
 	}
 }

@@ -15,13 +15,14 @@ public class DatabaseConnection {
 	private static final String USERNAME = "StarBattle";
 	private static final String PASSWD = "notSecure";
 	private Connection conn;
-
+	private Server web;
+	
 	public DatabaseConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("org.h2.Driver");
 		conn = DriverManager.getConnection(CONNSTRING, USERNAME, PASSWD);
 		
         WebServer webServer = new WebServer();
-        Server web = new Server(webServer, new String[] { "-webPort", "8082" });
+        web = new Server(webServer, new String[] { "-webPort", "8082" });
         web.start();
         Server server = new Server();
         //server.web = web;
@@ -30,16 +31,22 @@ public class DatabaseConnection {
         System.out.println("To debug Database connect to the following URL:");
         System.out.println(url);
         System.out.println("Or log in with\n\tJDBC URL: " + CONNSTRING + "\n\tUsername: " + USERNAME + "\n\tPassword: " + PASSWD);
-        
+     
 	}
 	
 	public Connection getConnection(){
 		return conn;
 	}
 	
+	public void close() throws SQLException
+	{
+		conn.close();
+		web.stop();
+	}
+	
 	public void finalize() throws Throwable {
 		super.finalize();
-		conn.close();
+		close();
 	}
 
 	public void test() throws SQLException {

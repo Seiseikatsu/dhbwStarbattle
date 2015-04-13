@@ -475,8 +475,8 @@ public class AccountManagerImpl implements AccountManager {
 	@Override
 	public void closeDB() {
 		try {
-			databaseConnection.finalize();
-		} catch (Throwable e) {
+			databaseConnection.close();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}

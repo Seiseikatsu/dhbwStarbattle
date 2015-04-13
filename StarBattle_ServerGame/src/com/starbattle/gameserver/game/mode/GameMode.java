@@ -45,19 +45,19 @@ public abstract class GameMode implements GameModeInterface {
 
 	protected void defaulPlayerEndCheck(int pointLimit) {
 		GamePlayer player = points.getPlayerWithMostPoints();
-		if (player.getPoints() >= pointLimit) {
+		if (player.getAttributes().getPoints() >= pointLimit) {
 			endGame(player);
 		}
 	}
 
 	protected void defaultRespawn(GamePlayer player, int respawnTime) {
-		SpawnPoint spawnpoint = spawnPointList.getRandomSpawnPoint(player.getTeam());
+		SpawnPoint spawnpoint = spawnPointList.getRandomSpawnPoint(player.getAttributes().getTeam());
 		player.startRespawntimer(spawnpoint, respawnTime);
 	}
 
 	protected void defaultDamageProcess(GamePlayer player, Damage damage, int pointLose, int killerPointAdd) {
-		player.takeDamge(damage);
-		if (player.getHealth().isDead()) {
+		player.getAttributes().takeDamge(damage);
+		if (player.getAttributes().getHealth().isDead()) {
 			// player lose points
 			points.addPlayerPoints(player, -pointLose);
 

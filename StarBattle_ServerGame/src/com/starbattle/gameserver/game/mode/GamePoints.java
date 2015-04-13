@@ -15,7 +15,7 @@ public class GamePoints {
 	
 	public boolean playerEnoughPoints(GamePlayer player, int points)
 	{
-		return player.getPoints()>=points;
+		return player.getAttributes().getPoints()>=points;
 	}
 	
 	public boolean teamEnoughPoints(Team team, int points)
@@ -25,16 +25,16 @@ public class GamePoints {
 	
 	public void addPlayerPoints(GamePlayer player, int points)
 	{
-		int p=player.getPoints();
+		int p=player.getAttributes().getPoints();
 		p+=points;		
-		player.setPoints(p);
+		player.getAttributes().setPoints(p);
 	}
 	
 	public void addTeamPoints(Team team, int points)
 	{
 		for(GamePlayer player: players.getPlayers())
 		{
-			if(player.getTeam()==team)
+			if(player.getAttributes().getTeam()==team)
 			{
 				addPlayerPoints(player, points);
 			}
@@ -46,9 +46,9 @@ public class GamePoints {
 		int p=0;
 		for(GamePlayer player: players.getPlayers())
 		{
-			if(player.getTeam()==team)
+			if(player.getAttributes().getTeam()==team)
 			{
-				p+=player.getPoints();
+				p+=player.getAttributes().getPoints();
 			}
 		}
 		return p;
@@ -78,7 +78,7 @@ public class GamePoints {
 		for(int i=0; i<players.getPlayers().size(); i++)
 		{
 			GamePlayer player=players.getPlayer(i);
-			int points=player.getPoints();
+			int points=player.getAttributes().getPoints();
 			if(points>p)
 			{
 				p=points;

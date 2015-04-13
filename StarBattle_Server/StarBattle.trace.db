@@ -1455,3 +1455,12 @@ INSERT INTO "PUBLIC"."PLAYER"("ACCOUNT_ID","PLAYER_ID","LEVEL","EXP","GOLD","DIS
 org.h2.jdbc.JdbcSQLException: Tabelle "TEST" nicht gefunden
 Table "TEST" not found; SQL statement:
 SELECT * FROM TEST [42102-176]
+04-13 16:05:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+04-13 19:33:18 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]
+04-13 19:33:29 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
+No data is available [2000-176]

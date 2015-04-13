@@ -22,7 +22,7 @@ public class PlayerList {
 		player.setRespawnListener(respawnListener);
 		int id=players.size();
 		players.add(player);
-		playerIDs.put(player.getPlayerName(), id);
+		playerIDs.put(player.getAttributes().getPlayerName(), id);
 	}
 	
 	public ArrayList<GamePlayer> getPlayers() {
