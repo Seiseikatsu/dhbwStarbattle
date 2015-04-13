@@ -20,6 +20,7 @@ import com.starbattle.client.views.settings.SettingsView;
 import com.starbattle.client.views.shop.ShopView;
 import com.starbattle.client.window.GameWindow;
 import com.starbattle.client.window.LoadingWindow;
+import com.starbattle.network.connection.NetworkRegister;
 
 public class StarBattleClient {
 
@@ -27,7 +28,8 @@ public class StarBattleClient {
 		StarBattleClient client=new StarBattleClient();
 		client.initClient();
 	}
-
+	
+	
 	private GameWindow window;
 	private NetworkConnection connection;
 	private LoadingWindow loadingWindow;
@@ -69,7 +71,7 @@ public class StarBattleClient {
 		loadingWindow.loadProgress();
 		try {
 
-			connection.start("172.16.51.103", 56777, 56777);
+			connection.start("localhost", NetworkRegister.TCP_PORT,NetworkRegister.UDP_PORT);
 			loadingWindow.loadProgress();
 			openWindow();
 

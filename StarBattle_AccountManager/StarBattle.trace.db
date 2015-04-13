@@ -1451,3 +1451,7 @@ INSERT INTO "PUBLIC"."PLAYER"("ACCOUNT_ID","PLAYER_ID","LEVEL","EXP","GOLD","DIS
 10-24 13:47:39 jdbc[4]: exception
 org.h2.jdbc.JdbcSQLException: Data conversion error converting "'' (PLAYER: LEVEL INT)"; SQL statement:
 INSERT INTO "PUBLIC"."PLAYER"("ACCOUNT_ID","PLAYER_ID","LEVEL","EXP","GOLD","DISPLAY_NAME")VALUES(?,?,?,?,?,?) -- (?1, ?2, ?3, ?4, ?5, ?6) [22018-176]
+04-13 11:35:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Tabelle "TEST" nicht gefunden
+Table "TEST" not found; SQL statement:
+SELECT * FROM TEST [42102-176]

@@ -9,6 +9,9 @@ import com.starbattle.network.connection.objects.*;
 public class NetworkRegister {
 
 	private ArrayList<Class> register = new ArrayList<Class>();
+	public final static int TCP_PORT=18400;
+	public final static int UDP_PORT=18400;
+
 	
 	public NetworkRegister()
 	{

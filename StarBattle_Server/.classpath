@@ -7,8 +7,6 @@
 	<classpathentry kind="lib" path="/StarBattle_AccountManager/bin"/>
 	<classpathentry kind="lib" path="/StarBattle_ServerGame/bin"/>
 	<classpathentry kind="lib" path="/StarBattle_Network/bin"/>
-	<classpathentry kind="lib" path="/KryoNet/bin"/>
-	<classpathentry kind="lib" path="src/jsonbeans-0.5.jar"/>
-	<classpathentry kind="lib" path="src/kryo-2.23.1-SNAPSHOT-all-debug.jar"/>
+	<classpathentry kind="lib" path="src/kryonet-2.21-all.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
