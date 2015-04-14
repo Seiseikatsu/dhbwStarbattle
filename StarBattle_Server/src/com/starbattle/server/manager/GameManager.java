@@ -13,9 +13,11 @@ import com.starbattle.gameserver.main.StarbattleGameControl;
 import com.starbattle.network.connection.objects.game.NP_GameUpdate;
 import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
 import com.starbattle.network.server.PlayerConnection;
+import com.starbattle.server.game.GameModeContainer;
 
 public class GameManager {
 
+	private GameModeContainer gameModes=new GameModeContainer();
 	private HashMap<Integer, StarbattleGame> games = new HashMap<Integer, StarbattleGame>();
 	private GameLoop gameLoop, updateLoop;
 	private int gameIdCount;
@@ -99,5 +101,9 @@ public class GameManager {
 	public int getNumberOfGames()
 	{
 		return games.size();
+	}
+	
+	public GameModeContainer getGameModes() {
+		return gameModes;
 	}
 }

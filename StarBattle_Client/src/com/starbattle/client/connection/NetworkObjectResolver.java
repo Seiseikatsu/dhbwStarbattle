@@ -8,6 +8,7 @@ import com.starbattle.network.connection.objects.NP_ChatMessage;
 import com.starbattle.network.connection.objects.NP_FriendRequestAnswer;
 import com.starbattle.network.connection.objects.NP_FriendUpdate;
 import com.starbattle.network.connection.objects.NP_LobbyFriends;
+import com.starbattle.network.connection.objects.NP_ServerStop;
 import com.starbattle.network.connection.objects.NP_StartAnswer;
 
 public class NetworkObjectResolver {
@@ -51,8 +52,7 @@ public class NetworkObjectResolver {
 			friendListener.receivedChatException((NP_ChatException) object);
 		} else if (object instanceof NP_FriendRequestAnswer) {
 			friendRequestListener.receivedFriendRequestAnswer((NP_FriendRequestAnswer) object);
-		}
-
+		} 
 	}
 
 }

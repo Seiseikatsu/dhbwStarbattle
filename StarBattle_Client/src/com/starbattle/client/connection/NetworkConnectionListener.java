@@ -4,6 +4,6 @@ public interface NetworkConnectionListener {
 
 	public void onConnect();
 	
-	public void onDisconnect();
+	public void onDisconnect(String cause);
 	
 }

@@ -29,6 +29,11 @@ public class NetworkRegister {
 		addNetworkClass(NP_HandleFriendRequest.class);
 		addNetworkClass(NP_ChatException.class);
 		addNetworkClass(NP_FriendRequestAnswer.class);
+		addNetworkClass(NP_BattleResults.class);
+		addNetworkClass(NP_GameModesList.class);
+		addNetworkClass(NP_RequestGameModes.class);
+		addNetworkClass(NP_ServerStop.class);
+		
 	}
 	
 	public void register(EndPoint endPoint) {

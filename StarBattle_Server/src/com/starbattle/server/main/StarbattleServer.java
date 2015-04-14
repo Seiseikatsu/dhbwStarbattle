@@ -55,7 +55,7 @@ public class StarbattleServer {
 		// close console
 		consoleControl.close();
 		// Process is finished, all threads stopped
-
+		System.out.println("Server closed with information: \""+message+"\"");
 	}
 
 	public MainServerManager getManager() {

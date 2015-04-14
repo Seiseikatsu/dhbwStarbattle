@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.connection.NetworkConnectionListener;
+import com.starbattle.client.main.error.BugSplashDialog;
 import com.starbattle.client.main.error.ConnectionErrorListener;
 import com.starbattle.client.resource.ClientConfiguration;
 import com.starbattle.client.resource.GUIDesign;
@@ -56,6 +57,8 @@ public class StarBattleClient {
 
 		//init client
 		GUIDesign.load();
+		BugSplashDialog.init();
+		
 		loadingWindow.loadProgress();
 
 		window = new GameWindow(null, "StarBattle Client");
@@ -129,8 +132,13 @@ public class StarBattleClient {
 		}
 
 		@Override
-		public void onDisconnect() {
+		public void onDisconnect(String cause) {
 			if (!shutdown) {
+				if(cause!=null)
+				{
+					//display disconnect cause
+					BugSplashDialog.showMessage(cause);
+				}
 				loadingWindow.close();
 				window.open(ConnectionErrorView.VIEW_ID);
 			}

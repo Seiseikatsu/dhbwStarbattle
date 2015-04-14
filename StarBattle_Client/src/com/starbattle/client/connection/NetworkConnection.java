@@ -10,6 +10,7 @@ import com.starbattle.client.connection.listener.NetworkRegistrationListener;
 import com.starbattle.network.client.NetworkClient;
 import com.starbattle.network.client.SendServerConnection;
 import com.starbattle.network.connection.ConnectionListener;
+import com.starbattle.network.connection.objects.NP_ServerStop;
 
 
 public class NetworkConnection {
@@ -59,11 +60,18 @@ public class NetworkConnection {
 
 		@Override
 		public void onDisconnect(Connection connection) {
-			networkConnectionListener.onDisconnect();
+			networkConnectionListener.onDisconnect(null);
 		}
 
 		@Override
 		public void onReceive(Connection connection, Object message) {
+			if(message instanceof NP_ServerStop)
+			{
+				//disocnnect
+				NP_ServerStop stop=(NP_ServerStop)message;
+				networkConnectionListener.onDisconnect(stop.shutdown_Message);
+				return;
+			}
 			networkObjectResolver.income(message);
 			if (networkCommunctionListener != null) {
 				networkCommunctionListener.received(message);
