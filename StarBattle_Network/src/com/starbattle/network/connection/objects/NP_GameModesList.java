@@ -19,7 +19,7 @@ public class NP_GameModesList {
 	/**
 	 * The number of players for the game
 	 */
-	public List<String> numOfPlayers;
+	public List<Integer> numOfPlayers;
 	/**
 	 * The names of the modes (Deathmatch etc).
 	 * These name wont be indexed to a special enum,

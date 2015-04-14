@@ -28,7 +28,7 @@ public class AccountManagerImpl implements AccountManager {
 	private PreparedStatement stmt;
 	private Connection conn;
 	private String[] tables = { "PLAYER", "FRIENDS", "ACCOUNT" };
-
+	
 	public AccountManagerImpl() {
 		try {
 			databaseConnection = new DatabaseConnection();
@@ -480,4 +480,6 @@ public class AccountManagerImpl implements AccountManager {
 			e.printStackTrace();
 		}
 	}
+	
+	
 }

@@ -1,3 +1,4 @@
+
 package com.starbattle.mapeditor.main;
 
 import java.awt.Dimension;
