@@ -55,7 +55,6 @@ public class AccountManagerTest {
 
 	@Test
 	public void loginTest() throws AccountException {
-
 		assertTrue(ami.canLogin("Geraldine1", "RufeMichAn!:)2").equals(LoginState.Login_Ok));
 		assertTrue(ami.canLogin("Nene", "RufeMichAn!:)2").equals(LoginState.Wrong_Username));
 		assertTrue(ami.canLogin("Geraldine1", "xxx").equals(LoginState.Wrong_Password));
