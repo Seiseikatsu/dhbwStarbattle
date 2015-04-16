@@ -28,6 +28,8 @@ public class AccountManagerImpl implements AccountManager {
 	private PreparedStatement stmt;
 	private Connection conn;
 	private String[] tables = { "PLAYER", "FRIENDS", "ACCOUNT" };
+	private String[] allTables = { "PLAYER", "FRIENDS", "ACCOUNT", "INVENTAR" };
+	
 	
 	public AccountManagerImpl() {
 		try {
@@ -40,6 +42,15 @@ public class AccountManagerImpl implements AccountManager {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public String[] getAllTables(){
+		return allTables;
+	}
+	
+	
+	public DatabaseConnection getDatabaseConnection(){
+		return databaseConnection;
 	}
 
 	@Override

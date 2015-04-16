@@ -1,5 +1,7 @@
 package com.starbattle.accounts.manager.impl;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,23 +19,31 @@ import com.starbattle.accounts.validation.RegisterState;
 public class TestAccountManagerImpl implements TestAccountManager {
 
 	private AccountManagerImpl accountManagerImpl;
-	private ArrayList<PlayerAccount> accountList;
 	
 	// TODO Auto-generated method stub
 	public TestAccountManagerImpl(AccountManagerImpl accountManagerImpl) {
 		this.accountManagerImpl=accountManagerImpl;
-		accountList = new ArrayList<>();
 	}
 	
 	
 	/**
 	 * Reset DB, clear all tables
+	 * @throws SQLException 
 	 */
 	@Override
-	public void deleteDbValues() throws AccountException {
-		for (PlayerAccount player : accountList) {
-			accountManagerImpl.deleteAccount(player.getName());
+	public void deleteDbValues() throws AccountException, SQLException {
+		DatabaseConnection dbc = accountManagerImpl.getDatabaseConnection();
+		PreparedStatement stmt;
+		String sqlTruncate = "TRUNCATE TABLE ?";
+		String[] allTables = accountManagerImpl.getAllTables();
+		
+		for (int i = 0; i < allTables.length; i++) {
+			stmt = dbc.getConnection().prepareStatement(sqlTruncate);
+
+			stmt.setString(1, allTables[i]);
+			stmt.execute();
 		}
+
 		
 	}
 
@@ -70,14 +80,14 @@ public class TestAccountManagerImpl implements TestAccountManager {
 	 * Return friend state value of the row
 	 */
 	@Override
-	public FriendRelationState getFriendState(String accountNameSender, String displayNameReceiver) throws AccountException {
+	public int getFriendState(String accountNameSender, String displayNameReceiver) throws AccountException {
 		List<FriendRelation> friendsList = accountManagerImpl.getFriendRelations(accountNameSender).getFriends();
 		for (FriendRelation friendRelation : friendsList) {
 			if((accountNameSender.equalsIgnoreCase(friendRelation.getAccountName()) && displayNameReceiver.equalsIgnoreCase(friendRelation.getDisplayName()) || (accountNameSender.equalsIgnoreCase(friendRelation.getDisplayName()) && displayNameReceiver.equalsIgnoreCase(friendRelation.getAccountName())))){
-				return friendRelation.getRelationState();
+				return friendRelation.getRelationState().getId();
 			}
 		}
-		return null;
+		return 0;
 	}
 
 }
