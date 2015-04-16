@@ -5,6 +5,8 @@ import org.newdawn.slick.Graphics;
 public class PlayerObject {
 
 	private float xpos,ypos;
+	private float weaponangle;
+	
 	
 	public PlayerObject()
 	{

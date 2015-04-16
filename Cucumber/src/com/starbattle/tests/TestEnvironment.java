@@ -1,5 +1,7 @@
 package com.starbattle.tests;
 
+import java.sql.SQLException;
+
 import com.starbattle.accounts.manager.AccountException;
 import com.starbattle.accounts.manager.AccountManager;
 import com.starbattle.accounts.manager.TestAccountManager;
@@ -33,7 +35,7 @@ public class TestEnvironment {
 		try {
 			testAccountManager.deleteDbValues();
 			TestUsersConfig.createTestUsers(testAccountManager);
-		} catch (AccountException e) {
+		} catch (AccountException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -1,4 +1,4 @@
-package com.starbattle.ingame.game;
+package com.starbattle.ingame.game.states;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -6,22 +6,32 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.starbattle.ingame.game.GameCore;
+import com.starbattle.ingame.resource.ResourceContainer;
+
 public class TestState extends BasicGameState
 {
     
-    private GameCore gameCore=new GameCore();
+    private GameCore gameCore;
      
-    public TestState()
+    public TestState(ResourceContainer resources)
     {
-    	
-    	
+    	gameCore=new GameCore(resources);	
     }
 
     @Override
-    public void init(GameContainer container, StateBasedGame game) throws SlickException
-    {
+    public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+    	super.enter(container, game);
+    	
+    	//init game
     	gameCore.loadMap("testmap");
         gameCore.setInput(container.getInput());
+    }
+    
+    @Override
+    public void init(GameContainer container, StateBasedGame game) throws SlickException
+    {
+    	
     }
 
     @Override
@@ -41,8 +51,7 @@ public class TestState extends BasicGameState
     @Override
     public int getID()
     {
-        // TODO Auto-generated method stub
-        return 0;
+         return GameStates.TEST_STATE.ordinal();
     }
 
 }

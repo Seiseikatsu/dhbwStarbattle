@@ -13,11 +13,14 @@ public class GameMap {
 	{
 		
 	}
+
 	
 	public void loadMap(String name)
 	{
 		try {
+			
 			map=new TiledMap(path+name+".tmx");
+		
 			gameLayerID=map.getLayerIndex("Game");	
 			System.out.println("Loaded Map with "+map.getLayerCount()+" Layers (GameLayerID: "+gameLayerID+")");
 			
