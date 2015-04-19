@@ -5,5 +5,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="/StarBattle_Network/bin"/>
 	<classpathentry kind="lib" path="kryonet-2.21-all.jar"/>
+	<classpathentry kind="lib" path="/StarBattle_InGameClient/bin"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

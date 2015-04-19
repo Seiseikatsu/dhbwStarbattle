@@ -10,6 +10,7 @@ public class ResourceContainer {
 	public final static String PATH = "resource/";
 	private HashMap<PlayerGraphics, PlayerGraphicResource> playerGraphics = new HashMap<PlayerGraphics, PlayerGraphicResource>();
 	private BackgroundGraphics backgroundGraphics = new BackgroundGraphics();
+	private HudGraphics hudGraphics = new HudGraphics();
 
 	public ResourceContainer() {
 
@@ -18,6 +19,7 @@ public class ResourceContainer {
 	public void loadResources() throws ResourceException {
 		loadPlayerGraphics();
 		backgroundGraphics.load();
+		hudGraphics.load();
 	}
 
 	private void loadPlayerGraphics() throws ResourceException {
@@ -32,6 +34,10 @@ public class ResourceContainer {
 
 	public HashMap<PlayerGraphics, PlayerGraphicResource> getPlayerGraphics() {
 		return playerGraphics;
+	}
+
+	public HudGraphics getHudGraphics() {
+		return hudGraphics;
 	}
 
 }

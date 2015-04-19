@@ -6,19 +6,18 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.starbattle.ingame.game.states.LoadingState;
 import com.starbattle.ingame.game.states.TestState;
-import com.starbattle.ingame.network.ClientNetworkConnection;
 import com.starbattle.ingame.render.RenderSettings;
 import com.starbattle.ingame.resource.ResourceContainer;
 
-public class GameStateInit extends StateBasedGame
+public class GameStateContainer extends StateBasedGame
 {
 
-    private ClientNetworkConnection networkConnection;
     
-    public GameStateInit(ClientNetworkConnection networkConnection)
+    
+    public GameStateContainer()
     {
         super("Starbattle Client");
-        this.networkConnection=networkConnection;      
+
     }
     
     public void setRenderSettings(RenderSettings settings)

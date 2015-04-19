@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 import com.starbattle.ingame.game.map.GameMap;
 import com.starbattle.ingame.game.particles.ParticleContainer;
 import com.starbattle.ingame.render.DebugRender;
+import com.starbattle.ingame.render.GameRender;
 import com.starbattle.ingame.resource.ResourceContainer;
 
 public class GameCore {
@@ -16,11 +17,11 @@ public class GameCore {
 	private float mapx = 0;
 	private float mapy = 0;
 	private ResourceContainer resourceContainer;
-	private DebugRender debugRender;
+	private GameRender gameRender;
 
 	public GameCore(ResourceContainer resources) {
 		this.resourceContainer = resources;
-		debugRender = new DebugRender(resources);
+		gameRender = new GameRender(resources,this);
 	}
 
 	public void loadMap(String mapName) {
@@ -29,9 +30,9 @@ public class GameCore {
 
 	public void renderGame(Graphics g) {
 
+		resourceContainer.getBackgroundGraphics().getSpaceBackground().draw();
 		map.renderBackground((int) mapx, (int) mapy);
-
-		debugRender.render(g);
+		gameRender.renderGame(g);
 		map.renderForeground((int) mapx, (int) mapy);
 		particleContainer.render(g);
 
@@ -46,7 +47,7 @@ public class GameCore {
 
 	public void setInput(Input input) {
 		this.input = input;
-		
+
 	}
 
 }

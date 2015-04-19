@@ -3,105 +3,90 @@ package com.starbattle.ingame.main;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
-import com.starbattle.ingame.exception.ClientLaunchException;
-import com.starbattle.ingame.exception.ServerConnectionException;
-import com.starbattle.ingame.game.GameStateInit;
-import com.starbattle.ingame.network.ClientNetworkConnection;
-import com.starbattle.ingame.network.ConnectionChangeInterface;
+import com.starbattle.ingame.game.GameStateContainer;
+import com.starbattle.ingame.network.GameClientConnection;
+import com.starbattle.ingame.network.NetworkObjectResolver;
 import com.starbattle.ingame.render.RenderSettings;
 import com.starbattle.ingame.settings.GameclientSettings;
 
-public class InGameClient {
+public class InGameClient implements GameClientConnection {
 
-    public static boolean DEBUG_MODE=false;
-    private AppGameContainer gameContainer;
-    private GameStateInit gameInit;
-    private GameclientSettings settings;
-    private ClientNetworkConnection networkConnection;
-    
-    
-	public InGameClient(GameclientSettings settings)
-	{
-	    this.settings=settings;
+	public static boolean DEBUG_MODE = false;
+	private AppGameContainer gameContainer;
+	private GameStateContainer gameInit;
+	private GameclientSettings settings;
+	private NetworkObjectResolver objectResolver;
+
+	public InGameClient() {
+		this.settings = settings;
+		objectResolver = new NetworkObjectResolver();
 	}
 
-	public void open(ClientNetworkConnection networkConnection) throws ClientLaunchException, ServerConnectionException {
-	
-	    gameInit=new GameStateInit(networkConnection);
-	    this.networkConnection=networkConnection;
-	    try
-        {
-            gameContainer=new AppGameContainer(gameInit);
-            doGameSettings();
-            //start
-            gameContainer.start();
-            //start network
-            networkConnection.setConnectionChangeInterface(new ConnectionChange());
-            networkConnection.openConnection();
-        }
-        catch (SlickException e)
-        {
-            e.printStackTrace();
-            throw new ClientLaunchException();
-        }    
-	}
-	
-	public void close(){
-	    if(gameContainer!=null)
-	    {
-	        gameContainer.destroy();
-	    }
-	    if(networkConnection!=null)
-	    {
-	        networkConnection.closeNetworkConnection();
-	    }
-	}
-	
-	private void doGameSettings() throws SlickException
-	{
-	    //Set Window Resolution 
-	    int screenWidht=settings.getWindowResolution().getScreenWidth();
-	    int screenHeight=settings.getWindowResolution().getScreenHeight();
-	    boolean fullscreen=settings.isFullscreenMode();
-	    gameContainer.setDisplayMode(screenWidht,screenHeight,fullscreen);
-	    gameContainer.setShowFPS(false);
-	    
-	    //Sound Settings
-	    gameContainer.setMusicOn(!settings.isMusicOff());
-	    gameContainer.setSoundOn(!settings.isSoundOff());
-	    gameContainer.setMusicVolume(settings.getMusicVolume());
-	    gameContainer.setSoundVolume(settings.getSoundVolume());
-	    
-	    //Graphic Settings
-	    RenderSettings renderSettings=new RenderSettings(settings.getGraphicSettings());
-	    gameContainer.setTargetFrameRate(renderSettings.getTargetFPS());
-	    gameContainer.setVSync(renderSettings.isVSync());
-	    gameContainer.setSmoothDeltas(renderSettings.isSmoothDeltas());
-	    
-	    if(DEBUG_MODE)
-	    {
-	        gameContainer.setShowFPS(true);
-	    }
-	}
-	
-	public AppGameContainer getGameContainer()
-    {
-        return gameContainer;
-    }
-	
-	public ClientNetworkConnection getNetworkConnection()
-    {
-        return networkConnection;
-    }
-	
-	private class ConnectionChange implements ConnectionChangeInterface{
+	private void doGameSettings() throws SlickException {
+		// Set Window Resolution
+		int screenWidht = settings.getWindowResolution().getScreenWidth();
+		int screenHeight = settings.getWindowResolution().getScreenHeight();
+		boolean fullscreen = settings.isFullscreenMode();
+		gameContainer.setDisplayMode(screenWidht, screenHeight, fullscreen);
+		gameContainer.setShowFPS(false);
 
-        @Override
-        public void clientDisconnected()
-        {
-            close();
-        }
-	    
+		// Sound Settings
+		gameContainer.setMusicOn(!settings.isMusicOff());
+		gameContainer.setSoundOn(!settings.isSoundOff());
+		gameContainer.setMusicVolume(settings.getMusicVolume());
+		gameContainer.setSoundVolume(settings.getSoundVolume());
+
+		// Graphic Settings
+		RenderSettings renderSettings = new RenderSettings(settings.getGraphicSettings());
+		gameContainer.setTargetFrameRate(renderSettings.getTargetFPS());
+		gameContainer.setVSync(renderSettings.isVSync());
+		gameContainer.setSmoothDeltas(renderSettings.isSmoothDeltas());
+
+		if (DEBUG_MODE) {
+			gameContainer.setShowFPS(true);
+		}
 	}
-	
+
+	@Override
+	public void openInGameClient(GameclientSettings settings) throws GameClientException {
+
+		// create game state container
+		gameInit = new GameStateContainer();
+		try {
+			gameContainer = new AppGameContainer(gameInit);
+			this.settings = settings;
+			doGameSettings();
+			// start
+			gameContainer.start();
+		} catch (SlickException e) {
+			e.printStackTrace();
+			throw new GameClientException("Failed to init Game");
+		}
+	}
+
+	@Override
+	public void receivedObject(Object object) {
+		objectResolver.resolveMessage(object);
+	}
+
+	@Override
+	public void connectionLost() {
+		// pause game
+		gameContainer.pause();
+	}
+
+	@Override
+	public void reconnected() {
+		// resume game
+		gameContainer.resume();
+	}
+
+	@Override
+	public void closeInGameClient() {
+		// kill game window
+		if (gameContainer != null) {
+			gameContainer.destroy();
+		}
+	}
+
 }

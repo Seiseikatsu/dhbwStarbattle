@@ -38,7 +38,10 @@ public class StarBattleClient {
 	public static Dimension windowSize=new Dimension(1000,600);
 	
 	public StarBattleClient() {
-		
+		//load needed resource for windows 
+		GUIDesign.load();
+		BugSplashDialog.init();
+	
 	}
 	
 
@@ -56,8 +59,6 @@ public class StarBattleClient {
 		loadingWindowThread.start();
 
 		//init client
-		GUIDesign.load();
-		BugSplashDialog.init();
 		
 		loadingWindow.loadProgress();
 

@@ -23,11 +23,11 @@ public class DebugRender {
 	
 	private float[] angles={0,0,0,0,0};
 	
-	private float angl=0;
+	private float angl=0.1f;
 	public void render(Graphics g)
 	{
 		float x=Mouse.getX();
-		float y=Display.getHeight()-Mouse.getY()+48;
+		float y=Display.getHeight()-Mouse.getY()+70;
 		
 		//beine
 		angles[0]=(float) (Math.sin(angl*0.9)*50);
@@ -40,10 +40,13 @@ public class DebugRender {
 		
 		angles[4]++;
 		
-		angl+=.1f;
-		playerRender.render(g, x, y, PlayerGraphics.ASTRONAUT, angles,false);
+		angl*=1.01f;
 		
-		playerRender.render(g, x+100, y, PlayerGraphics.ALIEN, angles,true);
-
+		playerRender.render(g, x, y, PlayerGraphics.ASTRONAUT, angles,false);	
+		
+		float[] anlges2=angles.clone();
+		anlges2[4]*=2;
+		playerRender.render(g, x+150, y+50, PlayerGraphics.ALIEN, anlges2,true);
+	
 	}
 }
