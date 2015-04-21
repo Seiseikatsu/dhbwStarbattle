@@ -1,6 +1,5 @@
 package com.starbattle.ingame.render;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
@@ -24,11 +23,11 @@ public class PlayerRender {
 
 	private final static float BODY_WIDTH = 64;
 	private final static float BODY_HEIGHT = 96;
-	private final static float ARM_WIDTH = 32;
-	private final static float ARM_HEIGHT = 48;
-	private final static float FOOT_WIDTH = 32;
-	private final static float FOOT_HEIGHT = 48;
-
+	/*
+	 * private final static float ARM_WIDTH = 32; private final static float
+	 * ARM_HEIGHT = 48; private final static float FOOT_WIDTH = 32; private
+	 * final static float FOOT_HEIGHT = 48;
+	 */
 	private final static float MAX_LEG_ANGLE = 120;
 	private final static float MAX_ARM_ANGLE = 180;
 

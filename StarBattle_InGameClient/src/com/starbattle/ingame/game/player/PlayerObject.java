@@ -2,11 +2,12 @@ package com.starbattle.ingame.game.player;
 
 import org.newdawn.slick.Graphics;
 
+import com.starbattle.ingame.game.location.Location;
+
 public class PlayerObject {
 
-	private float xpos,ypos;
+	private Location location=new Location();
 	private float weaponangle;
-	
 	
 	public PlayerObject()
 	{
@@ -23,12 +24,7 @@ public class PlayerObject {
 		
 	}
 	
-	public float getXpos() {
-		return xpos;
+	public Location getLocation() {
+		return location;
 	}
-	
-	public float getYpos() {
-		return ypos;
-	}
-	
 }

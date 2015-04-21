@@ -1,27 +1,29 @@
 package com.starbattle.ingame.game;
 
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 
 import com.starbattle.ingame.game.map.GameMap;
 import com.starbattle.ingame.game.particles.ParticleContainer;
-import com.starbattle.ingame.render.DebugRender;
+import com.starbattle.ingame.game.viewport.Viewport;
 import com.starbattle.ingame.render.GameRender;
 import com.starbattle.ingame.resource.ResourceContainer;
+import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 
 public class GameCore {
 
 	private ParticleContainer particleContainer = new ParticleContainer();
 	private GameMap map = new GameMap();
 	private Input input;
-	private float mapx = 0;
-	private float mapy = 0;
 	private ResourceContainer resourceContainer;
 	private GameRender gameRender;
-
+	private Viewport viewport;
+	
 	public GameCore(ResourceContainer resources) {
+		viewport=new Viewport(Display.getWidth(), Display.getHeight());
 		this.resourceContainer = resources;
-		gameRender = new GameRender(resources,this);
+		gameRender = new GameRender(resources, this);
 	}
 
 	public void loadMap(String mapName) {
@@ -30,15 +32,14 @@ public class GameCore {
 
 	public void renderGame(Graphics g) {
 
+		viewport.scoll(0.3f,0.3f);
 		resourceContainer.getBackgroundGraphics().getSpaceBackground().draw();
-		map.renderBackground((int) mapx, (int) mapy);
+		map.renderBackground(viewport);
 		gameRender.renderGame(g);
-		map.renderForeground((int) mapx, (int) mapy);
+		map.renderForeground(viewport);
 		particleContainer.render(g);
-
 	}
 
-	private float angle, radius = 300;
 
 	public void updateGame(int delta) {
 		particleContainer.update(delta);
@@ -49,5 +50,6 @@ public class GameCore {
 		this.input = input;
 
 	}
+
 
 }

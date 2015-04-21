@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="40" tileheight="40">
- <tileset firstgid="1" name="Gameset" tilewidth="40" tileheight="40">
-  <image source="../tilesets/gameset.png" width="400" height="400"/>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" nextobjectid="1">
+ <tileset firstgid="1" name="Game" tilewidth="64" tileheight="64">
+  <image source="../tilesets/gameset.png" width="1024" height="1024"/>
  </tileset>
- <tileset firstgid="101" name="Test" tilewidth="40" tileheight="40">
-  <image source="../tilesets/test.png" width="400" height="400"/>
+ <tileset firstgid="257" name="blocks" tilewidth="64" tileheight="64">
+  <image source="../tilesets/blocks.png" width="1024" height="1024"/>
  </tileset>
- <layer name="Ground" width="30" height="20">
+ <layer name="blocks" width="30" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglEwUCAdCQ8WuylxTxoaJsdeUu1GtxOf3YTcg8t+bGbSwl50u5HNTKWxvbjCPRUqB7MHmU2K/fjsheFUNIxNDS7/43IPtewlFQMAtExlWGAJAAA=
+   H4sIAAAAAAAAC72VPU4DMRBGY7KQevmtyQa0PT8nAHoIiYAOaIAOaIAWCWoauBBwAuA8vJVmxKyVaJdibOnJLpzv7cTyOAudzixkMs9AirGIZyn8zam8WuejkLpedabyzuHpGe8RHMOJs3+Z/BXjvYBLuHL27pC/C3vivYN7eHD2HpI/grHz+T6R+2yyC9YDWIN1R+8ruW8me4P1JmzBtoNzIdQphXf4gE+nOtVTRP4v+IafBN7qDLuQC57DeivXvNTr7d4n+wCGsAp9+Qbtz/9x6514afGbU/acwXmo9wrtz7n8H22G3ok23mv23MBtqPcKrdfW3VR7Js4mr56r7Q/qid/fJm8ue9t64/6gnrhenSf54j2xV9+20jAtP643rrs060l7NL+6m/q2FYZp+b8pk0xOYAkAAA==
   </data>
  </layer>
- <layer name="Game" width="30" height="20" opacity="0.77">
+ <layer name="Game" width="30" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglEAA6x0to8JCWMDLANgNz73kGImLjMI2Uuq3eh2kmoGMXoJuZda9hITF7SyF58Z+PQQaz85ZhCjh5BZxKhlRsOU2AvDAMd6AS5gCQAA
+   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQlPoAAAeBoqs0udYAkAAA==
   </data>
  </layer>
 </map>
