@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 
 import com.starbattle.ingame.game.map.GameMap;
 import com.starbattle.ingame.game.particles.ParticleContainer;
+import com.starbattle.ingame.game.player.PlayerContainer;
 import com.starbattle.ingame.game.viewport.Viewport;
 import com.starbattle.ingame.render.GameRender;
 import com.starbattle.ingame.resource.ResourceContainer;
@@ -18,38 +19,53 @@ public class GameCore {
 	private Input input;
 	private ResourceContainer resourceContainer;
 	private GameRender gameRender;
+	private PlayerContainer players = new PlayerContainer();
 	private Viewport viewport;
-	
+
 	public GameCore(ResourceContainer resources) {
-		viewport=new Viewport(Display.getWidth(), Display.getHeight());
 		this.resourceContainer = resources;
 		gameRender = new GameRender(resources, this);
 	}
 
+	public void start()
+	{
+		viewport = new Viewport(Display.getWidth(), Display.getHeight());		
+	}
+	
 	public void loadMap(String mapName) {
 		map.loadMap(mapName);
 	}
 
+	public void initPlayers(NP_PrepareGame init) {
+		players.init(init);
+	}
+
 	public void renderGame(Graphics g) {
 
-		viewport.scoll(0.3f,0.3f);
 		resourceContainer.getBackgroundGraphics().getSpaceBackground().draw();
 		map.renderBackground(viewport);
-		gameRender.renderGame(g);
+		gameRender.renderGame(g,viewport);
 		map.renderForeground(viewport);
 		particleContainer.render(g);
 	}
 
-
 	public void updateGame(int delta) {
-		particleContainer.update(delta);
 
+		// focus viewport to my player
+		viewport.view(players.getMyPlayer());
+
+		particleContainer.update(delta);
+		// calc float delta
+		players.update(delta);
 	}
 
 	public void setInput(Input input) {
 		this.input = input;
 
 	}
-
+	
+	public PlayerContainer getPlayers() {
+		return players;
+	}
 
 }

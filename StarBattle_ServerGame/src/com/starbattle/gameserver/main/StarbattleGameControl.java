@@ -37,7 +37,7 @@ public class StarbattleGameControl implements StarbattleGame {
 		this.battleSettings = battleInitialization.getBattleSettings();
 		this.battleParticipants = battleInitialization.getBattleParticipants();
 		this.battleEndListener = battleEndListener;
-		game = new GameContainer();
+		game = new GameContainer(battleInitialization);
 		game.startGame();
 	}
 

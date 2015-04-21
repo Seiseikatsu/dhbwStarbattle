@@ -10,11 +10,9 @@ public class PlayerList {
 
 	public PlayerList() {
 
-		//add players
-		addTestPlayer("TimoTester", "SuperTimo");
 	}
 
-	private void addTestPlayer(String accountName, String displayName) {
+	public void addTestPlayer(String accountName, String displayName) {
 		accounts.add(accountName);
 		names.add(displayName);
 	}

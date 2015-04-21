@@ -15,6 +15,7 @@ public class GameInitializationFactory {
 
 	private List<BattleParticipant> battleParticipants = new ArrayList<BattleParticipant>();
 	private List<PlayerConnection> players = new ArrayList<PlayerConnection>();
+	private List<String> names=new ArrayList<String>();
 	private BattleSettings battleSettings = new BattleSettings();
 	private GameModes mode;
 
@@ -22,7 +23,8 @@ public class GameInitializationFactory {
 
 	}
 
-	public void addPlayer(PlayerConnection player) {
+	public void addPlayer(PlayerConnection player, String displayName) {
+		names.add(displayName);
 		players.add(player);
 	}
 
@@ -68,7 +70,8 @@ public class GameInitializationFactory {
 				team = Team.NO_TEAM;
 			}
 			PlayerConnection player = players.get(i);
-			battleParticipants.add(new BattleParticipant(player, team));
+			String name=names.get(i);
+			battleParticipants.add(new BattleParticipant(player,name, team));
 		}
 	}
 }

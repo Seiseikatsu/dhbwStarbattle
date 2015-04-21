@@ -20,22 +20,15 @@ import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 
 public class GameDebugger {
 
-	public static void main(String[] args) {
-		try {
-			new GameDebugger();
-		} catch (GameClientException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 
 	private ServerGameDebug server;
 	private ClientsContainer clients;
 
-	public GameDebugger() throws GameClientException {
 
-		// create players
-		PlayerList player = new PlayerList();
+	
+	public void create(PlayerList player) throws GameClientException
+	{
 
 		// start server
 		server = new ServerGameDebug();
@@ -50,7 +43,6 @@ public class GameDebugger {
 		clients.openClients(setup, new SendToServer());
 		
 		server.startGame(init);
-
 	}
 
 	private class SendToServer implements GameSendConnection {

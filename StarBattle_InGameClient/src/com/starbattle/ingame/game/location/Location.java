@@ -22,6 +22,17 @@ public class Location {
 		ypos += y;
 	}
 
+	public void move(Location l) {
+		xpos += l.getXpos();
+		ypos += l.getYpos();
+	}
+	
+	public void subtract(Location l)
+	{
+		xpos -= l.getXpos();
+		ypos -= l.getYpos();
+	}
+
 	public void jumpTo(float x, float y) {
 		xpos = x;
 		ypos = y;
@@ -40,4 +51,9 @@ public class Location {
 		return ypos;
 	}
 
+	
+	@Override
+	public String toString() {
+		return xpos+" x "+ypos;
+	}
 }

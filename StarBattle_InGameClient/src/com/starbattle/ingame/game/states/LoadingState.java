@@ -71,6 +71,7 @@ public class LoadingState extends BasicGameState {
 				System.out.println("Load Map...");
 				gameCore.loadMap(mapName);
 
+		
 				System.out.println("Finished loading!");
 				finishedLoading = true;
 

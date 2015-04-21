@@ -2,7 +2,7 @@ package com.starbattle.gameserver.game.mode;
 
 import com.starbattle.gameserver.game.Team;
 import com.starbattle.gameserver.player.GamePlayer;
-import com.starbattle.gameserver.player.PlayerList;
+import com.starbattle.gameserver.player.container.PlayerList;
 
 public class GamePoints {
 

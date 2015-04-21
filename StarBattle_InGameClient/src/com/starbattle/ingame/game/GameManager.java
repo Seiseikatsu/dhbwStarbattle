@@ -35,7 +35,8 @@ public class GameManager {
 
 	public void initGame(NP_PrepareGame prepareGame) {
 		this.mapName = prepareGame.mapName;
-		//TODO init player objects in game core
+		gameCore.initPlayers(prepareGame);
 	}
+
 
 }

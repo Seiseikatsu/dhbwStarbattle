@@ -18,6 +18,12 @@ public class BattleState extends BasicGameState {
 	}
 
 	@Override
+	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+		super.enter(container, game);
+		manager.getGameCore().start();
+	}
+	
+	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 
 	}

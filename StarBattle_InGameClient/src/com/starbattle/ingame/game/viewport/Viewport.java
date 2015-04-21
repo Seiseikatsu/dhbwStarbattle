@@ -6,8 +6,8 @@ import com.starbattle.ingame.game.player.PlayerObject;
 public class Viewport {
 
 	private int width, height;
-	private Location location=new Location();
-	
+	private Location location = new Location();
+
 	public Viewport(int w, int h) {
 		this.width = w;
 		this.height = h;
@@ -17,11 +17,16 @@ public class Viewport {
 		location.jumpTo(player.getLocation());
 	}
 
-	public void scoll(float x, float y)
-	{
+	public void scoll(float x, float y) {
 		location.move(x, y);
 	}
-	
+
+	public Location getScreenLocation(Location relative) {
+		Location newLocation = new Location(location);
+		newLocation.subtract(relative);
+		newLocation.move(width/2, height/2);
+		return newLocation;
+	}
 
 	public float getXpos() {
 		return location.getXpos();
@@ -36,7 +41,7 @@ public class Viewport {
 	}
 
 	public int getMapY() {
-		return (int)-location.getYpos() + (height / 2);
+		return (int) -location.getYpos() + (height / 2);
 	}
 
 }

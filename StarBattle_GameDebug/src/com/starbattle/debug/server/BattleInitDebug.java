@@ -37,7 +37,7 @@ public class BattleInitDebug {
 			} else {
 				team = Team.RED_TEAM;
 			}
-			BattleParticipant bp = new BattleParticipant(connection, team);
+			BattleParticipant bp = new BattleParticipant(connection, name, team);
 			battleParticipants.add(bp);
 		}
 

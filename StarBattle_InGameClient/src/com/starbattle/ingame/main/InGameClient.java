@@ -28,7 +28,7 @@ public class InGameClient implements GameClientConnection {
 		int screenHeight = settings.getWindowResolution().getScreenHeight();
 		boolean fullscreen = settings.isFullscreenMode();
 		gameContainer.setDisplayMode(screenWidht, screenHeight, fullscreen);
-		gameContainer.setShowFPS(false);
+		gameContainer.setShowFPS(true);
 
 		// Sound Settings
 		gameContainer.setMusicOn(!settings.isMusicOff());

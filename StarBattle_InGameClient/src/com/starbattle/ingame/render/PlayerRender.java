@@ -3,6 +3,10 @@ package com.starbattle.ingame.render;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
+import com.starbattle.ingame.game.location.Location;
+import com.starbattle.ingame.game.player.PlayerDisplay;
+import com.starbattle.ingame.game.player.PlayerObject;
+import com.starbattle.ingame.game.viewport.Viewport;
 import com.starbattle.ingame.resource.PlayerGraphics;
 import com.starbattle.ingame.resource.ResourceContainer;
 import com.starbattle.ingame.resource.player.PlayerGraphicPart;
@@ -41,7 +45,19 @@ public class PlayerRender {
 	private boolean mirrored;
 	private PlayerGraphicResource resource;
 
-	public void render(Graphics g, float xpos, float ypos, PlayerGraphics graphics, float[] angles, boolean mirrored) {
+	public void render(Graphics g, PlayerObject player, Viewport viewport) {
+		Location location = viewport.getScreenLocation(player.getLocation());
+		PlayerDisplay display = player.getDisplay();
+		PlayerGraphics graphics = display.getGraphic();
+		float[] angles = display.getRotation();
+		boolean mirrored = display.isLookingLeft();
+		render(g, location, graphics, angles, mirrored);
+	}
+
+	public void render(Graphics g, Location location, PlayerGraphics graphics, float[] angles, boolean mirrored) {
+
+		float xpos = location.getXpos();
+		float ypos = location.getYpos();
 
 		resource = resourceContainer.getPlayerGraphics().get(graphics);
 
