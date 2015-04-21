@@ -17,11 +17,12 @@ public class InGameClientControl {
 	}
 
 	public void openGame() {
-		try {
+	/** TODO	
+	 * try {
 			game.openInGameClient(settings);
 		} catch (GameClientException e) {
 			e.printStackTrace();
-		}
+		}**/
 	}
 
 	public void closeGame() {

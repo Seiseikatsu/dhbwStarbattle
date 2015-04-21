@@ -5,9 +5,11 @@ import org.newdawn.slick.SlickException;
 
 import com.starbattle.ingame.game.GameStateContainer;
 import com.starbattle.ingame.network.GameClientConnection;
-import com.starbattle.ingame.network.NetworkObjectResolver;
+import com.starbattle.ingame.network.GameNetwork;
+import com.starbattle.ingame.network.GameSendConnection;
 import com.starbattle.ingame.render.RenderSettings;
 import com.starbattle.ingame.settings.GameclientSettings;
+import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 
 public class InGameClient implements GameClientConnection {
 
@@ -15,11 +17,9 @@ public class InGameClient implements GameClientConnection {
 	private AppGameContainer gameContainer;
 	private GameStateContainer gameInit;
 	private GameclientSettings settings;
-	private NetworkObjectResolver objectResolver;
-
+	private GameNetwork network;
+	
 	public InGameClient() {
-		this.settings = settings;
-		objectResolver = new NetworkObjectResolver();
 	}
 
 	private void doGameSettings() throws SlickException {
@@ -48,10 +48,11 @@ public class InGameClient implements GameClientConnection {
 	}
 
 	@Override
-	public void openInGameClient(GameclientSettings settings) throws GameClientException {
+	public void openInGameClient(GameclientSettings settings,NP_PrepareGame prepareGame, GameSendConnection send) throws GameClientException {
 
 		// create game state container
-		gameInit = new GameStateContainer();
+		network=new GameNetwork(send);
+		gameInit = new GameStateContainer(network,prepareGame);
 		try {
 			gameContainer = new AppGameContainer(gameInit);
 			this.settings = settings;
@@ -66,7 +67,7 @@ public class InGameClient implements GameClientConnection {
 
 	@Override
 	public void receivedObject(Object object) {
-		objectResolver.resolveMessage(object);
+		network.receiveObject(object);
 	}
 
 	@Override

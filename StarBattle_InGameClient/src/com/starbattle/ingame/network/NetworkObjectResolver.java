@@ -1,5 +1,8 @@
 package com.starbattle.ingame.network;
 
+import com.starbattle.network.connection.objects.game.NP_GameStart;
+import com.starbattle.network.connection.objects.game.NP_GameUpdate;
+
 public class NetworkObjectResolver
 {
     
@@ -14,10 +17,14 @@ public class NetworkObjectResolver
          
         if(listener!=null)
         {
-            /* if(message instanceof ...)
+            if(message instanceof NP_GameUpdate)
             {
-                listener.(....)
-            }*/
+            	listener.updateGame((NP_GameUpdate)message);            	
+            }
+            else if(message instanceof NP_GameStart)
+            {
+            	listener.startGame();
+            }
         }
     }
 

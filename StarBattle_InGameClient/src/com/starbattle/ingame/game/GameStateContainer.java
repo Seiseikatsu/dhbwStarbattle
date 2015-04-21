@@ -4,35 +4,30 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import com.starbattle.ingame.game.states.BattleState;
 import com.starbattle.ingame.game.states.LoadingState;
-import com.starbattle.ingame.game.states.TestState;
+import com.starbattle.ingame.network.GameNetwork;
 import com.starbattle.ingame.render.RenderSettings;
-import com.starbattle.ingame.resource.ResourceContainer;
+import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 
-public class GameStateContainer extends StateBasedGame
-{
+public class GameStateContainer extends StateBasedGame {
 
-    
-    
-    public GameStateContainer()
-    {
-        super("Starbattle Client");
+	private GameManager manager;
 
-    }
-    
-    public void setRenderSettings(RenderSettings settings)
-    {
-        
-    }
+	public GameStateContainer(GameNetwork network, NP_PrepareGame prepareGame) {
+		super("Starbattle Client");
+		manager = new GameManager(network);
+		manager.initGame(prepareGame);
+	}
 
-    @Override
-    public void initStatesList(GameContainer container) throws SlickException
-    {
-       ResourceContainer resourceContainer=new ResourceContainer();	
-      addState(new LoadingState(resourceContainer));
-      addState(new TestState(resourceContainer));
-    }
+	public void setRenderSettings(RenderSettings settings) {
 
-    
-    
+	}
+
+	@Override
+	public void initStatesList(GameContainer container) throws SlickException {
+		addState(new LoadingState(manager));
+		addState(new BattleState(manager));
+	}
+
 }

@@ -18,7 +18,7 @@ public class HudRender {
 	float air = 1f;
 	public void renderHud(Graphics g) {
 		float x = 485;
-		float y = 3;
+		float y = 8;
 		
 		air-=0.001;
 		airBarRender.render(g, x, y, air);

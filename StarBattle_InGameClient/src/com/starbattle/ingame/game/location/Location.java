@@ -1,0 +1,43 @@
+package com.starbattle.ingame.game.location;
+
+public class Location {
+
+	private float xpos, ypos;
+
+	public Location() {
+	}
+
+	public Location(float x, float y) {
+		xpos = x;
+		ypos = y;
+	}
+
+	public Location(Location l) {
+		xpos = l.getXpos();
+		ypos = l.getYpos();
+	}
+
+	public void move(float x, float y) {
+		xpos += x;
+		ypos += y;
+	}
+
+	public void jumpTo(float x, float y) {
+		xpos = x;
+		ypos = y;
+	}
+
+	public void jumpTo(Location location) {
+		xpos = location.getXpos();
+		ypos = location.getYpos();
+	}
+
+	public float getXpos() {
+		return xpos;
+	}
+
+	public float getYpos() {
+		return ypos;
+	}
+
+}
