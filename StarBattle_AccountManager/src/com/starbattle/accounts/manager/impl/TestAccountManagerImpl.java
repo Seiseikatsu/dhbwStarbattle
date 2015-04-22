@@ -1,5 +1,6 @@
 package com.starbattle.accounts.manager.impl;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,18 +34,28 @@ public class TestAccountManagerImpl implements TestAccountManager {
 	@Override
 	public void deleteDbValues() throws AccountException, SQLException {
 		DatabaseConnection dbc = accountManagerImpl.getDatabaseConnection();
+		Connection conn = dbc.getConnection();
 		PreparedStatement stmt;
-		String sqlTruncate = "TRUNCATE TABLE ?";
+		
+		String sqlReferentialFalse = "SET REFERENTIAL_INTEGRITY FALSE";
+		stmt = dbc.getConnection().prepareStatement(sqlReferentialFalse);
+		stmt.executeUpdate();
+		conn.commit();
+
 		String[] allTables = accountManagerImpl.getAllTables();
 		
 		for (int i = 0; i < allTables.length; i++) {
+			System.out.println(allTables[i]);
+			String sqlTruncate = "TRUNCATE TABLE " + allTables[i];
 			stmt = dbc.getConnection().prepareStatement(sqlTruncate);
-
-			stmt.setString(1, allTables[i]);
 			stmt.execute();
 		}
+		conn.commit();
 
-		
+		String sqlReferentialTrue = "SET REFERENTIAL_INTEGRITY TRUE";
+		stmt = dbc.getConnection().prepareStatement(sqlReferentialTrue);
+		stmt.executeUpdate();
+		conn.commit();
 	}
 
 	@Override
