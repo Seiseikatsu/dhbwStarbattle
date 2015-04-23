@@ -35,6 +35,8 @@ public class GameManager {
 
 	public void initGame(NP_PrepareGame prepareGame) {
 		this.mapName = prepareGame.mapName;
+		System.out.println("Init Game:");
+		System.out.println("> Map Name: "+mapName);
 		gameCore.initPlayers(prepareGame);
 	}
 

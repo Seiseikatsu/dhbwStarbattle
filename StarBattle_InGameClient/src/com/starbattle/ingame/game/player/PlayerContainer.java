@@ -23,6 +23,7 @@ public class PlayerContainer {
 			String name = init.playerNames[i];
 			int team = init.teams[i];
 			PlayerObject player = new PlayerObject(name, team);
+			System.out.println("> Init Player \""+name+"\" for Team "+team);
 			players.add(player);
 		}
 		myID = init.playerID;

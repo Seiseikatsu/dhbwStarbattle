@@ -13,12 +13,14 @@ import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 public class GameStateContainer extends StateBasedGame {
 
 	private GameManager manager;
+	private NP_PrepareGame prepareGame;
 
 	public GameStateContainer(GameNetwork network, NP_PrepareGame prepareGame) {
 		super("Starbattle Client");
 		manager = new GameManager(network);
-		manager.initGame(prepareGame);
+		this.prepareGame=prepareGame;
 	}
+	
 
 	public void setRenderSettings(RenderSettings settings) {
 
@@ -26,7 +28,7 @@ public class GameStateContainer extends StateBasedGame {
 
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
-		addState(new LoadingState(manager));
+		addState(new LoadingState(manager,prepareGame));
 		addState(new BattleState(manager));
 	}
 

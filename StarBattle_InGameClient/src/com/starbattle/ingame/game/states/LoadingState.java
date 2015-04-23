@@ -13,6 +13,7 @@ import com.starbattle.ingame.resource.ResourceContainer;
 import com.starbattle.ingame.resource.player.ResourceException;
 import com.starbattle.network.connection.objects.game.NP_ClientReady;
 import com.starbattle.network.connection.objects.game.NP_GameUpdate;
+import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 
 public class LoadingState extends BasicGameState {
 
@@ -20,10 +21,12 @@ public class LoadingState extends BasicGameState {
 	private GameManager manager;
 	private boolean finishedLoading = false;
 	private boolean openGame = false;
+	private NP_PrepareGame prepareGame;
 
-	public LoadingState(GameManager manager) {
+	public LoadingState(GameManager manager, NP_PrepareGame prepareGame) {
 		this.manager = manager;
 		this.resourceContainer = manager.getResourceContainer();
+		this.prepareGame = prepareGame;
 	}
 
 	@Override
@@ -65,13 +68,15 @@ public class LoadingState extends BasicGameState {
 			try {
 				System.out.println("Load Resources...");
 				resourceContainer.loadResources();
+
+				manager.initGame(prepareGame);
+
 				// load map
 				String mapName = manager.getMapName();
 				GameCore gameCore = manager.getGameCore();
 				System.out.println("Load Map...");
 				gameCore.loadMap(mapName);
 
-		
 				System.out.println("Finished loading!");
 				finishedLoading = true;
 
