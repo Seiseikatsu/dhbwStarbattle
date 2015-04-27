@@ -1467,3 +1467,6 @@ No data is available [2000-176]
 04-14 13:25:55 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLException: Keine Daten verfügbar
 No data is available [2000-176]
+04-27 10:04:36 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Das Objekt wurde bereits geschlossen
+The object is already closed [90007-176]

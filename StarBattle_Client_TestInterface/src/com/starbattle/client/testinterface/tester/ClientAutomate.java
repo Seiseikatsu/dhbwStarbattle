@@ -26,25 +26,23 @@ public class ClientAutomate {
 
 	private ClientNetworkInterface clientNetwork;
 	private GameWindow window;
-	
+
 	private StarBattleClient client;
-	
+
 	public ClientAutomate(StarBattleClient client) {
 
 		clientNetwork = new ClientNetworkInterface(client.getConnection());
 		this.window = client.getWindow();
-		this.client=client;
+		this.client = client;
 	}
-	
-	public void hideClientWindow()
-	{
-		//minimize window
+
+	public void hideClientWindow() {
+		// minimize window
 		window.getWindow().setState(JFrame.ICONIFIED);
 	}
-	
+
 	/*
 	 * DO STEP METHODES
-	 * 
 	 */
 
 	public void doLogin(String accountName, String password) throws LoginFailureException {
@@ -55,96 +53,93 @@ public class ClientAutomate {
 		login.password = pw;
 		login.playerName = accountName;
 		clientNetwork.sendTCP(login);
-		if(!isInView(LobbyView.VIEW_ID))
-		{
-			throw new LoginFailureException("Failed to login with "+accountName+" "+password);
+		if (!isInView(LobbyView.VIEW_ID)) {
+			throw new LoginFailureException("Failed to login with " + accountName + " " + password);
 		}
 	}
 
 	public void clickButton(String buttonName) throws GUIElementNotFoundException, WrongGUIElementException {
 		step();
-			JComponent component = findGUI(buttonName);
-			if (component != null) {
-				if (component instanceof JButton) {
-					JButton b = (JButton) component;
-					b.doClick();
-				} else {
-					throw new WrongGUIElementException(component.getClass(), JButton.class);
-				}
+		JComponent component = findGUI(buttonName);
+		if (component != null) {
+			if (component instanceof JButton) {
+				JButton b = (JButton) component;
+				b.doClick();
 			} else {
-				throw new GUIElementNotFoundException(buttonName);
+				throw new WrongGUIElementException(component.getClass(), JButton.class);
 			}
+		} else {
+			throw new GUIElementNotFoundException(buttonName);
+		}
 	}
 
-	public void fillInTextfield(String textfieldName, String text) throws GUIElementNotFoundException, WrongGUIElementException {
+	public void fillInTextfield(String textfieldName, String text) throws GUIElementNotFoundException,
+			WrongGUIElementException {
 		step();
-			JComponent component = findGUI(textfieldName);
-			if (component != null) {
-				if (component instanceof JTextField) {
-					JTextField b = (JTextField) component;
-					b.setText(text);
-				} else {
-					throw new WrongGUIElementException(component.getClass(), JTextField.class);
-				}
+		JComponent component = findGUI(textfieldName);
+		if (component != null) {
+			if (component instanceof JTextField) {
+				JTextField b = (JTextField) component;
+				b.setText(text);
 			} else {
-				throw new GUIElementNotFoundException(textfieldName);
+				throw new WrongGUIElementException(component.getClass(), JTextField.class);
 			}
+		} else {
+			throw new GUIElementNotFoundException(textfieldName);
+		}
 	}
 
 	public void setInView(int viewID) {
 		step();
 		window.getContent().showView(viewID);
 	}
-	
-	
+
 	/*
 	 * CHECK STEP METHODES
 	 */
-	
-	public int getChatMessagesCount(final String chatFriendName) throws GUIElementNotFoundException
-	{
-	
+
+	public int getChatMessagesCount(final String chatFriendName) throws GUIElementNotFoundException {
+
 		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
-			public boolean check(){
+			public boolean check() {
 				LobbyView lobby = getLobbyView();
-				ChatManager chatM=lobby.getChatManager();
-				if(chatM.getChats().containsKey(chatFriendName))
-				{
+				ChatManager chatM = lobby.getChatManager();
+				if (chatM.getChats().containsKey(chatFriendName)) {
 					return true;
 				}
 				return false;
 			}
 		});
-		
-		if(check.isCheckOk())
-		{
+
+		if (check.isCheckOk()) {
 			LobbyView lobby = getLobbyView();
 			return lobby.getChatManager().getChats().get(chatFriendName).getView().getChatContent().getComponentCount();
-		}
-		else
-		{
-			throw new GUIElementNotFoundException("Couldnt find Chat to '"+chatFriendName+"'");
+		} else {
+			throw new GUIElementNotFoundException("Couldnt find Chat to '" + chatFriendName + "'");
 		}
 	}
-	
-	public boolean hasChatToFriend(final String friendName) 
-	{
+
+	public boolean hasChatToFriend(final String friendName) {
 		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
-			public boolean check(){
+			public boolean check() {
 				LobbyView lobby = getLobbyView();
-				ChatManager chatM=lobby.getChatManager();
+				ChatManager chatM = lobby.getChatManager();
 				return chatM.getChats().containsKey(friendName);
 			}
 		});
 		return check.isCheckOk();
 	}
-	
+
+	public boolean check(ToleranceCheckTask task) {
+		ToleranceCheck check = new ToleranceCheck(task);
+		return check.isCheckOk();
+	}
 
 	public boolean isInView(final int viewID) {
 		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
 			public boolean check() {
-				int view=window.getContent().getCurrentViewID();
-				//System.out.println("CHECK "+viewID+" =? "+view);
+				int view = window.getContent().getCurrentViewID();
+				// System.out.println("CHECK "+viewID+" =? "+view);
 				if (viewID == view) {
 					return true;
 				}
@@ -158,7 +153,7 @@ public class ClientAutomate {
 		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
 			public boolean check() {
 				LobbyView lobby = getLobbyView();
-				FriendRelation relation = lobby.getFriendPanel().getFriendRelationTo(friend);
+				FriendRelation relation = lobby.getFriendPanel().getFriendRelationTo(friend);				
 				if (relation != null) {
 					if (relationType == relation.getState()) {
 						return true;
@@ -184,42 +179,39 @@ public class ClientAutomate {
 		return check.isCheckOk();
 	}
 
-	private LobbyView getLobbyView()
-	{
+	private LobbyView getLobbyView() {
 		ContentView view = window.getContent().getViews().get(LobbyView.VIEW_ID);
 		LobbyView lobby = (LobbyView) view;
 		return lobby;
 	}
-	
+
 	public boolean isPwError(final String error) throws GUIElementNotFoundException, WrongGUIElementException {
-	
-		
-		
-		
-		ToleranceCheck check=new ToleranceCheck(new ToleranceCheckTask() {
-			
+
+		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
+
 			@Override
 			public boolean check() {
 				JComponent component = findGUI("Error_Text");
 				if (component != null) {
 					if (component instanceof JLabel) {
 						JLabel passwordLabel = (JLabel) component;
-						if(passwordLabel.getText().equals(error))
-						{
+						if (passwordLabel.getText().equals(error)) {
 							return true;
-						}	
+						}
 					} else {
-					//	throw new WrongGUIElementException(component.getClass(), JButton.class);
+						// throw new
+						// WrongGUIElementException(component.getClass(),
+						// JButton.class);
 					}
 				} else {
-				//	throw new GUIElementNotFoundException("Error_Text");
+					// throw new GUIElementNotFoundException("Error_Text");
 				}
 				return false;
 			}
 		});
 		return check.isCheckOk();
 	}
-	
+
 	public Object waitForNetworkReceive(final Class<?> requestedObject) throws NetworkTimeoutException {
 		return clientNetwork.waitForNetworkReceive(requestedObject);
 	}
@@ -237,10 +229,9 @@ public class ClientAutomate {
 		}
 	}
 
-	public void shutdown()
-	{
-		
+	public void shutdown() {
+
 		client.shutdown();
 	}
-	
+
 }
