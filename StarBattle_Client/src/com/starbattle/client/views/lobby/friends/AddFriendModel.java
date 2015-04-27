@@ -19,6 +19,7 @@ public class AddFriendModel extends ViewModel {
 
 	public AddFriendModel() {
 
+		friendname.setName("FriendUsername");
 		view.setLayout(new VerticalLayout());
 		view.setBorder(BorderFactory.createEmptyBorder(20, 70, 20, 50));
 		view.setBackground(new Color(200, 200, 200));

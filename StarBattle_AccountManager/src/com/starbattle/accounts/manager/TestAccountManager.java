@@ -3,6 +3,8 @@ package com.starbattle.accounts.manager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.starbattle.accounts.player.FriendRelationState;
+
 public interface TestAccountManager {
 
 	public void deleteDbValues() throws AccountException, SQLException;
@@ -13,6 +15,6 @@ public interface TestAccountManager {
 
 	public void setFriendRequest(String accountNameSender, String displayNameReceiver) throws AccountException;
 	
-	public int getFriendState(String accountNameSender, String displayNameReceiver) throws AccountException;
+	public FriendRelationState getFriendState(String accountNameSender, String displayNameReceiver) throws AccountException;
 	
 }

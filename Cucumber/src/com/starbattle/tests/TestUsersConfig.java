@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.starbattle.accounts.manager.AccountException;
 import com.starbattle.accounts.manager.TestAccountManager;
+import com.starbattle.accounts.validation.PasswordHasher;
 
 public abstract class TestUsersConfig {
 
@@ -14,7 +15,7 @@ public abstract class TestUsersConfig {
 		// init test users
 		addTestUser("TimoTester", "SuperTimo", "Timotest#1");
 		addTestUser("HansHelfer", "SuperHans", "Hanshelf#1");
-		
+
 	}
 
 	private static void addTestUser(String accountName, String dispName, String password) {
@@ -32,25 +33,23 @@ public abstract class TestUsersConfig {
 	}
 
 	public static void createTestUsers(TestAccountManager testAccountManager) throws AccountException {
-		for(UserConfig config: configs)
-		{
-			testAccountManager.addTestAccount(config.accountName, config.dispName, config.password, "tester@starbattle.com");
+		for (UserConfig config : configs) {
+			String pw = config.password;
+			pw = PasswordHasher.hashPassword(pw);
+			testAccountManager.addTestAccount(config.accountName, config.dispName, pw, "tester@starbattle.com");
 		}
 	}
-	
-	public static String getAccountName(int nr)
-	{
+
+	public static String getAccountName(int nr) {
 		return configs.get(nr).accountName;
 	}
-	
-	public static String getDisplayName(int nr)
-	{
+
+	public static String getDisplayName(int nr) {
 		return configs.get(nr).dispName;
 	}
-	
-	public static String getPassword(int nr)
-	{
+
+	public static String getPassword(int nr) {
 		return configs.get(nr).password;
 	}
-	
+
 }

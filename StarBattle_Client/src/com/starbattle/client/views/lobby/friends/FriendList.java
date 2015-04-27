@@ -2,10 +2,10 @@ package com.starbattle.client.views.lobby.friends;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -22,6 +22,7 @@ public class FriendList extends ViewModel {
 	private String name;
 	private FriendActionListener friendActionListener;
 	private ArrayList<FriendRelation> relations = new ArrayList<FriendRelation>();
+	private List<FriendRelationView> relationViews = new ArrayList<FriendRelationView>();
 
 	public FriendList(String title, String icon, FriendActionListener friendActionListener) {
 		this.friendActionListener = friendActionListener;
@@ -42,8 +43,7 @@ public class FriendList extends ViewModel {
 		view.add(content, BorderLayout.CENTER);
 		content.setLayout(new VerticalLayout());
 		content.setVisible(false);
-		
-	
+
 		// change visibility of content on click
 		showHide.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -53,15 +53,15 @@ public class FriendList extends ViewModel {
 		});
 	}
 
-	private void update()
-	{
+	private void update() {
 		showHide.setText(name + " (" + content.getComponentCount() + ")");
 		content.revalidate();
 		this.view.repaint();
 	}
-	
+
 	public void initList() {
 		content.removeAll();
+		relationViews.clear();
 		relations.clear();
 		update();
 	}
@@ -69,7 +69,8 @@ public class FriendList extends ViewModel {
 	public void addRelation(FriendRelation relation) {
 		FriendRelationView view = new FriendRelationView(relation, friendActionListener);
 		content.add(view.getView());
-		relations.add(relation);	
+		relationViews.add(view);
+		relations.add(relation);
 		update();
 	}
 
@@ -78,19 +79,28 @@ public class FriendList extends ViewModel {
 	}
 
 	public void deleteRelation(String name) {
-		for(int i=0; i<relations.size(); i++)
-		{
-			FriendRelation relation=relations.get(i);
-			if(relation.getName().equals(name))
-			{
+		for (int i = 0; i < relations.size(); i++) {
+			FriendRelation relation = relations.get(i);
+			if (relation.getName().equals(name)) {
 				relations.remove(i);
-				// remove view component	
+				relationViews.remove(i);
+				// remove view component
 				content.remove(i);
 				update();
 				break;
 			}
 		}
 
+	}
+
+	public FriendRelationView getView(String name) {
+		for (int i = 0; i < relations.size(); i++) {
+			FriendRelation relation = relations.get(i);
+			if (relation.getName().equals(name)) {
+				return relationViews.get(i);
+			}
+		}
+		return null;
 	}
 
 	public JPanel getContent() {

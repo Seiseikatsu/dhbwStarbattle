@@ -32,6 +32,7 @@ public class AddFriendView extends ContentView {
 
 	public AddFriendView(NetworkConnection connection) {
 
+		addFriendButton.setName("AddFriend");
 		connection.setFriendRequestListener(new RequestAnswer());
 		windowSize = new Dimension(400, 250);
 

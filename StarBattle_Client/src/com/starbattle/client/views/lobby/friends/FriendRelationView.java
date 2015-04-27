@@ -117,7 +117,7 @@ public class FriendRelationView extends ViewModel {
 	private class BackgroundPainter implements CustomPaintPanelInterface {
 
 		@Override
-		public void paint(Graphics g,Dimension size) {
+		public void paint(Graphics g, Dimension size) {
 
 			int w = size.width;
 			int h = size.height;
@@ -168,5 +168,9 @@ public class FriendRelationView extends ViewModel {
 
 		}
 
+	}
+
+	public FriendActionListener getFriendActionListener() {
+		return friendActionListener;
 	}
 }
