@@ -156,7 +156,7 @@ public class ClientAutomate {
 		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
 			public boolean check() {
 				LobbyView lobby = getLobbyView();
-				FriendRelation relation = lobby.getFriendPanel().getFriendRelationTo(friend);
+				FriendRelation relation = lobby.getFriendPanel().getFriendRelationTo(friend);				
 				if (relation != null) {
 					if (relationType == relation.getState()) {
 						return true;
