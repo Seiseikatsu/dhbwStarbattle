@@ -49,10 +49,19 @@ public class TestEnvironment {
 	public void closeAnotherClient() {
 		anotherClient.shutdown();
 	}
+	
+	public void setUp()
+	{
+		initDB();
+		client=ClientTestInterface.createNewTestClient();
+	}
 
 	public void tidyUp() {
 		client.shutdown();
-		client = ClientTestInterface.createNewTestClient();
+		if(anotherClient!=null)
+		{
+			anotherClient.shutdown();
+		}
 	}
 
 	public void close() {
@@ -61,6 +70,8 @@ public class TestEnvironment {
 		if (anotherClient != null) {
 			anotherClient.shutdown();
 		}
+		//close everything
+		ClientTestInterface.shutdown();
 	}
 
 	public ClientAutomate getClient() {

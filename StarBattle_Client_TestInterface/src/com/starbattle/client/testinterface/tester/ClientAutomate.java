@@ -1,5 +1,6 @@
 package com.starbattle.client.testinterface.tester;
 
+
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -156,7 +157,7 @@ public class ClientAutomate {
 		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
 			public boolean check() {
 				LobbyView lobby = getLobbyView();
-				FriendRelation relation = lobby.getFriendPanel().getFriendRelationTo(friend);				
+				FriendRelation relation = lobby.getFriendPanel().getFriendRelationTo(friend);
 				if (relation != null) {
 					if (relationType == relation.getState()) {
 						return true;
@@ -169,14 +170,65 @@ public class ClientAutomate {
 	}
 
 	public void acceptFriendRequest(final String friend) throws GUIElementNotFoundException {
-		LobbyView lobby = getLobbyView();
-		FriendList list = lobby.getFriendPanel().getFriendPanels()[FriendPanel.FRIEND_LIST_REQUESTS];
-		FriendRelationView friendView = list.getView(friend);
-		if (friendView != null) {
-			friendView.getFriendActionListener().accept(friend);
-			return;
+		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
+
+			@Override
+			public boolean check() {
+				LobbyView lobby = getLobbyView();
+				FriendList list = lobby.getFriendPanel().getFriendPanels()[FriendPanel.FRIEND_LIST_REQUESTS];
+				FriendRelationView friendView = list.getView(friend);
+				if (friendView != null) {
+					friendView.getFriendActionListener().accept(friend);
+					return true;
+				}
+
+				return false;
+			}
+		});
+		check.isCheckOk();
+	}
+
+	public boolean checkFriendOnline(final String friend) {
+		return check(new ToleranceCheckTask() {
+			@Override
+			public boolean check() {
+				try {
+					if (isFriendOnline(friend)) {
+						return true;
+					}
+				} catch (GUIElementNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return false;
+			}
+		});
+	}
+
+	public boolean checkFriendOffline(final String friend) {
+		return check(new ToleranceCheckTask() {
+			@Override
+			public boolean check() {
+				try {
+					if (!isFriendOnline(friend)) {
+						return true;
+					}
+				} catch (GUIElementNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return false;
+			}
+		});
+	}
+
+	private boolean isFriendOnline(final String friend) throws GUIElementNotFoundException {
+		if (hasFriendRelation(friend)) {
+			LobbyView lobby = getLobbyView();
+			FriendRelation relation = lobby.getFriendPanel().getFriendRelationTo(friend);
+			return relation.isOnline();
 		}
-		throw new GUIElementNotFoundException("No Friend Relation: " + friend);
+		throw new GUIElementNotFoundException("No Friend Relation found to: " + friend);
 	}
 
 	public void removeFriend(final String friend) throws GUIElementNotFoundException {

@@ -11,7 +11,7 @@ public interface TestAccountManager {
 	
 	public void addTestAccount(String accountName, String displayName, String password, String email) throws AccountException;
 	
-	public boolean setFriends(String accountNameSender, String displayNameReceiver) throws AccountException;
+	public void setFriends(String accountNameSender, String displayNameReceiver) throws AccountException;
 
 	public void setFriendRequest(String accountNameSender, String displayNameReceiver) throws AccountException;
 	
