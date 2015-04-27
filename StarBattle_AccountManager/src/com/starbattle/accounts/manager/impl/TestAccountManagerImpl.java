@@ -69,8 +69,9 @@ public class TestAccountManagerImpl implements TestAccountManager {
 	 * existing)
 	 */
 	@Override
-	public boolean setFriends(String accountNameSender, String displayNameReceiver) throws AccountException {
-		return accountManagerImpl.newFriendRequest(accountNameSender, displayNameReceiver);
+	public void setFriends(String accountNameSender, String displayNameReceiver) throws AccountException {
+		accountManagerImpl.newFriendRequest(accountNameSender, displayNameReceiver);
+		accountManagerImpl.handleFriendRequest(accountNameSender, displayNameReceiver, true);
 	}
 
 	/**
@@ -79,7 +80,7 @@ public class TestAccountManagerImpl implements TestAccountManager {
 	 */
 	@Override
 	public void setFriendRequest(String accountNameSender, String displayNameReceiver) throws AccountException {
-		accountManagerImpl.handleFriendRequest(accountNameSender, displayNameReceiver, true);
+		accountManagerImpl.newFriendRequest(accountNameSender, displayNameReceiver);
 
 	}
 

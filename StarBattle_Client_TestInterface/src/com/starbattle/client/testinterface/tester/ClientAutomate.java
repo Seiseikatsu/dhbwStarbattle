@@ -48,7 +48,8 @@ public class ClientAutomate {
 	 * DO STEP METHODES
 	 */
 
-	public void doLogin(String accountName, String password) throws LoginFailureException {
+	public void doLogin(String accountName, String password)
+			throws LoginFailureException {
 		step();
 		setInView(LoginView.VIEW_ID);
 		String pw = PasswordHasher.hashPassword(password);
@@ -57,11 +58,13 @@ public class ClientAutomate {
 		login.playerName = accountName;
 		clientNetwork.sendTCP(login);
 		if (!isInView(LobbyView.VIEW_ID)) {
-			throw new LoginFailureException("Failed to login with " + accountName + " " + password);
+			throw new LoginFailureException("Failed to login with "
+					+ accountName + " " + password);
 		}
 	}
 
-	public void clickButton(String buttonName) throws GUIElementNotFoundException, WrongGUIElementException {
+	public void clickButton(String buttonName)
+			throws GUIElementNotFoundException, WrongGUIElementException {
 		step();
 		JComponent component = findGUI(buttonName);
 		if (component != null) {
@@ -69,15 +72,16 @@ public class ClientAutomate {
 				JButton b = (JButton) component;
 				b.doClick();
 			} else {
-				throw new WrongGUIElementException(component.getClass(), JButton.class);
+				throw new WrongGUIElementException(component.getClass(),
+						JButton.class);
 			}
 		} else {
 			throw new GUIElementNotFoundException(buttonName);
 		}
 	}
 
-	public void fillInTextfield(String textfieldName, String text) throws GUIElementNotFoundException,
-			WrongGUIElementException {
+	public void fillInTextfield(String textfieldName, String text)
+			throws GUIElementNotFoundException, WrongGUIElementException {
 		step();
 		JComponent component = findGUI(textfieldName);
 		if (component != null) {
@@ -85,7 +89,8 @@ public class ClientAutomate {
 				JTextField b = (JTextField) component;
 				b.setText(text);
 			} else {
-				throw new WrongGUIElementException(component.getClass(), JTextField.class);
+				throw new WrongGUIElementException(component.getClass(),
+						JTextField.class);
 			}
 		} else {
 			throw new GUIElementNotFoundException(textfieldName);
@@ -101,7 +106,8 @@ public class ClientAutomate {
 	 * CHECK STEP METHODES
 	 */
 
-	public int getChatMessagesCount(final String chatFriendName) throws GUIElementNotFoundException {
+	public int getChatMessagesCount(final String chatFriendName)
+			throws GUIElementNotFoundException {
 
 		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
 			public boolean check() {
@@ -116,9 +122,11 @@ public class ClientAutomate {
 
 		if (check.isCheckOk()) {
 			LobbyView lobby = getLobbyView();
-			return lobby.getChatManager().getChats().get(chatFriendName).getView().getChatContent().getComponentCount();
+			return lobby.getChatManager().getChats().get(chatFriendName)
+					.getView().getChatContent().getComponentCount();
 		} else {
-			throw new GUIElementNotFoundException("Couldnt find Chat to '" + chatFriendName + "'");
+			throw new GUIElementNotFoundException("Couldnt find Chat to '"
+					+ chatFriendName + "'");
 		}
 	}
 
@@ -152,11 +160,13 @@ public class ClientAutomate {
 		return check.isCheckOk();
 	}
 
-	public boolean friendRelationStateIs(final String friend, final int relationType) {
+	public boolean friendRelationStateIs(final String friend,
+			final int relationType) {
 		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
 			public boolean check() {
 				LobbyView lobby = getLobbyView();
-				FriendRelation relation = lobby.getFriendPanel().getFriendRelationTo(friend);				
+				FriendRelation relation = lobby.getFriendPanel()
+						.getFriendRelationTo(friend);
 				if (relation != null) {
 					if (relationType == relation.getState()) {
 						return true;
@@ -168,18 +178,28 @@ public class ClientAutomate {
 		return check.isCheckOk();
 	}
 
-	public void acceptFriendRequest(final String friend) throws GUIElementNotFoundException {
-		LobbyView lobby = getLobbyView();
-		FriendList list = lobby.getFriendPanel().getFriendPanels()[FriendPanel.FRIEND_LIST_REQUESTS];
-		FriendRelationView friendView = list.getView(friend);
-		if (friendView != null) {
-			friendView.getFriendActionListener().accept(friend);
-			return;
-		}
-		throw new GUIElementNotFoundException("No Friend Relation: " + friend);
+	public void acceptFriendRequest(final String friend)
+			throws GUIElementNotFoundException {
+		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
+
+			@Override
+			public boolean check() {
+				LobbyView lobby = getLobbyView();
+				FriendList list = lobby.getFriendPanel().getFriendPanels()[FriendPanel.FRIEND_LIST_REQUESTS];
+				FriendRelationView friendView = list.getView(friend);
+				if (friendView != null) {
+					friendView.getFriendActionListener().accept(friend);
+					return true;
+				}
+
+				return false;
+			}
+		});
+		check.isCheckOk();
 	}
 
-	public void removeFriend(final String friend) throws GUIElementNotFoundException {
+	public void removeFriend(final String friend)
+			throws GUIElementNotFoundException {
 		LobbyView lobby = getLobbyView();
 		for (FriendList list : lobby.getFriendPanel().getFriendPanels()) {
 			FriendRelationView friendView = list.getView(friend);
@@ -195,7 +215,8 @@ public class ClientAutomate {
 		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
 			public boolean check() {
 				LobbyView lobby = getLobbyView();
-				FriendRelation relation = lobby.getFriendPanel().getFriendRelationTo(friend);
+				FriendRelation relation = lobby.getFriendPanel()
+						.getFriendRelationTo(friend);
 				if (relation != null) {
 					return true;
 				}
@@ -206,12 +227,14 @@ public class ClientAutomate {
 	}
 
 	private LobbyView getLobbyView() {
-		ContentView view = window.getContent().getViews().get(LobbyView.VIEW_ID);
+		ContentView view = window.getContent().getViews()
+				.get(LobbyView.VIEW_ID);
 		LobbyView lobby = (LobbyView) view;
 		return lobby;
 	}
 
-	public boolean isPwError(final String error) throws GUIElementNotFoundException, WrongGUIElementException {
+	public boolean isPwError(final String error)
+			throws GUIElementNotFoundException, WrongGUIElementException {
 
 		ToleranceCheck check = new ToleranceCheck(new ToleranceCheckTask() {
 
@@ -238,7 +261,8 @@ public class ClientAutomate {
 		return check.isCheckOk();
 	}
 
-	public Object waitForNetworkReceive(final Class<?> requestedObject) throws NetworkTimeoutException {
+	public Object waitForNetworkReceive(final Class<?> requestedObject)
+			throws NetworkTimeoutException {
 		return clientNetwork.waitForNetworkReceive(requestedObject);
 	}
 
