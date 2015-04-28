@@ -72,7 +72,6 @@ public class TestAccountManagerImpl implements TestAccountManager {
 	public void setFriends(String accountNameSender, String displayNameReceiver) throws AccountException {
 		accountManagerImpl.newFriendRequest(accountNameSender, displayNameReceiver);
 		accountManagerImpl.handleFriendRequest(accountNameSender, displayNameReceiver, true);
-		
 	}
 
 	/**

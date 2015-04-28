@@ -39,9 +39,8 @@ public class FriendsTests {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		if(testEnvironment!=null)
-		{
-		testEnvironment.close();
+		if (testEnvironment != null) {
+			testEnvironment.close();
 		}
 	}
 
@@ -92,6 +91,8 @@ public class FriendsTests {
 		client.doLogin(friendAccountName, friendPassword);
 
 		// check friend gui
+
+		assertTrue(client.friendRelationStateIs(myUserName, FriendRelation.RELATION_REQUEST));
 		assertTrue(client.friendRelationStateIs(myUserName, FriendRelation.RELATION_REQUEST));
 	}
 
