@@ -45,7 +45,7 @@ public class AccountManagerFacade implements AccountManager {
 	@Override
 	public void deleteAccount(String accountName) throws AccountException {
 		AccountCrud crud=accountDataManager.getAccountCrud();
-		crud.deleteAccount(accountName);
+		crud.deleteAccount(accountName,0);
 	}
 
 

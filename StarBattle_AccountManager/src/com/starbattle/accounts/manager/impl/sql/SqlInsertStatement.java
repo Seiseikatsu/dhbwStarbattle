@@ -6,41 +6,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.starbattle.accounts.manager.impl.DatabaseControl;
-import com.starbattle.accounts.manager.impl.tables.AccountTable;
 
-public class SqlInsertStatement implements SqlStatement{
-
-	private String statement="";
-	private Object[] values;
-	
-	public static void main(String[] args) throws SQLException {
-		SqlInsertStatement insertAccount = new SqlInsertStatement();
-		insertAccount.insert(AccountTable.getTableName());
-		insertAccount.into(AccountTable.NAME.getFieldName(), AccountTable.PASSWORD.getFieldName(),
-				AccountTable.EMAIL.getFieldName());
-		insertAccount.values("Hans","passwort","hans@web.de");
-		insertAccount.print();
-	}
+public class SqlInsertStatement extends SqlStatement {
 
 	public SqlInsertStatement() {
+
 	}
 
-	// String sqlPlayer =
-	// "INSERT INTO PLAYER (display_name, account_id) VALUES (?, ?)";
-
-	public void insert(String tableName) {
-		statement += "INSERT INTO " + tableName.toUpperCase();
+	public void insert(Class<? extends Enum> table) throws SQLException {
+		statement += "INSERT INTO " + getTableName(table);
 	}
 
-	public void into(String... fieldNames) {
+	public void into(Enum... fieldNames) throws SQLException {
 		statement += " (";
 		int count = fieldNames.length;
 		for (int i = 0; i < count; i++) {
-			String name = fieldNames[i];
+			String name = getFieldName(fieldNames[i]);
 			statement += name;
-			if (i < count - 1) {
-				statement += ", ";
-			}
+			separate(i, count);
 		}
 		statement += ") ";
 	}
@@ -50,24 +33,18 @@ public class SqlInsertStatement implements SqlStatement{
 		statement += "VALUES (";
 		for (int i = 0; i < count; i++) {
 			statement += "?";
-			if (i < count - 1) {
-				statement += ", ";
-			}
+			separate(i, count);
 		}
 		statement += ")";
 		this.values = values;
 	}
-	
-	public void print()
-	{
-		System.out.println(statement);
-	}
 
 	public ResultSet execute(DatabaseControl databaseControl) throws SQLException {
 		Connection connection = databaseControl.getConnection();
-		PreparedStatement preparedStatement = connection.prepareStatement(statement,PreparedStatement.RETURN_GENERATED_KEYS);
+		PreparedStatement preparedStatement = connection.prepareStatement(statement,
+				PreparedStatement.RETURN_GENERATED_KEYS);
 		for (int i = 0; i < values.length; i++) {
-			preparedStatement.setObject(i+1, values[i]);
+			preparedStatement.setObject(i + 1, values[i]);
 		}
 		preparedStatement.execute();
 		return preparedStatement.getResultSet();

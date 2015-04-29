@@ -3,7 +3,8 @@ package com.starbattle.accounts.manager.impl.tables;
 public enum PlayerTable  {
 
 	NAME("display_name"),
-	ACCOUNT_ID("account_id");
+	ACCOUNT_ID("account_id"),
+	PLAYER_ID("player_id");
 	
 	
 	private String fieldName;
