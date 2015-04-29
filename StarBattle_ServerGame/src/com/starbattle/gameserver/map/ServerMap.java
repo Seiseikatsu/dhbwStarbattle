@@ -7,7 +7,7 @@ import com.starbattle.gameserver.exceptions.ServerMapException;
 
 public class ServerMap {
 
-	public final static String path = "resource/maps/";
+	public final static String path = "maps/";
 	private TiledMap map;
 	private int gameLayerID;
 	private SpawnPointList spawnPoints;
