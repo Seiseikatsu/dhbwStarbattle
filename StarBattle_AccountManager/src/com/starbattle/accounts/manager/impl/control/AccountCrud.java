@@ -6,9 +6,12 @@ import java.sql.SQLException;
 import com.starbattle.accounts.manager.AccountException;
 import com.starbattle.accounts.manager.impl.DatabaseControl;
 import com.starbattle.accounts.manager.impl.sql.SqlCountStatement;
+import com.starbattle.accounts.manager.impl.sql.SqlDeleteStatement;
 import com.starbattle.accounts.manager.impl.sql.SqlInsertStatement;
 import com.starbattle.accounts.manager.impl.sql.SqlSelectStatement;
 import com.starbattle.accounts.manager.impl.tables.AccountTable;
+import com.starbattle.accounts.manager.impl.tables.FriendTable;
+import com.starbattle.accounts.manager.impl.tables.InventoryTable;
 import com.starbattle.accounts.manager.impl.tables.PlayerTable;
 import com.starbattle.accounts.player.PlayerAccount;
 import com.starbattle.accounts.utils.Validations;
@@ -99,28 +102,33 @@ public class AccountCrud {
 			select.values(accountID);
 			ResultSet results=select.execute(databaseControl);
 			
-			/* TODO
-			 * 
-			stmt = databaseConnection.getConnection().prepareStatement(
-					"SELECT player_id from player where account_id = ?");
-			stmt.setInt(1, id);
-			ResultSet rs = stmt.executeQuery();
-
 			int j = 1;
-			while (rs.next()) {
-				stmt = databaseConnection.getConnection().prepareStatement("DELETE INVENTAR WHERE player_id = ?");
-				stmt.setInt(1, rs.getInt(j));
-				stmt.executeUpdate();
+			while (results.next()) {
+				
+				SqlDeleteStatement deleteInventory = new SqlDeleteStatement();
+				deleteInventory.from(InventoryTable.class);
+				deleteInventory.where(InventoryTable.PLAYER_ID);
+				deleteInventory.values(results.getInt(j));
+				deleteInventory.execute(databaseControl);
 				j++;
 			}
+			
+			SqlDeleteStatement delete = new SqlDeleteStatement();
+			delete.from(PlayerTable.class);
+			delete.where(PlayerTable.ACCOUNT_ID);
+			delete.values(accountID);
+			delete.execute(databaseControl);
+				
+			delete.from(FriendTable.class);
+			delete.where(FriendTable.ACCOUNT_ID);
+			delete.values(accountID);
+			delete.execute(databaseControl);
+			
+			delete.from(AccountTable.class);
+			delete.where(AccountTable.ACCOUNT_ID);
+			delete.values(accountID);
+			delete.execute(databaseControl);
 
-			for (int i = 0; i < tables.length; i++) {
-				stmt = databaseConnection.getConnection().prepareStatement(
-						"DELETE " + tables[i] + " WHERE account_id = ?");
-				stmt.setInt(1, id);
-				stmt.executeUpdate();
-			}
-*/
 		} catch (SQLException e) {
 			throw new AccountException("SQL Failure", e);
 		}

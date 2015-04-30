@@ -28,6 +28,12 @@ public class SqlStatementTest {
 		select.where(AccountTable.EMAIL);
 		select.values(12);
 		select.print();
+		
+		SqlDeleteStatement delete=new SqlDeleteStatement();
+		delete.from(AccountTable.class);
+		delete.where(AccountTable.NAME);
+		delete.values(12);
+		delete.print();
 	}
 	
 }
