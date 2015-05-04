@@ -13,7 +13,6 @@ public class UtilDataManager extends DataController{
 	}
 
 	public LoginState canLogin(String name, String password) throws AccountException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

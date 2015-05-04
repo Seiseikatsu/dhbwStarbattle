@@ -49,7 +49,7 @@ public class AccountManagerFacade implements AccountManager {
 
 	@Override
 	public void deleteAccount(String accountName) throws AccountException {
-		accountCrud.deleteAccount(accountName, 0);
+		accountCrud.deleteAccount(accountName);
 	}
 
 	@Override
@@ -75,26 +75,23 @@ public class AccountManagerFacade implements AccountManager {
 
 	@Override
 	public LoginState canLogin(String name, String password) throws AccountException {
-		// TODO Auto-generated method stub
-		return null;
+		return utilDataManager.canLogin(name, password);
 	}
 
 	@Override
 	public List<Integer> getItemList(int playerId) throws AccountException {
-		// TODO Auto-generated method stub
-		return null;
+		return utilDataManager.getItemList(playerId);
 	}
 
 	@Override
 	public void tryResetPassword(String accountName, String email) throws AccountException {
-		// TODO Auto-generated method stub
+		utilDataManager.tryResetPassword(accountName, email);
 
 	}
 
 	@Override
 	public String getDisplayName(String accountName) throws AccountException {
-		// TODO Auto-generated method stub
-		return null;
+		return utilDataManager.getDisplayName(accountName);
 	}
 
 	@Override

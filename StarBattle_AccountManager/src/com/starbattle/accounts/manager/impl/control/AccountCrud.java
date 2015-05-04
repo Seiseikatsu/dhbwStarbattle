@@ -49,12 +49,13 @@ public class AccountCrud extends DataController {
 
 	}
 
-	public void deleteAccount(String accountName, int accountID) throws AccountException {
+	public void deleteAccount(String accountName) throws AccountException {
 		try {
 			SqlSelectStatement select = new SqlSelectStatement();
 			select.select(PlayerTable.PLAYER_ID);
 			select.from(PlayerTable.class);
 			select.where(PlayerTable.ACCOUNT_ID);
+			int accountID=getAccountIdForAccountname(accountName);
 			select.values(accountID);
 			ResultSet results = select.execute(databaseControl);
 
