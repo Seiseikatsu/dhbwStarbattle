@@ -1,8 +1,15 @@
-package cucumber.features;
+package com.starbattle.tests.cucumber;
 
 import static org.junit.Assert.assertEquals;
 
+import java.sql.SQLException;
+
+import org.junit.AfterClass;
+
 import com.starbattle.accounts.manager.AccountException;
+import com.starbattle.accounts.manager.AccountManager;
+import com.starbattle.accounts.manager.impl.AccountManagerImpl;
+import com.starbattle.accounts.manager.impl.TestAccountManagerImpl;
 import com.starbattle.accounts.validation.LoginState;
 import com.starbattle.accounts.validation.RegisterState;
 import com.starbattle.client.testinterface.main.ClientTestInterface;
@@ -13,6 +20,7 @@ import com.starbattle.client.views.register.RegisterView;
 import com.starbattle.network.connection.objects.NP_StartAnswer;
 import com.starbattle.server.main.StarbattleServer;
 import com.starbattle.server.manager.PlayerManager;
+import com.starbattle.tests.TestUsersConfig;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
@@ -31,9 +39,20 @@ public class StepDefinitions {
 		if(initServer==false)
 		{
 		//start server
-			System.out.println("HALLO SERVER INIT!");
 		server=new StarbattleServer();
-		
+
+		//init db with debug users
+		AccountManager accountManager = server.getManager().getPlayerManager().getAccountManager();
+		TestAccountManagerImpl testAccountManager = new TestAccountManagerImpl((AccountManagerImpl) accountManager);
+
+		try {
+			testAccountManager.deleteDbValues();
+			TestUsersConfig.createTestUsers(testAccountManager);
+		} catch (AccountException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		
 //		   try {
 //			server.getManager().getPlayerManager().getAccountManager().deleteAccount("HansTester");
@@ -41,7 +60,7 @@ public class StepDefinitions {
 //			e.printStackTrace();
 //		}
 		   
-		initServer=true;
+		initServer=false;
 		}
 		//set simulation parameters
 		ClientTestInterface.shutdownDelaySeconds=1f;
@@ -54,9 +73,13 @@ public class StepDefinitions {
 	public void tidyUp()
 	{
 		//shut down all applications from this test
+		
 		ClientTestInterface.shutdown();	
+		server.shutdown(null);
+
 	}
 
+	
 	@Given("^I am on the login view$")
 	public void i_am_on_the_login_view() throws Throwable {
 		assertEquals(true, client.isInView(LoginView.VIEW_ID));

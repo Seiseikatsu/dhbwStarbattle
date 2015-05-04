@@ -66,8 +66,6 @@ public class StarbattleServer {
 		return server;
 	}
 
-	public void close() {
-		server.close();
-	}
+
 
 }

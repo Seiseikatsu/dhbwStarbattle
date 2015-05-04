@@ -32,6 +32,8 @@ public class TestEnvironment {
 	
 	public void initDB()
 	{
+		testAccountManager = new TestAccountManagerImpl((AccountManagerImpl) accountManager);
+
 		try {
 			testAccountManager.deleteDbValues();
 			TestUsersConfig.createTestUsers(testAccountManager);
@@ -65,13 +67,14 @@ public class TestEnvironment {
 	}
 
 	public void close() {
-		server.close();
 		client.shutdown();
 		if (anotherClient != null) {
 			anotherClient.shutdown();
 		}
 		//close everything
 		ClientTestInterface.shutdown();
+		server.shutdown(null);
+
 	}
 
 	public ClientAutomate getClient() {

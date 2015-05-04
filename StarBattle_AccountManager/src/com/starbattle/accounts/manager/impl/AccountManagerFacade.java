@@ -20,12 +20,14 @@ public class AccountManagerFacade implements AccountManager {
 	private AccountDataManager accountDataManager;
 	private FriendDataManager friendDataManager;
 	private UtilDataManager utilDataManager;
+	private AccountCrud accountCrud;
 
 	public AccountManagerFacade() throws AccountException {
 		databaseControl = new DatabaseControl();
 		accountDataManager = new AccountDataManager(databaseControl);
-		friendDataManager=new FriendDataManager(databaseControl);
-		utilDataManager=new UtilDataManager(databaseControl);
+		friendDataManager = new FriendDataManager(databaseControl);
+		utilDataManager = new UtilDataManager(databaseControl);
+		accountCrud = new AccountCrud(databaseControl);
 	}
 
 	@Override
@@ -34,25 +36,26 @@ public class AccountManagerFacade implements AccountManager {
 		databaseControl.close();
 		friendDataManager.close();
 		utilDataManager.close();
+		accountCrud.close();
 	}
 
 	@Override
 	public void registerAccount(PlayerAccount account) throws AccountException {
-		AccountCrud crud=accountDataManager.getAccountCrud();
-		crud.registerAccount(account);
+
+		if (accountDataManager.canRegisterAccount(account) == RegisterState.Register_Ok) {
+			accountCrud.registerAccount(account);
+		}
 	}
 
 	@Override
 	public void deleteAccount(String accountName) throws AccountException {
-		AccountCrud crud=accountDataManager.getAccountCrud();
-		crud.deleteAccount(accountName,0);
+		accountCrud.deleteAccount(accountName, 0);
 	}
-
 
 	@Override
 	public RegisterState canRegisterAccount(PlayerAccount account) {
-		AccountCrud crud=accountDataManager.getAccountCrud();	
-		return crud.canRegisterAccount(account);
+
+		return accountDataManager.canRegisterAccount(account);
 	}
 
 	@Override
@@ -63,21 +66,19 @@ public class AccountManagerFacade implements AccountManager {
 	@Override
 	public void updateAccount(String accountName, AccountUpdate update) {
 		try {
-			accountDataManager.updateAccount(accountName, update);
+			accountCrud.updateAccount(accountName, update);
 		} catch (AccountException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	
 	@Override
 	public LoginState canLogin(String name, String password) throws AccountException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
 	@Override
 	public List<Integer> getItemList(int playerId) throws AccountException {
 		// TODO Auto-generated method stub

@@ -1,4 +1,4 @@
-package cucumber.features;
+package com.starbattle.tests.cucumber;
 
 import org.junit.runner.RunWith;
 
