@@ -16,7 +16,6 @@ public class GameCore {
 
 	private ParticleContainer particleContainer = new ParticleContainer();
 	private GameMap map = new GameMap();
-	private Input input;
 	private ResourceContainer resourceContainer;
 	private GameRender gameRender;
 	private PlayerContainer players = new PlayerContainer();
@@ -57,11 +56,6 @@ public class GameCore {
 		particleContainer.update(delta);
 		// calc float delta
 		players.update(delta);
-	}
-
-	public void setInput(Input input) {
-		this.input = input;
-
 	}
 	
 	public PlayerContainer getPlayers() {

@@ -10,7 +10,7 @@ import com.starbattle.gameserver.player.container.PlayerList;
 
 public class GameContainer {
 
-	private PlayerList playerList;
+	private PlayerList playerList = new PlayerList();
 	private ServerMap serverMap;
 	private GameMode gameMode;
 	private GameConnection gameUpdate;
@@ -27,7 +27,7 @@ public class GameContainer {
 
 	public void startGame() {
 		// setup objects
-		playerList = new PlayerList(new PlayerRespawnListener() {
+		playerList.setRespawnListener(new PlayerRespawnListener() {
 			@Override
 			public void playerRespawned(GamePlayer player) {
 				gameMode.onPlayerRespawn(player);
@@ -36,8 +36,11 @@ public class GameContainer {
 		gameUpdate = new GameConnection(this);
 	}
 
-	public void updateGame(double delta) {
-
+	public void updateGame(float delta) {
+		for(GamePlayer player: playerList.getPlayers())
+		{
+			player.update(delta);
+		}
 	}
 
 	public GameConnection getGameUpdate() {

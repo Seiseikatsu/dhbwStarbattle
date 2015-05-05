@@ -10,9 +10,14 @@ public class GameNetwork {
 		this.sendConnection = send;
 	}
 
-	public void sendToServer(Object object) {
-		sendConnection.send(object);
+	public void sendTCP(Object object) {
+		sendConnection.sendTCP(object);
 	}
+	
+	public void sendUDP(Object object) {
+		sendConnection.sendUDP(object);
+	}
+	
 
 	public void setReceiveListener(ObjectReceiveListener receive) {
 		networkObjectResolver.setObjectReceiveListener(receive);

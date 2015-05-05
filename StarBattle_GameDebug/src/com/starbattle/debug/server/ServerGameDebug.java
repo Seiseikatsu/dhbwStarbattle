@@ -10,6 +10,7 @@ import com.starbattle.gameserver.main.StarbattleGameControl;
 import com.starbattle.network.connection.objects.game.NP_ClientReady;
 import com.starbattle.network.connection.objects.game.NP_GameStart;
 import com.starbattle.network.connection.objects.game.NP_GameUpdate;
+import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
 
 public class ServerGameDebug {
 
@@ -27,11 +28,15 @@ public class ServerGameDebug {
 		this.sendClientsConnection = sendClientsConnection;
 	}
 
-	public void receive(Object object) {
+	public void receive(Object object, String playerName) {
 
 		if(object instanceof NP_ClientReady)
 		{
 			sendClientsConnection.sendToClients(new NP_GameStart());
+		}
+		else if(object instanceof NP_PlayerUpdate)
+		{
+			game.updatePlayer((NP_PlayerUpdate)object, playerName);
 		}
 	}
 

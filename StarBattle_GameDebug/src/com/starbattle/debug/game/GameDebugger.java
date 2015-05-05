@@ -24,12 +24,13 @@ public class GameDebugger {
 
 	private ServerGameDebug server;
 	private ClientsContainer clients;
+	private PlayerList playerList;
 
 
 	
 	public void create(PlayerList player) throws GameClientException
 	{
-
+		this.playerList=player;
 		// start server
 		server = new ServerGameDebug();
 
@@ -40,18 +41,21 @@ public class GameDebugger {
 		// start clients
 		NP_PrepareGame setup = BattleInitDebug.createClientInit(init);
 		clients = new ClientsContainer(player);
-		clients.openClients(setup, new SendToServer());
-		
+		clients.openClients(setup, new SendToServer());	
 		server.startGame(init);
 	}
 
 	private class SendToServer implements GameSendConnection {
 
 		@Override
-		public void send(Object object) {
-			server.receive(object);
+		public void sendTCP(Object object) {
+			server.receive(object,playerList.getAccounts().get(0));
 		}
-
+		
+		public void sendUDP(Object object) {
+			server.receive(object,playerList.getAccounts().get(0));
+		}
+		
 	}
 
 	private class SendToClients implements SendClientsConnection {

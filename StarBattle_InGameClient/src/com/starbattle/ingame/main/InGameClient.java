@@ -1,8 +1,10 @@
 package com.starbattle.ingame.main;
 
 import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
+import com.starbattle.ingame.game.GameManager;
 import com.starbattle.ingame.game.GameStateContainer;
 import com.starbattle.ingame.network.GameClientConnection;
 import com.starbattle.ingame.network.GameNetwork;
@@ -18,8 +20,10 @@ public class InGameClient implements GameClientConnection {
 	private GameStateContainer gameInit;
 	private GameclientSettings settings;
 	private GameNetwork network;
+	private GameManager manager;
 	
 	public InGameClient() {
+	
 	}
 
 	private void doGameSettings() throws SlickException {
@@ -52,9 +56,11 @@ public class InGameClient implements GameClientConnection {
 
 		// create game state container
 		network=new GameNetwork(send);
-		gameInit = new GameStateContainer(network,prepareGame);
+		manager = new GameManager(network);
+		gameInit = new GameStateContainer(manager,prepareGame);
 		try {
 			gameContainer = new AppGameContainer(gameInit);
+			
 			this.settings = settings;
 			doGameSettings();
 			// start
@@ -87,6 +93,10 @@ public class InGameClient implements GameClientConnection {
 		// kill game window
 		if (gameContainer != null) {
 			gameContainer.destroy();
+		}
+		if(manager!=null)
+		{
+			manager.closeGame();
 		}
 	}
 

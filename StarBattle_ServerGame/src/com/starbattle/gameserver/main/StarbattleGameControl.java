@@ -48,22 +48,37 @@ public class StarbattleGameControl implements StarbattleGame {
 
 	@Override
 	public void updatePlayer(NP_PlayerUpdate update, String accountName) {
+		if(game==null)
+		{
+			System.err.println("Game not init");
+			return;
+		}
 		game.getGameUpdate().receivedPlayerUpdate(update, accountName);
 	}
 
 	@Override
 	public void playerConnected(String accountName) {
+		if(game==null)
+		{
+			System.err.println("Game not init");
+			return;
+		}
 		game.getGameUpdate().playerConnected(accountName);
 	}
 
 	@Override
 	public void playerDisconnected(String accountName) {
+		if(game==null)
+		{
+			System.err.println("Game not init");
+			return;
+		}
 		game.getGameUpdate().playerDisonnected(accountName);
 	}
 
 	@Override
 	public void updateGame(double delta) {
-		game.updateGame(delta);
+		game.updateGame((float)delta);
 	}
 
 	@Override

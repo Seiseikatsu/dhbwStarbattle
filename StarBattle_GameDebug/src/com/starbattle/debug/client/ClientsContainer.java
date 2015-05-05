@@ -20,9 +20,22 @@ public class ClientsContainer {
 		}
 	}
 
-	public void openClients(NP_PrepareGame setup, GameSendConnection sendConnection) throws GameClientException {
-		for (InGameClientDebug client : clients.values()) {
-			client.open(setup, sendConnection);
+	public void openClients(final NP_PrepareGame setup, final GameSendConnection sendConnection)
+			throws GameClientException {
+		for (final InGameClientDebug client : clients.values()) {
+			Thread th = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						client.open(setup, sendConnection);
+					} catch (GameClientException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			});
+			th.start();
 		}
 	}
 

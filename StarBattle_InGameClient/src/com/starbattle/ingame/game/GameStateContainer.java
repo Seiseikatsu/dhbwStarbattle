@@ -1,6 +1,7 @@
 package com.starbattle.ingame.game;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -15,10 +16,11 @@ public class GameStateContainer extends StateBasedGame {
 	private GameManager manager;
 	private NP_PrepareGame prepareGame;
 
-	public GameStateContainer(GameNetwork network, NP_PrepareGame prepareGame) {
+	public GameStateContainer(GameManager manager, NP_PrepareGame prepareGame) {
 		super("Starbattle Client");
-		manager = new GameManager(network);
+		this.manager=manager;
 		this.prepareGame=prepareGame;
+		
 	}
 	
 
@@ -30,6 +32,10 @@ public class GameStateContainer extends StateBasedGame {
 	public void initStatesList(GameContainer container) throws SlickException {
 		addState(new LoadingState(manager,prepareGame));
 		addState(new BattleState(manager));
+		
+		Input input = container.getInput();
+		manager.prepareInput(input);
+		
 	}
 
 }

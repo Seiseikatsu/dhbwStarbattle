@@ -11,37 +11,61 @@ public class PlayerList {
 
 	
 	private ArrayList<GamePlayer> players=new ArrayList<GamePlayer>();
-	private HashMap<String, Integer> playerIDs=new HashMap<String,Integer>();
+	private HashMap<String, Integer> displayNames=new HashMap<String,Integer>();
+	private HashMap<String, Integer> accountNames=new HashMap<String,Integer>();
+	
 	private PlayerRespawnListener respawnListener;
 	
-	public PlayerList(PlayerRespawnListener respawnListener)
+	public PlayerList()
 	{
-		this.respawnListener=respawnListener;
 	}
 	
+	public void setRespawnListener(PlayerRespawnListener respawnListener) {
+		this.respawnListener = respawnListener;
+	}
 	
 	public void initPlayer(BattleParticipant participant)
 	{
-		int playerID=playerIDs.size();
+		System.out.println("Server: Added Player : "+participant.getAccountName());
+		int playerID=displayNames.size();
 		String playerName=participant.getDisplayName();
 		GamePlayer player=new GamePlayer(playerName, playerID);
-		addPlayer(player);		
+		addPlayer(player,participant.getAccountName());		
 	}
 	
-	public void addPlayer(GamePlayer player)
-	{
+	public void addPlayer(GamePlayer player, String accountName)
+	{	
 		player.setRespawnListener(respawnListener);
 		int id=players.size();
 		players.add(player);
-		playerIDs.put(player.getAttributes().getPlayerName(), id);
+		displayNames.put(player.getAttributes().getPlayerName(), id);
+		accountNames.put(accountName, id);
 	}
 	
+	public GamePlayer getPlayer(String userName)
+	{
+		if(!displayNames.containsKey(userName))
+		{
+			System.err.println("No Player mapped to Name: "+userName);
+			return null; 
+		}
+		int id=displayNames.get(userName);
+		return players.get(id);
+	}
+	
+	public GamePlayer getPlayerByAccount(String accountName)
+	{
+		int id=accountNames.get(accountName);
+		return players.get(id);	
+	}
+	
+
 	public ArrayList<GamePlayer> getPlayers() {
 		return players;
 	}
 	
 	public HashMap<String, Integer> getPlayerIDs() {
-		return playerIDs;
+		return displayNames;
 	}
 	
 	public GamePlayer getPlayer(int id)

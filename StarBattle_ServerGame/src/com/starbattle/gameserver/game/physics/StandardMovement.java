@@ -24,7 +24,7 @@ public class StandardMovement extends MovementType {
 		if (control.isMoveRight()) {
 			movement.horizontalMovement(movementSpeed);
 		}
-
+		
 		// jump
 		if (control.isMoveUp()) {
 			movement.getGravity().jump(jumpSpeed);

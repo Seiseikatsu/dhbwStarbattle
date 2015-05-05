@@ -5,12 +5,14 @@ import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
 
 public class PlayerInput {
 
-	private MovementControl movementControl;
+	private MovementControl movementControl=new MovementControl();
 	private boolean fireWeapon;
 
 	public PlayerInput() {
 
 	}
+	
+	
 
 	/**
 	 * Processes the player input into move and action commands

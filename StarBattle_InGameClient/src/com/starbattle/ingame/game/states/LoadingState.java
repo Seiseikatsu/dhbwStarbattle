@@ -81,7 +81,7 @@ public class LoadingState extends BasicGameState {
 				finishedLoading = true;
 
 				// contact server im finished with loading
-				manager.getNetwork().sendToServer(new NP_ClientReady());
+				manager.getNetwork().sendTCP(new NP_ClientReady());
 				System.out.println("Waiting for other players to finish...");
 			} catch (ResourceException e) {
 				e.printStackTrace();
@@ -93,6 +93,7 @@ public class LoadingState extends BasicGameState {
 			if (openGame) {
 				// open game
 				System.out.println("Starting Game!");
+				manager.startingGame();
 				game.enterState(GameStates.BATTLE_STATE.ordinal());
 			}
 		}

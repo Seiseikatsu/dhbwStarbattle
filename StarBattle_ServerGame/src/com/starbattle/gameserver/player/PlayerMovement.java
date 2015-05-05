@@ -26,7 +26,6 @@ public class PlayerMovement {
 			// standard movement for walking and jumping
 			standardMovement.updateMovement(playerInput);
 		}
-
 		objectMovement.update(delta);
 		playerInput.updateReset(delta);
 	}
