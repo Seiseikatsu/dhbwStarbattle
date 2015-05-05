@@ -33,7 +33,7 @@ public class GameTileLoader {
 		// search
 		for (int x = 0; x < map.getWidth(); x++) {
 			for (int y = 0; y < map.getHeight(); y++) {
-				int tileID = map.getTileId(x, y, gameLayerID);
+				int tileID = map.getTileId(x, y, gameLayerID)-1;
 
 				GameTiles specialTile = getSpecialTile(tileID);
 				if (specialTile != null) {
@@ -46,12 +46,19 @@ public class GameTileLoader {
 	private static void foundGameTile(GameTiles tile, int x, int y) {
 		switch (tile) {
 		case SPAWNPOINT_BLUE:
+			System.out.println("BLUE AT: "+x+" "+y);
 			spawnPointList.add(new SpawnPoint(x, y, Team.BLUE_TEAM));
 			break;
 		case SPAWMPOINT_RED:
+			System.out.println("Red AT: "+x+" "+y);
 			spawnPointList.add(new SpawnPoint(x, y, Team.RED_TEAM));
 			break;
+		case SPAWNPOINT_ALL:
+			System.out.println("All AT: "+x+" "+y);
+			spawnPointList.add(new SpawnPoint(x, y, Team.NO_TEAM));
+			break;
 		}
+		
 	}
 
 	public static SpawnPointList getSpawnPointList() {

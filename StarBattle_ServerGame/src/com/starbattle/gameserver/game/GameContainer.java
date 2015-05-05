@@ -1,5 +1,6 @@
 package com.starbattle.gameserver.game;
 
+import com.starbattle.gameserver.exceptions.ServerMapException;
 import com.starbattle.gameserver.game.mode.GameMode;
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
 import com.starbattle.gameserver.main.BattleInitialization;
@@ -15,8 +16,10 @@ public class GameContainer {
 	private GameMode gameMode;
 	private GameConnection gameUpdate;
 
-	public GameContainer(BattleInitialization init) {
+	public GameContainer(BattleInitialization init) throws ServerMapException {
 
+		//load map
+		serverMap=new ServerMap(init.getBattleSettings().getMapName());
 		// init mode
 		gameMode = init.getBattleSettings().getMode();
 		// init players
@@ -33,6 +36,8 @@ public class GameContainer {
 				gameMode.onPlayerRespawn(player);
 			}
 		});
+		//set spawn location for players
+		playerList.initSpawn(serverMap.getSpawnPoints());
 		gameUpdate = new GameConnection(this);
 	}
 

@@ -40,4 +40,8 @@ public class PlayerMovement {
 	{
 		return objectMovement.getLocation();
 	}
+
+	public void teleport(Location l) {
+		objectMovement.teleport(l);
+	}
 }

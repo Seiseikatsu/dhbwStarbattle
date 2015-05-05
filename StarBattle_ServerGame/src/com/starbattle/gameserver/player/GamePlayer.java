@@ -14,8 +14,7 @@ public class GamePlayer {
 	private PlayerRespawnListener respawnListener;
 	private PlayerMovement playerMovement;
 	private PlayerInput playerInput = new PlayerInput();
-	private Jetpack jetpack =new Jetpack();
-	
+	private Jetpack jetpack = new Jetpack();
 
 	public GamePlayer(String playerName, int playerID) {
 		attributes.setPlayerID(playerID);
@@ -35,13 +34,20 @@ public class GamePlayer {
 		respawnTimer.startRespawnTimer(time, new RespawnListener() {
 			@Override
 			public void doRespawn() {
-				respawnPlayer(spawnpoint.getX(), spawnpoint.getY());
+
+				respawnPlayer(spawnpoint.getLocation());
 			}
 		});
 	}
+	
+	public void teleportTo(Location l)
+	{
+		playerMovement.teleport(l);
+	}
 
-	private void respawnPlayer(float x, float y) {
-		playerMovement.spawnAtPosition(x, y);
+	private void respawnPlayer(Location l) {
+
+		playerMovement.spawnAtPosition(l.getXpos(), l.getYpos());
 		respawnListener.playerRespawned(this);
 		attributes.getHealth().revive();
 	}
@@ -53,17 +59,19 @@ public class GamePlayer {
 	public PlayerAttributes getAttributes() {
 		return attributes;
 	}
-	
+
 	public Jetpack getJetpack() {
 		return jetpack;
 	}
 
 	public NP_PlayerData getData() {
-		NP_PlayerData data=new NP_PlayerData();
+		NP_PlayerData data = new NP_PlayerData();
 		Location location = playerMovement.getLocation();
-		
-		data.xpos=location.getXpos();
-		data.ypos=location.getYpos();
+
+		data.xpos = location.getXpos();
+		data.ypos = location.getYpos();
 		return data;
 	}
+	
+	
 }

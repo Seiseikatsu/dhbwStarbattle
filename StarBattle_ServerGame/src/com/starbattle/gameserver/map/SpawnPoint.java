@@ -1,9 +1,11 @@
 package com.starbattle.gameserver.map;
 
 import com.starbattle.gameserver.game.Team;
+import com.starbattle.gameserver.game.physics.Location;
 
 public class SpawnPoint {
 
+	
 	private int x,y;
 	private Team team;
 	
@@ -18,12 +20,9 @@ public class SpawnPoint {
 		return team;
 	}
 	
-	public int getX() {
-		return x;
-	}
-	
-	public int getY() {
-		return y;
+	public Location getLocation()
+	{
+		return new Location(x*ServerMap.TILE_SIZE,y*ServerMap.TILE_SIZE);
 	}
 	
 }

@@ -11,9 +11,9 @@
    H4sIAAAAAAAAC+3UXw5AMAwHYFU7gH8H4MkFnNGzJzdzHiMW07QI2zzQ5BciTT+NGEIUoU7owt9dKtXPMk/vo2BzizXlalX6Wjt2zR6zm1yIq6oDudI85WGnMxdfcJFx2wD/kjF97ztXY83m3DHwvr7PK2lfl25unT80Jexd25b8GLaY6vR9T/oRzvPUHW64igntsT3aa4q60qwjl/vekquIR13OPzK/kAnwIJTNYAkAAA==
   </data>
  </layer>
- <layer name="Game" width="30" height="20" visible="0">
+ <layer name="Game" width="30" height="20" opacity="0.67">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3RMQ4AIAgDQIj+/83uLBax1YEmbMCF4GbmoRSJZrs6V+G3y3V+c1me+p8/usy8uBVxM3ZmBnFRm+Ei+076qi7SNy+4Y7Ojep+6FvqU8nFgCQAA
+   H4sIAAAAAAAAC2NkYGBgZKA/YBy1l252YrOXGYhZ6GAvPjzU7B0IP41Ee4lxx6i9w9tefPajy+NST2x5MJjsxWU+Me4cyvYOVwwAOZTcumAJAAA=
   </data>
  </layer>
 </map>
