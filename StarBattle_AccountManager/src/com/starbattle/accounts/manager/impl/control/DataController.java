@@ -1,6 +1,8 @@
 package com.starbattle.accounts.manager.impl.control;
 
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -8,6 +10,7 @@ import com.starbattle.accounts.manager.AccountException;
 import com.starbattle.accounts.manager.impl.DatabaseControl;
 import com.starbattle.accounts.manager.impl.sql.SqlSelectStatement;
 import com.starbattle.accounts.manager.impl.tables.AccountTable;
+import com.starbattle.accounts.manager.impl.tables.PlayerTable;
 
 public abstract class DataController {
 
@@ -22,35 +25,33 @@ public abstract class DataController {
 	};
 	
 	protected String getDisplayNameForAccountID(int accountID) throws AccountException {
-//		try {
-//			stmt = databaseConnection.getConnection().prepareStatement(
-//					"SELECT display_name  from player where account_id = ? ");
-//			stmt.setInt(1, accountID);
-//			;
-//			ResultSet rs = stmt.executeQuery();
-//			rs.next();
-//			return rs.getString(1);
-//		} catch (SQLException e) {
-//			throw new AccountException("SQL error");
-//		}
-		return "";
+		SqlSelectStatement select = new SqlSelectStatement();
+		try {
+			select.select(PlayerTable.NAME);
+			select.from(PlayerTable.class);
+			select.where(PlayerTable.ACCOUNT_ID);
+			select.values(accountID);
+			ResultSet rs = select.execute(databaseControl);
+			rs.next();
+			return rs.getNString(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new AccountException("Failed to get Displayname for AccountId."); 
+		}
 	}
 
 	protected String getDisplayNameForAccountName(String accountName) throws AccountException {
-//		try {
-//			stmt = databaseConnection
-//					.getConnection()
-//					.prepareStatement(
-//							"SELECT display_name from player, account where account.account_id = player.account_id AND account.name= ? ");
-//			stmt.setString(1, accountName);
-//			ResultSet rs = stmt.executeQuery();
-//			rs.next();
-//			return rs.getString(1);
-//		} catch (SQLException e) {
-//			throw new AccountException("SQL error");
-//		}
-//	}
-		return "";
+		//TODO: mittels SqlSelectJoinStatement generieren
+		try {
+			PreparedStatement stmt = databaseControl.getConnection().prepareStatement("SELECT display_name from player, account where account.account_id = player.account_id AND account.name= ? ");
+			stmt.setString(1, accountName);
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			return rs.getString(1);
+		} catch (SQLException e) {
+			throw new AccountException("Failed to get Displayname for Accountname.");
+		}
+
 	}
 	
 	protected int getAccountIdForAccountname(String accountName) throws AccountException {
@@ -65,35 +66,41 @@ public abstract class DataController {
 			return rs.getInt(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new AccountException("Faild to get AccountId for Accountname."); 
+			throw new AccountException("Failed to get AccountId for Accountname."); 
 		}
 	}
 
 	protected int getAccountIdForDisplayname(String displayName) throws AccountException {
-//		try {
-//			stmt = databaseConnection.getConnection().prepareStatement(
-//					"SELECT account_id from player where display_name = ? ");
-//			stmt.setString(1, displayName);
-//			ResultSet rs = stmt.executeQuery();
-//			rs.next();
-//			return rs.getInt(1);
-//		} catch (SQLException e) {
-//			throw new AccountException("SQL error");
-//		}
-		return 0;
+		SqlSelectStatement select = new SqlSelectStatement();
+		try {
+			select.select(PlayerTable.ACCOUNT_ID);
+			select.from(PlayerTable.class);
+			select.where(PlayerTable.NAME);
+			select.values(displayName);
+			ResultSet rs = select.execute(databaseControl);
+			rs.next();
+			return rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new AccountException("Failed to get AccountId for Displayname."); 
+		}
+
 	}
 	protected String getAccountNameForAccountID(int accountId) throws AccountException {
-//		try {
-//			stmt = databaseConnection.getConnection()
-//					.prepareStatement("SELECT name from account where account_id = ? ");
-//			stmt.setInt(1, accountId);
-//			ResultSet rs = stmt.executeQuery();
-//			rs.next();
-//			return rs.getString(1);
-//		} catch (SQLException e) {
-//			throw new AccountException("SQL error");
-//		}
-		return "";
+		
+		SqlSelectStatement select = new SqlSelectStatement();
+		try {
+			select.select(AccountTable.NAME);
+			select.from(AccountTable.class);
+			select.where(AccountTable.ACCOUNT_ID);
+			select.values(accountId);
+			ResultSet rs = select.execute(databaseControl);
+			rs.next();
+			return rs.getNString(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new AccountException("Failed to get AccountId for Accountname."); 
+		}
 	}
 
 }
