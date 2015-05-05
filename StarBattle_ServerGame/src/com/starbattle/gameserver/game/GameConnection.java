@@ -40,9 +40,10 @@ public class GameConnection  {
 	public NP_GameUpdate getGameUpdate()
 	{
 		NP_GameUpdate update=new NP_GameUpdate();
-		//TODO update bauen
+		PlayerList players = game.getPlayerList();
 		
-			return null;
+		update.playerData=players.generatePlayerData();
+		return update;
 	}
 
 }

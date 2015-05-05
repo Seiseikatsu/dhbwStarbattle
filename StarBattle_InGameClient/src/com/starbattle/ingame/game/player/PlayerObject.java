@@ -4,6 +4,7 @@ import org.newdawn.slick.Graphics;
 
 import com.starbattle.ingame.game.location.Location;
 import com.starbattle.ingame.game.viewport.Viewport;
+import com.starbattle.network.connection.objects.game.NP_PlayerData;
 
 public class PlayerObject {
 
@@ -25,11 +26,25 @@ public class PlayerObject {
 		
 	}
 	
+	public void update(NP_PlayerData data) {
+		
+		
+		location.jumpTo(data.xpos, data.ypos);
+	}
+	
 	public Location getLocation() {
 		return location;
 	}
 	
 	public PlayerDisplay getDisplay() {
 		return display;
+	}
+	
+	public String getName() {
+		return name;
+	}
+
+	public int getTeam() {
+		return team;
 	}
 }

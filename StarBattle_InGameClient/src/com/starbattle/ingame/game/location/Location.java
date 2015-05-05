@@ -29,8 +29,11 @@ public class Location {
 	
 	public void subtract(Location l)
 	{
-		xpos -= l.getXpos();
-		ypos -= l.getYpos();
+		xpos=l.getXpos()-xpos;
+		ypos=l.getYpos()-ypos;
+		
+//		xpos -= l.getXpos();
+	//	ypos -= l.getYpos();
 	}
 
 	public void jumpTo(float x, float y) {

@@ -6,6 +6,7 @@ import java.util.List;
 import org.newdawn.slick.Graphics;
 
 import com.starbattle.ingame.game.viewport.Viewport;
+import com.starbattle.network.connection.objects.game.NP_PlayerData;
 import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 
 public class PlayerContainer {
@@ -50,5 +51,14 @@ public class PlayerContainer {
 			player.update(delta);
 		}
 	}
+
+	public void update(NP_PlayerData[] playerData) {
+		for(int i=0; i<playerData.length; i++)
+		{
+			players.get(i).update(playerData[i]);
+		}
+	}
+	
+	
 
 }

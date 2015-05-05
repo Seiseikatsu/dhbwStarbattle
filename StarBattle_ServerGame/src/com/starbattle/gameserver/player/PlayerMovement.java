@@ -1,6 +1,7 @@
 package com.starbattle.gameserver.player;
 
 import com.starbattle.gameserver.game.input.PlayerInput;
+import com.starbattle.gameserver.game.physics.Location;
 import com.starbattle.gameserver.game.physics.ObjectMovement;
 import com.starbattle.gameserver.game.physics.StandardMovement;
 
@@ -26,11 +27,17 @@ public class PlayerMovement {
 			// standard movement for walking and jumping
 			standardMovement.updateMovement(playerInput);
 		}
-		objectMovement.update(delta);
+		//objectMovement.getLocation().moveY(objectMovement.getLocation().getYpos()+0.3f);
+		//objectMovement.update(delta);
 		playerInput.updateReset(delta);
 	}
 
 	public void spawnAtPosition(float x, float y) {
 
+	}
+	
+	public Location getLocation()
+	{
+		return objectMovement.getLocation();
 	}
 }

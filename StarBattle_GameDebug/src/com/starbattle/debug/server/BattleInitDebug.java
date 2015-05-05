@@ -55,7 +55,7 @@ public class BattleInitDebug {
 		String[] names = new String[c];
 		for (int i = 0; i < c; i++) {
 			teams[i] = pls.get(i).getTeam().getTeamId();
-			names[i] = pls.get(i).getAccountName();
+			names[i] = pls.get(i).getDisplayName();
 		}
 		np.teams = teams;
 		np.playerNames = names;

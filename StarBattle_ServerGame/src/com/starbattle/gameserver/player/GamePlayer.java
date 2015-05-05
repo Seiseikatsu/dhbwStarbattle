@@ -2,7 +2,9 @@ package com.starbattle.gameserver.player;
 
 import com.starbattle.gameserver.game.input.PlayerInput;
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
+import com.starbattle.gameserver.game.physics.Location;
 import com.starbattle.gameserver.map.SpawnPoint;
+import com.starbattle.network.connection.objects.game.NP_PlayerData;
 import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
 
 public class GamePlayer {
@@ -54,5 +56,14 @@ public class GamePlayer {
 	
 	public Jetpack getJetpack() {
 		return jetpack;
+	}
+
+	public NP_PlayerData getData() {
+		NP_PlayerData data=new NP_PlayerData();
+		Location location = playerMovement.getLocation();
+		
+		data.xpos=location.getXpos();
+		data.ypos=location.getYpos();
+		return data;
 	}
 }

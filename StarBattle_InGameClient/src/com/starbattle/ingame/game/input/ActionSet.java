@@ -11,33 +11,27 @@ public class ActionSet {
 	
 	public void reset()
 	{
-		move_down=false;
-		move_left=false;
-		move_up=false;
-		move_right=false;
 		use_jetpack=false;
 	}
 	
-	public void moveLeft()
-	{
-		move_left=true;
-	}
 	
-	public void moveRight()
-	{
-		move_right=true;
-	}
 	
-	public void moveUp()
-	{
-		move_up=true;
+	public void setMove_right(boolean move_right) {
+		this.move_right = move_right;
 	}
-	
-	public void moveDown()
-	{
-		move_down=true;
+
+	public void setMove_left(boolean move_left) {
+		this.move_left = move_left;
 	}
-	
+
+	public void setMove_up(boolean move_up) {
+		this.move_up = move_up;
+	}
+
+	public void setMove_down(boolean move_down) {
+		this.move_down = move_down;
+	}
+
 	public void useJetPack()
 	{
 		use_jetpack=true;

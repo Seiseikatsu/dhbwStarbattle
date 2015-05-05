@@ -17,7 +17,7 @@ public class Location {
 	}
 
 	public void moveY(float y) {
-		ypos = +y;
+		ypos += y;
 	}
 
 	public float getXpos() {

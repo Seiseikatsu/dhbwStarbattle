@@ -33,7 +33,7 @@ public class ObjectMovement {
 		}
 		
 		//update gravity
-		gravity.update(delta);
+	//	gravity.update(delta);
 	}
 	
 	public void verticalMovement(float yDelta) 
@@ -58,5 +58,9 @@ public class ObjectMovement {
 	
 	public ObjectGravity getGravity() {
 		return gravity;
+	}
+	
+	public Location getLocation() {
+		return location;
 	}
 }

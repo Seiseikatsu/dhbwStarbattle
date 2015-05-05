@@ -12,7 +12,6 @@ import org.newdawn.slick.KeyListener;
 public class KeyboardInput implements KeyListener {
 
 	private ActionSet actionSet;
-	
 
 	public KeyboardInput(ActionSet actionSet) {
 		this.actionSet = actionSet;
@@ -40,27 +39,32 @@ public class KeyboardInput implements KeyListener {
 
 	}
 
-	@Override
-	public void keyPressed(int key, char keyChar) {
-
+	private void movement(int key, boolean move) {
 		switch (key) {
 		case Input.KEY_W:
-			actionSet.moveUp();
+			actionSet.setMove_up(move);
 			break;
 		case Input.KEY_A:
-			actionSet.moveLeft();
+			actionSet.setMove_left(move);
 			break;
 		case Input.KEY_S:
-			actionSet.moveDown();
+			actionSet.setMove_down(move);
 			break;
 		case Input.KEY_D:
-			actionSet.moveRight();
+			actionSet.setMove_right(move);
 			break;
 		}
 	}
 
 	@Override
-	public void keyReleased(int arg0, char arg1) {
+	public void keyPressed(int key, char keyChar) {
+		movement(key, true);
+	}
+
+	@Override
+	public void keyReleased(int key, char keyChar) {
+		movement(key, false);
+		// movement(keyChar, true);
 
 	}
 

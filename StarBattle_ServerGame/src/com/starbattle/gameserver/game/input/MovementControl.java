@@ -5,9 +5,6 @@ import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
 
 public class MovementControl {
 
-	private final static float MOVE_FRAME_LENGTH = 10;
-	private float moveTimer;
-
 	/**
 	 * Move Player Left
 	 */
@@ -34,12 +31,12 @@ public class MovementControl {
 		int horizontal = input.horizontalMovement;
 		int action = input.action;
 
-		moveTimer = 0;
+		moveLeft = false;
+		moveRight = false;
+		moveUp = false;
+		moveDown = false;
+
 		switch (horizontal) {
-		case NP_Constants.NO_MOVEMENT:
-			moveLeft = false;
-			moveRight = false;
-			break;
 		case NP_Constants.FORWARD_MOVEMENT:
 			moveLeft = true;
 			break;
@@ -49,19 +46,15 @@ public class MovementControl {
 		}
 
 		switch (vertical) {
-		case NP_Constants.NO_MOVEMENT:
-			moveUp=false;
-			moveDown=false;
-			break;
 		case NP_Constants.FORWARD_MOVEMENT:
-			moveUp=true;
+			moveUp = true;
 			break;
 		case NP_Constants.BACKWARD_MOVEMENT:
 			moveDown = true;
 			break;
 		}
 
-		}
+	}
 
 	/**
 	 * NOTE: Uodate only after game logic, so no commands will be ignored!
@@ -71,16 +64,9 @@ public class MovementControl {
 	public void update(float delta) {
 
 		// reset old commands
-		moveTimer += delta;
-		if (moveTimer >= MOVE_FRAME_LENGTH) {
-			moveLeft = false;
-			moveRight = false;
-			moveDown = false;
-			moveUp=false;
-		}
+
 	}
 
-	
 	public boolean isMoveLeft() {
 		return moveLeft;
 	}
@@ -92,7 +78,7 @@ public class MovementControl {
 	public boolean isMoveUp() {
 		return moveUp;
 	}
-	
+
 	public boolean isMoveDown() {
 		return moveDown;
 	}

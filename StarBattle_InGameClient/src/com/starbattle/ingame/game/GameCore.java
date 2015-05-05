@@ -2,14 +2,16 @@ package com.starbattle.ingame.game;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
+import org.newdawn.slick.Image;
 
+import com.starbattle.ingame.game.location.Location;
 import com.starbattle.ingame.game.map.GameMap;
 import com.starbattle.ingame.game.particles.ParticleContainer;
 import com.starbattle.ingame.game.player.PlayerContainer;
 import com.starbattle.ingame.game.viewport.Viewport;
 import com.starbattle.ingame.render.GameRender;
 import com.starbattle.ingame.resource.ResourceContainer;
+import com.starbattle.network.connection.objects.game.NP_GameUpdate;
 import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 
 public class GameCore {
@@ -41,11 +43,20 @@ public class GameCore {
 
 	public void renderGame(Graphics g) {
 
-		resourceContainer.getBackgroundGraphics().getSpaceBackground().draw();
+		Image back=	resourceContainer.getBackgroundGraphics().getSpaceBackground();
+		back.rotate(0.08f);
+		
+		float x=back.getWidth()/2;
+		float y=back.getHeight()/2;
+		back.setCenterOfRotation(x, y);
+		back.drawCentered(500, 450);
+		
 		map.renderBackground(viewport);
 		gameRender.renderGame(g,viewport);
 		map.renderForeground(viewport);
-		particleContainer.render(g);
+		particleContainer.render(g,viewport);
+		
+   
 	}
 
 	public void updateGame(int delta) {
@@ -54,12 +65,30 @@ public class GameCore {
 		viewport.view(players.getMyPlayer());
 
 		particleContainer.update(delta);
+		
+		Location l=players.getMyPlayer().getLocation();
+		particleContainer.spawnEffect("Air",l);
+		
 		// calc float delta
 		players.update(delta);
 	}
 	
+	public void receiveUpdate(NP_GameUpdate message) {
+		
+		players.update(message.playerData);
+		//update viewport
+		viewport.view(players.getMyPlayer());
+
+	}
+
+	
 	public PlayerContainer getPlayers() {
 		return players;
 	}
+	
+	public ParticleContainer getParticleContainer() {
+		return particleContainer;
+	}
+
 
 }

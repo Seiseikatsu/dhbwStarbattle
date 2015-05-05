@@ -24,7 +24,7 @@ public class Viewport {
 	public Location getScreenLocation(Location relative) {
 		Location newLocation = new Location(location);
 		newLocation.subtract(relative);
-		newLocation.move(width/2, height/2);
+		newLocation.move(width/2, height/2);	
 		return newLocation;
 	}
 
@@ -42,6 +42,11 @@ public class Viewport {
 
 	public int getMapY() {
 		return (int) -location.getYpos() + (height / 2);
+	}
+	
+	@Override
+	public String toString() {
+		return "Viewport  @ "+location.toString();
 	}
 
 }

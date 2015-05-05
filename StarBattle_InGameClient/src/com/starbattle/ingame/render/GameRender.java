@@ -14,6 +14,7 @@ public class GameRender {
 	private PlayerRender playerRender;
 	private HudRender hudRender;
 	private GameCore game;
+	
 
 	public GameRender(ResourceContainer resourceContainer, GameCore gameCore) {
 		debugRender = new DebugRender(resourceContainer);
@@ -33,6 +34,7 @@ public class GameRender {
 		}
 
 		// debugRender.render(g);
+		hudRender.renderNames(g, players, viewport);
 		hudRender.renderHud(g);
 	}
 }

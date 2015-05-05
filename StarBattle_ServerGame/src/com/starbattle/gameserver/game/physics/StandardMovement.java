@@ -5,7 +5,7 @@ import com.starbattle.gameserver.game.input.PlayerInput;
 
 public class StandardMovement extends MovementType {
 
-	private float movementSpeed = 3f;
+	private float movementSpeed = 3.1f;
 	private float jumpSpeed = 10f;
 
 	public StandardMovement(ObjectMovement movement) {
@@ -25,9 +25,18 @@ public class StandardMovement extends MovementType {
 			movement.horizontalMovement(movementSpeed);
 		}
 		
+		//ONLY FOR DEBUG FREE MOVEMENT
+		if (control.isMoveUp()) {
+			movement.verticalMovement(-movementSpeed);
+		}
+		if (control.isMoveDown()) {
+			movement.verticalMovement(movementSpeed);
+		}
+		
+		
 		// jump
 		if (control.isMoveUp()) {
-			movement.getGravity().jump(jumpSpeed);
+			//movement.getGravity().jump(jumpSpeed);
 		}
 	}
 

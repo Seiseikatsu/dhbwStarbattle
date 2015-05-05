@@ -8,15 +8,18 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import com.starbattle.ingame.game.GameManager;
 import com.starbattle.ingame.network.ObjectReceiveListener;
+import com.starbattle.ingame.render.InfoRender;
 import com.starbattle.network.connection.objects.game.NP_ClientReady;
 import com.starbattle.network.connection.objects.game.NP_GameUpdate;
 
 public class BattleState extends BasicGameState {
 
 	private GameManager manager;
+	private InfoRender infoRender;
 
 	public BattleState(GameManager manager) {
 		this.manager = manager;
+		infoRender=new InfoRender(manager);
 	}
 
 	@Override
@@ -27,6 +30,7 @@ public class BattleState extends BasicGameState {
 			@Override
 			public void updateGame(NP_GameUpdate message) {
 				//TODO do game updates from server
+				manager.getGameCore().receiveUpdate(message);
 			}
 			
 			@Override
@@ -45,6 +49,7 @@ public class BattleState extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		manager.getGameCore().renderGame(g);
+		infoRender.render(g);
 	}
 
 	@Override

@@ -8,6 +8,9 @@ import org.newdawn.slick.particles.ConfigurableEmitter;
 import org.newdawn.slick.particles.ParticleIO;
 import org.newdawn.slick.particles.ParticleSystem;
 
+import com.starbattle.ingame.game.location.Location;
+import com.starbattle.ingame.game.viewport.Viewport;
+
 public class ParticleEffect {
 	private static final String path = "com/starbattle/ingame/game/particles/effects/";
 	private ParticleSystem system;
@@ -19,7 +22,9 @@ public class ParticleEffect {
 			for (int i = 0; i < system.getEmitterCount(); i++) {
 				ConfigurableEmitter emitter = (ConfigurableEmitter) system.getEmitter(i);
 				String image = emitter.imageName;
-				emitter.setImageName(path + "/images/" + image);
+				if (image != null) {
+					emitter.setImageName(path + "/images/" + image);
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -29,6 +34,7 @@ public class ParticleEffect {
 	public void spawnEffect(float x, float y) {
 		try {
 			ParticleSystem spawn = system.duplicate();
+			spawn.setRemoveCompletedEmitters(true);
 			spawn.setPosition(x, y);
 			entities.add(spawn);
 		} catch (SlickException e) {
@@ -41,17 +47,22 @@ public class ParticleEffect {
 		for (int i = 0; i < entities.size(); i++) {
 			ParticleSystem system = entities.get(i);
 			system.update(delta);
-	
-			if (system.getParticleCount()==0) {
+
+			if (system.getParticleCount() == 0) {
 				entities.remove(i);
 			}
 		}
 	}
 
-	public int render() {
-		int count=0;
+	public int render(Viewport viewport) {
+		int count = 0;
 		for (ParticleSystem system : entities) {
-			system.render();
+
+			float x = system.getPositionX();
+			float y = system.getPositionY();
+			Location l = new Location(x, y);
+			Location view = viewport.getScreenLocation(l);
+			system.render(view.getXpos(), view.getYpos());
 			count++;
 		}
 		return count;

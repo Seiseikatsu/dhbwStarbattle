@@ -28,6 +28,7 @@ public class ClientsContainer {
 				@Override
 				public void run() {
 					try {
+						System.out.println("OPEN: "+client);
 						client.open(setup, sendConnection);
 					} catch (GameClientException e) {
 						// TODO Auto-generated catch block
