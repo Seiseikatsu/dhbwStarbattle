@@ -34,6 +34,14 @@ public class SqlStatementTest {
 		delete.where(AccountTable.NAME);
 		delete.values(12);
 		delete.print();
+		
+		SqlUpdateStatement update = new SqlUpdateStatement();
+		update.update(AccountTable.class);
+		update.set(AccountTable.PASSWORD);
+		update.setValue("HalloDasIstEinWitz123!");
+		update.where(AccountTable.NAME);
+		update.whereValue("Hallo");
+		update.print();
 	}
 	
 }
