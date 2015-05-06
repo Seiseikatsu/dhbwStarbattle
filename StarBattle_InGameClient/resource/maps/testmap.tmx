@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="64" tileheight="64" nextobjectid="1">
  <tileset firstgid="1" name="Game" tilewidth="64" tileheight="64">
   <image source="../tilesets/gameset.png" width="1024" height="1024"/>
  </tileset>
@@ -8,12 +8,12 @@
  </tileset>
  <layer name="blocks" width="30" height="20">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3UXw5AMAwHYFU7gH8H4MkFnNGzJzdzHiMW07QI2zzQ5BciTT+NGEIUoU7owt9dKtXPMk/vo2BzizXlalX6Wjt2zR6zm1yIq6oDudI85WGnMxdfcJFx2wD/kjF97ztXY83m3DHwvr7PK2lfl25unT80Jexd25b8GLaY6vR9T/oRzvPUHW64igntsT3aa4q60qwjl/vekquIR13OPzK/kAnwIJTNYAkAAA==
+   H4sIAAAAAAAAC+3UTQ5AMBAFYGP0AP4OwMoFnNHays2cx1TSqEkHoa0FL3mJSDOfiYCQJEiNHfzdNTndKwI9jwLZbehe69k1e2g3u1BfaSO50jwVYKczF19w0eH2Eb4lY4beV6ezZnNXZ468b+j/lbSvT7ekOZXQGvaubUt+CltNBroe2XmE8z51pxuucpSfsT1+1oS70qwj1/W+JVcxj7su/8j8QhflaJ0dYAkAAA==
   </data>
  </layer>
- <layer name="Game" width="30" height="20" visible="0">
+ <layer name="Game" width="30" height="20" opacity="0.24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3RMQ4AIAgDQIj+/83uLBax1YEmbMCF4GbmoRSJZrs6V+G3y3V+c1me+p8/usy8uBVxM3ZmBnFRm+Ei+076qi7SNy+4Y7Ojep+6FvqU8nFgCQAA
+   H4sIAAAAAAAAC2NkYGBgZKA/YBy1l252YrOXBYiZ6WAvPjzU7B0IP41Ee4lxx0DYSy8wWPw7kPbis59Y9xFbHgwme5HNJzXP0dpeYsJlFKNiAF1fjwVgCQAA
   </data>
  </layer>
 </map>

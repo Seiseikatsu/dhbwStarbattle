@@ -5,18 +5,13 @@ import java.util.ArrayList;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.starbattle.gameserver.game.Team;
+import com.starbattle.gameserver.map.collision.CollisionMap;
 
 public class GameTileLoader {
 
-	// IDs in Game TileSet (resource/tilesets/gameset.png) for Blocks
-	public final static int TILE_COLLISION = 1;
-	public final static int TILE_DEATHBLOCK = 2;
-	public final static int TILE_SPAWNPOINT_BLUE = 3;
-	public final static int TILE_SPAWNPOINT_RED = 4;
-	public final static int TILE_FLAG_BLUE = 5;
-	public final static int TILE_FLAG_RED = 6;
 
 	private static SpawnPointList spawnPointList;
+	private static CollisionMap collisionMap;
 
 	private static GameTiles getSpecialTile(int id) {
 		for (GameTiles tile : GameTiles.values()) {
@@ -30,9 +25,12 @@ public class GameTileLoader {
 	public static void findGameTiles(TiledMap map, int gameLayerID) {
 
 		spawnPointList = new SpawnPointList();
+		int w = map.getWidth();
+		int h = map.getHeight();
+		collisionMap = new CollisionMap(w, h);
 		// search
-		for (int x = 0; x < map.getWidth(); x++) {
-			for (int y = 0; y < map.getHeight(); y++) {
+		for (int x = 0; x < w; x++) {
+			for (int y = 0; y < h; y++) {
 				int tileID = map.getTileId(x, y, gameLayerID);
 
 				GameTiles specialTile = getSpecialTile(tileID);
@@ -45,12 +43,18 @@ public class GameTileLoader {
 
 	private static void foundGameTile(GameTiles tile, int x, int y) {
 		switch (tile) {
+		case COLLISION_TILE:
+			collisionMap.blockTile(x, y);
+			break;
 		case SPAWNPOINT_BLUE:
 			spawnPointList.add(new SpawnPoint(x, y, Team.BLUE_TEAM));
 			break;
 		case SPAWMPOINT_RED:
 			spawnPointList.add(new SpawnPoint(x, y, Team.RED_TEAM));
 			break;
+		case SPAWNPOINT_ALL:
+			spawnPointList.add(new SpawnPoint(x, y, Team.NO_TEAM));
+			break;	
 		}
 	}
 
@@ -58,4 +62,7 @@ public class GameTileLoader {
 		return spawnPointList;
 	}
 
+	public static CollisionMap getCollisionMap() {
+		return collisionMap;
+	}
 }
