@@ -63,4 +63,8 @@ public class ObjectMovement {
 	public Location getLocation() {
 		return location;
 	}
+
+	public void teleport(Location l) {
+		this.location.moveTo(l);
+	}
 }

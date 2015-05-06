@@ -2,7 +2,6 @@ package com.starbattle.gameserver.main;
 
 import java.util.List;
 
-import com.starbattle.gameserver.exceptions.ServerMapException;
 import com.starbattle.gameserver.game.GameContainer;
 import com.starbattle.network.connection.objects.game.NP_GameUpdate;
 import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
@@ -38,12 +37,7 @@ public class StarbattleGameControl implements StarbattleGame {
 		this.battleSettings = battleInitialization.getBattleSettings();
 		this.battleParticipants = battleInitialization.getBattleParticipants();
 		this.battleEndListener = battleEndListener;
-		try {
-			game = new GameContainer(battleInitialization);
-		} catch (ServerMapException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		game = new GameContainer(battleInitialization);
 		game.startGame();
 	}
 

@@ -28,4 +28,9 @@ public class Location {
 		return ypos;
 	}
 
+	public void moveTo(Location l) {
+		this.xpos=l.getXpos();
+		this.ypos=l.getYpos();
+	}
+
 }

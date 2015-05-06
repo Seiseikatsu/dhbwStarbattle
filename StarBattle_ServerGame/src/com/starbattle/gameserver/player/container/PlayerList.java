@@ -3,8 +3,11 @@ package com.starbattle.gameserver.player.container;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.starbattle.gameserver.game.Team;
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
 import com.starbattle.gameserver.main.BattleParticipant;
+import com.starbattle.gameserver.map.SpawnPoint;
+import com.starbattle.gameserver.map.SpawnPointList;
 import com.starbattle.gameserver.player.GamePlayer;
 import com.starbattle.network.connection.objects.game.NP_PlayerData;
 
@@ -66,12 +69,21 @@ public class PlayerList {
 	}
 
 	public NP_PlayerData[] generatePlayerData() {
-		int size=players.size();
+		int size = players.size();
 		NP_PlayerData[] data = new NP_PlayerData[size];
-		for(int i=0; i<size; i++ ){		
-			data[i]=players.get(i).getData();
+		for (int i = 0; i < size; i++) {
+			data[i] = players.get(i).getData();
 		}
 		return data;
+	}
+
+	public void initSpawn(SpawnPointList spawnPoints) {
+
+		for (GamePlayer player : players) {
+			Team team = player.getAttributes().getTeam();
+			SpawnPoint spawnPoint = spawnPoints.getRandomSpawnPoint(team);
+			player.teleportTo(spawnPoint.getLocation());
+		}
 	}
 
 }

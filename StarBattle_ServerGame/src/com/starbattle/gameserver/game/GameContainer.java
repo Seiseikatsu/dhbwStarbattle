@@ -36,6 +36,8 @@ public class GameContainer {
 				gameMode.onPlayerRespawn(player);
 			}
 		});
+		//set spawn location for players
+		playerList.initSpawn(serverMap.getSpawnPoints());
 		gameUpdate = new GameConnection(this);
 		
 	}
