@@ -43,11 +43,11 @@ public class DebugRender {
 		
 		angl*=1.01f;
 		
-		playerRender.render(g, new Location(x, y), PlayerGraphics.ASTRONAUT, angles,false);	
+		//playerRender.render(g, new Location(x, y), PlayerGraphics.ASTRONAUT, angles,false);	
 		
 		float[] anlges2=angles.clone();
 		anlges2[4]*=2;
-		playerRender.render(g, new Location(x+150, y+50), PlayerGraphics.ALIEN, anlges2,true);
+	//	playerRender.render(g, new Location(x+150, y+50), PlayerGraphics.ALIEN, anlges2,true);
 	
 	}
 }

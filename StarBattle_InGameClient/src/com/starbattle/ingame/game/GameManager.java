@@ -62,6 +62,7 @@ public class GameManager {
 	public void prepareInput(Input input) {
 		playerInput=new PlayerInput(input);
 		playerInput.init();
+		gameCore.setPlayerInput(playerInput);
 	}
 
 	public PlayerInput getPlayerInput() {

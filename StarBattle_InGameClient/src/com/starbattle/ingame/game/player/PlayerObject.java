@@ -1,5 +1,6 @@
 package com.starbattle.ingame.game.player;
 
+import com.starbattle.ingame.game.input.MouseCursor;
 import com.starbattle.ingame.game.location.Location;
 import com.starbattle.network.connection.objects.game.NP_PlayerData;
 
@@ -36,6 +37,10 @@ public class PlayerObject {
 		location.jumpTo(data.xpos, data.ypos);
 	}
 	
+	public float getWeaponAngle() {
+		return weaponangle;
+	}
+	
 	public Location getLocation() {
 		return location;
 	}
@@ -50,5 +55,9 @@ public class PlayerObject {
 
 	public int getTeam() {
 		return team;
+	}
+
+	public void updateWeaponAngle(MouseCursor mouseCursor) {
+		this.weaponangle=mouseCursor.getWeaponAnlge();
 	}
 }

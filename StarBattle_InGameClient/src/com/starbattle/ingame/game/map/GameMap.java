@@ -36,7 +36,9 @@ public class GameMap {
 
 	public void renderForeground(Viewport viewport) {
 		for (int i = gameLayerID + 1; i < map.getLayerCount(); i++) {
+		
 			map.render(viewport.getMapX(), viewport.getMapY(), i);
+	
 		}
 	}
 

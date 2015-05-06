@@ -10,6 +10,7 @@ import com.starbattle.ingame.game.player.PlayerObject;
 import com.starbattle.ingame.game.viewport.Viewport;
 import com.starbattle.ingame.resource.PlayerGraphics;
 import com.starbattle.ingame.resource.ResourceContainer;
+import com.starbattle.ingame.resource.WeaponGraphics;
 import com.starbattle.ingame.resource.player.PlayerGraphicPart;
 import com.starbattle.ingame.resource.player.PlayerGraphicResource;
 
@@ -35,16 +36,21 @@ public class PlayerRender {
 	 */
 	private final static float MAX_LEG_ANGLE = 120;
 	private final static float MAX_ARM_ANGLE = 180;
+	
+	private final static float WEAPON_HAND_DIFF=20;
 
 	private ResourceContainer resourceContainer;
+	private WeaponRender weaponRender;
 
 	public PlayerRender(ResourceContainer resourceContainer) {
 		this.resourceContainer = resourceContainer;
+		weaponRender = new WeaponRender(resourceContainer);
 	}
 
 	private float bodyAngle;
 	private boolean mirrored;
 	private PlayerGraphicResource resource;
+	private float handX, handY;
 
 	public void render(Graphics g, PlayerObject player, Viewport viewport) {
 		Location location = viewport.getScreenLocation(player.getLocation());
@@ -52,15 +58,18 @@ public class PlayerRender {
 		PlayerGraphics graphics = display.getGraphic();
 		float[] angles = display.getRotation();
 		boolean mirrored = display.isLookingLeft();
-		render(g, location, graphics, angles, mirrored);
+		float weaponAngle=player.getWeaponAngle();
+		render(g, location, graphics, WeaponGraphics.PLASMA_GUN, angles,weaponAngle, mirrored);
 	}
+	
 
-	public void render(Graphics g, Location location, PlayerGraphics graphics, float[] angles, boolean mirrored) {
+	public void render(Graphics g, Location location, PlayerGraphics graphics, WeaponGraphics weaponGraphics,
+			float[] angles,float weaponAngle, boolean mirrored) {
 
 		float xpos = location.getXpos();
 		float ypos = location.getYpos();
 
-		resource = resourceContainer.getPlayerGraphics().get(graphics);
+		resource = resourceContainer.getPlayerGraphics(graphics);
 
 		// get body image
 		Image body = resource.getBodyPart(PlayerGraphicPart.BODY);
@@ -93,6 +102,9 @@ public class PlayerRender {
 		drawBodyPart(g, PlayerGraphicPart.LEFT_FOOT, xpos, ypos, lFootAnlge);
 		drawBodyPart(g, PlayerGraphicPart.LEFT_ARM, xpos, ypos, lArmAngle);
 
+		// draw weapon
+		weaponRender.renderWeapon(g, weaponGraphics, weaponAngle, handX, handY, mirrored);
+		
 	}
 
 	private float getNormalizedAngle(float angle, float max) {
@@ -111,6 +123,7 @@ public class PlayerRender {
 		float xDiff = 0;
 		float anlgeMax = 0;
 
+		boolean isArm=false;
 		// get image
 		Image partImage = resource.getBodyPart(part);
 		if (mirrored) {
@@ -128,6 +141,7 @@ public class PlayerRender {
 			if (part == PlayerGraphicPart.LEFT_ARM) {
 				xDiff *= -1;
 			}
+			isArm=true;
 
 		} else {
 			// foot
@@ -159,8 +173,17 @@ public class PlayerRender {
 		partImage.setRotation(partAnlge);
 		float px = xpos - rotationPosX;
 		float py = ypos - rotationPosY;
+		
 		partImage.draw(px, py);
 
+		if(isArm)
+		{
+			//calc hand position
+			a=(float) Math.toRadians(partAnlge+90);
+			handX=(float) (px+Math.cos(a)*WEAPON_HAND_DIFF);
+			handY=(float) (py+Math.sin(a)*WEAPON_HAND_DIFF);
+			
+		}
 	}
 
 }

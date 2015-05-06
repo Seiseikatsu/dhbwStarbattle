@@ -7,7 +7,7 @@ import com.starbattle.ingame.resource.player.ResourceException;
 
 public class HudGraphics {
 
-	private Image airHUD;
+	private Image airHUD,cursor;
 	public final static String PATH = ResourceContainer.PATH + "hud/";
 
 	public HudGraphics() {
@@ -17,6 +17,7 @@ public class HudGraphics {
 	public void load() throws ResourceException {
 
 		airHUD = loadImage("airBar.png");
+		cursor=loadImage("cursor.png");
 
 	}
 
@@ -32,5 +33,9 @@ public class HudGraphics {
 
 	public Image getAirHUD() {
 		return airHUD;
+	}
+	
+	public Image getCursor() {
+		return cursor;
 	}
 }

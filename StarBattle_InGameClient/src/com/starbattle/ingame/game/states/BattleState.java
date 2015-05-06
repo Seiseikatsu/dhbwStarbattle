@@ -2,6 +2,7 @@ package com.starbattle.ingame.game.states;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -9,7 +10,6 @@ import org.newdawn.slick.state.StateBasedGame;
 import com.starbattle.ingame.game.GameManager;
 import com.starbattle.ingame.network.ObjectReceiveListener;
 import com.starbattle.ingame.render.InfoRender;
-import com.starbattle.network.connection.objects.game.NP_ClientReady;
 import com.starbattle.network.connection.objects.game.NP_GameUpdate;
 
 public class BattleState extends BasicGameState {
@@ -24,7 +24,11 @@ public class BattleState extends BasicGameState {
 
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+		
 		super.enter(container, game);
+		//set mouse cursor
+		Image cursor=manager.getResourceContainer().getHudGraphics().getCursor();
+		container.setMouseCursor(cursor, 12, 12);
 		manager.getNetwork().setReceiveListener(new ObjectReceiveListener() {
 			
 			@Override

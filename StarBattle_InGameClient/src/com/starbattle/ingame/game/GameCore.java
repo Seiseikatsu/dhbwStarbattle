@@ -4,10 +4,12 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
+import com.starbattle.ingame.game.input.PlayerInput;
 import com.starbattle.ingame.game.location.Location;
 import com.starbattle.ingame.game.map.GameMap;
 import com.starbattle.ingame.game.particles.ParticleContainer;
 import com.starbattle.ingame.game.player.PlayerContainer;
+import com.starbattle.ingame.game.player.PlayerObject;
 import com.starbattle.ingame.game.viewport.Viewport;
 import com.starbattle.ingame.render.GameRender;
 import com.starbattle.ingame.resource.ResourceContainer;
@@ -23,6 +25,7 @@ public class GameCore {
 	private PlayerContainer players = new PlayerContainer();
 	private Viewport viewport;
 	private TriggerEffectsProcessor triggerEffectsProcessor;
+	private PlayerInput playerInput;
 
 	public GameCore(ResourceContainer resources) {
 		this.resourceContainer = resources;
@@ -46,14 +49,13 @@ public class GameCore {
 	public void renderGame(Graphics g) {
 
 		//TODO: remove debug  background here
-		Image back=	resourceContainer.getBackgroundGraphics().getSpaceBackground();
-		back.rotate(0.08f);
+/**		Image back=	resourceContainer.getBackgroundGraphics().getSpaceBackground();
+	back.rotate(0.88f);
 		
-		float x=back.getWidth()/2;
 		float y=back.getHeight()/2;
 		back.setCenterOfRotation(x, y);
 		back.drawCentered(500, 450);
-		
+		*/
 		map.renderBackground(viewport);
 		gameRender.renderGame(g,viewport);
 		map.renderForeground(viewport);
@@ -62,8 +64,14 @@ public class GameCore {
 
 	public void updateGame(int delta) {
 
+		playerInput.poll();
 		// focus viewport to my player
-		viewport.view(players.getMyPlayer());
+		
+		PlayerObject player = players.getMyPlayer();
+		viewport.view(player);
+		
+		//update my weapon angle
+		player.updateWeaponAngle(playerInput.getMouseCursor());
 
 		particleContainer.update(delta);
 		
@@ -90,6 +98,10 @@ public class GameCore {
 	
 	public ParticleContainer getParticleContainer() {
 		return particleContainer;
+	}
+
+	public void setPlayerInput(PlayerInput playerInput) {
+		this.playerInput=playerInput;
 	}
 
 

@@ -76,7 +76,9 @@ public class PlayerDisplay {
 		
 		rotation[i] = (float) (Math.sin(legRotCount) * 70);
 		rotation[i - 2] = -rotation[i];
-
+		
+		rotation[1] = -rotation[i]/2;
+		rotation[3] = -rotation[i-2]/2;
 		// rotation[BodyRotation.LEFT_LEG_ANGLE.getRotationArrayIndex()]=-leg;
 
 		// rotation[BodyRotation.RIGHT_FOOT_ANGLE.getRotationArrayIndex()]+=xspeed*50;
