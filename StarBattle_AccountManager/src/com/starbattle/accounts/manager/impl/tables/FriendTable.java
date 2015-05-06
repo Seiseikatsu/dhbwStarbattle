@@ -2,7 +2,9 @@ package com.starbattle.accounts.manager.impl.tables;
 
 public enum FriendTable {
 	
-	ACCOUNT_ID("ACCOUNT_ID");
+	ACCOUNT_ID("ACCOUNT_ID"),
+	ACCOUNT_ID_FRIEND("account_id_friend"),
+	STATUS("status");
 	
 	private String fieldName;
 	
