@@ -1,0 +1,1 @@
+java -cp Cucumber/bin;Tools/*;Cucumber/*;Cucumber/Cucumber_Libs/*;Cucumber/src/*;StarBattle_Client_TestInterface/bin;StarBattle_AccountManager/bin/;StarBattle_Client/bin;StarBattle_ServerGame/bin;StarBattle_Network/bin;StarBattle_Server/bin org.junit.runner.JUnitCore com.starbattle.tests.friends.FriendsTests
