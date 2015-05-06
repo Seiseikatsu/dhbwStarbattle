@@ -56,8 +56,8 @@ public class ParticleEffect {
 
 	public int render(Viewport viewport) {
 		int count = 0;
-		for (ParticleSystem system : entities) {
-
+		for (int i=0; i<entities.size(); i++) {
+			ParticleSystem system = entities.get(i);
 			float x = system.getPositionX();
 			float y = system.getPositionY();
 			Location l = new Location(x, y);

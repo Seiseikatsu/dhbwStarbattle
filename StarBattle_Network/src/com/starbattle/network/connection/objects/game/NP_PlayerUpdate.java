@@ -1,6 +1,6 @@
 package com.starbattle.network.connection.objects.game;
 
-import com.starbattle.network.connection.objects.NP_Constants;
+import com.starbattle.network.connection.objects.constant.NP_Constants;
 
 public class NP_PlayerUpdate {
 

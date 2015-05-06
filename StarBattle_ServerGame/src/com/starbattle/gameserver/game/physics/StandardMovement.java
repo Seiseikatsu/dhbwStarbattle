@@ -13,7 +13,16 @@ public class StandardMovement extends MovementType {
 	private int usedJumps;
 
 	public StandardMovement(ObjectMovement movement) {
+
 		super(movement);
+		movement.setMovementListener(new MovementListener() {
+
+			@Override
+			public void landedFromJumping() {
+				// reset jumps
+				usedJumps = 0;
+			}
+		});
 	}
 
 	public void setMaximumJumpsInAir(int maximumJumpsInAir) {
@@ -44,26 +53,29 @@ public class StandardMovement extends MovementType {
 		if (control.isMoveUp()) {
 
 			ObjectGravity gravity = movement.getGravity();
-			if (gravity.isInAir()) {
-				// wenn spieler in der luft und nochmal springen will =>
 
-				// wiederholtes srpingen mit springtaste erst ab bestimmter
-				// flugzeit erlauben
-				if (gravity.getAirTime() > minimumJumpTime) {
-					if (usedJumps >= maximumJumpsInAir) {
-						// nicht erlauben nochmal zu springen
-						return;
-					} else {
-						// neuer sprung
-						movement.getGravity().cancelMovement();
-						usedJumps++;
-					}
+			if (usedJumps == 0) {
+				// first jump from ground
+				if (!gravity.isInAir()) {
+					movement.getGravity().jump(jumpSpeed);
+					usedJumps++;
 				}
 			} else {
-				// reset jumps
-				usedJumps = 0;
+				// jump while mid air
+				if (gravity.isInAir()) {
+					if (usedJumps <= maximumJumpsInAir) {
+
+						//mindest dealy bis nächster sprung gemacht werden kann
+						if (gravity.getAirTime() > minimumJumpTime) {
+							movement.getGravity().cancelMovement();
+							movement.getGravity().jump(jumpSpeed);
+							usedJumps++;
+						}
+
+					}
+				}
 			}
-			movement.getGravity().jump(jumpSpeed);
+
 		}
 	}
 
@@ -73,5 +85,9 @@ public class StandardMovement extends MovementType {
 
 	public void setMovementSpeed(float movementSpeed) {
 		this.movementSpeed = movementSpeed;
+	}
+
+	public int getUsedJumps() {
+		return usedJumps;
 	}
 }

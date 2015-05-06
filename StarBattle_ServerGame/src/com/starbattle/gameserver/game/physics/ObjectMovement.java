@@ -12,12 +12,17 @@ public class ObjectMovement {
 
 	// movement speed changes for client info (to run everything smooth)
 	private float movementX, movementY;
+	private MovementListener movementListener;
 
 	public ObjectMovement(CollisionDetection collisionDetection) {
 		this.collisionDetection = collisionDetection;
 		location = new Location();
 		gravity = new ObjectGravity(this);
-		 gravity.startFalling();
+		gravity.startFalling();
+	}
+
+	public void setMovementListener(MovementListener movementListener) {
+		this.movementListener = movementListener;
 	}
 
 	public void setGravityMode(boolean active) {
@@ -37,7 +42,7 @@ public class ObjectMovement {
 				// object can stand on ground?
 				Location newLocation = location.copy();
 				newLocation.moveY(0.3f);
-			
+
 				if (!collisionDetection.canStand(newLocation, objectHeight)) {
 					gravity.startFalling();
 				}
@@ -66,18 +71,24 @@ public class ObjectMovement {
 				newLocation.moveY(objectHeight / 2);
 				movementY = 0;
 				gravity.cancelMovement();
+				if (movementListener != null) {
+					movementListener.landedFromJumping();
+				}
 			}
+
 		} else {
 			// TODO: on flying/jumping up check ceiling hits
 
 			// => hit ceiling, cancel jump when gravity mode is on, and dont
 			// change to new y value
 
-			// gravity.cancelMovement();
-			// return;
+			if (collisionDetection.cantMoveUp(newLocation, objectHeight)) {
+				gravity.cancelMovement();
+				return;
+			}
 
 		}
-		// update y location
+		// update y locationwwwwwwwwww
 		location.moveTo(newLocation);
 	}
 
@@ -114,11 +125,10 @@ public class ObjectMovement {
 	public boolean isFacingLeft() {
 		return isFacingLeft;
 	}
-	
-	public void resetMovementInfo()
-	{
-		movementX=0;
-		movementY=0;
+
+	public void resetMovementInfo() {
+		movementX = 0;
+		movementY = 0;
 	}
 
 	public float getMovementX() {
@@ -128,4 +138,9 @@ public class ObjectMovement {
 	public float getMovementY() {
 		return movementY;
 	}
+
+	public boolean objectJumped() {
+		return gravity.isObjectJumped();
+	}
+
 }

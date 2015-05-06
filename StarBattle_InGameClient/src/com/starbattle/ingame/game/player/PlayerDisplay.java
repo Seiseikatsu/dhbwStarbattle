@@ -12,7 +12,7 @@ public class PlayerDisplay {
 
 	public PlayerDisplay() {
 
-		graphic = PlayerGraphics.ASTRONAUT;
+		graphic = PlayerGraphics.ALIEN;
 		rotation = new float[BodyRotation.values().length];
 
 	}

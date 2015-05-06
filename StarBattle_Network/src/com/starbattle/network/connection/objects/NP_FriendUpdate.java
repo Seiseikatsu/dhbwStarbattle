@@ -1,5 +1,7 @@
 package com.starbattle.network.connection.objects;
 
+import com.starbattle.network.connection.objects.constant.NP_Constants;
+
 /**
  * 
  * Will be sent by the server to inform clients of the 

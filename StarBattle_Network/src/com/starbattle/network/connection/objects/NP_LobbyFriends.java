@@ -3,6 +3,8 @@ package com.starbattle.network.connection.objects;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.starbattle.network.connection.objects.constant.NP_Constants;
+
 /**
  * Sent by the server to a client after login. Informs the client about all friend relations to display
  * them in the gui. 

@@ -22,10 +22,12 @@ public class GameCore {
 	private GameRender gameRender;
 	private PlayerContainer players = new PlayerContainer();
 	private Viewport viewport;
+	private TriggerEffectsProcessor triggerEffectsProcessor;
 
 	public GameCore(ResourceContainer resources) {
 		this.resourceContainer = resources;
 		gameRender = new GameRender(resources, this);
+		triggerEffectsProcessor=new TriggerEffectsProcessor(this);
 	}
 
 	public void start()
@@ -65,8 +67,8 @@ public class GameCore {
 
 		particleContainer.update(delta);
 		
-		Location l=players.getMyPlayer().getLocation();
-		particleContainer.spawnEffect("Air",l);
+		//Location l=players.getMyPlayer().getLocation();
+		//particleContainer.spawnEffect("Air",l);
 		
 		// calc float delta
 		players.update(delta);
@@ -75,6 +77,7 @@ public class GameCore {
 	public void receiveUpdate(NP_GameUpdate message) {
 		
 		players.update(message.playerData);
+		triggerEffectsProcessor.processEffects(message.triggerEffect);
 		//update viewport
 		viewport.view(players.getMyPlayer());
 

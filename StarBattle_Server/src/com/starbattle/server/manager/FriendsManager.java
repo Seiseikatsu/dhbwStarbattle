@@ -6,7 +6,7 @@ import com.starbattle.accounts.player.FriendRelation;
 import com.starbattle.accounts.player.PlayerFriends;
 import com.starbattle.network.connection.objects.NP_ChatException;
 import com.starbattle.network.connection.objects.NP_ChatMessage;
-import com.starbattle.network.connection.objects.NP_Constants;
+import com.starbattle.network.connection.objects.constant.NP_Constants;
 import com.starbattle.network.connection.objects.NP_FriendRequest;
 import com.starbattle.network.connection.objects.NP_FriendRequestAnswer;
 import com.starbattle.network.connection.objects.NP_FriendUpdate;

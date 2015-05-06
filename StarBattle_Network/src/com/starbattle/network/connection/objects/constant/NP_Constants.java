@@ -1,4 +1,4 @@
-package com.starbattle.network.connection.objects;
+package com.starbattle.network.connection.objects.constant;
 
 /**
  * 

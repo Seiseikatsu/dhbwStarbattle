@@ -25,9 +25,12 @@ public class GameContainer {
 		gameMode = init.getBattleSettings().getMode();
 		//create collision mapping
 		CollisionDetection collisionDetection=new CollisionDetection(serverMap.getCollisionMap());
+		gameUpdate = new GameConnection(this);
+		EffectTrigger effectTrigger=gameUpdate.createEffectTrigger();
+		
 		// init players
 		for (BattleParticipant participant : init.getBattleParticipants()) {
-			playerList.initPlayer(participant,collisionDetection);
+			playerList.initPlayer(participant,collisionDetection,effectTrigger);
 		}
 	}
 
@@ -41,8 +44,7 @@ public class GameContainer {
 		});
 		//set spawn location for players
 		playerList.initSpawn(serverMap.getSpawnPoints());
-		gameUpdate = new GameConnection(this);
-		
+	
 	}
 
 	public void updateGame(float delta) {

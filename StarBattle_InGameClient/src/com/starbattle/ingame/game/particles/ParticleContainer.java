@@ -17,13 +17,18 @@ public class ParticleContainer {
 		effects.put("Splash", new ParticleEffect("test"));
 		effects.put("Splash2", new ParticleEffect("test2"));
 		effects.put("Air", new ParticleEffect("testAir"));
-
+		effects.put("JumpEffect", new ParticleEffect("jumpEffect"));
 	}
 
 	public void spawnEffect(String name, Location l) {
 		float x = l.getXpos();
 		float y = l.getYpos();
 		ParticleEffect effect = effects.get(name);
+		if(effect==null)
+		{
+			System.err.println("Could not load Effect with name: "+name);
+			return;
+		}
 		effect.spawnEffect(x, y);
 	}
 

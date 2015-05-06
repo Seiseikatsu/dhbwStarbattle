@@ -23,6 +23,14 @@ public class CollisionDetection {
 		return isBlocked(x, y);
 	}
 	
+	public boolean cantMoveUp(Location location, float playerHeight)
+	{
+		float x=location.getXpos();
+		float y=location.getYpos()-playerHeight;
+			
+		return isBlocked(x, y);
+	}
+	
 	public boolean canLand(Location oldLocation,Location newLocation, float playerHeight)
 	{		
 		return !canStand(oldLocation, playerHeight)&&canStand(newLocation, playerHeight);

@@ -1,6 +1,6 @@
 package com.starbattle.gameserver.game.input;
 
-import com.starbattle.network.connection.objects.NP_Constants;
+import com.starbattle.network.connection.objects.constant.NP_Constants;
 import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
 
 public class PlayerInput {

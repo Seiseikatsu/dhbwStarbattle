@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import javax.jws.soap.SOAPBinding.ParameterStyle;
 
+import com.starbattle.gameserver.game.EffectTrigger;
 import com.starbattle.gameserver.game.Team;
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
 import com.starbattle.gameserver.main.BattleParticipant;
@@ -29,11 +30,11 @@ public class PlayerList {
 		this.respawnListener = respawnListener;
 	}
 
-	public void initPlayer(BattleParticipant participant, CollisionDetection collisionDetection) {
+	public void initPlayer(BattleParticipant participant, CollisionDetection collisionDetection, EffectTrigger effectTrigger) {
 		System.out.println("Server: Added Player : " + participant.getAccountName());
 		int playerID = displayNames.size();
 		String playerName = participant.getDisplayName();
-		GamePlayer player = new GamePlayer(playerName, playerID,collisionDetection);
+		GamePlayer player = new GamePlayer(playerName, playerID,collisionDetection,effectTrigger);
 		player.getAttributes().setTeam(participant.getTeam());
 		addPlayer(player, participant.getAccountName());
 	}

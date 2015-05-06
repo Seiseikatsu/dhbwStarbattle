@@ -1,5 +1,7 @@
 package com.starbattle.gameserver.player;
 
+import com.starbattle.gameserver.game.EffectTrigger;
+import com.starbattle.gameserver.game.EffectTriggerFactory;
 import com.starbattle.gameserver.game.input.PlayerInput;
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
 import com.starbattle.gameserver.game.physics.Location;
@@ -8,6 +10,7 @@ import com.starbattle.gameserver.map.SpawnPoint;
 import com.starbattle.gameserver.map.collision.CollisionDetection;
 import com.starbattle.network.connection.objects.game.NP_PlayerData;
 import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
+import com.starbattle.network.connection.objects.game.NP_TriggerEffect;
 
 public class GamePlayer {
 
@@ -17,11 +20,13 @@ public class GamePlayer {
 	private PlayerMovement playerMovement;
 	private PlayerInput playerInput = new PlayerInput();
 	private Jetpack jetpack = new Jetpack();
+	private EffectTrigger effectTrigger;
 
-	public GamePlayer(String playerName, int playerID, CollisionDetection collisionDetection) {
+	public GamePlayer(String playerName, int playerID, CollisionDetection collisionDetection, EffectTrigger effectTrigger) {
+		this.effectTrigger=effectTrigger;
 		attributes.setPlayerID(playerID);
 		attributes.setPlayerName(playerName);
-		playerMovement = new PlayerMovement(playerInput, this,collisionDetection);
+		playerMovement = new PlayerMovement(playerInput, this,collisionDetection,effectTrigger);
 	}
 
 	public void processInput(NP_PlayerUpdate update) {
@@ -69,6 +74,8 @@ public class GamePlayer {
 	public NP_PlayerData getData() {
 		NP_PlayerData data = new NP_PlayerData();
 		playerMovement.writeMovementData(data);
+		
+
 		return data;
 	}
 	

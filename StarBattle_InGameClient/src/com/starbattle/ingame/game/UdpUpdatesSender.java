@@ -4,7 +4,7 @@ import com.starbattle.ingame.game.input.ActionSet;
 import com.starbattle.ingame.game.input.PlayerInput;
 import com.starbattle.ingame.network.GameNetwork;
 import com.starbattle.ingame.network.SendUpdateListener;
-import com.starbattle.network.connection.objects.NP_Constants;
+import com.starbattle.network.connection.objects.constant.NP_Constants;
 import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
 
 public class UdpUpdatesSender implements SendUpdateListener {

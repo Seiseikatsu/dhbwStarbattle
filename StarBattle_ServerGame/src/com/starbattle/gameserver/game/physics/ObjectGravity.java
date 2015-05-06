@@ -24,6 +24,7 @@ public class ObjectGravity {
 	private float lastValue;
 	private boolean inAir = false;
 	private ObjectMovement objectMovement;
+	private boolean objectJumped=false;
 
 	public ObjectGravity(ObjectMovement objectMovement) {
 		setG_factor(GravityValues.ERDE);
@@ -64,8 +65,15 @@ public class ObjectGravity {
 	public void jump(float speed) {
 		if (!inAir) {
 			jumpSpeed = speed;
+			objectJumped=true;
 			startGravity();
 		}
+	}
+	
+	public boolean isObjectJumped() {
+		boolean b=objectJumped;
+		objectJumped=false;
+		return b;
 	}
 
 	public void startFalling() {

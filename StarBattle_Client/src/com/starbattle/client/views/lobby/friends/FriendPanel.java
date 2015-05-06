@@ -25,7 +25,7 @@ import com.starbattle.client.layout.ViewModel;
 import com.starbattle.client.resource.ResourceLoader;
 import com.starbattle.client.views.lobby.LobbyView;
 import com.starbattle.client.views.lobby.chat.ChatManager;
-import com.starbattle.network.connection.objects.NP_Constants;
+import com.starbattle.network.connection.objects.constant.NP_Constants;
 import com.starbattle.network.connection.objects.NP_FriendUpdate;
 import com.starbattle.network.connection.objects.NP_LobbyFriends;
 
