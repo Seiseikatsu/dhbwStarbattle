@@ -7,14 +7,15 @@ import com.starbattle.gameserver.exceptions.ServerMapException;
 
 public class ServerMap {
 
-	public final static String path = "maps/";
+	public final static int TILE_SIZE=64;
+	public final static String path = "resource/maps/";
 	private TiledMap map;
 	private int gameLayerID;
 	private SpawnPointList spawnPoints;
 
 	public ServerMap(String mapName) throws ServerMapException {
 		try {
-			map = new TiledMap(path + mapName + ".tmx");
+			map = new TiledMap(path + mapName + ".tmx",false);
 			gameLayerID = map.getLayerIndex("Game");
 
 			//find game tiles
@@ -29,7 +30,6 @@ public class ServerMap {
 			e.printStackTrace();
 			throw new ServerMapException("Error loading Map!");
 		}
-
 	}
 
 	public int getBlockID(int x, int y) {
