@@ -82,4 +82,6 @@ public class MovementControl {
 	public boolean isMoveDown() {
 		return moveDown;
 	}
+
+	
 }

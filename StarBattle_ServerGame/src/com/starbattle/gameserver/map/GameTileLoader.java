@@ -43,6 +43,9 @@ public class GameTileLoader {
 
 	private static void foundGameTile(GameTiles tile, int x, int y) {
 		switch (tile) {
+		case COLLISION_TILE:
+			collisionMap.blockTile(x, y);
+			break;
 		case SPAWNPOINT_ALL:
 			spawnPointList.add(new SpawnPoint(x, y, Team.NO_TEAM));	
 			break;

@@ -1,16 +1,18 @@
 package com.starbattle.ingame.game.viewport;
 
 import com.starbattle.ingame.game.location.Location;
+import com.starbattle.ingame.game.map.GameMap;
 import com.starbattle.ingame.game.player.PlayerObject;
 
 public class Viewport {
 
-	private int width, height;
+	private float width, height;
 	private Location location = new Location();
 
 	public Viewport(int w, int h) {
-		this.width = w;
-		this.height = h;
+		this.width = w/(float)GameMap.TILE_SIZE/2f;
+		this.height = h/(float)GameMap.TILE_SIZE/2f;
+
 	}
 
 	public void view(PlayerObject player) {
@@ -24,7 +26,8 @@ public class Viewport {
 	public Location getScreenLocation(Location relative) {
 		Location newLocation = new Location(location);
 		newLocation.subtract(relative);
-		newLocation.move(width/2, height/2);	
+		newLocation.move(width, height);	
+		newLocation.factor(GameMap.TILE_SIZE);
 		return newLocation;
 	}
 
@@ -37,11 +40,11 @@ public class Viewport {
 	}
 
 	public int getMapX() {
-		return (int) -location.getXpos() + (width / 2);
+		return (int) ((-location.getXpos() + width)*GameMap.TILE_SIZE);
 	}
 
 	public int getMapY() {
-		return (int) -location.getYpos() + (height / 2);
+		return (int) ((-location.getYpos() + height)*GameMap.TILE_SIZE);
 	}
 	
 	@Override

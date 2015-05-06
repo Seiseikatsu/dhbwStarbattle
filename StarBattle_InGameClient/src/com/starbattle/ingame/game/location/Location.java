@@ -59,4 +59,9 @@ public class Location {
 	public String toString() {
 		return xpos+" x "+ypos;
 	}
+
+	public void factor(float factor) {
+		xpos*=factor;
+		ypos*=factor;
+	}
 }

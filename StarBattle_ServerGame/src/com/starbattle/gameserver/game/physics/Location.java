@@ -33,4 +33,12 @@ public class Location {
 		this.ypos=l.getYpos();
 	}
 
+	public Location copy() {
+		return new Location(xpos,ypos);
+	}
+
+	public void flatY() {
+		ypos= (int)Math.floor(ypos);
+	}
+
 }

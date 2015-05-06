@@ -4,6 +4,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 import com.starbattle.ingame.game.location.Location;
+import com.starbattle.ingame.game.map.GameMap;
 import com.starbattle.ingame.game.player.PlayerDisplay;
 import com.starbattle.ingame.game.player.PlayerObject;
 import com.starbattle.ingame.game.viewport.Viewport;

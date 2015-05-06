@@ -22,10 +22,8 @@ public class SpawnPoint {
 	
 	public Location getLocation()
 	{
-		float xp=x*ServerMap.TILE_SIZE;
-		float yp=y*ServerMap.TILE_SIZE;
-		xp+=ServerMap.TILE_SIZE/2;
-		yp+=ServerMap.TILE_SIZE/2;
+		float xp=x+0.5f;
+		float yp=y+0.5f;
 		return new Location(xp,yp);
 	}
 	

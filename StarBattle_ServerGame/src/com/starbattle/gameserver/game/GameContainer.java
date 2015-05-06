@@ -6,6 +6,7 @@ import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
 import com.starbattle.gameserver.main.BattleInitialization;
 import com.starbattle.gameserver.main.BattleParticipant;
 import com.starbattle.gameserver.map.ServerMap;
+import com.starbattle.gameserver.map.collision.CollisionDetection;
 import com.starbattle.gameserver.player.GamePlayer;
 import com.starbattle.gameserver.player.container.PlayerList;
 
@@ -22,9 +23,11 @@ public class GameContainer {
 		serverMap=new ServerMap(init.getBattleSettings().getMapName());
 		// init mode
 		gameMode = init.getBattleSettings().getMode();
+		//create collision mapping
+		CollisionDetection collisionDetection=new CollisionDetection(serverMap.getCollisionMap());
 		// init players
 		for (BattleParticipant participant : init.getBattleParticipants()) {
-			playerList.initPlayer(participant);
+			playerList.initPlayer(participant,collisionDetection);
 		}
 	}
 

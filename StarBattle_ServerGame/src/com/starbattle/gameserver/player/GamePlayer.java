@@ -3,7 +3,9 @@ package com.starbattle.gameserver.player;
 import com.starbattle.gameserver.game.input.PlayerInput;
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
 import com.starbattle.gameserver.game.physics.Location;
+import com.starbattle.gameserver.map.ServerMap;
 import com.starbattle.gameserver.map.SpawnPoint;
+import com.starbattle.gameserver.map.collision.CollisionDetection;
 import com.starbattle.network.connection.objects.game.NP_PlayerData;
 import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
 
@@ -16,10 +18,10 @@ public class GamePlayer {
 	private PlayerInput playerInput = new PlayerInput();
 	private Jetpack jetpack = new Jetpack();
 
-	public GamePlayer(String playerName, int playerID) {
+	public GamePlayer(String playerName, int playerID, CollisionDetection collisionDetection) {
 		attributes.setPlayerID(playerID);
 		attributes.setPlayerName(playerName);
-		playerMovement = new PlayerMovement(playerInput, this);
+		playerMovement = new PlayerMovement(playerInput, this,collisionDetection);
 	}
 
 	public void processInput(NP_PlayerUpdate update) {
@@ -66,10 +68,7 @@ public class GamePlayer {
 
 	public NP_PlayerData getData() {
 		NP_PlayerData data = new NP_PlayerData();
-		Location location = playerMovement.getLocation();
-
-		data.xpos = location.getXpos();
-		data.ypos = location.getYpos();
+		playerMovement.writeMovementData(data);
 		return data;
 	}
 	

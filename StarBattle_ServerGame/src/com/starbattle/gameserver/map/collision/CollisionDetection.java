@@ -1,5 +1,6 @@
 package com.starbattle.gameserver.map.collision;
 
+import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Shape;
 
 import com.starbattle.gameserver.game.physics.Location;
@@ -13,20 +14,47 @@ public class CollisionDetection {
 	}
 	
 	
-	/**
-	 * 
-	 * 
-	 * @param oldLocation
-	 * @param newLocation
-	 * @param objectShape
-	 * @return  null if no collision detected, else the new location to set
-	 */
-	private Location processCollisions(Location oldLocation, Location newLocation, Shape objectShape)
+
+	public boolean canStand(Location location, float playerHeight)
 	{
-		
-		
-		return null;
+		float x=location.getXpos();
+		float y=location.getYpos()+playerHeight;
+			
+		return isBlocked(x, y);
 	}
-	//TODO
-//	private List<Shape> getSuroundingMapTiles(Location );
+	
+	public boolean canLand(Location oldLocation,Location newLocation, float playerHeight)
+	{		
+		return !canStand(oldLocation, playerHeight)&&canStand(newLocation, playerHeight);
+	}
+	
+	public boolean cantMove(Location oldLocation, Location newLocation, float playerWidth, float playerHeight)
+	{
+		float x1=oldLocation.getXpos();
+		float x2=newLocation.getXpos();
+		float y2=newLocation.getYpos();
+		
+		float xDiff=x2-x1;
+		
+		if(xDiff>0)
+		{
+			//right movement
+			x2+=playerWidth;
+			
+		}else
+		{
+			//left movement
+			x2-=playerWidth;
+		}
+		
+		return isBlocked(x2, y2-playerHeight)||isBlocked(x2, y2+playerHeight);
+	}
+	
+	private boolean isBlocked(float x, float y)
+	{
+		int tileX=(int) Math.floor(x);
+		int tileY=(int) Math.floor(y);	
+		boolean blocked= collisionMap.isTileBlocked(tileX,tileY);		
+		return blocked;
+	}
 }

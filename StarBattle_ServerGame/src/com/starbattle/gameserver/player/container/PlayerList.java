@@ -10,6 +10,7 @@ import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
 import com.starbattle.gameserver.main.BattleParticipant;
 import com.starbattle.gameserver.map.SpawnPoint;
 import com.starbattle.gameserver.map.SpawnPointList;
+import com.starbattle.gameserver.map.collision.CollisionDetection;
 import com.starbattle.gameserver.player.GamePlayer;
 import com.starbattle.network.connection.objects.game.NP_PlayerData;
 
@@ -28,11 +29,11 @@ public class PlayerList {
 		this.respawnListener = respawnListener;
 	}
 
-	public void initPlayer(BattleParticipant participant) {
+	public void initPlayer(BattleParticipant participant, CollisionDetection collisionDetection) {
 		System.out.println("Server: Added Player : " + participant.getAccountName());
 		int playerID = displayNames.size();
 		String playerName = participant.getDisplayName();
-		GamePlayer player = new GamePlayer(playerName, playerID);
+		GamePlayer player = new GamePlayer(playerName, playerID,collisionDetection);
 		player.getAttributes().setTeam(participant.getTeam());
 		addPlayer(player, participant.getAccountName());
 	}
@@ -86,6 +87,7 @@ public class PlayerList {
 			Team team = player.getAttributes().getTeam();
 			System.out.println("Init Spawn: Player "+player.getAttributes().getPlayerName()+" / Team "+team);
 			SpawnPoint spawnPoint = spawnPoints.getRandomSpawnPoint(team);
+			
 			player.teleportTo(spawnPoint.getLocation());
 		}
 	}

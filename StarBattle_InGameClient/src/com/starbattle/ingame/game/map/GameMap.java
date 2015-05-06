@@ -8,6 +8,7 @@ import com.starbattle.ingame.game.viewport.Viewport;
 public class GameMap {
 
 	private final static String path = "resource/maps/";
+	public final static int TILE_SIZE=64;
 	private TiledMap map;
 	private int gameLayerID;
 
