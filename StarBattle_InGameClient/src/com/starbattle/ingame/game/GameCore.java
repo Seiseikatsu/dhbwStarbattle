@@ -43,6 +43,7 @@ public class GameCore {
 
 	public void renderGame(Graphics g) {
 
+		//TODO: remove debug  background here
 		Image back=	resourceContainer.getBackgroundGraphics().getSpaceBackground();
 		back.rotate(0.08f);
 		
@@ -54,9 +55,7 @@ public class GameCore {
 		map.renderBackground(viewport);
 		gameRender.renderGame(g,viewport);
 		map.renderForeground(viewport);
-		particleContainer.render(g,viewport);
-		
-   
+	
 	}
 
 	public void updateGame(int delta) {

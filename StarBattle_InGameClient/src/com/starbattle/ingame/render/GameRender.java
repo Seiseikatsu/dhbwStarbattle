@@ -32,6 +32,8 @@ public class GameRender {
 			playerRender.render(g, player, viewport);
 			
 		}
+		
+		game.getParticleContainer().render(g, viewport);
 
 		// debugRender.render(g);
 		hudRender.renderNames(g, players, viewport);

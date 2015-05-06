@@ -4,6 +4,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.starbattle.gameserver.exceptions.ServerMapException;
+import com.starbattle.gameserver.map.collision.CollisionMap;
 
 public class ServerMap {
 
@@ -12,6 +13,7 @@ public class ServerMap {
 	private TiledMap map;
 	private int gameLayerID;
 	private SpawnPointList spawnPoints;
+	private CollisionMap collisionMap;
 
 	public ServerMap(String mapName) throws ServerMapException {
 		try {
@@ -22,7 +24,8 @@ public class ServerMap {
 			GameTileLoader.findGameTiles(map, gameLayerID);
 			// load spawnpoints from map tiles
 			spawnPoints = GameTileLoader.getSpawnPointList();
-
+			collisionMap= GameTileLoader.getCollisionMap();
+			
 			if (!spawnPoints.isValidList()) {
 				throw new ServerMapException("No Spawnpoints found for both teams!");
 			}
@@ -44,4 +47,7 @@ public class ServerMap {
 		return map;
 	}
 
+	public CollisionMap getCollisionMap() {
+		return collisionMap;
+	}
 }

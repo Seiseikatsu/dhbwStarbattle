@@ -6,7 +6,7 @@ import com.starbattle.gameserver.game.action.Damage;
 public class PlayerAttributes {
 
 	private String playerName;	
-	private Team team;
+	private Team team=Team.NO_TEAM;
 	private Health health;
 	private int points;
 	private int playerID;

@@ -6,8 +6,8 @@ import com.starbattle.gameserver.game.Team;
 
 public class SpawnPointList {
 
-	private ArrayList<SpawnPoint> spawnPointsBlue=new ArrayList<SpawnPoint>();
-	private ArrayList<SpawnPoint> spawnPointsRed=new ArrayList<SpawnPoint>();
+	private ArrayList<SpawnPoint> spawnPointsBlue = new ArrayList<SpawnPoint>();
+	private ArrayList<SpawnPoint> spawnPointsRed = new ArrayList<SpawnPoint>();
 
 	public SpawnPointList() {
 
@@ -15,7 +15,17 @@ public class SpawnPointList {
 
 	public SpawnPoint getRandomSpawnPoint(Team team) {
 
-		if (team == Team.BLUE_TEAM) {
+		boolean bluePoints = true;
+		if (team == Team.RED_TEAM) {
+			bluePoints = false;
+		} else if (team == Team.NO_TEAM) {
+			// random blue or red
+			if (Math.random() > 0.5) {
+				bluePoints = false;
+			}
+		}
+
+		if (bluePoints) {
 			int r = (int) (Math.random() * spawnPointsBlue.size());
 			return spawnPointsBlue.get(r);
 		} else {
@@ -26,13 +36,13 @@ public class SpawnPointList {
 
 	public void add(SpawnPoint spawnPoint) {
 
-		Team team=spawnPoint.getTeam() ;
-		if (team== Team.BLUE_TEAM) {
+		Team team = spawnPoint.getTeam();
+		if (team == Team.BLUE_TEAM) {
 			spawnPointsBlue.add(spawnPoint);
-		} else if(team ==Team.RED_TEAM){
+		} else if (team == Team.RED_TEAM) {
 			spawnPointsRed.add(spawnPoint);
 		} else {
-			//for both teams ( /no teams )
+			// for both teams ( /no teams )
 			spawnPointsBlue.add(spawnPoint);
 			spawnPointsRed.add(spawnPoint);
 		}

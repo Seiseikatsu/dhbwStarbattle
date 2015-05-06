@@ -3,6 +3,8 @@ package com.starbattle.gameserver.player.container;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.jws.soap.SOAPBinding.ParameterStyle;
+
 import com.starbattle.gameserver.game.Team;
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
 import com.starbattle.gameserver.main.BattleParticipant;
@@ -31,6 +33,7 @@ public class PlayerList {
 		int playerID = displayNames.size();
 		String playerName = participant.getDisplayName();
 		GamePlayer player = new GamePlayer(playerName, playerID);
+		player.getAttributes().setTeam(participant.getTeam());
 		addPlayer(player, participant.getAccountName());
 	}
 
@@ -81,6 +84,7 @@ public class PlayerList {
 
 		for (GamePlayer player : players) {
 			Team team = player.getAttributes().getTeam();
+			System.out.println("Init Spawn: Player "+player.getAttributes().getPlayerName()+" / Team "+team);
 			SpawnPoint spawnPoint = spawnPoints.getRandomSpawnPoint(team);
 			player.teleportTo(spawnPoint.getLocation());
 		}
