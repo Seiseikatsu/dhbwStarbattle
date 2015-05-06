@@ -5,8 +5,10 @@ import java.sql.SQLException;
 
 import com.starbattle.accounts.manager.AccountException;
 import com.starbattle.accounts.manager.impl.DatabaseControl;
+import com.starbattle.accounts.manager.impl.sql.SqlDeleteStatement;
 import com.starbattle.accounts.manager.impl.sql.SqlInsertStatement;
 import com.starbattle.accounts.manager.impl.sql.SqlSelectStatement;
+import com.starbattle.accounts.manager.impl.sql.SqlUpdateStatement;
 import com.starbattle.accounts.manager.impl.tables.FriendTable;
 import com.starbattle.accounts.player.FriendRelation;
 import com.starbattle.accounts.player.FriendRelationState;
@@ -101,9 +103,38 @@ public class FriendDataManager extends DataController {
 		return true;
 	}
 
-	public String handleFriendRequest(String accountName, String displayNameFriend, boolean accept)
-			throws AccountException {
-		return null;
+	public String handleFriendRequest(String accountName, String displayNameFriend, boolean accept) throws AccountException {
+		String accountNameFriend = null;
+		try {
+			int accountId = getAccountIdForAccountname(accountName);
+			System.out.println("accountId : " + accountId + ", accountName: " + accountName);
+			
+			int accountIdFriend = getAccountIdForDisplayname(displayNameFriend);
+			System.out.println("accountId : " + accountIdFriend + ", accountName: " + accountNameFriend);
+			if (accept) {
+				SqlUpdateStatement update = new SqlUpdateStatement();
+				update.update(FriendTable.class);
+				update.set(FriendTable.STATUS);
+				update.setValue(2);
+				update.where(FriendTable.ACCOUNT_ID, FriendTable.ACCOUNT_ID_FRIEND);
+				update.whereValue(accountIdFriend, accountId);
+				
+				update.execute(databaseControl);
+			} else {
+				SqlDeleteStatement delete = new SqlDeleteStatement();
+				delete.from(FriendTable.class);
+				delete.where(FriendTable.ACCOUNT_ID, FriendTable.ACCOUNT_ID_FRIEND);
+				delete.values(accountIdFriend, accountId);
+				delete.execute(databaseControl);
+			}
+			
+			databaseControl.getConnection().commit();
+			accountNameFriend = getAccountNameForDisplayname(displayNameFriend);
+		} catch (SQLException e) {
+			throw new AccountException("SQL error");
+		}
+
+		return accountNameFriend;
 	}
 
 }

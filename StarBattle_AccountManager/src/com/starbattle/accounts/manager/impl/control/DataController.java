@@ -53,6 +53,18 @@ public abstract class DataController {
 
 	}
 	
+	protected String getAccountNameForDisplayname(String displayName) throws AccountException {
+		try {
+			PreparedStatement stmt = databaseControl.getConnection().prepareStatement("SELECT name from account, player where account.account_id = player.account_id AND player.display_name = ? ");
+			stmt.setString(1, displayName);
+			ResultSet rs = stmt.executeQuery();
+			rs.next();
+			return rs.getString(1);
+		} catch (SQLException e) {
+			throw new AccountException("SQL error");
+		}
+	}
+	
 	protected int getAccountIdForAccountname(String accountName) throws AccountException {
 		SqlSelectStatement select = new SqlSelectStatement();
 		try {
