@@ -33,8 +33,6 @@ public class AccountDataManager extends DataController {
 			return RegisterState.Displayname_Invalid;
 		}
 
-		// TODO change it pls
-
 		SqlCountStatement count = new SqlCountStatement();
 		try {
 			count.from(AccountTable.class);

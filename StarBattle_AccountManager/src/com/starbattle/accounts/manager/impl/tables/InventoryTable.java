@@ -1,7 +1,8 @@
 package com.starbattle.accounts.manager.impl.tables;
 
 public enum InventoryTable {
-	PLAYER_ID("player_id");
+	PLAYER_ID("player_id"),
+	ITEM_ID("item_id");
 	
 	
 	private String fieldName;
