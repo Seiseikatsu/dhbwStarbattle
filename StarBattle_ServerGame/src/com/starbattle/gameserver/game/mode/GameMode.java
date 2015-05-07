@@ -69,6 +69,17 @@ public abstract class GameMode implements GameModeInterface {
 			defaultRespawn(player, time);
 		}
 	}
+	
+	protected void defaultFallingOutOfMap(GamePlayer player, int pointLose)
+	{
+		// player lose points
+		points.addPlayerPoints(player, -pointLose);
+		//kill player
+		player.getAttributes().getHealth().kill();
+		// start respawn
+		int time = getRespawnTime(player);
+		defaultRespawn(player, time);
+	}
 
 	protected abstract int getRespawnTime(GamePlayer player);
 

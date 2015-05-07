@@ -13,6 +13,8 @@ public class WeaponRender {
 	public WeaponRender(ResourceContainer resourceContainer) {
 		this.resourceContainer = resourceContainer;
 	}
+	
+
 
 	/**
 	 * Renders the given weapon on the hand location.
@@ -27,10 +29,17 @@ public class WeaponRender {
 	 * @param handX
 	 * @param handY
 	 * @param mirrored
+	 * @param firing 
 	 */
 	public void renderWeapon(Graphics g, WeaponGraphics weaponGraphics, float angle, float handX, float handY,
-			boolean mirrored) {
-		Image weapon = resourceContainer.getWeaponGraphics(weaponGraphics);
+			boolean mirrored, boolean firing) {
+		
+		int sy=0;
+		if(firing)
+		{
+			sy=1;
+		}
+		Image weapon = resourceContainer.getWeaponGraphics(weaponGraphics).getSprite(0, sy);
 
 		float rx = weaponGraphics.getRotateX();
 		float ry = weaponGraphics.getRotateY();

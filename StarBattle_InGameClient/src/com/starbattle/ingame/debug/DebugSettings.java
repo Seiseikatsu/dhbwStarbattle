@@ -10,7 +10,7 @@ public class DebugSettings extends GameclientSettings
     
     public DebugSettings()
     {
-        setFullscreenMode(true);
+        setFullscreenMode(false);
         setGraphicSettings(GraphicSettings.High);
         setMusicVolume(0.5f);
         setSoundOff(false);

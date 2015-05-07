@@ -20,4 +20,6 @@ public interface GameModeInterface {
 	
 	public void onPlayerRespawn(GamePlayer player);
 	
+	public void onFallingOutOfMap(GamePlayer player);
+	
 }

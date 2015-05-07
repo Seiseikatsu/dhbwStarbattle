@@ -46,4 +46,9 @@ public class TeamDeathMatch extends GameMode {
 	public void onPlayerRespawn(GamePlayer player) {
 	}
 
+	@Override
+	public void onFallingOutOfMap(GamePlayer player) {
+		defaultFallingOutOfMap(player, 1);
+	}
+
 }

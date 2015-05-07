@@ -7,6 +7,7 @@ import com.starbattle.gameserver.main.BattleInitialization;
 import com.starbattle.gameserver.main.BattleParticipant;
 import com.starbattle.gameserver.map.ServerMap;
 import com.starbattle.gameserver.map.collision.CollisionDetection;
+import com.starbattle.gameserver.object.GameControl;
 import com.starbattle.gameserver.player.GamePlayer;
 import com.starbattle.gameserver.player.container.PlayerList;
 
@@ -19,38 +20,53 @@ public class GameContainer {
 
 	public GameContainer(BattleInitialization init) throws ServerMapException {
 
-		//load map
-		serverMap=new ServerMap(init.getBattleSettings().getMapName());
+		// load map
+		serverMap = new ServerMap(init.getBattleSettings().getMapName());
 		// init mode
 		gameMode = init.getBattleSettings().getMode();
-		//create collision mapping
-		CollisionDetection collisionDetection=new CollisionDetection(serverMap.getCollisionMap());
+		// create collision mapping
+		CollisionDetection collisionDetection = new CollisionDetection(serverMap.getCollisionMap());
 		gameUpdate = new GameConnection(this);
-		EffectTrigger effectTrigger=gameUpdate.createEffectTrigger();
-		
-		// init players
-		for (BattleParticipant participant : init.getBattleParticipants()) {
-			playerList.initPlayer(participant,collisionDetection,effectTrigger);
-		}
-	}
+		EffectTrigger effectTrigger = gameUpdate.createEffectTrigger();
 
-	public void startGame() {
-		// setup objects
+		// create game control interface for game objects
+		GameControl control = new GameControl();
+		control.setCollisionDetection(collisionDetection);
+		control.setEffectTrigger(effectTrigger);
+		control.setMapBorder(serverMap.getMapBorder());
+
+		// init players
 		playerList.setRespawnListener(new PlayerRespawnListener() {
 			@Override
 			public void playerRespawned(GamePlayer player) {
+
 				gameMode.onPlayerRespawn(player);
 			}
 		});
-		//set spawn location for players
+		for (BattleParticipant participant : init.getBattleParticipants()) {
+			playerList.initPlayer(participant, control);
+		}
+
+	}
+
+	public void startGame() {
+		// set spawn location for players
 		playerList.initSpawn(serverMap.getSpawnPoints());
-	
+		// start game mode
+		gameMode.onGameInit(this);
 	}
 
 	public void updateGame(float delta) {
-		for(GamePlayer player: playerList.getPlayers())
-		{
+
+		for (GamePlayer player : playerList.getPlayers()) {
 			player.update(delta);
+			// check for player falling out of map
+			if (player.isAlive()) {
+				if (serverMap.getMapBorder().isBelowBorder(player.getLocation())) {
+					// inform game mode
+					gameMode.onFallingOutOfMap(player);
+				}
+			}
 		}
 	}
 

@@ -4,6 +4,7 @@ import com.starbattle.ingame.game.bullets.BulletDesign;
 import com.starbattle.ingame.game.bullets.BulletsContainer;
 import com.starbattle.ingame.game.location.Location;
 import com.starbattle.ingame.game.particles.ParticleContainer;
+import com.starbattle.ingame.game.player.PlayerObject;
 import com.starbattle.network.connection.objects.game.NP_TriggerEffect;
 import com.starbattle.network.connection.objects.constant.TriggerEffects;
 
@@ -32,6 +33,7 @@ public class TriggerEffectsProcessor {
 		TriggerEffects id=TriggerEffects.values()[effect.effect_id];
 		float x=effect.xpos;
 		float y=effect.ypos;
+		int source=effect.source_id;
 		float angle=effect.direction_angle;
 		
 		switch(id)
@@ -40,9 +42,15 @@ public class TriggerEffectsProcessor {
 			showAnimation("JumpEffect", x, y);
 			break;
 		case PLASMA_GUN_SHOT:
-			
+			//show gun firing
+			PlayerObject player=gameCore.getPlayers().getPlayer(source);
+			player.getDisplay().firedWeapon();
 			showAnimation("PlasmaGun", x, y,angle);
 			fireBullet(BulletDesign.PLASMA_GUN_BULLET, x, y, angle, 0.35f);
+			break;
+		case DEATH_ANIMATION:
+			showAnimation("Splash", x, y);
+			
 			break;
 		}
 	}

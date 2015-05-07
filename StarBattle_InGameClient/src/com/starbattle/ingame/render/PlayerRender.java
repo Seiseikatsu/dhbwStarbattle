@@ -55,19 +55,24 @@ public class PlayerRender {
 	public void render(Graphics g, PlayerObject player, Viewport viewport) {
 		Location location = viewport.getScreenLocation(player.getLocation());
 		PlayerDisplay display = player.getDisplay();
+		if(!display.isVisible())
+		{
+			return;
+		}
 		PlayerGraphics graphics = display.getGraphic();
-		float[] angles = display.getRotation();
-		boolean mirrored = display.isLookingLeft();
 		float weaponAngle=player.getWeaponAngle();
-		render(g, location, graphics, WeaponGraphics.PLASMA_GUN, angles,weaponAngle, mirrored);
+		render(g, location, graphics, WeaponGraphics.PLASMA_GUN, display,weaponAngle);
 	}
 	
 
 	public void render(Graphics g, Location location, PlayerGraphics graphics, WeaponGraphics weaponGraphics,
-			float[] angles,float weaponAngle, boolean mirrored) {
+			PlayerDisplay display, float weaponAngle) {
 
-		float xpos = location.getXpos();
-		float ypos = location.getYpos();
+		float[] angles = display.getRotation();
+		boolean mirrored = display.isLookingLeft();
+	
+		float xpos = location.getXpos();		
+		float ypos = location.getYpos()-graphics.getDeltaY();
 
 		resource = resourceContainer.getPlayerGraphics(graphics);
 
@@ -103,7 +108,8 @@ public class PlayerRender {
 		drawBodyPart(g, PlayerGraphicPart.LEFT_ARM, xpos, ypos, lArmAngle);
 
 		// draw weapon
-		weaponRender.renderWeapon(g, weaponGraphics, weaponAngle, handX, handY, mirrored);
+		boolean firing=display.isWeaponIsFiring();
+		weaponRender.renderWeapon(g, weaponGraphics, weaponAngle, handX, handY, mirrored,firing);
 		
 	}
 

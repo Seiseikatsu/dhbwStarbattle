@@ -41,8 +41,9 @@ public class PlayerMovement {
 		playerInput.updateReset(delta);
 	}
 
-	public void spawnAtPosition(float x, float y) {
-
+	public void spawnAtPosition(Location l) {
+		objectMovement.teleport(l);
+		objectMovement.getGravity().cancelMovement();
 	}
 
 	public void teleport(Location l) {
@@ -63,7 +64,7 @@ public class PlayerMovement {
 		
 		
 		if (objectMovement.objectJumped()&&standardMovement.getUsedJumps()>1) {
-			NP_TriggerEffect effect = EffectTriggerFactory.createEffect(pos, TriggerEffects.JUMP_ANIMATION, 0);
+			NP_TriggerEffect effect = EffectTriggerFactory.createEffect(pos, TriggerEffects.JUMP_ANIMATION, 0,gamePlayer);
 			effectTrigger.triggerEffect(effect);
 		}
 

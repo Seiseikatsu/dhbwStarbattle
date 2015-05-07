@@ -13,6 +13,7 @@ import com.starbattle.ingame.game.player.PlayerContainer;
 import com.starbattle.ingame.game.player.PlayerObject;
 import com.starbattle.ingame.game.viewport.Viewport;
 import com.starbattle.ingame.render.GameRender;
+import com.starbattle.ingame.render.HudRender;
 import com.starbattle.ingame.resource.ResourceContainer;
 import com.starbattle.network.connection.objects.game.NP_GameUpdate;
 import com.starbattle.network.connection.objects.game.NP_PrepareGame;
@@ -28,9 +29,11 @@ public class GameCore {
 	private Viewport viewport;
 	private TriggerEffectsProcessor triggerEffectsProcessor;
 	private PlayerInput playerInput;
+	private HudRender hudRender;
 
 	public GameCore(ResourceContainer resources) {
 		this.resourceContainer = resources;
+		hudRender = new HudRender(resources);
 		gameRender = new GameRender(resources, this);
 		triggerEffectsProcessor = new TriggerEffectsProcessor(this);
 	}
@@ -41,6 +44,8 @@ public class GameCore {
 
 	public void loadMap(String mapName) {
 		map.loadMap(mapName);
+		//set bulletscontainer border to remove bullets
+		bulletsContainer.createBorder(map);
 	}
 
 	public void initPlayers(NP_PrepareGame init) {
@@ -49,19 +54,19 @@ public class GameCore {
 
 	public void renderGame(Graphics g) {
 
-		// TODO: remove debug background here
-		
-		  Image back=
-		  resourceContainer.getBackgroundGraphics().getSpaceBackground();
-		  back.rotate(0.02f);
-		  float x=back.getWidth()/2; 
-		  float y=back.getHeight()/2; 
-		  back.setCenterOfRotation(x, y);
-		  back.drawCentered(500, 450);
-		 
+		Image back = resourceContainer.getBackgroundGraphics().getSpaceBackground();
+		back.rotate(0.02f);
+		float x = back.getWidth() / 2;
+		float y = back.getHeight() / 2;
+		back.setCenterOfRotation(x, y);
+		back.drawCentered(500, 450);
+
 		map.renderBackground(viewport);
 		gameRender.renderGame(g, viewport);
 		map.renderForeground(viewport);
+
+		hudRender.renderNames(g, players, viewport);
+		hudRender.renderHud(g);
 
 	}
 
@@ -110,5 +115,11 @@ public class GameCore {
 	public BulletsContainer getBulletsContainer() {
 		return bulletsContainer;
 	}
+	
+	public GameMap getMap() {
+		return map;
+	}
+	
+
 
 }

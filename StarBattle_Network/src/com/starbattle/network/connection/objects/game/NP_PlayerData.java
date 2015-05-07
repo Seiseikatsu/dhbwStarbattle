@@ -5,6 +5,7 @@ public class NP_PlayerData {
 	public float xpos,ypos;
 	public float xspeed,yspeed;
 	public boolean facingLeft;
+	public boolean visible;
 	
 	public int health;
 	public int points;

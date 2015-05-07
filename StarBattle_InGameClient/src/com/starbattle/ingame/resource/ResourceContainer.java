@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 
 import com.starbattle.ingame.resource.player.PlayerGraphicResource;
 import com.starbattle.ingame.resource.player.ResourceException;
@@ -12,7 +13,7 @@ public class ResourceContainer {
 
 	public final static String PATH = "resource/";
 	private HashMap<PlayerGraphics, PlayerGraphicResource> playerGraphics = new HashMap<PlayerGraphics, PlayerGraphicResource>();
-	private HashMap<WeaponGraphics, Image> weaponGraphics = new HashMap<WeaponGraphics, Image>();
+	private HashMap<WeaponGraphics, SpriteSheet> weaponGraphics = new HashMap<WeaponGraphics, SpriteSheet>();
 	private BackgroundGraphics backgroundGraphics = new BackgroundGraphics();
 	private HudGraphics hudGraphics = new HudGraphics();
 	private ParticleGraphics particleGraphics=new ParticleGraphics();
@@ -42,7 +43,8 @@ public class ResourceContainer {
 			Image image;
 			try {
 				image = new Image(PATH + "weapons/" + file);
-				weaponGraphics.put(resource, image);
+				SpriteSheet sprites=new SpriteSheet(image, image.getWidth(), resource.getSpriteHeight());
+				weaponGraphics.put(resource, sprites);
 
 			} catch (SlickException e) {
 				e.printStackTrace();
@@ -55,7 +57,7 @@ public class ResourceContainer {
 		return backgroundGraphics;
 	}
 	
-	public Image getWeaponGraphics(WeaponGraphics graphics)
+	public SpriteSheet getWeaponGraphics(WeaponGraphics graphics)
 	{
 		return weaponGraphics.get(graphics);
 	}

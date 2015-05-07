@@ -16,7 +16,8 @@ public class BattleState extends BasicGameState {
 
 	private GameManager manager;
 	private InfoRender infoRender;
-
+	private NP_GameUpdate update;
+	
 	public BattleState(GameManager manager) {
 		this.manager = manager;
 		infoRender=new InfoRender(manager);
@@ -33,8 +34,8 @@ public class BattleState extends BasicGameState {
 			
 			@Override
 			public void updateGame(NP_GameUpdate message) {
-				//TODO do game updates from server
-				manager.getGameCore().receiveUpdate(message);
+				//store update 
+				update=message;
 			}
 			
 			@Override
@@ -43,6 +44,15 @@ public class BattleState extends BasicGameState {
 			}
 		});
 		manager.getGameCore().start();
+	}
+	
+	private void doGameUpdates()
+	{
+		if(update!=null)
+		{
+		manager.getGameCore().receiveUpdate(update);
+		update=null;
+		}
 	}
 	
 	@Override
@@ -54,6 +64,10 @@ public class BattleState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		manager.getGameCore().renderGame(g);
 		infoRender.render(g);
+		
+		//do game updates after render to prevent changing of locations while rendering 
+		doGameUpdates();
+		
 	}
 
 	@Override

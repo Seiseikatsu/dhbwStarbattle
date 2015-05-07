@@ -15,13 +15,11 @@ public class GameRender {
 
 	private DebugRender debugRender;
 	private PlayerRender playerRender;
-	private HudRender hudRender;
 	private GameCore game;
 	private BulletRender bulletRender;
 
 	public GameRender(ResourceContainer resourceContainer, GameCore gameCore) {
 		debugRender = new DebugRender(resourceContainer);
-		hudRender = new HudRender(resourceContainer);
 		playerRender = new PlayerRender(resourceContainer);
 		bulletRender = new BulletRender(resourceContainer);
 		this.game = gameCore;
@@ -45,7 +43,6 @@ public class GameRender {
 			bulletRender.renderBullet(g, bullets.get(i), viewport);
 		}
 		// debugRender.render(g);
-		hudRender.renderNames(g, players, viewport);
-		hudRender.renderHud(g);
+	
 	}
 }

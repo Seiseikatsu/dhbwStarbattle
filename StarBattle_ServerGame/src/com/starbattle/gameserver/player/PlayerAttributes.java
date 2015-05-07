@@ -14,6 +14,7 @@ public class PlayerAttributes {
 	private float weaponAngle;
 	
 	public PlayerAttributes() {
+		health=new Health(100);
 	}
 	
 	public void takeDamge(Damage damage) {

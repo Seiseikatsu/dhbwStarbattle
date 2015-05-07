@@ -8,7 +8,7 @@ public class Viewport {
 
 	private float width, height;
 	private Location location = new Location();
-
+	
 	public Viewport(int w, int h) {
 		this.width = w/(float)GameMap.TILE_SIZE/2f;
 		this.height = h/(float)GameMap.TILE_SIZE/2f;
@@ -22,6 +22,8 @@ public class Viewport {
 	public void scoll(float x, float y) {
 		location.move(x, y);
 	}
+	
+
 
 	public Location getScreenLocation(Location relative) {
 		Location newLocation = new Location(location);

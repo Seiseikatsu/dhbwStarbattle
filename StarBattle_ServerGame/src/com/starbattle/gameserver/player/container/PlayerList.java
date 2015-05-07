@@ -12,6 +12,7 @@ import com.starbattle.gameserver.main.BattleParticipant;
 import com.starbattle.gameserver.map.SpawnPoint;
 import com.starbattle.gameserver.map.SpawnPointList;
 import com.starbattle.gameserver.map.collision.CollisionDetection;
+import com.starbattle.gameserver.object.GameControl;
 import com.starbattle.gameserver.player.GamePlayer;
 import com.starbattle.network.connection.objects.game.NP_PlayerData;
 
@@ -30,11 +31,11 @@ public class PlayerList {
 		this.respawnListener = respawnListener;
 	}
 
-	public void initPlayer(BattleParticipant participant, CollisionDetection collisionDetection, EffectTrigger effectTrigger) {
+	public void initPlayer(BattleParticipant participant, GameControl control) {
 		System.out.println("Server: Added Player : " + participant.getAccountName());
 		int playerID = displayNames.size();
 		String playerName = participant.getDisplayName();
-		GamePlayer player = new GamePlayer(playerName, playerID,collisionDetection,effectTrigger);
+		GamePlayer player = new GamePlayer(playerName, playerID,control);
 		player.getAttributes().setTeam(participant.getTeam());
 		addPlayer(player, participant.getAccountName());
 	}

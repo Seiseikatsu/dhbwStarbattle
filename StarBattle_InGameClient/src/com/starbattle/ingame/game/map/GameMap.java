@@ -11,6 +11,7 @@ public class GameMap {
 	public final static int TILE_SIZE=64;
 	private TiledMap map;
 	private int gameLayerID;
+	
 
 	public GameMap() {
 
@@ -22,7 +23,9 @@ public class GameMap {
 			//TODO: check if file exists
 			map = new TiledMap(path + name + ".tmx");
 			gameLayerID = map.getLayerIndex("Game");
-			System.out.println("Loaded Map with " + map.getLayerCount() + " Layers (GameLayerID: " + gameLayerID + ")");
+			int w=map.getWidth();
+			int h=map.getHeight();
+			System.out.println("Loaded Map with " + map.getLayerCount() + " Layers [Size:"+w+"x"+h+"]");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
@@ -44,6 +47,16 @@ public class GameMap {
 
 	public int getGameTileID(int x, int y) {
 		return map.getTileId(x, y, gameLayerID);
+	}
+	
+	public int getWidth()
+	{
+		return map.getWidth();
+	}
+	
+	public int getHeight()
+	{
+		return map.getHeight();
 	}
 
 }

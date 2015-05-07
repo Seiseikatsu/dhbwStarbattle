@@ -19,7 +19,7 @@ public class PlayerWeaponHandler {
 	public void fireWeapon() {
 		Location location = player.getLocation();
 		float angle = player.getAttributes().getWeaponAngle();
-		NP_TriggerEffect effect = EffectTriggerFactory.createEffect(location, TriggerEffects.PLASMA_GUN_SHOT, angle);
+		NP_TriggerEffect effect = EffectTriggerFactory.createEffect(location, TriggerEffects.PLASMA_GUN_SHOT, angle,player);
 		effectTrigger.triggerEffect(effect);
 	}
 

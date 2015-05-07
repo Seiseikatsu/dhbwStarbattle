@@ -19,7 +19,7 @@ public class RespawnTimer {
 		this.listener=listener;
 		respawnTime=time;
 		timer=new Timer();
-		timer.schedule(new TimerUpdate(), time);
+		timer.schedule(new TimerUpdate(),0, 1000);
 	}
 	
 	public void cancelTimer()

@@ -6,10 +6,15 @@ public class Health {
 
 	private float health,maxhealth;
 	private boolean dead=false;
+	private HealthListener healthListener;
 	
 	public Health(float health)
 	{
 		setMaxhealth(health);
+	}
+	
+	public void setHealthListener(HealthListener healthListener) {
+		this.healthListener = healthListener;
 	}
 	
 	public void revive()
@@ -32,8 +37,7 @@ public class Health {
 		}
 		if(health<=0)
 		{
-			health=0;
-			dead=true;
+			kill();
 		}
 	}
 	
@@ -52,6 +56,12 @@ public class Health {
 	
 	public float getMaxhealth() {
 		return maxhealth;
+	}
+
+	public void kill() {
+		health=0;
+		dead=true;
+		healthListener.playerKilled();
 	}
 	
 }

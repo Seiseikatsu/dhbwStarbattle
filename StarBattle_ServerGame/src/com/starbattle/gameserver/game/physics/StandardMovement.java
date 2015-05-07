@@ -54,18 +54,28 @@ public class StandardMovement extends MovementType {
 
 			ObjectGravity gravity = movement.getGravity();
 
+			
 			if (usedJumps == 0) {
-				// first jump from ground
+
 				if (!gravity.isInAir()) {
+					// first jump from ground
 					movement.getGravity().jump(jumpSpeed);
 					usedJumps++;
+				} else {
+					if (maximumJumpsInAir > 0) {
+						//first  jump while falling 
+						movement.getGravity().cancelMovement();
+						movement.getGravity().jump(jumpSpeed);
+						usedJumps += 2; //no additional jump from ground, only air jumps
+					}
+
 				}
 			} else {
-				// jump while mid air
+				// jump while mid air 
 				if (gravity.isInAir()) {
 					if (usedJumps <= maximumJumpsInAir) {
 
-						//mindest dealy bis nächster sprung gemacht werden kann
+						// mindest dealy bis nächster sprung gemacht werden kann
 						if (gravity.getAirTime() > minimumJumpTime) {
 							movement.getGravity().cancelMovement();
 							movement.getGravity().jump(jumpSpeed);

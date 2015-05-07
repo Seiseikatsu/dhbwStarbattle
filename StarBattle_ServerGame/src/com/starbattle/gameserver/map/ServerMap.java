@@ -14,6 +14,7 @@ public class ServerMap {
 	private int gameLayerID;
 	private SpawnPointList spawnPoints;
 	private CollisionMap collisionMap;
+	private MapBorder mapBorder;
 
 	public ServerMap(String mapName) throws ServerMapException {
 		try {
@@ -25,7 +26,7 @@ public class ServerMap {
 			// load spawnpoints from map tiles
 			spawnPoints = GameTileLoader.getSpawnPointList();
 			collisionMap= GameTileLoader.getCollisionMap();
-			
+			mapBorder=new MapBorder(map.getWidth(), map.getHeight());
 			if (!spawnPoints.isValidList()) {
 				throw new ServerMapException("No Spawnpoints found for both teams!");
 			}
@@ -49,5 +50,9 @@ public class ServerMap {
 
 	public CollisionMap getCollisionMap() {
 		return collisionMap;
+	}
+	
+	public MapBorder getMapBorder() {
+		return mapBorder;
 	}
 }
