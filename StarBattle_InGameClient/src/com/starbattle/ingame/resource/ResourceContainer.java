@@ -15,6 +15,7 @@ public class ResourceContainer {
 	private HashMap<WeaponGraphics, Image> weaponGraphics = new HashMap<WeaponGraphics, Image>();
 	private BackgroundGraphics backgroundGraphics = new BackgroundGraphics();
 	private HudGraphics hudGraphics = new HudGraphics();
+	private ParticleGraphics particleGraphics=new ParticleGraphics();
 
 	public ResourceContainer() {
 
@@ -24,6 +25,7 @@ public class ResourceContainer {
 		loadPlayerGraphics();
 		backgroundGraphics.load();
 		hudGraphics.load();
+		particleGraphics.load();
 		loadWeaponGraphics();
 	}
 
@@ -64,6 +66,10 @@ public class ResourceContainer {
 
 	public HudGraphics getHudGraphics() {
 		return hudGraphics;
+	}
+	
+	public ParticleGraphics getParticleGraphics() {
+		return particleGraphics;
 	}
 
 }

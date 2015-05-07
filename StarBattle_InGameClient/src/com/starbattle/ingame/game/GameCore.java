@@ -50,14 +50,15 @@ public class GameCore {
 	public void renderGame(Graphics g) {
 
 		// TODO: remove debug background here
-		/**
-		 * Image back=
-		 * resourceContainer.getBackgroundGraphics().getSpaceBackground();
-		 * back.rotate(0.88f);
-		 * 
-		 * float y=back.getHeight()/2; back.setCenterOfRotation(x, y);
-		 * back.drawCentered(500, 450);
-		 */
+		
+		  Image back=
+		  resourceContainer.getBackgroundGraphics().getSpaceBackground();
+		  back.rotate(0.02f);
+		  float x=back.getWidth()/2; 
+		  float y=back.getHeight()/2; 
+		  back.setCenterOfRotation(x, y);
+		  back.drawCentered(500, 450);
+		 
 		map.renderBackground(viewport);
 		gameRender.renderGame(g, viewport);
 		map.renderForeground(viewport);

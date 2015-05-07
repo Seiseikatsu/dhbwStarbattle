@@ -42,7 +42,7 @@ public class TriggerEffectsProcessor {
 		case PLASMA_GUN_SHOT:
 			
 			showAnimation("PlasmaGun", x, y,angle);
-			fireBullet(BulletDesign.PLASMA_GUN_BULLET, x, y, angle, 0.5f);
+			fireBullet(BulletDesign.PLASMA_GUN_BULLET, x, y, angle, 0.35f);
 			break;
 		}
 	}

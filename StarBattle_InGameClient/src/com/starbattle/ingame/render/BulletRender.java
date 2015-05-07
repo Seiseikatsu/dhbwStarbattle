@@ -1,11 +1,12 @@
 package com.starbattle.ingame.render;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 
 import com.starbattle.ingame.game.bullets.BulletObject;
 import com.starbattle.ingame.game.location.Location;
 import com.starbattle.ingame.game.viewport.Viewport;
+import com.starbattle.ingame.resource.ParticleGraphics;
 import com.starbattle.ingame.resource.ResourceContainer;
 
 public class BulletRender {
@@ -22,7 +23,11 @@ public class BulletRender {
 		float x=pos.getXpos();
 		float y=pos.getYpos();
 		
-		g.setColor(new Color(200,0,0));
-		g.fillOval(x-10,y-10,20,20);
+		ParticleGraphics particleGraphics = resourceContainer.getParticleGraphics();
+		
+		Image image=particleGraphics.getPlasmaBall();
+
+		image.drawCentered(x, y);
+		
 	}
 }
