@@ -8,6 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import com.starbattle.ingame.game.states.BattleState;
 import com.starbattle.ingame.game.states.LoadingState;
 import com.starbattle.ingame.network.GameNetwork;
+import com.starbattle.ingame.render.RenderResource;
 import com.starbattle.ingame.render.RenderSettings;
 import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 
@@ -35,7 +36,7 @@ public class GameStateContainer extends StateBasedGame {
 		
 		Input input = container.getInput();
 		manager.prepareInput(input);
-		
+		RenderResource.readScreenSize();
 	}
 
 }

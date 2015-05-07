@@ -6,12 +6,11 @@ import org.newdawn.slick.Image;
 import com.starbattle.ingame.resource.ResourceContainer;
 import com.starbattle.ingame.resource.WeaponGraphics;
 
-public class WeaponRender {
+public class WeaponRender extends RenderResource{
 
-	private ResourceContainer resourceContainer;
 
 	public WeaponRender(ResourceContainer resourceContainer) {
-		this.resourceContainer = resourceContainer;
+		super(resourceContainer);
 	}
 	
 

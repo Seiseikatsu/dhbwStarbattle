@@ -7,10 +7,16 @@ public class Damage {
 	
 	private GamePlayer damageDealer;
 	private float damage;
-	private float blowback;
+	private float knockback;
 	
-	public float getBlowback() {
-		return blowback;
+	public Damage(float damage)
+	{
+		this.damage=damage;
+		knockback=0;
+	}
+	
+	public float getKnockback() {
+		return knockback;
 	}
 	
 	public float getDamage() {

@@ -11,7 +11,6 @@ public class TeamDeathMatch extends GameMode {
 	private int respawnTime = 5;
 
 	public TeamDeathMatch(int pointLimit) {
-
 		this.pointLimit = pointLimit;
 	}
 
@@ -27,7 +26,8 @@ public class TeamDeathMatch extends GameMode {
 
 	@Override
 	protected int getRespawnTime(GamePlayer player) {
-		return respawnTime;
+		//increase respawnTime with every death
+		return respawnTime++;
 	}
 
 	@Override
@@ -48,7 +48,13 @@ public class TeamDeathMatch extends GameMode {
 
 	@Override
 	public void onFallingOutOfMap(GamePlayer player) {
-		defaultFallingOutOfMap(player, 1);
+		
+		defaultKillPlayer(player, 1);
+	}
+
+	@Override
+	public void onSuffocation(GamePlayer player) {
+		defaultKillPlayer(player, 1);
 	}
 
 }

@@ -22,4 +22,5 @@ public interface GameModeInterface {
 	
 	public void onFallingOutOfMap(GamePlayer player);
 	
+	public void onSuffocation(GamePlayer player);
 }

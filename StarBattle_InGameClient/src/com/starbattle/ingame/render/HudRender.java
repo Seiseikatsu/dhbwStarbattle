@@ -15,10 +15,12 @@ public class HudRender {
 
 	private ResourceContainer resourceContainer;
 	private AirBarRender airBarRender;
+	private KillscreenRender killscreenRender;
 
 	public HudRender(ResourceContainer resourceContainer) {
 		this.resourceContainer = resourceContainer;
 		airBarRender = new AirBarRender(resourceContainer);
+		killscreenRender = new KillscreenRender(resourceContainer);
 	}
 
 	public void renderNames(Graphics g, PlayerContainer players, Viewport viewport) {
@@ -36,12 +38,14 @@ public class HudRender {
 
 	float air = 1f;
 
-	public void renderHud(Graphics g) {
+	public void renderHud(Graphics g, PlayerObject player) {
 		float x = 485;
 		float y = 8;
-
-		air -= 0.001;
-		airBarRender.render(g, x, y, air);
+		if (player.getHealth() > 0) {
+			airBarRender.render(g, x, y, player.getHealth());
+		} else {
+			killscreenRender.renderKillScreen(g, player.getRespawnTime());
+		}
 	}
 
 	private void drawNameString(Graphics g, String name, float x, float y) {

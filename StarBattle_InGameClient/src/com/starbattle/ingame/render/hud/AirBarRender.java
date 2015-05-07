@@ -6,9 +6,10 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.geom.Rectangle;
 
+import com.starbattle.ingame.render.RenderResource;
 import com.starbattle.ingame.resource.ResourceContainer;
 
-public class AirBarRender {
+public class AirBarRender extends RenderResource{
 
 	private final static Color AIR_BAR_COLOR = new Color(120, 220, 255);
 	private final static Color AIR_BAR_COLOR2 = new Color(200,230,255);
@@ -16,11 +17,9 @@ public class AirBarRender {
 	private final static float AIR_BAR_HEIGHT = 19;
 	private final static float AIR_BAR_X = 4;
 	private final static float AIR_BAR_Y = 14;
-	private ResourceContainer resourceContainer;
 
 	public AirBarRender(ResourceContainer resourceContainer) {
-		this.resourceContainer = resourceContainer;
-		
+		super(resourceContainer);
 	}
 
 	public void render(Graphics g, float x, float y, float airPercent) {

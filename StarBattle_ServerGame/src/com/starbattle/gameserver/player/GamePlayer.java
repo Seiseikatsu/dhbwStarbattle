@@ -2,6 +2,7 @@ package com.starbattle.gameserver.player;
 
 import com.starbattle.gameserver.game.EffectTrigger;
 import com.starbattle.gameserver.game.EffectTriggerFactory;
+import com.starbattle.gameserver.game.action.Damage;
 import com.starbattle.gameserver.game.input.PlayerInput;
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
 import com.starbattle.gameserver.game.physics.Location;
@@ -105,7 +106,12 @@ public class GamePlayer {
 	public NP_PlayerData getData() {
 		NP_PlayerData data = new NP_PlayerData();
 		playerMovement.writeMovementData(data);
-		data.visible = isAlive();
+		data.health=attributes.getHealth().getHealthPercent();
+		data.alive = isAlive();
+		if(respawnTimer.isRunning())
+		{
+			data.respawnTime=(byte) respawnTimer.getRespawnTime();
+		}
 		return data;
 	}
 

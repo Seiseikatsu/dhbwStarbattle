@@ -30,7 +30,7 @@ public class Health {
 	public void takeDamage(Damage damage)
 	{
 		float dam=damage.getDamage();
-		health+=dam;
+		health-=dam;
 		if(health>maxhealth)
 		{
 			health=maxhealth;
@@ -62,6 +62,10 @@ public class Health {
 		health=0;
 		dead=true;
 		healthListener.playerKilled();
+	}
+
+	public float getHealthPercent() {
+		return health/maxhealth;
 	}
 	
 }

@@ -12,6 +12,7 @@ public abstract class GameMode implements GameModeInterface {
 	protected GameContainer game;
 	protected GamePoints points;
 	protected SpawnPointList spawnPointList;
+	protected float airLose=0.01f;
 
 	public GameMode() {
 
@@ -70,7 +71,7 @@ public abstract class GameMode implements GameModeInterface {
 		}
 	}
 	
-	protected void defaultFallingOutOfMap(GamePlayer player, int pointLose)
+	protected void defaultKillPlayer(GamePlayer player, int pointLose)
 	{
 		// player lose points
 		points.addPlayerPoints(player, -pointLose);
@@ -83,4 +84,7 @@ public abstract class GameMode implements GameModeInterface {
 
 	protected abstract int getRespawnTime(GamePlayer player);
 
+	public float getAirLose() {
+		return airLose;
+	}
 }

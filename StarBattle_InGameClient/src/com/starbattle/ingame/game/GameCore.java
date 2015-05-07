@@ -14,6 +14,7 @@ import com.starbattle.ingame.game.player.PlayerObject;
 import com.starbattle.ingame.game.viewport.Viewport;
 import com.starbattle.ingame.render.GameRender;
 import com.starbattle.ingame.render.HudRender;
+import com.starbattle.ingame.render.RenderResource;
 import com.starbattle.ingame.resource.ResourceContainer;
 import com.starbattle.network.connection.objects.game.NP_GameUpdate;
 import com.starbattle.network.connection.objects.game.NP_PrepareGame;
@@ -36,6 +37,7 @@ public class GameCore {
 		hudRender = new HudRender(resources);
 		gameRender = new GameRender(resources, this);
 		triggerEffectsProcessor = new TriggerEffectsProcessor(this);
+	
 	}
 
 	public void start() {
@@ -66,7 +68,7 @@ public class GameCore {
 		map.renderForeground(viewport);
 
 		hudRender.renderNames(g, players, viewport);
-		hudRender.renderHud(g);
+		hudRender.renderHud(g,players.getMyPlayer());
 
 	}
 

@@ -21,9 +21,9 @@ public class InGameClient implements GameClientConnection {
 	private GameclientSettings settings;
 	private GameNetwork network;
 	private GameManager manager;
-	
+
 	public InGameClient() {
-	
+
 	}
 
 	private void doGameSettings() throws SlickException {
@@ -32,7 +32,6 @@ public class InGameClient implements GameClientConnection {
 		int screenHeight = settings.getWindowResolution().getScreenHeight();
 		boolean fullscreen = settings.isFullscreenMode();
 		gameContainer.setDisplayMode(screenWidht, screenHeight, fullscreen);
-		gameContainer.setShowFPS(true);
 
 		// Sound Settings
 		gameContainer.setMusicOn(!settings.isMusicOff());
@@ -46,21 +45,21 @@ public class InGameClient implements GameClientConnection {
 		gameContainer.setVSync(renderSettings.isVSync());
 		gameContainer.setSmoothDeltas(renderSettings.isSmoothDeltas());
 
-		if (DEBUG_MODE) {
-			gameContainer.setShowFPS(true);
-		}
+		gameContainer.setShowFPS(DEBUG_MODE);
+
 	}
 
 	@Override
-	public void openInGameClient(GameclientSettings settings,NP_PrepareGame prepareGame, GameSendConnection send) throws GameClientException {
+	public void openInGameClient(GameclientSettings settings, NP_PrepareGame prepareGame, GameSendConnection send)
+			throws GameClientException {
 
 		// create game state container
-		network=new GameNetwork(send);
+		network = new GameNetwork(send);
 		manager = new GameManager(network);
-		gameInit = new GameStateContainer(manager,prepareGame);
+		gameInit = new GameStateContainer(manager, prepareGame);
 		try {
 			gameContainer = new AppGameContainer(gameInit);
-			
+
 			this.settings = settings;
 			doGameSettings();
 			// start
@@ -94,8 +93,7 @@ public class InGameClient implements GameClientConnection {
 		if (gameContainer != null) {
 			gameContainer.destroy();
 		}
-		if(manager!=null)
-		{
+		if (manager != null) {
 			manager.closeGame();
 		}
 	}

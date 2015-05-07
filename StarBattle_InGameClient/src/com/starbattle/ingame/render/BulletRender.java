@@ -9,12 +9,11 @@ import com.starbattle.ingame.game.viewport.Viewport;
 import com.starbattle.ingame.resource.ParticleGraphics;
 import com.starbattle.ingame.resource.ResourceContainer;
 
-public class BulletRender {
+public class BulletRender extends RenderResource {
 
-	private ResourceContainer resourceContainer;
-	
+
 	public BulletRender(ResourceContainer resourceContainer) {
-		this.resourceContainer=resourceContainer;
+		super(resourceContainer);
 	}
 	
 	public void renderBullet(Graphics g, BulletObject bullet, Viewport view)

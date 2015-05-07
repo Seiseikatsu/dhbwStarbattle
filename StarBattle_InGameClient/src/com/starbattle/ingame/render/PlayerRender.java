@@ -14,7 +14,7 @@ import com.starbattle.ingame.resource.WeaponGraphics;
 import com.starbattle.ingame.resource.player.PlayerGraphicPart;
 import com.starbattle.ingame.resource.player.PlayerGraphicResource;
 
-public class PlayerRender {
+public class PlayerRender extends RenderResource {
 
 	private final static float ARMPIT_Y = -6;
 	private final static float FOOTPIT_Y = 20;
@@ -39,11 +39,10 @@ public class PlayerRender {
 	
 	private final static float WEAPON_HAND_DIFF=20;
 
-	private ResourceContainer resourceContainer;
 	private WeaponRender weaponRender;
 
 	public PlayerRender(ResourceContainer resourceContainer) {
-		this.resourceContainer = resourceContainer;
+		super(resourceContainer);
 		weaponRender = new WeaponRender(resourceContainer);
 	}
 

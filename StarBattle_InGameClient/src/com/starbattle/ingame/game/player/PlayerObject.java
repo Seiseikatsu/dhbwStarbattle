@@ -12,6 +12,8 @@ public class PlayerObject {
 	private int team;
 	private PlayerDisplay display;
 	private float xspeed, yspeed;
+	private float health=1;
+	private int respawnTime;
 
 	public PlayerObject(String name, int team) {
 		this.name = name;
@@ -29,9 +31,11 @@ public class PlayerObject {
 
 		boolean facing = data.facingLeft;
 		display.setLookingLeft(facing);
-		display.setVisible(data.visible);
+		display.setVisible(data.alive);
+		health=data.health;
 		this.xspeed = data.xspeed;
 		this.yspeed = data.yspeed;
+		this.respawnTime=data.respawnTime;
 		location.jumpTo(data.xpos, data.ypos);
 	}
 
@@ -64,5 +68,13 @@ public class PlayerObject {
 
 			display.setLookingLeft(true);
 		}
+	}
+	
+	public float getHealth() {
+		return health;
+	}
+	
+	public int getRespawnTime() {
+		return respawnTime;
 	}
 }

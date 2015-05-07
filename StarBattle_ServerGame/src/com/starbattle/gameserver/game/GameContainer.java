@@ -1,6 +1,7 @@
 package com.starbattle.gameserver.game;
 
 import com.starbattle.gameserver.exceptions.ServerMapException;
+import com.starbattle.gameserver.game.action.Damage;
 import com.starbattle.gameserver.game.mode.GameMode;
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
 import com.starbattle.gameserver.main.BattleInitialization;
@@ -62,6 +63,12 @@ public class GameContainer {
 			player.update(delta);
 			// check for player falling out of map
 			if (player.isAlive()) {
+				// do suffocation air reduction
+				player.getAttributes().getHealth().takeDamage(new Damage(gameMode.getAirLose()));
+				if (!player.isAlive()) {
+					// inform game mode for suffocation
+					gameMode.onSuffocation(player);
+				}
 				if (serverMap.getMapBorder().isBelowBorder(player.getLocation())) {
 					// inform game mode
 					gameMode.onFallingOutOfMap(player);

@@ -5,9 +5,10 @@ public class NP_PlayerData {
 	public float xpos,ypos;
 	public float xspeed,yspeed;
 	public boolean facingLeft;
-	public boolean visible;
+	public boolean alive;
 	
-	public int health;
+	public float health;
+	public byte respawnTime;
 	public int points;
 	public int weapon_id;
 	public float weapon_anlge;

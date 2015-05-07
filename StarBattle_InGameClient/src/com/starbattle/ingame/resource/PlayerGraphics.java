@@ -2,9 +2,9 @@ package com.starbattle.ingame.resource;
 
 public enum PlayerGraphics {
 
-	ASTRONAUT("Astronaut","astronaut.png",4),
-	ALIEN("Alien","alien.png",4),
-	ASTRONAUT_DARK("Astronaut","astronautDunkel.png",4);
+	ASTRONAUT("Astronaut","astronaut.png",2),
+	ALIEN("Alien","alien.png",2),
+	ASTRONAUT_DARK("Astronaut","astronautDunkel.png",2);
 	
 	private String name;
 	private String file;
