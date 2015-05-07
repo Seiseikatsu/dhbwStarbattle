@@ -69,5 +69,10 @@ public class PlayerMovement {
 
 		objectMovement.resetMovementInfo();
 	}
+	
+	public Location getLocation()
+	{
+		return objectMovement.getLocation();
+	}
 
 }

@@ -26,14 +26,13 @@ public class Location {
 		xpos += l.getXpos();
 		ypos += l.getYpos();
 	}
-	
-	public void subtract(Location l)
-	{
-		xpos=l.getXpos()-xpos;
-		ypos=l.getYpos()-ypos;
-		
-//		xpos -= l.getXpos();
-	//	ypos -= l.getYpos();
+
+	public void subtract(Location l) {
+		xpos = l.getXpos() - xpos;
+		ypos = l.getYpos() - ypos;
+
+		// xpos -= l.getXpos();
+		// ypos -= l.getYpos();
 	}
 
 	public void jumpTo(float x, float y) {
@@ -54,14 +53,18 @@ public class Location {
 		return ypos;
 	}
 
-	
 	@Override
 	public String toString() {
-		return xpos+" x "+ypos;
+		return xpos + " x " + ypos;
 	}
 
 	public void factor(float factor) {
-		xpos*=factor;
-		ypos*=factor;
+		xpos *= factor;
+		ypos *= factor;
+	}
+
+	public void movePolar(float angle, float speed) {
+		xpos += Math.cos(angle) * speed;
+		ypos += Math.sin(angle) * speed;
 	}
 }

@@ -46,6 +46,7 @@ public class GameConnection {
 
 		PlayerList players = game.getPlayerList();
 		GamePlayer player = players.getPlayerByAccount(accountName);
+		
 		player.processInput(data);
 	}
 

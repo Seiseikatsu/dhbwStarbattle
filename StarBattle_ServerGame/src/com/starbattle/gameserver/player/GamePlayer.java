@@ -8,6 +8,7 @@ import com.starbattle.gameserver.game.physics.Location;
 import com.starbattle.gameserver.map.ServerMap;
 import com.starbattle.gameserver.map.SpawnPoint;
 import com.starbattle.gameserver.map.collision.CollisionDetection;
+import com.starbattle.network.connection.objects.constant.NP_Constants;
 import com.starbattle.network.connection.objects.game.NP_PlayerData;
 import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
 import com.starbattle.network.connection.objects.game.NP_TriggerEffect;
@@ -21,16 +22,31 @@ public class GamePlayer {
 	private PlayerInput playerInput = new PlayerInput();
 	private Jetpack jetpack = new Jetpack();
 	private EffectTrigger effectTrigger;
+	private PlayerWeaponHandler weaponHandler;
 
-	public GamePlayer(String playerName, int playerID, CollisionDetection collisionDetection, EffectTrigger effectTrigger) {
-		this.effectTrigger=effectTrigger;
+	public GamePlayer(String playerName, int playerID, CollisionDetection collisionDetection,
+			EffectTrigger effectTrigger) {
+		this.effectTrigger = effectTrigger;
 		attributes.setPlayerID(playerID);
 		attributes.setPlayerName(playerName);
-		playerMovement = new PlayerMovement(playerInput, this,collisionDetection,effectTrigger);
+		playerMovement = new PlayerMovement(playerInput, this, collisionDetection, effectTrigger);
+		weaponHandler=new PlayerWeaponHandler(this,effectTrigger);
 	}
 
 	public void processInput(NP_PlayerUpdate update) {
 		playerInput.process(update);
+		// update weapon angle
+		attributes.setWeaponAngle(update.weapon_angle);
+		int action = update.action;
+		switch (action) {
+		case NP_Constants.NO_ACTION:
+			// do nothing
+			break;
+		case NP_Constants.FIRE_WEAPON:
+			// try to fire weapon
+			weaponHandler.fireWeapon();
+			break;
+		}
 	}
 
 	public void update(float delta) {
@@ -46,9 +62,8 @@ public class GamePlayer {
 			}
 		});
 	}
-	
-	public void teleportTo(Location l)
-	{
+
+	public void teleportTo(Location l) {
 		playerMovement.teleport(l);
 	}
 
@@ -74,10 +89,13 @@ public class GamePlayer {
 	public NP_PlayerData getData() {
 		NP_PlayerData data = new NP_PlayerData();
 		playerMovement.writeMovementData(data);
-		
 
 		return data;
 	}
 	
-	
+	public Location getLocation()
+	{
+		return playerMovement.getLocation();
+	}
+
 }

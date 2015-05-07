@@ -1,7 +1,9 @@
 package com.starbattle.ingame.game;
 
 import com.starbattle.ingame.game.input.ActionSet;
+import com.starbattle.ingame.game.input.MouseCursor;
 import com.starbattle.ingame.game.input.PlayerInput;
+import com.starbattle.ingame.game.player.PlayerObject;
 import com.starbattle.ingame.network.GameNetwork;
 import com.starbattle.ingame.network.SendUpdateListener;
 import com.starbattle.network.connection.objects.constant.NP_Constants;
@@ -24,7 +26,11 @@ public class UdpUpdatesSender implements SendUpdateListener {
 
 		NP_PlayerUpdate update = new NP_PlayerUpdate();
 		// process updates
-
+		
+		
+		PlayerObject myself = game.getPlayers().getMyPlayer();
+		update.weapon_angle=myself.getWeaponAngle();
+		
 		processInputs(update);
 
 		// send to server
@@ -49,7 +55,16 @@ public class UdpUpdatesSender implements SendUpdateListener {
 		} else if (moveDown) {
 			update.verticalMovement = NP_Constants.BACKWARD_MOVEMENT;
 		}
-
+		
+		//mouse check
+		MouseCursor mouse = playerInput.getMouseCursor();
+		if(mouse.isLeftClick())
+		{
+		update.action=NP_Constants.FIRE_WEAPON;
+		}
+		
+		//reset key and mouse infos
+		mouse.resetPressedButtons();
 		actions.reset();
 	}
 

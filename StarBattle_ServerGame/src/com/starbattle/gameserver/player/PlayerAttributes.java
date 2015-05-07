@@ -22,8 +22,6 @@ public class PlayerAttributes {
 		}
 	}
 	
-	
-	
 
 	public String getPlayerName() {
 		return playerName;

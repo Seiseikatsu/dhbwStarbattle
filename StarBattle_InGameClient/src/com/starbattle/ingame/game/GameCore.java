@@ -4,6 +4,7 @@ import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
+import com.starbattle.ingame.game.bullets.BulletsContainer;
 import com.starbattle.ingame.game.input.PlayerInput;
 import com.starbattle.ingame.game.location.Location;
 import com.starbattle.ingame.game.map.GameMap;
@@ -19,6 +20,7 @@ import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 public class GameCore {
 
 	private ParticleContainer particleContainer = new ParticleContainer();
+	private BulletsContainer bulletsContainer = new BulletsContainer();
 	private GameMap map = new GameMap();
 	private ResourceContainer resourceContainer;
 	private GameRender gameRender;
@@ -30,14 +32,13 @@ public class GameCore {
 	public GameCore(ResourceContainer resources) {
 		this.resourceContainer = resources;
 		gameRender = new GameRender(resources, this);
-		triggerEffectsProcessor=new TriggerEffectsProcessor(this);
+		triggerEffectsProcessor = new TriggerEffectsProcessor(this);
 	}
 
-	public void start()
-	{
-		viewport = new Viewport(Display.getWidth(), Display.getHeight());		
+	public void start() {
+		viewport = new Viewport(Display.getWidth(), Display.getHeight());
 	}
-	
+
 	public void loadMap(String mapName) {
 		map.loadMap(mapName);
 	}
@@ -48,61 +49,65 @@ public class GameCore {
 
 	public void renderGame(Graphics g) {
 
-		//TODO: remove debug  background here
-/**		Image back=	resourceContainer.getBackgroundGraphics().getSpaceBackground();
-	back.rotate(0.88f);
-		
-		float y=back.getHeight()/2;
-		back.setCenterOfRotation(x, y);
-		back.drawCentered(500, 450);
-		*/
+		// TODO: remove debug background here
+		/**
+		 * Image back=
+		 * resourceContainer.getBackgroundGraphics().getSpaceBackground();
+		 * back.rotate(0.88f);
+		 * 
+		 * float y=back.getHeight()/2; back.setCenterOfRotation(x, y);
+		 * back.drawCentered(500, 450);
+		 */
 		map.renderBackground(viewport);
-		gameRender.renderGame(g,viewport);
+		gameRender.renderGame(g, viewport);
 		map.renderForeground(viewport);
-	
+
 	}
 
 	public void updateGame(int delta) {
 
 		playerInput.poll();
 		// focus viewport to my player
-		
+
 		PlayerObject player = players.getMyPlayer();
 		viewport.view(player);
-		
-		//update my weapon angle
+
+		// update my weapon angle
 		player.updateWeaponAngle(playerInput.getMouseCursor());
 
 		particleContainer.update(delta);
-		
-		//Location l=players.getMyPlayer().getLocation();
-		//particleContainer.spawnEffect("Air",l);
-		
-		// calc float delta
-		players.update(delta);
+
+		// Location l=players.getMyPlayer().getLocation();
+		// particleContainer.spawnEffect("Air",l);
+
+		float floorDelta = ((float) delta + 1000) / 1000f;
+		players.update(floorDelta);
+		bulletsContainer.update(floorDelta);
 	}
-	
+
 	public void receiveUpdate(NP_GameUpdate message) {
-		
+
 		players.update(message.playerData);
 		triggerEffectsProcessor.processEffects(message.triggerEffect);
-		//update viewport
+		// update viewport
 		viewport.view(players.getMyPlayer());
 
 	}
 
-	
 	public PlayerContainer getPlayers() {
 		return players;
 	}
-	
+
 	public ParticleContainer getParticleContainer() {
 		return particleContainer;
 	}
 
 	public void setPlayerInput(PlayerInput playerInput) {
-		this.playerInput=playerInput;
+		this.playerInput = playerInput;
 	}
 
+	public BulletsContainer getBulletsContainer() {
+		return bulletsContainer;
+	}
 
 }

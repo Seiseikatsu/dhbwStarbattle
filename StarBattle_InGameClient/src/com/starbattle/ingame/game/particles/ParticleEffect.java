@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.particles.ConfigurableEmitter;
+import org.newdawn.slick.particles.ConfigurableEmitter.SimpleValue;
 import org.newdawn.slick.particles.ParticleIO;
 import org.newdawn.slick.particles.ParticleSystem;
 
@@ -21,6 +22,7 @@ public class ParticleEffect {
 			system = ParticleIO.loadConfiguredSystem(path + xml + ".xml");
 			for (int i = 0; i < system.getEmitterCount(); i++) {
 				ConfigurableEmitter emitter = (ConfigurableEmitter) system.getEmitter(i);
+				
 				String image = emitter.imageName;
 				if (image != null) {
 					emitter.setImageName(path + "/images/" + image);
@@ -36,6 +38,25 @@ public class ParticleEffect {
 			ParticleSystem spawn = system.duplicate();
 			spawn.setRemoveCompletedEmitters(true);
 			spawn.setPosition(x, y);
+			entities.add(spawn);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+
+	public void spawnEffect(float x, float y, float angle) {
+		try {
+			ParticleSystem spawn = system.duplicate();
+			spawn.setRemoveCompletedEmitters(true);
+			spawn.setPosition(x, y);
+		//	System.out.println("angle: "+angle);
+			for(int i=0; i<spawn.getEmitterCount(); i++)
+			{
+				ConfigurableEmitter emitter = (ConfigurableEmitter) system.getEmitter(i);
+				emitter.angularOffset.setValue((float) Math.toDegrees(angle)+90);
+			}
 			entities.add(spawn);
 		} catch (SlickException e) {
 			e.printStackTrace();
