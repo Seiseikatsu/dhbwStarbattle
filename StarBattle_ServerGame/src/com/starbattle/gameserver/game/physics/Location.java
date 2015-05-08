@@ -41,4 +41,11 @@ public class Location {
 		ypos= (int)Math.floor(ypos);
 	}
 
+	public void moveInDirection(Location targetLocation, float f) {
+		float x=targetLocation.getXpos();
+		float y=targetLocation.getYpos();
+		
+		
+	}
+
 }

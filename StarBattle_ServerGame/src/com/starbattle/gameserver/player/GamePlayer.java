@@ -11,6 +11,7 @@ import com.starbattle.gameserver.map.ServerMap;
 import com.starbattle.gameserver.map.SpawnPoint;
 import com.starbattle.gameserver.map.collision.CollisionDetection;
 import com.starbattle.gameserver.object.GameControl;
+import com.starbattle.gameserver.weapon.WeaponInventar;
 import com.starbattle.network.connection.objects.constant.NP_Constants;
 import com.starbattle.network.connection.objects.constant.TriggerEffects;
 import com.starbattle.network.connection.objects.game.NP_PlayerData;
@@ -26,14 +27,14 @@ public class GamePlayer {
 	private PlayerInput playerInput = new PlayerInput();
 	private Jetpack jetpack = new Jetpack();
 	private EffectTrigger effectTrigger;
-	private PlayerWeaponHandler weaponHandler;
+	private WeaponInventar weapons;
 
 	public GamePlayer(String playerName, int playerID, GameControl control) {
 		this.effectTrigger = control.getEffectTrigger();
 		attributes.setPlayerID(playerID);
 		attributes.setPlayerName(playerName);
 		playerMovement = new PlayerMovement(playerInput, this, control.getCollisionDetection(), effectTrigger);
-		weaponHandler = new PlayerWeaponHandler(this, effectTrigger);
+		weapons = new WeaponInventar(this, control);
 
 		attributes.getHealth().setHealthListener(new HealthListener() {
 			@Override
@@ -59,7 +60,13 @@ public class GamePlayer {
 				break;
 			case NP_Constants.FIRE_WEAPON:
 				// try to fire weapon
-				weaponHandler.fireWeapon();
+				weapons.fireWeapon();
+				break;
+			case NP_Constants.SWITCH_WEAPON_FORWARDS:
+				weapons.switchWeapon(true);
+				break;
+			case NP_Constants.SWITCH_WEAPON_BACKWARDS:
+				weapons.switchWeapon(false);
 				break;
 			}
 		}
@@ -106,11 +113,11 @@ public class GamePlayer {
 	public NP_PlayerData getData() {
 		NP_PlayerData data = new NP_PlayerData();
 		playerMovement.writeMovementData(data);
-		data.health=attributes.getHealth().getHealthPercent();
+		data.health = attributes.getHealth().getHealthPercent();
 		data.alive = isAlive();
-		if(respawnTimer.isRunning())
-		{
-			data.respawnTime=(byte) respawnTimer.getRespawnTime();
+		data.weapon_id=weapons.getSelectedWeapon();
+		if (respawnTimer.isRunning()) {
+			data.respawnTime = (byte) respawnTimer.getRespawnTime();
 		}
 		return data;
 	}

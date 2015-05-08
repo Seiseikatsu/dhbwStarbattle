@@ -1,11 +1,13 @@
 package com.starbattle.gameserver.game;
 
+import com.starbattle.gameserver.battle.BattleField;
 import com.starbattle.gameserver.exceptions.ServerMapException;
 import com.starbattle.gameserver.game.action.Damage;
 import com.starbattle.gameserver.game.mode.GameMode;
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
 import com.starbattle.gameserver.main.BattleInitialization;
 import com.starbattle.gameserver.main.BattleParticipant;
+import com.starbattle.gameserver.map.MapBorder;
 import com.starbattle.gameserver.map.ServerMap;
 import com.starbattle.gameserver.map.collision.CollisionDetection;
 import com.starbattle.gameserver.object.GameControl;
@@ -18,15 +20,16 @@ public class GameContainer {
 	private ServerMap serverMap;
 	private GameMode gameMode;
 	private GameConnection gameUpdate;
+	private BattleField battleField;
 
 	public GameContainer(BattleInitialization init) throws ServerMapException {
 
 		System.out.println("Init Game Container:");
-		
+
 		// load map
 		System.out.println("Load Map...");
 		serverMap = new ServerMap(init.getBattleSettings().getMapName());
-	
+
 		// init mode
 		System.out.println("Load Mode...");
 		gameMode = init.getBattleSettings().getMode();
@@ -35,11 +38,16 @@ public class GameContainer {
 		gameUpdate = new GameConnection(this);
 		EffectTrigger effectTrigger = gameUpdate.createEffectTrigger();
 
-		// create game control interface for game objects
+		// init battlefield
+		MapBorder mapBorder = serverMap.getMapBorder();
+		battleField = new BattleField(mapBorder);
+
+		// create game control interface for player objects to control the game actions
 		GameControl control = new GameControl();
 		control.setCollisionDetection(collisionDetection);
 		control.setEffectTrigger(effectTrigger);
-		control.setMapBorder(serverMap.getMapBorder());
+		control.setMapBorder(mapBorder);
+		control.setProjectileEmitter(battleField.createEmitter());
 
 		// init players
 		System.out.println("Load Players...");

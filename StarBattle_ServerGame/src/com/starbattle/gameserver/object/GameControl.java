@@ -1,5 +1,6 @@
 package com.starbattle.gameserver.object;
 
+import com.starbattle.gameserver.battle.projectile.ProjectileEmitter;
 import com.starbattle.gameserver.game.EffectTrigger;
 import com.starbattle.gameserver.map.MapBorder;
 import com.starbattle.gameserver.map.collision.CollisionDetection;
@@ -9,8 +10,17 @@ public class GameControl {
 	private CollisionDetection collisionDetection;
 	private MapBorder mapBorder;
 	private EffectTrigger effectTrigger;
+	private ProjectileEmitter projectileEmitter;
 	
 	public GameControl() {
+	}
+	
+	public void setProjectileEmitter(ProjectileEmitter projectileEmitter) {
+		this.projectileEmitter = projectileEmitter;
+	}
+	
+	public ProjectileEmitter getProjectileEmitter() {
+		return projectileEmitter;
 	}
 	
 	public void setCollisionDetection(CollisionDetection collisionDetection) {

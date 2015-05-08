@@ -15,6 +15,14 @@ public class Damage {
 		knockback=0;
 	}
 	
+	public void setDamageDealer(GamePlayer damageDealer) {
+		this.damageDealer = damageDealer;
+	}
+	
+	public void setKnockback(float knockback) {
+		this.knockback = knockback;
+	}
+	
 	public float getKnockback() {
 		return knockback;
 	}
@@ -26,4 +34,5 @@ public class Damage {
 	public GamePlayer getDamageDealer() {
 		return damageDealer;
 	}
+
 }

@@ -10,7 +10,7 @@ public class PlayerDisplay {
 	private boolean weaponIsFiring = false;
 	private PlayerGraphics graphic;
 	private boolean lookingLeft = false;
-	private boolean isVisible=true;
+	private boolean isVisible = true;
 
 	public PlayerDisplay() {
 
@@ -22,11 +22,11 @@ public class PlayerDisplay {
 	public void setVisible(boolean isVisible) {
 		this.isVisible = isVisible;
 	}
-	
+
 	public boolean isVisible() {
 		return isVisible;
 	}
-	
+
 	public void setLookingLeft(boolean lookingLeft) {
 		this.lookingLeft = lookingLeft;
 	}
@@ -59,7 +59,21 @@ public class PlayerDisplay {
 		if (yspeed != 0) {
 			xspeed /= 2;
 			r = 80;
-//			legRotCount = (float) Math.PI/2;
+			// legRotCount = (float) Math.PI/2;
+		}
+
+		if (yspeed < 0) {
+
+			// wenn hochspringt
+			rotation[4] += xspeed * 10;
+		} else if (yspeed > 0) {
+			float rr = rotation[4];
+			float dd = 1f;
+			if (rr > 0) {
+				rotation[4] -= dd;
+			} else if (rr < 0) {
+				rotation[4] += dd;
+			}
 		}
 
 		int i = BodyRotation.RIGHT_FOOT_ANGLE.getRotationArrayIndex();
@@ -94,6 +108,7 @@ public class PlayerDisplay {
 
 		rotation[1] = -rotation[i] / 2;
 		rotation[3] = -rotation[i - 2] / 2;
+
 		// rotation[BodyRotation.LEFT_LEG_ANGLE.getRotationArrayIndex()]=-leg;
 
 		// rotation[BodyRotation.RIGHT_FOOT_ANGLE.getRotationArrayIndex()]+=xspeed*50;
@@ -106,7 +121,7 @@ public class PlayerDisplay {
 	}
 
 	public void firedWeapon() {
-		resetGunFired=0;
+		resetGunFired = 0;
 		weaponIsFiring = true;
 	}
 }
