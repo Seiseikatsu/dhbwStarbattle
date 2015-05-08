@@ -8,7 +8,7 @@ public class StandardMovement extends MovementType {
 	private float movementSpeed = 0.1f;
 	private float jumpSpeed = 7f;
 
-	private static float minimumJumpTime = 0.2f;
+	private static float minimumJumpTime = 0.0f;
 	private int maximumJumpsInAir = 1;
 	private int usedJumps;
 
@@ -50,7 +50,7 @@ public class StandardMovement extends MovementType {
 		 */
 
 		// jump
-		if (control.isMoveUp()) {
+		if (playerInput.isJump()) {
 
 			ObjectGravity gravity = movement.getGravity();
 

@@ -26,6 +26,7 @@ public class NP_Constants {
 	
 	public final static int NO_ACTION=0;
 	public final static int FIRE_WEAPON=1;
+	public final static int JUMP=2;
 	
 	
 }

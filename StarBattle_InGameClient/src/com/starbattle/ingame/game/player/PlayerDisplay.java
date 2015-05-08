@@ -54,9 +54,12 @@ public class PlayerDisplay {
 		}
 
 		// update legs on running
+		int r = 70;
 		xspeed *= 2;
 		if (yspeed != 0) {
 			xspeed /= 2;
+			r = 80;
+//			legRotCount = (float) Math.PI/2;
 		}
 
 		int i = BodyRotation.RIGHT_FOOT_ANGLE.getRotationArrayIndex();
@@ -86,8 +89,7 @@ public class PlayerDisplay {
 			}
 
 		}
-
-		rotation[i] = (float) (Math.sin(legRotCount) * 70);
+		rotation[i] = (float) (Math.sin(legRotCount) * r);
 		rotation[i - 2] = -rotation[i];
 
 		rotation[1] = -rotation[i] / 2;

@@ -4,6 +4,7 @@ public class ActionSet {
 
 	private boolean move_right,move_left,move_up,move_down;
 	private boolean use_jetpack;
+	private boolean jump;
 	
 	public ActionSet() {
 
@@ -12,9 +13,16 @@ public class ActionSet {
 	public void reset()
 	{
 		use_jetpack=false;
+		jump=false;
 	}
 	
+	public void jump(){
+		this.jump = true;
+	}
 	
+	public boolean isJump() {
+		return jump;
+	}
 	
 	public void setMove_right(boolean move_right) {
 		this.move_right = move_right;

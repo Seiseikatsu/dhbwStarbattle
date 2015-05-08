@@ -59,6 +59,9 @@ public class KeyboardInput implements KeyListener {
 	@Override
 	public void keyPressed(int key, char keyChar) {
 		movement(key, true);
+		if(key == Input.KEY_SPACE){
+			actionSet.jump();
+		}
 	}
 
 	@Override

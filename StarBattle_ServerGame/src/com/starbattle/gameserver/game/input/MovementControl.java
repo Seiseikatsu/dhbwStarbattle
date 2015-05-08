@@ -22,7 +22,7 @@ public class MovementControl {
 	 * Move Down (Fall faster or move trough special blocks???)
 	 */
 	private boolean moveDown;
-
+	
 	public MovementControl() {
 
 	}
@@ -36,7 +36,7 @@ public class MovementControl {
 		moveRight = false;
 		moveUp = false;
 		moveDown = false;
-
+		
 		switch (horizontal) {
 		case NP_Constants.FORWARD_MOVEMENT:
 			moveLeft = true;
@@ -83,6 +83,5 @@ public class MovementControl {
 	public boolean isMoveDown() {
 		return moveDown;
 	}
-
 	
 }

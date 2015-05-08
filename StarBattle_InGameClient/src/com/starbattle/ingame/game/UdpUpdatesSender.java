@@ -14,7 +14,7 @@ public class UdpUpdatesSender implements SendUpdateListener {
 	private GameCore game;
 	private GameNetwork network;
 	private PlayerInput playerInput;
-	
+
 	public UdpUpdatesSender(GameManager manager) {
 		this.game = manager.getGameCore();
 		this.network = manager.getNetwork();
@@ -26,11 +26,10 @@ public class UdpUpdatesSender implements SendUpdateListener {
 
 		NP_PlayerUpdate update = new NP_PlayerUpdate();
 		// process updates
-		
-		
+
 		PlayerObject myself = game.getPlayers().getMyPlayer();
-		update.weapon_angle=myself.getWeaponAngle();
-		
+		update.weapon_angle = myself.getWeaponAngle();
+
 		processInputs(update);
 
 		// send to server
@@ -55,15 +54,17 @@ public class UdpUpdatesSender implements SendUpdateListener {
 		} else if (moveDown) {
 			update.verticalMovement = NP_Constants.BACKWARD_MOVEMENT;
 		}
-		
-		//mouse check
+
+		// mouse check
 		MouseCursor mouse = playerInput.getMouseCursor();
-		if(mouse.isLeftClick())
-		{
-		update.action=NP_Constants.FIRE_WEAPON;
+		if (mouse.isLeftClick()) {
+			update.action = NP_Constants.FIRE_WEAPON;
 		}
-		
-		//reset key and mouse infos
+		if (actions.isJump()) {
+			update.action = NP_Constants.JUMP;
+		}
+
+		// reset key and mouse infos
 		mouse.resetPressedButtons();
 		actions.reset();
 	}

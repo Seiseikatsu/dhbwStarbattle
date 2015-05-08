@@ -7,6 +7,7 @@ public class PlayerInput {
 
 	private MovementControl movementControl=new MovementControl();
 	private boolean fireWeapon;
+	private boolean jump;
 
 	public PlayerInput() {
 
@@ -29,6 +30,9 @@ public class PlayerInput {
 		case NP_Constants.FIRE_WEAPON:
 			fireWeapon = true;
 			break;
+		case NP_Constants.JUMP:
+			jump = true;
+			break;
 		}
 
 	}
@@ -41,6 +45,11 @@ public class PlayerInput {
 	public void updateReset(float delta) {
 		movementControl.update(delta);
 		fireWeapon = false;
+		jump = false;
+	}
+	
+	public boolean isJump() {
+		return jump;
 	}
 
 	public boolean isFireWeapon() {
