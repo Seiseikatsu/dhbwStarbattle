@@ -2,6 +2,7 @@ package com.starbattle.client.connection;
 
 import com.starbattle.client.connection.listener.NetworkFriendListener;
 import com.starbattle.client.connection.listener.NetworkFriendRequestListener;
+import com.starbattle.client.connection.listener.NetworkGameListener;
 import com.starbattle.client.connection.listener.NetworkRegistrationListener;
 import com.starbattle.network.connection.objects.NP_ChatException;
 import com.starbattle.network.connection.objects.NP_ChatMessage;
@@ -10,12 +11,18 @@ import com.starbattle.network.connection.objects.NP_FriendUpdate;
 import com.starbattle.network.connection.objects.NP_LobbyFriends;
 import com.starbattle.network.connection.objects.NP_ServerStop;
 import com.starbattle.network.connection.objects.NP_StartAnswer;
+import com.starbattle.network.connection.objects.game.NP_GameEnd;
+import com.starbattle.network.connection.objects.game.NP_GameException;
+import com.starbattle.network.connection.objects.game.NP_GameStart;
+import com.starbattle.network.connection.objects.game.NP_GameUpdate;
+import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 
 public class NetworkObjectResolver {
 
 	private NetworkRegistrationListener registrationListener;
 	private NetworkFriendListener friendListener;
 	private NetworkFriendRequestListener friendRequestListener;
+	private NetworkGameListener gameListener;
 
 	public NetworkObjectResolver() {
 
@@ -31,6 +38,10 @@ public class NetworkObjectResolver {
 
 	public void setFriendRequestListener(NetworkFriendRequestListener friendRequestListener) {
 		this.friendRequestListener = friendRequestListener;
+	}
+
+	public void setGameListener(NetworkGameListener gameListener) {
+		this.gameListener = gameListener;
 	}
 
 	public void income(Object object) {
@@ -52,7 +63,18 @@ public class NetworkObjectResolver {
 			friendListener.receivedChatException((NP_ChatException) object);
 		} else if (object instanceof NP_FriendRequestAnswer) {
 			friendRequestListener.receivedFriendRequestAnswer((NP_FriendRequestAnswer) object);
-		} 
+		} else if (object instanceof NP_GameUpdate) {
+			gameListener.receivedGameUpdate((NP_GameUpdate) object);
+		} else if (object instanceof NP_GameStart) {
+			gameListener.receivedGameStart((NP_GameStart) object);
+		} else if (object instanceof NP_GameEnd) {
+			gameListener.receivedGameEnd((NP_GameEnd) object);
+		} else if (object instanceof NP_GameException) {
+			gameListener.receivedGameException((NP_GameException) object);
+		} else if (object instanceof NP_PrepareGame) {
+			gameListener.receivedPrepareGame((NP_PrepareGame) object);
+		}
+
 	}
 
 }

@@ -13,6 +13,7 @@ public class StarbattleGameControl implements StarbattleGame {
 	private BattleEndListener battleEndListener;
 	private BattleSettings battleSettings;
 	private List<BattleParticipant> battleParticipants;
+	private boolean running=false;
 
 	private GameContainer game;
 	private int gameID;
@@ -44,6 +45,7 @@ public class StarbattleGameControl implements StarbattleGame {
 			e.printStackTrace();
 		}
 		game.startGame();
+		running=true;
 	}
 
 	@Override
@@ -89,8 +91,13 @@ public class StarbattleGameControl implements StarbattleGame {
 	@Override
 	public void sendToAllPlayersUDP(Object object) {
 		for (BattleParticipant battleParticipant : battleParticipants) {
-			battleParticipant.getConnection().sendUDP(object);
+			battleParticipant.getConnection().sendTCP(object);
 		}
+	}
+
+	@Override
+	public boolean isRunning() {
+		return running;
 	}
 
 

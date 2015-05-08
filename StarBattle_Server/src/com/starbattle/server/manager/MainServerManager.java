@@ -2,16 +2,20 @@ package com.starbattle.server.manager;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.starbattle.network.connection.ConnectionListener;
+import com.starbattle.network.connection.objects.NP_CancelMatchQueue;
 import com.starbattle.network.connection.objects.NP_ChatMessage;
+import com.starbattle.network.connection.objects.NP_EnterMatchQueue;
 import com.starbattle.network.connection.objects.NP_FriendRequest;
 import com.starbattle.network.connection.objects.NP_HandleFriendRequest;
 import com.starbattle.network.connection.objects.NP_Login;
 import com.starbattle.network.connection.objects.NP_Logout;
 import com.starbattle.network.connection.objects.NP_Register;
 import com.starbattle.network.connection.objects.NP_ResetEmail;
+import com.starbattle.network.connection.objects.game.NP_ClientReady;
 import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
 import com.starbattle.network.server.NetworkServer;
 import com.starbattle.network.server.PlayerConnection;
+import com.starbattle.server.game.queue.MatchQueueManager;
 import com.starbattle.server.player.PlayerContainer;
 
 public class MainServerManager {
@@ -20,12 +24,14 @@ public class MainServerManager {
 	private PlayerManager playerManager;
 	private PlayerContainer playerContainer;
 	private GameManager gameManager;
+	private MatchQueueManager matchQueueManager;
 
 	public MainServerManager(NetworkServer server) {
 		this.server = server;
 		playerContainer = new PlayerContainer();
 		playerManager = new PlayerManager(playerContainer);
 		gameManager = new GameManager();
+		matchQueueManager = new MatchQueueManager(gameManager,playerContainer);
 	}
 
 	public ConnectionListener createListener() {
@@ -63,6 +69,7 @@ public class MainServerManager {
 	}
 
 	private void receivedObject(Connection connection, Object object) {
+	//	System.out.println("Server received: "+object);
 		PlayerConnection player = (PlayerConnection) connection;
 		if (object instanceof NP_Login) {
 			playerManager.tryLogin(player, (NP_Login) object);
@@ -80,17 +87,24 @@ public class MainServerManager {
 			playerManager.sendChat(player, (NP_ChatMessage) object);
 		} else if (object instanceof NP_PlayerUpdate) {
 			gameManager.receivedPlayerUpdate((NP_PlayerUpdate) object, player);
+		} else if (object instanceof NP_EnterMatchQueue) {
+			matchQueueManager.playerEnteredQueue(player, (NP_EnterMatchQueue) object);
+		} else if (object instanceof NP_CancelMatchQueue) {
+			matchQueueManager.playerLeftQueue(player);
+		} else if(object instanceof NP_ClientReady){		
+			gameManager.playerReady(player);
 		}
+		
 	}
 
 	public PlayerManager getPlayerManager() {
 		return playerManager;
 	}
-	
+
 	public PlayerContainer getPlayerContainer() {
 		return playerContainer;
 	}
-	
+
 	public GameManager getGameManager() {
 		return gameManager;
 	}

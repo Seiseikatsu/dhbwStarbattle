@@ -13,7 +13,7 @@ import com.starbattle.ingame.game.location.Location;
 import com.starbattle.ingame.game.viewport.Viewport;
 
 public class ParticleEffect {
-	private static final String path = "com/starbattle/ingame/game/particles/effects/";
+	private static final String path = "resource/particles/";
 	private ParticleSystem system;
 	private ArrayList<ParticleSystem> entities = new ArrayList<ParticleSystem>();
 

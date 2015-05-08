@@ -5,6 +5,15 @@ import java.util.ArrayList;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.starbattle.network.connection.objects.*;
+import com.starbattle.network.connection.objects.game.NP_ClientReady;
+import com.starbattle.network.connection.objects.game.NP_GameEnd;
+import com.starbattle.network.connection.objects.game.NP_GameException;
+import com.starbattle.network.connection.objects.game.NP_GameStart;
+import com.starbattle.network.connection.objects.game.NP_GameUpdate;
+import com.starbattle.network.connection.objects.game.NP_PlayerData;
+import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
+import com.starbattle.network.connection.objects.game.NP_PrepareGame;
+import com.starbattle.network.connection.objects.game.NP_TriggerEffect;
 
 public class NetworkRegister {
 
@@ -15,8 +24,11 @@ public class NetworkRegister {
 	
 	public NetworkRegister()
 	{
-		//add network classes to register 
+		//add network classes to register 		
 		addNetworkClass(ArrayList.class);
+		addNetworkClass(String[].class);
+		addNetworkClass(int[].class);
+		
 		addNetworkClass(NP_Login.class);
 		addNetworkClass(NP_Register.class);
 		addNetworkClass(NP_StartAnswer.class);
@@ -33,7 +45,21 @@ public class NetworkRegister {
 		addNetworkClass(NP_GameModesList.class);
 		addNetworkClass(NP_RequestGameModes.class);
 		addNetworkClass(NP_ServerStop.class);
+		addNetworkClass(NP_BattleResults.class);
+		addNetworkClass(NP_CancelMatchQueue.class);
+		addNetworkClass(NP_EnterMatchQueue.class);
+		addNetworkClass(NP_GameEnd.class);
+		addNetworkClass(NP_GameException.class);
+		addNetworkClass(NP_GameStart.class);
+		addNetworkClass(NP_GameUpdate.class);
+		addNetworkClass(NP_PrepareGame.class);
+		addNetworkClass(NP_TriggerEffect.class);
+		addNetworkClass(NP_PlayerUpdate.class);
+		addNetworkClass(NP_ClientReady.class);
+		addNetworkClass(NP_PlayerData.class);
 		
+		addNetworkClass(NP_PlayerData[].class);
+		addNetworkClass(NP_TriggerEffect[].class);
 	}
 	
 	public void register(EndPoint endPoint) {

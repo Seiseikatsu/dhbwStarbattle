@@ -8,7 +8,7 @@ import com.starbattle.ingame.resource.player.ResourceException;
 public class ParticleGraphics {
 
 	private Image plasmaBall;
-	public final static String PATH = ResourceContainer.PATH + "particles/";
+	public final static String PATH = ResourceContainer.PATH + "effects/";
 
 	public ParticleGraphics() {
 

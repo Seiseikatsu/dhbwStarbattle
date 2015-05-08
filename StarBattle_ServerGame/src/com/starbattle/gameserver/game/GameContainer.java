@@ -21,9 +21,14 @@ public class GameContainer {
 
 	public GameContainer(BattleInitialization init) throws ServerMapException {
 
+		System.out.println("Init Game Container:");
+		
 		// load map
+		System.out.println("Load Map...");
 		serverMap = new ServerMap(init.getBattleSettings().getMapName());
+	
 		// init mode
+		System.out.println("Load Mode...");
 		gameMode = init.getBattleSettings().getMode();
 		// create collision mapping
 		CollisionDetection collisionDetection = new CollisionDetection(serverMap.getCollisionMap());
@@ -37,6 +42,7 @@ public class GameContainer {
 		control.setMapBorder(serverMap.getMapBorder());
 
 		// init players
+		System.out.println("Load Players...");
 		playerList.setRespawnListener(new PlayerRespawnListener() {
 			@Override
 			public void playerRespawned(GamePlayer player) {
@@ -55,6 +61,7 @@ public class GameContainer {
 		playerList.initSpawn(serverMap.getSpawnPoints());
 		// start game mode
 		gameMode.onGameInit(this);
+		System.out.println("GameContainer started!");
 	}
 
 	public void updateGame(float delta) {

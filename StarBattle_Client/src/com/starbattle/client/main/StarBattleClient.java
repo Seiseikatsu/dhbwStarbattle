@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.connection.NetworkConnectionListener;
+import com.starbattle.client.game.InGameClientControl;
 import com.starbattle.client.main.error.BugSplashDialog;
 import com.starbattle.client.main.error.ConnectionErrorListener;
 import com.starbattle.client.resource.ClientConfiguration;
@@ -36,6 +37,7 @@ public class StarBattleClient {
 	private LoadingWindow loadingWindow;
 	private boolean shutdown = false;
 	public static Dimension windowSize=new Dimension(1000,600);
+	public static InGameClientControl inGameClient;
 	
 	public StarBattleClient() {
 		//load needed resource for windows 
@@ -66,6 +68,8 @@ public class StarBattleClient {
 		ClientConfiguration.loadConfiguration();
 		loadingWindow.loadProgress();
 
+		
+		
 		// create network connection
 		connection = new NetworkConnection(new NetworkConnectionHandler());
 		loadingWindow.loadProgress();
@@ -74,8 +78,10 @@ public class StarBattleClient {
 		window.addView(new ConnectionErrorView(new ConnectionErrorHandler()));
 		loadingWindow.loadProgress();
 		try {
-
-			connection.start("localhost", NetworkRegister.TCP_PORT,NetworkRegister.UDP_PORT);
+			
+			String ip=ClientConfiguration.get().getProperty("server");
+			connection.start(ip, NetworkRegister.TCP_PORT,NetworkRegister.UDP_PORT);
+			inGameClient=new InGameClientControl(this);
 			loadingWindow.loadProgress();
 			openWindow();
 

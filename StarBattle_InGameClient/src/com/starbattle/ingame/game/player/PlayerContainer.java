@@ -19,6 +19,7 @@ public class PlayerContainer {
 	}
 
 	public void init(NP_PrepareGame init) {
+	
 		int playerSize = init.playerNames.length;
 		for (int i = 0; i < playerSize; i++) {
 			String name = init.playerNames[i];

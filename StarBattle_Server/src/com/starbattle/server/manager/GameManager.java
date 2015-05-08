@@ -17,8 +17,10 @@ import com.starbattle.server.game.GameModeContainer;
 
 public class GameManager {
 
-	private GameModeContainer gameModes=new GameModeContainer();
+	private GameModeContainer gameModes = new GameModeContainer();
 	private HashMap<Integer, StarbattleGame> games = new HashMap<Integer, StarbattleGame>();
+	private HashMap<Integer, GameLoading> gameLoader = new HashMap<Integer, GameLoading>();
+
 	private GameLoop gameLoop, updateLoop;
 	private int gameIdCount;
 
@@ -55,41 +57,70 @@ public class GameManager {
 		}
 	}
 
-	public void openGame(BattleInitialization battleInitialization) {
+	public void playerReady(PlayerConnection player) {
+		int gameID = player.getGameID();
+		if (gameLoader.containsKey(gameID)) {
+			// tell gameLoader player has finished loading
+			gameLoader.get(gameID).playerFinishedLoading(player);
+		}
+	}
 
-		final StarbattleGame game = new StarbattleGameControl(gameIdCount);
-		game.startBattle(battleInitialization, new BattleEndListener() {
+	public int openGame(final BattleInitialization battleInitialization) {
+
+		final int gameID = gameIdCount;
+		Thread openGameThread = new Thread(new Runnable() {
+
 			@Override
-			public void battleError() {
+			public void run() {
 
-				removeGame(game);
-			}
+				final StarbattleGame game = new StarbattleGameControl(gameID);
+				game.startBattle(battleInitialization, new BattleEndListener() {
+					@Override
+					public void battleError() {
 
-			@Override
-			public void battleEnd(BattleResults results) {
+						removeGame(gameID);
+					}
 
-				removeGame(game);
+					@Override
+					public void battleEnd(BattleResults results) {
+
+						removeGame(gameID);
+					}
+				});
+
+				// add game
+				games.put(gameID, game);
+				// create loader
+				GameLoading loader = new GameLoading(battleInitialization);
+				gameLoader.put(gameID, loader);
+				gameIdCount++;
 			}
 		});
-		gameIdCount++;
+		openGameThread.start();
+		return gameID;
 	}
 
 	private void updateGames(double delta) {
 		for (StarbattleGame game : games.values()) {
-			game.updateGame(delta);
+			if (game.isRunning()) {
+				game.updateGame(delta);
+			}
 		}
 	}
 
 	private void sendGameUpdates() {
 		for (StarbattleGame game : games.values()) {
-			NP_GameUpdate update = game.getGameUpdate();
-			// send to all players from the game
-			game.sendToAllPlayersUDP(update);
+			if (game.isRunning()) {
+				NP_GameUpdate update = game.getGameUpdate();
+				// send to all players from the game
+				game.sendToAllPlayersUDP(update);
+			}
 		}
 	}
 
-	private void removeGame(StarbattleGame game) {
-		games.remove(game);
+	private void removeGame(int id) {
+		gameLoader.remove(id);
+		games.remove(id);
 	}
 
 	public void close() {
@@ -98,12 +129,12 @@ public class GameManager {
 		updateLoop.stop();
 	}
 
-	public int getNumberOfGames()
-	{
+	public int getNumberOfGames() {
 		return games.size();
 	}
-	
+
 	public GameModeContainer getGameModes() {
 		return gameModes;
 	}
+
 }

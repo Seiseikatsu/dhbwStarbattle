@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="/StarBattle_ServerGame/bin"/>
 	<classpathentry kind="lib" path="/StarBattle_Network/bin"/>
 	<classpathentry kind="lib" path="src/kryonet-2.21-all.jar"/>
+	<classpathentry kind="lib" path="src/slick.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -6,6 +6,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.starbattle.client.connection.listener.NetworkCommunctionListener;
 import com.starbattle.client.connection.listener.NetworkFriendListener;
 import com.starbattle.client.connection.listener.NetworkFriendRequestListener;
+import com.starbattle.client.connection.listener.NetworkGameListener;
 import com.starbattle.client.connection.listener.NetworkRegistrationListener;
 import com.starbattle.network.client.NetworkClient;
 import com.starbattle.network.client.SendServerConnection;
@@ -30,11 +31,16 @@ public class NetworkConnection {
 		client.setConnectionListener(new Listener());
 		client.connect(ip, tcp_port, udp_port);
 	}
+	
 
 	public void setNetworkCommunctionListener(NetworkCommunctionListener networkCommunctionListener) {
 		this.networkCommunctionListener = networkCommunctionListener;
 	}
 
+	public void setGameListener(NetworkGameListener gameListener) {
+		this.networkObjectResolver.setGameListener(gameListener);
+	}
+	
 	public void setRegistrationListener(NetworkRegistrationListener listener) {
 		networkObjectResolver.setRegistrationListener(listener);
 	}

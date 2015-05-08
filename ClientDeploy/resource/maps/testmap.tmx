@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="50" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="Game" tilewidth="64" tileheight="64">
+  <image source="../tilesets/gameset.png" width="1024" height="1024"/>
+ </tileset>
+ <tileset firstgid="257" name="blocks" tilewidth="64" tileheight="64">
+  <image source="../tilesets/blocks.png" width="1024" height="1024"/>
+ </tileset>
+ <layer name="blocks" width="100" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2aTU7DMBCFcQPZl5+yLgvEBTgja1bcjPOQSFgMrj2e8d9M0nnSk6qkcZz3xY5jZ3I3N9PiPejObd+T8VBlCR4Py/kegZ9cfDvcR5F0lj15HJdt9504Te7Sqe2r51/nJJ1lTx7nZdsLksHB/ZkqzxfjEavfNfHwvkXcSp4v5E/hseo5Ug94T8wKMtTOI1Wuz/jo2vKIKdUHUi3FI5Vn2Kdgil1LjIUv61zJAyq1fyQPimp5cM6Xa3ez+/8sCPn04DG7S686ZsorbR9U5cp5Z5RVqjAT6vjKH4uNH7g8zsp59NIbo2ysX2zJA3NYFyke30wmJePdnDAeuf4q9TzXymNV7Pje7+awfcDr5nK8Fh4tFZvvgPMeIQ9O+0rxyI13Y/+nSIqHbyNYXxHL7mP5/Rn8v3ZsWdJf9eBxcNvj8VXAo+YaSse7XPnrDOvcQxjX2D3q65bKL+SRKmsrPOB9J80jzBLWj5ohxri2jZeOd6GwZxbcp4mHhCka9f7hXcuDMlaRzr2WBybI4wR+S/Cgjh2lcx/FIzzOeOjhUaqauYdr5sF9/6CKw6P0GqVzNx7840bly1Uu773y0Cr4fIitJUk+P0pylby3WwjmHVtLMh7jRJl7lOJBzfXkyo7TqFZzxBy15vFawSO31j9aEjwoqrm3OTxya/0j1GMNpbVG8OixLl6iWh5hf51TybfKJTywOfM98wj765zCb5VjGVAzjPHwvLk8tKhXf8XNtMZQnveWeKS+H94qj9ZMRwr7ntt4jJfxKOPRg1uuTi3HutL5SrajVucyHsZjazYeumw8dNl46LJWHqPqpM1b5CGdmfEwHsbDeOx1rsR4bNeaeaSYSGdG8Q+vAx/dIE4AAA==
+  </data>
+ </layer>
+ <layer name="Game" width="100" height="50" opacity="0.86">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2a4WrDMAyE47Xv/8xbGYM2LI4kS7qzrQNDCrV0p88O/dF2HEc71lBbaK0g9AyLx6fQM5yVx1X/UY/oGUbyePyspzC7VsXDl9Wo2un5jkevzo7LKklNTx5aD8zLmtea/aWv02fv86D1lHFumXn0PkfysO7zYiKpn6ERHlavvbup3bcajztJ76qlpnaes/GIYDlST8KRiUevR5Yi+67CI1MR50FbR/M91P24qyftZ83glUn6fU3NHXkwKdOjdkZab7PzyPboxUNyj7x5eMymVwNxZqzzil5a74jMWkn2oec+ykOqdnrO5iHdh557Fo+IzNaeGd5m4mGVhcN57448rGdY0k/jzZIRPffiod+XNV+t7uquyqP0q2geyLPtrUdCj+JxLYRfaX3re3xVHlE5ise1EDw8fI3sfa/R+19iliwMVuTBcldGeWT4t/RnztNTNo/zO+G/Gh79Z2LwrigWHpwtHv5+o8/EI2oWUT2ymWYqKwd6vsUjtg+aRwS3zAzo+aK4IbMzeioeXJ6KB5en4sHlqXhwedqVB6Mnhtyo7Gx+GHIj87P5YciNzM/mhyE3Oj+bn+LB5Wd3Hlf+0DOTrG/V0uAJIE4AAA==
+  </data>
+ </layer>
+ <layer name="overlay" width="100" height="50">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3RQQ2AQBAEwT1JWMAC/r1ggR+du6pk/pP0TM+1Zu6Pe9bfb/emRYcWHVp0aNGhRYcWHVq0aNGiRYsWLVq0aNGiBQAAAAAAAAAAAAAAAABwihcIYL1OIE4AAA==
+  </data>
+ </layer>
+</map>

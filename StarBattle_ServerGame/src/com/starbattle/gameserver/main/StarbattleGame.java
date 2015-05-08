@@ -19,4 +19,6 @@ public interface StarbattleGame {
 	
 	public void sendToAllPlayersUDP(Object object);
 	
+	public boolean isRunning();
+	
 }
