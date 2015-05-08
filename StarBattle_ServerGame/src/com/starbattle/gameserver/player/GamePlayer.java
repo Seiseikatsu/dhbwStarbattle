@@ -115,6 +115,7 @@ public class GamePlayer {
 		playerMovement.writeMovementData(data);
 		data.health = attributes.getHealth().getHealthPercent();
 		data.alive = isAlive();
+		data.points=attributes.getPoints();
 		data.weapon_id=weapons.getSelectedWeapon();
 		if (respawnTimer.isRunning()) {
 			data.respawnTime = (byte) respawnTimer.getRespawnTime();

@@ -11,13 +11,14 @@ public class PlayerDisplay {
 	private PlayerGraphics graphic;
 	private boolean lookingLeft = false;
 	private boolean isVisible = true;
-
+	
 	public PlayerDisplay() {
 
 		graphic = PlayerGraphics.ASTRONAUT;
 		rotation = new float[BodyRotation.values().length];
 
 	}
+	
 
 	public void setVisible(boolean isVisible) {
 		this.isVisible = isVisible;
@@ -65,7 +66,7 @@ public class PlayerDisplay {
 		if (yspeed < 0) {
 
 			// wenn hochspringt
-			rotation[4] += xspeed * 10;
+			rotation[4] += xspeed * 3.5;
 		} else if (yspeed > 0) {
 			float rr = rotation[4];
 			float dd = 1f;
@@ -74,6 +75,8 @@ public class PlayerDisplay {
 			} else if (rr < 0) {
 				rotation[4] += dd;
 			}
+		} else {
+			rotation[4] = 0;
 		}
 
 		int i = BodyRotation.RIGHT_FOOT_ANGLE.getRotationArrayIndex();

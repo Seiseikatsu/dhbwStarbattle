@@ -3,6 +3,7 @@ package com.starbattle.ingame.render;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 
 import com.starbattle.ingame.game.location.Location;
 import com.starbattle.ingame.game.player.PlayerContainer;
@@ -41,10 +42,24 @@ public class HudRender {
 	public void renderHud(Graphics g, PlayerObject player) {
 		float x = 485;
 		float y = 8;
-		if (player.getHealth() > 0) {
-			airBarRender.render(g, x, y, player.getHealth());
-		} else {
+		if (player.getHealth() <= 0) {
+
 			killscreenRender.renderKillScreen(g, player.getRespawnTime());
+		}
+
+		Font font = g.getFont();
+
+		airBarRender.render(g, x, y, player.getHealth());
+		int points = player.getPoints().getPoints();
+		g.setColor(new Color(255, 255, 255));
+		String text = "" + points;
+		g.drawString(text, x + 460 - font.getWidth(text), y + 43);
+		
+		int nr=player.getPoints().getPlace();
+		if(nr!=-1)
+		{
+		Image medal=resourceContainer.getHudGraphics().getMedal(nr);
+		medal.draw(x+360, y+36);
 		}
 	}
 
@@ -58,4 +73,5 @@ public class HudRender {
 		g.setColor(new Color(255, 255, 255));
 		g.drawString(name, xp, yp);
 	}
+
 }

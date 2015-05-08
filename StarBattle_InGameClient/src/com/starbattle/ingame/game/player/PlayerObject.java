@@ -14,6 +14,7 @@ public class PlayerObject {
 	private float xspeed, yspeed;
 	private float health=1;
 	private int respawnTime;
+	private PlayerPoints points=new PlayerPoints();
 
 	public PlayerObject(String name, int team) {
 		this.name = name;
@@ -36,6 +37,7 @@ public class PlayerObject {
 		this.xspeed = data.xspeed;
 		this.yspeed = data.yspeed;
 		this.respawnTime=data.respawnTime;
+		this.points.setPoints(data.points);
 		location.jumpTo(data.xpos, data.ypos);
 	}
 
@@ -76,5 +78,9 @@ public class PlayerObject {
 	
 	public int getRespawnTime() {
 		return respawnTime;
+	}
+	
+	public PlayerPoints getPoints() {
+		return points;
 	}
 }

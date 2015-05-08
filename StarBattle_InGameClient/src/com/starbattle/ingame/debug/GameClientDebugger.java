@@ -10,7 +10,8 @@ public class GameClientDebugger {
 
 		PlayerList player = new PlayerList();
 		player.addTestPlayer("TimoTester", "SuperTimo");
-		//player.addTestPlayer("HansHelfer", "SuperHans");
+		player.addTestPlayer("HansHelfer", "SuperHans");
+		//player.addTestPlayer("Pibi", "Bobo");
 
 		GameDebugger debugger = new GameDebugger();
 		debugger.create(player);
