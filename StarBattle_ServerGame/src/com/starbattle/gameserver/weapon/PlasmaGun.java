@@ -11,7 +11,7 @@ import com.starbattle.network.connection.objects.game.NP_TriggerEffect;
 
 public class PlasmaGun extends Weapon {
 
-	private float damage=10;
+	private float damage=5;
 	
 	public PlasmaGun(GamePlayer player, GameControl gameControl, ProjectileEmitter emitter) {
 		super(player, gameControl, emitter);
@@ -20,7 +20,7 @@ public class PlasmaGun extends Weapon {
 		init(20, 5);
 		// schüsse werden ständig automatisch neugeladen (damit man immer eine
 		// basis waffe hat mit munition)
-		setAutoReload(100);
+		setAutoReload(50);
 	}
 
 	@Override

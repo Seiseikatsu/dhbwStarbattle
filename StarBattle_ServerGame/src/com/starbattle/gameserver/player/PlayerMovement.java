@@ -61,18 +61,22 @@ public class PlayerMovement {
 		data.yspeed = objectMovement.getMovementY();
 
 		// trigger jump effect animation when jumping in air
-		
-		
-		if (objectMovement.objectJumped()&&standardMovement.getUsedJumps()>1) {
-			NP_TriggerEffect effect = EffectTriggerFactory.createEffect(pos, TriggerEffects.JUMP_ANIMATION, 0,gamePlayer);
+
+		if (objectMovement.objectJumped()) {
+			NP_TriggerEffect effect;
+			// trigger ground or air jump effect
+			if (standardMovement.getUsedJumps() > 1) {
+				effect = EffectTriggerFactory.createEffect(pos, TriggerEffects.AIR_JUMP, 0, gamePlayer);
+			} else {
+				effect = EffectTriggerFactory.createEffect(pos, TriggerEffects.GROUND_JUMP, 0, gamePlayer);
+			}
 			effectTrigger.triggerEffect(effect);
 		}
 
 		objectMovement.resetMovementInfo();
 	}
-	
-	public Location getLocation()
-	{
+
+	public Location getLocation() {
 		return objectMovement.getLocation();
 	}
 

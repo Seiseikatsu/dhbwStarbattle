@@ -24,6 +24,22 @@ public class WeaponInventar {
 		weapons.add(new PlasmaGun(player, gameControl, emitter));
 	}
 
+	public void resetOnDeath() {
+		// reset standardweapon ammo to full
+		// drop every other weapon ammo
+		weapons.get(0).reloadFull();
+		for (int i = 1; i < weapons.size(); i++) {
+			weapons.get(i).dropAmmo();
+		}
+	}
+
+	public void update(float delta) {
+		int anz = weapons.size();
+		for (int i = 0; i < anz; i++) {
+			weapons.get(i).update(delta);
+		}
+	}
+
 	public void switchWeapon(boolean forward) {
 		int select = selectedWeapon;
 		int anz = weapons.size();
@@ -56,12 +72,17 @@ public class WeaponInventar {
 	// fires current selected weapon
 	public void fireWeapon() {
 		Weapon weapon = weapons.get(selectedWeapon);
-		//if (weapon.canFire()) {
+		if (weapon.canFire()) {
 			weapon.fire();
-		//}
+		}
 	}
 
 	public int getSelectedWeapon() {
 		return selectedWeapon;
+	}
+
+	public int getCurrentAmmo() {
+		Weapon weapon = weapons.get(selectedWeapon);
+		return weapon.getAmmo();
 	}
 }

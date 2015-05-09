@@ -60,7 +60,9 @@ public class PlayerRender extends RenderResource {
 		}
 		PlayerGraphics graphics = display.getGraphic();
 		float weaponAngle=player.getWeaponAngle();
-		render(g, location, graphics, WeaponGraphics.PLASMA_GUN, display,weaponAngle);
+		int wid=player.getWeaponID();
+		WeaponGraphics weapon=WeaponGraphics.values()[wid];
+		render(g, location, graphics, weapon, display,weaponAngle);
 	}
 	
 

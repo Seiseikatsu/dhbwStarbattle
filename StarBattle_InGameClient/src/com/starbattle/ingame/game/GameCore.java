@@ -122,6 +122,8 @@ public class GameCore {
 		return map;
 	}
 	
-
+	public ResourceContainer getResourceContainer() {
+		return resourceContainer;
+	}
 
 }

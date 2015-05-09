@@ -5,6 +5,7 @@ import com.starbattle.ingame.game.bullets.BulletsContainer;
 import com.starbattle.ingame.game.location.Location;
 import com.starbattle.ingame.game.particles.ParticleContainer;
 import com.starbattle.ingame.game.player.PlayerObject;
+import com.starbattle.ingame.resource.SoundContainer;
 import com.starbattle.network.connection.objects.game.NP_TriggerEffect;
 import com.starbattle.network.connection.objects.constant.TriggerEffects;
 
@@ -31,39 +32,54 @@ public class TriggerEffectsProcessor {
 		float y = effect.ypos;
 		int source = effect.source_id;
 		float angle = effect.direction_angle;
+		Location effectLocation = new Location(x, y);
 
 		switch (id) {
-		case JUMP_ANIMATION:
-			showAnimation("JumpEffect", x, y);
+		case GROUND_JUMP:
+			playSound("jump", effectLocation);
+			break;
+		case AIR_JUMP:
+			showAnimation("JumpEffect", effectLocation);
+			playSound("jump", effectLocation);
 			break;
 		case PLASMA_GUN_SHOT:
 			// show gun firing
 			PlayerObject player = gameCore.getPlayers().getPlayer(source);
 			player.getDisplay().firedWeapon();
-			showAnimation("PlasmaGun", x, y, angle);
-			fireBullet(BulletDesign.PLASMA_GUN_BULLET, x, y, angle, 0.4f);
+			showAnimation("PlasmaGun", effectLocation, angle);
+			fireBullet(BulletDesign.PLASMA_GUN_BULLET, effectLocation, angle, 0.4f);
+			playSound("lazer", effectLocation);
 			break;
 		case DEATH_ANIMATION:
-			showAnimation("Death", x, y);
+			showAnimation("Death", effectLocation);
+			playSound("explosion", effectLocation);
 			break;
 		case DAMAGE_HIT:
-			showAnimation("Damage", x, y);
+			showAnimation("Damage", effectLocation);
+			playSound("hit", effectLocation);
 			break;
 		}
 	}
 
-	private void fireBullet(BulletDesign design, float x, float y, float angle, float speed) {
+	private void playSound(String name, Location soundLocation) {
+		Location myLocation = gameCore.getPlayers().getMyPlayer().getLocation();
+		SoundContainer sounds = gameCore.getResourceContainer().getSounds();
+		float volume = sounds.getSoundVolume(myLocation, soundLocation);
+		sounds.playSound(name, volume);
+	}
+
+	private void fireBullet(BulletDesign design, Location location, float angle, float speed) {
 		BulletsContainer bullets = gameCore.getBulletsContainer();
-		bullets.spawnBullet(new Location(x, y), design, angle, speed);
+		bullets.spawnBullet(location, design, angle, speed);
 	}
 
-	private void showAnimation(String animation, float x, float y) {
+	private void showAnimation(String animation, Location location) {
 		ParticleContainer particleContainer = gameCore.getParticleContainer();
-		particleContainer.spawnEffect(animation, new Location(x, y));
+		particleContainer.spawnEffect(animation, location);
 	}
 
-	private void showAnimation(String animation, float x, float y, float angle) {
+	private void showAnimation(String animation, Location location, float angle) {
 		ParticleContainer particleContainer = gameCore.getParticleContainer();
-		particleContainer.spawnEffect(animation, new Location(x, y), angle);
+		particleContainer.spawnEffect(animation, location, angle);
 	}
 }

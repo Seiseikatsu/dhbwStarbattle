@@ -15,6 +15,8 @@ public class PlayerObject {
 	private float health=1;
 	private int respawnTime;
 	private PlayerPoints points=new PlayerPoints();
+	private int ammo;
+	private int weaponID;
 
 	public PlayerObject(String name, int team) {
 		this.name = name;
@@ -38,6 +40,8 @@ public class PlayerObject {
 		this.yspeed = data.yspeed;
 		this.respawnTime=data.respawnTime;
 		this.points.setPoints(data.points);
+		this.ammo=data.ammo;
+		this.weaponID=data.weapon_id;
 		location.jumpTo(data.xpos, data.ypos);
 	}
 
@@ -61,6 +65,10 @@ public class PlayerObject {
 		return team;
 	}
 
+	public int getAmmo() {
+		return ammo;
+	}
+	
 	public void updateWeaponAngle(MouseCursor mouseCursor) {
 		this.weaponangle = mouseCursor.getWeaponAnlge();
 		// update facing direction
@@ -82,5 +90,9 @@ public class PlayerObject {
 	
 	public PlayerPoints getPoints() {
 		return points;
+	}
+
+	public int getWeaponID() {
+		return weaponID;
 	}
 }

@@ -18,6 +18,7 @@ public class ResourceContainer {
 	private HudGraphics hudGraphics = new HudGraphics();
 	private ParticleGraphics particleGraphics=new ParticleGraphics();
 	private FontContainer fonts=new FontContainer();
+	private SoundContainer sounds=new SoundContainer();
 
 	public ResourceContainer() {
 
@@ -30,6 +31,7 @@ public class ResourceContainer {
 		hudGraphics.load();
 		particleGraphics.load();
 		loadWeaponGraphics();
+		sounds.loadSounds();
 	}
 
 	private void loadPlayerGraphics() throws ResourceException {
@@ -78,5 +80,9 @@ public class ResourceContainer {
 
 	public FontContainer getFonts() {
 		return fonts;
+	}
+	
+	public SoundContainer getSounds() {
+		return sounds;
 	}
 }

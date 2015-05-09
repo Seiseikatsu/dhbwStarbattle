@@ -1,5 +1,7 @@
 package com.starbattle.ingame.game.location;
 
+import java.awt.Point;
+
 public class Location {
 
 	private float xpos, ypos;
@@ -66,5 +68,11 @@ public class Location {
 	public void movePolar(float angle, float speed) {
 		xpos += Math.cos(angle) * speed;
 		ypos += Math.sin(angle) * speed;
+	}
+
+	public float getDistanceTo(Location location) {
+		float x=location.getXpos();
+		float y=location.getYpos();
+		return (float) Point.distance(x, y, xpos, ypos);
 	}
 }

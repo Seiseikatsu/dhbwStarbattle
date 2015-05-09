@@ -27,6 +27,7 @@ public abstract class Weapon {
 
 	protected void init(int ammo, float fireDelay) {
 		this.ammo = ammo;
+		this.maxAmmo=ammo;
 		this.fireDelay = fireDelay;
 	}
 
@@ -56,8 +57,8 @@ public abstract class Weapon {
 
 	public void reload(int ammo) {
 		this.ammo += ammo;
-		if (ammo > maxAmmo) {
-			ammo = maxAmmo;
+		if (this.ammo > maxAmmo) {
+			this.ammo = maxAmmo;
 		}
 	}
 
@@ -85,4 +86,7 @@ public abstract class Weapon {
 		return false;
 	}
 
+	public int getAmmo() {
+		return ammo;
+	}
 }

@@ -11,6 +11,7 @@ public class NP_PlayerData {
 	public byte respawnTime;
 	public int points;
 	public int weapon_id;
+	public int ammo;
 	public float weapon_anlge;
 	
 }

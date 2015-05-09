@@ -40,11 +40,13 @@ public class GamePlayer {
 		playerMovement = new PlayerMovement(playerInput, this, control.getCollisionDetection(), effectTrigger);
 		weapons = new WeaponInventar(this, control);
 
-		collisionShape=new Ellipse(0,0,0.25f,1.2f);
+		collisionShape=new Ellipse(0,0,0.25f,0.6f);
 		
 		attributes.getHealth().setHealthListener(new HealthListener() {
 			@Override
 			public void playerKilled() {
+				//reset weapons ammo
+				weapons.resetOnDeath();
 				// trigger death animation
 				NP_TriggerEffect effect = EffectTriggerFactory.createEffect(getLocation(),
 						TriggerEffects.DEATH_ANIMATION, 0, GamePlayer.this);
@@ -79,6 +81,7 @@ public class GamePlayer {
 	}
 
 	public void update(float delta) {
+		weapons.update(delta);
 		if (isAlive()) {
 			playerMovement.update(delta);
 			Location l=getLocation();
@@ -126,6 +129,7 @@ public class GamePlayer {
 		data.alive = isAlive();
 		data.points=attributes.getPoints();
 		data.weapon_id=weapons.getSelectedWeapon();
+		data.ammo=weapons.getCurrentAmmo();
 		if (respawnTimer.isRunning()) {
 			data.respawnTime = (byte) respawnTimer.getRespawnTime();
 		}

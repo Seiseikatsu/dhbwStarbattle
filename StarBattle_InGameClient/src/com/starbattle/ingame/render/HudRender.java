@@ -11,6 +11,7 @@ import com.starbattle.ingame.game.player.PlayerObject;
 import com.starbattle.ingame.game.viewport.Viewport;
 import com.starbattle.ingame.render.hud.AirBarRender;
 import com.starbattle.ingame.resource.ResourceContainer;
+import com.starbattle.ingame.resource.WeaponGraphics;
 
 public class HudRender {
 
@@ -55,6 +56,16 @@ public class HudRender {
 		g.setColor(new Color(255, 255, 255));
 		String text = "" + points;
 		g.drawString(text, x + 460 - font.getWidth(text), y + 41);
+		
+		int ammo=player.getAmmo();
+		text = "" + ammo;
+		g.drawString(text, x + 325 - font.getWidth(text), y + 41);
+		
+		int wid=player.getWeaponID();
+		WeaponGraphics weaponGraphic=WeaponGraphics.values()[wid];
+		Image weapon=resourceContainer.getWeaponGraphics(weaponGraphic).getSprite(0, 0);
+		int wh=weapon.getHeight();
+		weapon.draw(x+220, y+50-wh/2);
 		
 		int nr=player.getPoints().getPlace();
 		if(nr!=-1)
