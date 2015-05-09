@@ -47,13 +47,14 @@ public class HudRender {
 			killscreenRender.renderKillScreen(g, player.getRespawnTime());
 		}
 
-		Font font = g.getFont();
-
+		Font font = resourceContainer.getFonts().getTinyText();
+		g.setFont(font);
+		
 		airBarRender.render(g, x, y, player.getHealth());
 		int points = player.getPoints().getPoints();
 		g.setColor(new Color(255, 255, 255));
 		String text = "" + points;
-		g.drawString(text, x + 460 - font.getWidth(text), y + 43);
+		g.drawString(text, x + 460 - font.getWidth(text), y + 41);
 		
 		int nr=player.getPoints().getPlace();
 		if(nr!=-1)

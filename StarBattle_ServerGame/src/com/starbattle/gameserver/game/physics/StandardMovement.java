@@ -5,7 +5,7 @@ import com.starbattle.gameserver.game.input.PlayerInput;
 
 public class StandardMovement extends MovementType {
 
-	private float movementSpeed = 0.1f;
+	private float movementSpeed = 0.12f;
 	private float jumpSpeed = 7f;
 
 	private static float minimumJumpTime = 0.0f;

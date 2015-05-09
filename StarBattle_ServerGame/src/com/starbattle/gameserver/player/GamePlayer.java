@@ -1,5 +1,8 @@
 package com.starbattle.gameserver.player;
 
+import org.newdawn.slick.geom.Ellipse;
+import org.newdawn.slick.geom.Shape;
+
 import com.starbattle.gameserver.game.EffectTrigger;
 import com.starbattle.gameserver.game.EffectTriggerFactory;
 import com.starbattle.gameserver.game.action.Damage;
@@ -28,6 +31,7 @@ public class GamePlayer {
 	private Jetpack jetpack = new Jetpack();
 	private EffectTrigger effectTrigger;
 	private WeaponInventar weapons;
+	private Shape collisionShape;
 
 	public GamePlayer(String playerName, int playerID, GameControl control) {
 		this.effectTrigger = control.getEffectTrigger();
@@ -36,6 +40,8 @@ public class GamePlayer {
 		playerMovement = new PlayerMovement(playerInput, this, control.getCollisionDetection(), effectTrigger);
 		weapons = new WeaponInventar(this, control);
 
+		collisionShape=new Ellipse(0,0,0.25f,1.2f);
+		
 		attributes.getHealth().setHealthListener(new HealthListener() {
 			@Override
 			public void playerKilled() {
@@ -75,6 +81,9 @@ public class GamePlayer {
 	public void update(float delta) {
 		if (isAlive()) {
 			playerMovement.update(delta);
+			Location l=getLocation();
+			collisionShape.setCenterX(l.getXpos());
+			collisionShape.setCenterY(l.getYpos());
 		}
 	}
 
@@ -129,6 +138,10 @@ public class GamePlayer {
 
 	public boolean isAlive() {
 		return !attributes.getHealth().isDead();
+	}
+
+	public Shape getCollisionShape() {
+		return collisionShape;
 	}
 
 }

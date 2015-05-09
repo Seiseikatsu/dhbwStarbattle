@@ -2,6 +2,7 @@ package com.starbattle.gameserver.battle.projectile;
 
 import org.newdawn.slick.geom.Shape;
 
+import com.starbattle.gameserver.game.EffectTrigger;
 import com.starbattle.gameserver.game.action.Damage;
 import com.starbattle.gameserver.game.physics.Location;
 import com.starbattle.gameserver.player.GamePlayer;
@@ -12,17 +13,19 @@ public abstract class Projectile {
 	protected Location location;
 	protected GamePlayer source;
 	protected float fireAngle;
+	protected EffectTrigger effectTrigger;
 	
 	
-	public Projectile(GamePlayer source, Location location, float fireAngle) {
+	public Projectile(GamePlayer source, Location location, float fireAngle, EffectTrigger effectTrigger) {
 		this.source=source;
 		this.fireAngle=fireAngle;
-		this.location=location;
+		this.location=location.copy();
+		this.effectTrigger=effectTrigger;
 	}
 	
 	public abstract void update(float delta);
 	
-	public abstract Damage calcDamage(GamePlayer target);
+	public abstract Damage onHit(GamePlayer target);
 	
 	public Location getLocation() {
 		return location;
@@ -31,5 +34,8 @@ public abstract class Projectile {
 	public Shape getCollisonShape() {
 		return collisonShape;
 	}
-	
+
+	public GamePlayer getSource() {
+		return source;
+	}
 }

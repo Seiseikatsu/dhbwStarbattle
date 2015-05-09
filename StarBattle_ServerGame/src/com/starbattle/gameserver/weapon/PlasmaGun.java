@@ -11,6 +11,8 @@ import com.starbattle.network.connection.objects.game.NP_TriggerEffect;
 
 public class PlasmaGun extends Weapon {
 
+	private float damage=10;
+	
 	public PlasmaGun(GamePlayer player, GameControl gameControl, ProjectileEmitter emitter) {
 		super(player, gameControl, emitter);
 
@@ -25,8 +27,9 @@ public class PlasmaGun extends Weapon {
 	protected void onFiring(Location location, float fireAngle) {
 
 		// create simple projectile
-		float speed = 1;
-		SimpleBullet projectile = new SimpleBullet(owner, location, fireAngle, speed);
+		float speed = 0.4f;
+		SimpleBullet projectile = new SimpleBullet(owner, location, fireAngle, speed,effectTrigger);
+		projectile.setDamage(damage);
 		emitter.spawnProjectile(projectile);
 		
 		// trigger effect for players

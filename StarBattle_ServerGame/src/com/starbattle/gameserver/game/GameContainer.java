@@ -40,7 +40,7 @@ public class GameContainer {
 
 		// init battlefield
 		MapBorder mapBorder = serverMap.getMapBorder();
-		battleField = new BattleField(mapBorder);
+		battleField = new BattleField(mapBorder,playerList,gameMode);
 
 		// create game control interface for player objects to control the game actions
 		GameControl control = new GameControl();
@@ -74,6 +74,7 @@ public class GameContainer {
 
 	public void updateGame(float delta) {
 
+		battleField.update(delta);
 		for (GamePlayer player : playerList.getPlayers()) {
 			player.update(delta);
 			// check for player falling out of map
@@ -88,7 +89,7 @@ public class GameContainer {
 					// inform game mode
 					gameMode.onFallingOutOfMap(player);
 				}
-			}
+			}		
 		}
 	}
 

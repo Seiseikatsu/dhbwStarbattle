@@ -4,7 +4,8 @@ public enum TriggerEffects {
 
 	JUMP_ANIMATION,
 	PLASMA_GUN_SHOT,
-	DEATH_ANIMATION;
+	DEATH_ANIMATION,
+	DAMAGE_HIT;
 	
 	
 }

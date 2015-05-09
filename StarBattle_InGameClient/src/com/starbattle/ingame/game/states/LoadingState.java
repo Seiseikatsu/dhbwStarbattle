@@ -1,5 +1,6 @@
 package com.starbattle.ingame.game.states;
 
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -56,7 +57,13 @@ public class LoadingState extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		// draw loading screen
+		
+		int cx=Display.getWidth()/2;
+		int cy=Display.getHeight()/2;
+		String t="Loading...";
+		
 		g.drawString("Loading...", 10, 30);
+		
 	}
 
 	@Override
@@ -68,7 +75,7 @@ public class LoadingState extends BasicGameState {
 			try {
 				System.out.println("Load Resources...");
 				resourceContainer.loadResources();
-
+				resourceContainer.getFonts().setSystemFont(container.getDefaultFont());
 				manager.initGame(prepareGame);
 
 				// load map

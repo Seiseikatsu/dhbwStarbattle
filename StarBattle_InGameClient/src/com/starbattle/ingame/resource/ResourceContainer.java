@@ -17,12 +17,14 @@ public class ResourceContainer {
 	private BackgroundGraphics backgroundGraphics = new BackgroundGraphics();
 	private HudGraphics hudGraphics = new HudGraphics();
 	private ParticleGraphics particleGraphics=new ParticleGraphics();
+	private FontContainer fonts=new FontContainer();
 
 	public ResourceContainer() {
 
 	}
 
 	public void loadResources() throws ResourceException {
+		fonts.loadFonts();
 		loadPlayerGraphics();
 		backgroundGraphics.load();
 		hudGraphics.load();
@@ -74,4 +76,7 @@ public class ResourceContainer {
 		return particleGraphics;
 	}
 
+	public FontContainer getFonts() {
+		return fonts;
+	}
 }

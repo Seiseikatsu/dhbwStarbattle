@@ -20,10 +20,10 @@ public class WeaponInventar {
 
 	private void createStandardInventar(GamePlayer player, GameControl gameControl) {
 		// add all weapons
-		ProjectileEmitter emitter=gameControl.getProjectileEmitter();
+		ProjectileEmitter emitter = gameControl.getProjectileEmitter();
 		weapons.add(new PlasmaGun(player, gameControl, emitter));
 	}
-	
+
 	public void switchWeapon(boolean forward) {
 		int select = selectedWeapon;
 		int anz = weapons.size();
@@ -53,12 +53,13 @@ public class WeaponInventar {
 		selectedWeapon = 0;
 	}
 
-	//fires current selected weapon
+	// fires current selected weapon
 	public void fireWeapon() {
-		weapons.get(selectedWeapon).fire();
+		Weapon weapon = weapons.get(selectedWeapon);
+		//if (weapon.canFire()) {
+			weapon.fire();
+		//}
 	}
-
-
 
 	public int getSelectedWeapon() {
 		return selectedWeapon;

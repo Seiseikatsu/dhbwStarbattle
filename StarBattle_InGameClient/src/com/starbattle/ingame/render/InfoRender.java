@@ -1,6 +1,7 @@
 package com.starbattle.ingame.render;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
 
 import com.starbattle.ingame.game.GameManager;
@@ -22,6 +23,8 @@ public class InfoRender {
 
 	public void render(Graphics g) {
 		if (InGameClient.DEBUG_MODE) {
+			Font font=game.getResourceContainer().getFonts().getDefaultFont();
+			g.setFont(font);
 			g.setColor(new Color(1f, 1f, 1f));
 			y = 30;
 			drawDebug(g, "Ping", GameNetwork.getPing());
