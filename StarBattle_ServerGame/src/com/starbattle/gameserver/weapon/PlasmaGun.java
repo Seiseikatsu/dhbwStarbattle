@@ -27,7 +27,7 @@ public class PlasmaGun extends Weapon {
 	protected void onFiring(Location location, float fireAngle) {
 
 		// create simple projectile
-		float speed = 0.4f;
+		float speed = 0.75f;
 		SimpleBullet projectile = new SimpleBullet(owner, location, fireAngle, speed,effectTrigger);
 		projectile.setDamage(damage);
 		emitter.spawnProjectile(projectile);

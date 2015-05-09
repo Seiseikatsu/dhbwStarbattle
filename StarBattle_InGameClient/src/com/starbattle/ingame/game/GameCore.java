@@ -15,6 +15,7 @@ import com.starbattle.ingame.game.viewport.Viewport;
 import com.starbattle.ingame.render.GameRender;
 import com.starbattle.ingame.render.HudRender;
 import com.starbattle.ingame.render.RenderResource;
+import com.starbattle.ingame.render.RenderSettings;
 import com.starbattle.ingame.resource.ResourceContainer;
 import com.starbattle.network.connection.objects.game.NP_GameUpdate;
 import com.starbattle.network.connection.objects.game.NP_PrepareGame;
@@ -31,13 +32,20 @@ public class GameCore {
 	private TriggerEffectsProcessor triggerEffectsProcessor;
 	private PlayerInput playerInput;
 	private HudRender hudRender;
-
+	
+	
 	public GameCore(ResourceContainer resources) {
 		this.resourceContainer = resources;
 		hudRender = new HudRender(resources);
 		gameRender = new GameRender(resources, this);
 		triggerEffectsProcessor = new TriggerEffectsProcessor(this);
 	
+	}
+	
+	public void setRenderSettings(RenderSettings renderSettings)
+	{
+		gameRender.setRenderSettings(renderSettings);
+		particleContainer.setRenderSettings(renderSettings);
 	}
 
 	public void start() {

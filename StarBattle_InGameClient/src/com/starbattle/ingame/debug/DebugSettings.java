@@ -14,6 +14,7 @@ public class DebugSettings extends GameclientSettings
         setGraphicSettings(GraphicSettings.High);
         setMusicVolume(0.5f);
         setSoundOff(false);
+        setMusicOff(true);
         setSoundVolume(0.7f);
         setWindowResolution(WindowResolution.Res1024x768);
     }

@@ -17,6 +17,7 @@ public class GameRender {
 	private PlayerRender playerRender;
 	private GameCore game;
 	private BulletRender bulletRender;
+	private RenderSettings renderSettings;
 
 	public GameRender(ResourceContainer resourceContainer, GameCore gameCore) {
 		debugRender = new DebugRender(resourceContainer);
@@ -44,5 +45,9 @@ public class GameRender {
 		}
 		// debugRender.render(g);
 	
+	}
+
+	public void setRenderSettings(RenderSettings renderSettings) {
+		this.renderSettings=renderSettings;
 	}
 }

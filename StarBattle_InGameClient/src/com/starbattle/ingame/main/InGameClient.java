@@ -26,13 +26,13 @@ public class InGameClient implements GameClientConnection {
 
 	}
 
-	private void doGameSettings() throws SlickException {
+	private RenderSettings doGameSettings() throws SlickException {
 		// Set Window Resolution
 		int screenWidht = settings.getWindowResolution().getScreenWidth();
 		int screenHeight = settings.getWindowResolution().getScreenHeight();
 		boolean fullscreen = settings.isFullscreenMode();
 		gameContainer.setDisplayMode(screenWidht, screenHeight, fullscreen);
-
+	
 		// Sound Settings
 		gameContainer.setMusicOn(!settings.isMusicOff());
 		gameContainer.setSoundOn(!settings.isSoundOff());
@@ -46,7 +46,7 @@ public class InGameClient implements GameClientConnection {
 		gameContainer.setSmoothDeltas(renderSettings.isSmoothDeltas());
 
 		gameContainer.setShowFPS(DEBUG_MODE);
-
+		return renderSettings;
 	}
 
 	@Override
@@ -61,7 +61,8 @@ public class InGameClient implements GameClientConnection {
 			gameContainer = new AppGameContainer(gameInit);
 
 			this.settings = settings;
-			doGameSettings();
+			RenderSettings renderSettings=doGameSettings();
+			manager.getGameCore().setRenderSettings(renderSettings);
 			// start
 			gameContainer.start();
 		} catch (SlickException e) {

@@ -1,5 +1,6 @@
 package com.starbattle.ingame.render;
 
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
 import org.newdawn.slick.Graphics;
@@ -41,7 +42,7 @@ public class HudRender {
 	float air = 1f;
 
 	public void renderHud(Graphics g, PlayerObject player) {
-		float x = 485;
+		float x = Display.getWidth()-550;
 		float y = 8;
 		if (player.getHealth() <= 0) {
 
@@ -49,6 +50,7 @@ public class HudRender {
 		}
 
 		Font font = resourceContainer.getFonts().getTinyText();
+		
 		g.setFont(font);
 		
 		airBarRender.render(g, x, y, player.getHealth());

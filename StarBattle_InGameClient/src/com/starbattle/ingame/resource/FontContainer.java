@@ -3,6 +3,7 @@ package com.starbattle.ingame.resource;
 import java.awt.Font;
 
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.UnicodeFont;
 
 import com.starbattle.ingame.resource.player.ResourceException;
 

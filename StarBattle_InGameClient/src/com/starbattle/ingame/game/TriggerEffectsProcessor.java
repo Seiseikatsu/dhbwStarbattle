@@ -47,7 +47,7 @@ public class TriggerEffectsProcessor {
 			PlayerObject player = gameCore.getPlayers().getPlayer(source);
 			player.getDisplay().firedWeapon();
 			showAnimation("PlasmaGun", effectLocation, angle);
-			fireBullet(BulletDesign.PLASMA_GUN_BULLET, effectLocation, angle, 0.4f);
+			fireBullet(BulletDesign.PLASMA_GUN_BULLET, effectLocation, angle, 0.75f);
 			playSound("lazer", effectLocation);
 			break;
 		case DEATH_ANIMATION:
