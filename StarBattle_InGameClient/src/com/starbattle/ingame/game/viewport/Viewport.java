@@ -18,6 +18,10 @@ public class Viewport {
 	public void view(PlayerObject player) {
 		location.jumpTo(player.getLocation());
 	}
+	
+	public void view(Location location) {
+		this.location.jumpTo(location);
+	}
 
 	public void scoll(float x, float y) {
 		location.move(x, y);
@@ -53,5 +57,7 @@ public class Viewport {
 	public String toString() {
 		return "Viewport  @ "+location.toString();
 	}
+
+	
 
 }

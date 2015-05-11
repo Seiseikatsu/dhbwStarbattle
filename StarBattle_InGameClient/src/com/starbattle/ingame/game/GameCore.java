@@ -11,6 +11,7 @@ import com.starbattle.ingame.game.map.GameMap;
 import com.starbattle.ingame.game.particles.ParticleContainer;
 import com.starbattle.ingame.game.player.PlayerContainer;
 import com.starbattle.ingame.game.player.PlayerObject;
+import com.starbattle.ingame.game.viewport.PlayerWatcher;
 import com.starbattle.ingame.game.viewport.Viewport;
 import com.starbattle.ingame.render.GameRender;
 import com.starbattle.ingame.render.HudRender;
@@ -32,10 +33,12 @@ public class GameCore {
 	private TriggerEffectsProcessor triggerEffectsProcessor;
 	private PlayerInput playerInput;
 	private HudRender hudRender;
+	private PlayerWatcher playerWatcher;
 	
 	
 	public GameCore(ResourceContainer resources) {
 		this.resourceContainer = resources;
+		playerWatcher=new PlayerWatcher(players);
 		hudRender = new HudRender(resources);
 		gameRender = new GameRender(resources, this);
 		triggerEffectsProcessor = new TriggerEffectsProcessor(this);
@@ -86,7 +89,18 @@ public class GameCore {
 		// focus viewport to my player
 
 		PlayerObject player = players.getMyPlayer();
-		viewport.view(player);
+		if(playerWatcher.isWatchingPlayer())
+		{
+			Location location=playerWatcher.getWatchingLocation();
+			//create lost soul effect
+			particleContainer.spawnEffect("WallHit", location);
+			viewport.view(location);
+		}
+		else
+		{
+			viewport.view(player);	
+
+		}
 
 		// update my weapon angle
 		player.updateWeaponAngle(playerInput.getMouseCursor());
@@ -104,12 +118,16 @@ public class GameCore {
 	public void receiveUpdate(NP_GameUpdate message) {
 
 		players.update(message.playerData);
-		triggerEffectsProcessor.processEffects(message.triggerEffect);
+
 		// update viewport
-		viewport.view(players.getMyPlayer());
+		triggerEffectsProcessor.processEffects(message.triggerEffect);
 
 	}
 
+	public TriggerEffectsProcessor getTriggerEffectsProcessor() {
+		return triggerEffectsProcessor;
+	}
+	
 	public PlayerContainer getPlayers() {
 		return players;
 	}
@@ -132,6 +150,10 @@ public class GameCore {
 	
 	public ResourceContainer getResourceContainer() {
 		return resourceContainer;
+	}
+	
+	public PlayerWatcher getPlayerWatcher() {
+		return playerWatcher;
 	}
 
 }

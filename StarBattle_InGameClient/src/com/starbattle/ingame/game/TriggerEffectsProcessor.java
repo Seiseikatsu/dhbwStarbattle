@@ -52,6 +52,11 @@ public class TriggerEffectsProcessor {
 			playSound("lazer", effectLocation);
 			break;
 		case DEATH_ANIMATION:
+			 player = gameCore.getPlayers().getPlayer(source);
+			if(player == gameCore.getPlayers().getMyPlayer())
+			{
+				gameCore.getPlayerWatcher().onDeath();
+			}
 			showAnimation("Death", effectLocation);
 			playSound("explosion", effectLocation);
 			break;
@@ -60,7 +65,7 @@ public class TriggerEffectsProcessor {
 			playSound("hit", effectLocation);
 			break;
 		case REMOVE_BULLET:
-			showAnimation("Damage", effectLocation);
+			showAnimation("WallHit", effectLocation);
 			
 			gameCore.getBulletsContainer().removeBullet(source);
 			break;

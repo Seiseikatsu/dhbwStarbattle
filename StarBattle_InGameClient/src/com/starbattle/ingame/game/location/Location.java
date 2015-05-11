@@ -75,4 +75,8 @@ public class Location {
 		float y=location.getYpos();
 		return (float) Point.distance(x, y, xpos, ypos);
 	}
+
+	public Location copy() {
+		return new Location(this);
+	}
 }

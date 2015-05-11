@@ -19,12 +19,14 @@ public class KillscreenRender extends RenderResource{
 		g.fillRect(0,0,screenWidth,screenHeight);
 			
 		g.setColor(new Color(1f,1f,1f));
-		String text="Respawn in";
+		String text="R.I.P";
 		Font font=resourceContainer.getFonts().getBigText();
 		g.setFont(font);
-		float y=screenHeight/2-60;
+		float y=screenHeight/2+50;
 		g.drawString(text,screenWidth/2-font.getWidth(text)/2,y);
-		text=""+respawnTime;
+		text="Reborn in: "+respawnTime;
+		 font=resourceContainer.getFonts().getMediumText();
+		g.setFont(font);
 		y+=60;
 		g.drawString(text,screenWidth/2-font.getWidth(text)/2,y);
 		

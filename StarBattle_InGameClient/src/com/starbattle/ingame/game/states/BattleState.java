@@ -17,44 +17,42 @@ public class BattleState extends BasicGameState {
 	private GameManager manager;
 	private InfoRender infoRender;
 	private NP_GameUpdate update;
-	
+
 	public BattleState(GameManager manager) {
 		this.manager = manager;
-		infoRender=new InfoRender(manager);
+		infoRender = new InfoRender(manager);
 	}
 
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
-		
+
 		super.enter(container, game);
-		//set mouse cursor
-		Image cursor=manager.getResourceContainer().getHudGraphics().getCursor();
+		// set mouse cursor
+		Image cursor = manager.getResourceContainer().getHudGraphics().getCursor();
 		container.setMouseCursor(cursor, 12, 12);
 		manager.getNetwork().setReceiveListener(new ObjectReceiveListener() {
-			
+
 			@Override
 			public void updateGame(NP_GameUpdate message) {
-				//store update 
-				update=message;
+				// store update
+				update = message;
 			}
-			
+
 			@Override
 			public void startGame() {
-				
+				//no function, game already running
 			}
 		});
 		manager.getGameCore().start();
 	}
-	
-	private void doGameUpdates()
-	{
-		if(update!=null)
-		{
-		manager.getGameCore().receiveUpdate(update);
-		update=null;
+
+	private void doGameUpdates() {
+		if (update != null) {
+			manager.getGameCore().receiveUpdate(update);
+			update = null;
 		}
 	}
-	
+
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
 
@@ -64,16 +62,17 @@ public class BattleState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		manager.getGameCore().renderGame(g);
 		infoRender.render(g);
-		
-		//do game updates after render to prevent changing of locations while rendering 
+
+		// do game updates after render to prevent changing of locations while
+		// rendering
 		doGameUpdates();
-		
+
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame arg1, int delta) throws SlickException {
 
-		//update game
+		// update game
 		manager.getGameCore().updateGame(delta);
 	}
 

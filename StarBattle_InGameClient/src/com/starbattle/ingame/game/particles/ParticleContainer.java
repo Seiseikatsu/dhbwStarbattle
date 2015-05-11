@@ -23,6 +23,8 @@ public class ParticleContainer {
 		effects.put("PlasmaGun", new ParticleEffect("shotPlasmaGun"));
 		effects.put("Death", new ParticleEffect("death"));
 		effects.put("Damage", new ParticleEffect("test"));
+		effects.put("WallHit", new ParticleEffect("wallHit"));
+		
 	}
 
 	private boolean canSpawnEffect() {

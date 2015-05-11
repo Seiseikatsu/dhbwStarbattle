@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="/" kind="src" path="src">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Tools/src/natives"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="src/libs/ibxm.jar"/>
+	<classpathentry kind="lib" path="src/libs/jinput.jar"/>
+	<classpathentry kind="lib" path="src/libs/jnlp.jar"/>
+	<classpathentry kind="lib" path="src/libs/jogg-0.0.7.jar"/>
+	<classpathentry kind="lib" path="src/libs/jorbis-0.0.15.jar"/>
+	<classpathentry kind="lib" path="src/libs/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="src/libs/lwjgl.jar"/>
+	<classpathentry kind="lib" path="src/libs/slick.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

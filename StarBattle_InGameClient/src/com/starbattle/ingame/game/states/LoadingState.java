@@ -1,8 +1,10 @@
 package com.starbattle.ingame.game.states;
 
 import org.lwjgl.opengl.Display;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -10,6 +12,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import com.starbattle.ingame.game.GameCore;
 import com.starbattle.ingame.game.GameManager;
 import com.starbattle.ingame.network.ObjectReceiveListener;
+import com.starbattle.ingame.resource.BackgroundGraphics;
 import com.starbattle.ingame.resource.ResourceContainer;
 import com.starbattle.ingame.resource.player.ResourceException;
 import com.starbattle.network.connection.objects.game.NP_ClientReady;
@@ -23,11 +26,17 @@ public class LoadingState extends BasicGameState {
 	private boolean finishedLoading = false;
 	private boolean openGame = false;
 	private NP_PrepareGame prepareGame;
+	private Image background;
 
 	public LoadingState(GameManager manager, NP_PrepareGame prepareGame) {
 		this.manager = manager;
 		this.resourceContainer = manager.getResourceContainer();
 		this.prepareGame = prepareGame;
+		try {
+			background=new Image(BackgroundGraphics.PATH+"loadingScreen.jpg");
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -39,7 +48,7 @@ public class LoadingState extends BasicGameState {
 
 			@Override
 			public void updateGame(NP_GameUpdate message) {
-				// not used here
+				// not used here, because game is loading and not started
 			}
 
 			@Override
@@ -57,11 +66,10 @@ public class LoadingState extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 		// draw loading screen
-		
 		int cx=Display.getWidth()/2;
 		int cy=Display.getHeight()/2;
-		String t="Loading...";
-		
+		background.drawCentered(cx, cy);
+		g.setColor(new Color(1f,1f,1f));
 		g.drawString("Loading...", 10, 30);
 		
 	}
