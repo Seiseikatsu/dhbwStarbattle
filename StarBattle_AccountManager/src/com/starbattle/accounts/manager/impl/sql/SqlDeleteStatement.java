@@ -41,7 +41,8 @@ public class SqlDeleteStatement extends SqlStatement {
 		for (int i = 0; i < values.length; i++) {
 			preparedStatement.setObject(1 + i, values[i]);
 		}
-		preparedStatement.execute();
+		preparedStatement.executeUpdate();
+		System.out.println(preparedStatement.toString());
 		return preparedStatement.getResultSet();
 	
 	}

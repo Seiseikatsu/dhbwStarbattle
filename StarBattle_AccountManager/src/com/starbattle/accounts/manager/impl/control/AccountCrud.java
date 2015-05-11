@@ -21,8 +21,6 @@ public class AccountCrud extends DataController {
 		super(databaseControl);
 	}
 
-	private DatabaseControl databaseControl;
-
 	public void registerAccount(PlayerAccount account) throws AccountException {
 		try {
 
@@ -30,7 +28,7 @@ public class AccountCrud extends DataController {
 			insertAccount.insert(AccountTable.class);
 			insertAccount.into(AccountTable.NAME, AccountTable.PASSWORD, AccountTable.EMAIL);
 			insertAccount.values(account.getName(), account.getPassword(), account.getEmail());
-			ResultSet results = insertAccount.execute(databaseControl);
+			ResultSet results = insertAccount.execute(databaseControl, true);
 
 			int accountId = 0;
 			if (results.next()) {
@@ -70,21 +68,23 @@ public class AccountCrud extends DataController {
 				j++;
 			}
 
-			SqlDeleteStatement delete = new SqlDeleteStatement();
-			delete.from(PlayerTable.class);
-			delete.where(PlayerTable.ACCOUNT_ID);
-			delete.values(accountID);
-			delete.execute(databaseControl);
+			SqlDeleteStatement deletePlayer = new SqlDeleteStatement();
+			deletePlayer.from(PlayerTable.class);
+			deletePlayer.where(PlayerTable.ACCOUNT_ID);
+			deletePlayer.values(accountID);
+			deletePlayer.execute(databaseControl);
+			
+			SqlDeleteStatement deleteFriend = new SqlDeleteStatement();
+			deleteFriend.from(FriendTable.class);
+			deleteFriend.where(FriendTable.ACCOUNT_ID);
+			deleteFriend.values(accountID);
+			deleteFriend.execute(databaseControl);
 
-			delete.from(FriendTable.class);
-			delete.where(FriendTable.ACCOUNT_ID);
-			delete.values(accountID);
-			delete.execute(databaseControl);
-
-			delete.from(AccountTable.class);
-			delete.where(AccountTable.ACCOUNT_ID);
-			delete.values(accountID);
-			delete.execute(databaseControl);
+			SqlDeleteStatement deleteAccount = new SqlDeleteStatement();
+			deleteAccount.from(AccountTable.class);
+			deleteAccount.where(AccountTable.ACCOUNT_ID);
+			deleteAccount.values(accountID);
+			deleteAccount.execute(databaseControl);
 
 		} catch (SQLException e) {
 			throw new AccountException("SQL Failure", e);
