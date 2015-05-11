@@ -7,11 +7,19 @@ public class BulletObject {
 	private BulletDesign bulletDesign;
 	private Location location;
 	private float angle,speed;
+	private int bulletID;
 	
-	public BulletObject(BulletDesign bulletDesign, Location location) {
+	public BulletObject(BulletDesign bulletDesign, Location location, int bulletID) {
 		
 		this.bulletDesign=bulletDesign;
 		this.location=location;
+		this.bulletID=bulletID;
+	}
+	
+	
+	
+	public int getBulletID() {
+		return bulletID;
 	}
 	
 	public void setMovement(float angle, float speed)

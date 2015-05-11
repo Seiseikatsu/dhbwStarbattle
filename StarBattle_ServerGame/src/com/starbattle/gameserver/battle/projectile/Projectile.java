@@ -14,6 +14,7 @@ public abstract class Projectile {
 	protected GamePlayer source;
 	protected float fireAngle;
 	protected EffectTrigger effectTrigger;
+	protected int id;
 	
 	
 	public Projectile(GamePlayer source, Location location, float fireAngle, EffectTrigger effectTrigger) {
@@ -21,6 +22,14 @@ public abstract class Projectile {
 		this.fireAngle=fireAngle;
 		this.location=location.copy();
 		this.effectTrigger=effectTrigger;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public int getId() {
+		return id;
 	}
 	
 	public abstract void update(float delta);
@@ -37,5 +46,9 @@ public abstract class Projectile {
 
 	public GamePlayer getSource() {
 		return source;
+	}
+	
+	public float getFireAngle() {
+		return fireAngle;
 	}
 }

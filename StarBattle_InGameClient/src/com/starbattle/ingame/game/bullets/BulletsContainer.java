@@ -3,10 +3,14 @@ package com.starbattle.ingame.game.bullets;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 import com.starbattle.ingame.game.location.Location;
 import com.starbattle.ingame.game.map.GameMap;
+import com.starbattle.ingame.game.player.PlayerContainer;
+import com.starbattle.ingame.game.player.PlayerObject;
 
 public class BulletsContainer {
 
@@ -19,8 +23,8 @@ public class BulletsContainer {
 
 	}
 
-	public void spawnBullet(Location location, BulletDesign design, float angle, float speed) {
-		BulletObject bullet = new BulletObject(design, location);
+	public void spawnBullet(int id, Location location, BulletDesign design, float angle, float speed) {
+		BulletObject bullet = new BulletObject(design, location, id);
 		bullet.setMovement(angle, speed);
 		bullets.add(bullet);
 	}
@@ -47,8 +51,19 @@ public class BulletsContainer {
 	}
 
 	public void createBorder(GameMap map) {
-		int w = map.getWidth() + BORDER_SIZE*2;
-		int h = map.getHeight() + BORDER_SIZE*2;
+		int w = map.getWidth() + BORDER_SIZE * 2;
+		int h = map.getHeight() + BORDER_SIZE * 2;
 		border = new Rectangle(-BORDER_SIZE, -BORDER_SIZE, w, h);
 	}
+
+	public void removeBullet(int id) {
+		for (int i = 0; i < bullets.size(); i++) {
+			BulletObject bullet = bullets.get(i);
+			if (bullet.getBulletID() == id) {
+				bullets.remove(i);
+				return;
+			}
+		}
+	}
+
 }

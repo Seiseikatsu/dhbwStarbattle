@@ -20,7 +20,7 @@ public class PlasmaGun extends Weapon {
 		init(20, 5);
 		// schüsse werden ständig automatisch neugeladen (damit man immer eine
 		// basis waffe hat mit munition)
-		setAutoReload(50);
+		setAutoReload(5);
 	}
 
 	@Override
@@ -30,10 +30,11 @@ public class PlasmaGun extends Weapon {
 		float speed = 0.75f;
 		SimpleBullet projectile = new SimpleBullet(owner, location, fireAngle, speed,effectTrigger);
 		projectile.setDamage(damage);
-		emitter.spawnProjectile(projectile);
+		int projectileID=emitter.spawnProjectile(projectile);
 		
 		// trigger effect for players
 		NP_TriggerEffect effect = EffectTriggerFactory.createEffect(location, TriggerEffects.PLASMA_GUN_SHOT, fireAngle,owner);
+		effect.extra_id=projectileID;
 		effectTrigger.triggerEffect(effect);
 	}
 

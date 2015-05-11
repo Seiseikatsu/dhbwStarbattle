@@ -28,14 +28,14 @@ public class GameDebugger {
 
 
 	
-	public void create(PlayerList player) throws GameClientException
+	public void create(String mapName, PlayerList player) throws GameClientException
 	{
 		this.playerList=player;
 		// start server
 		server = new ServerGameDebug();
 
 		SendClientsConnection sendClientsConnection = new SendToClients();
-		BattleInitialization init = BattleInitDebug.createInit(player, sendClientsConnection);
+		BattleInitialization init = BattleInitDebug.createInit(mapName, player, sendClientsConnection);
 		server.setSendClientsConnection(sendClientsConnection);
 	
 		// start clients

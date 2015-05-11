@@ -47,7 +47,8 @@ public class TriggerEffectsProcessor {
 			PlayerObject player = gameCore.getPlayers().getPlayer(source);
 			player.getDisplay().firedWeapon();
 			showAnimation("PlasmaGun", effectLocation, angle);
-			fireBullet(BulletDesign.PLASMA_GUN_BULLET, effectLocation, angle, 0.75f);
+			int bulletID=effect.extra_id;
+			fireBullet(BulletDesign.PLASMA_GUN_BULLET, effectLocation, angle, 0.75f,bulletID);
 			playSound("lazer", effectLocation);
 			break;
 		case DEATH_ANIMATION:
@@ -58,8 +59,15 @@ public class TriggerEffectsProcessor {
 			showAnimation("Damage", effectLocation);
 			playSound("hit", effectLocation);
 			break;
+		case REMOVE_BULLET:
+			showAnimation("Damage", effectLocation);
+			
+			gameCore.getBulletsContainer().removeBullet(source);
+			break;
 		}
 	}
+	
+
 
 	private void playSound(String name, Location soundLocation) {
 		Location myLocation = gameCore.getPlayers().getMyPlayer().getLocation();
@@ -68,9 +76,9 @@ public class TriggerEffectsProcessor {
 		sounds.playSound(name, volume);
 	}
 
-	private void fireBullet(BulletDesign design, Location location, float angle, float speed) {
+	private void fireBullet(BulletDesign design, Location location, float angle, float speed, int id) {
 		BulletsContainer bullets = gameCore.getBulletsContainer();
-		bullets.spawnBullet(location, design, angle, speed);
+		bullets.spawnBullet(id,location, design, angle, speed);
 	}
 
 	private void showAnimation(String animation, Location location) {

@@ -36,8 +36,8 @@ public class SimpleBullet extends Projectile {
 	@Override
 	public void update(float delta) {
 		//linear movement
-		location.moveX(xSpeed);
-		location.moveY(ySpeed);
+		location.moveX(xSpeed*delta);
+		location.moveY(ySpeed*delta);
 		//update collision shape
 		collisonShape.setCenterX(location.getXpos());
 		collisonShape.setCenterY(location.getYpos());

@@ -65,4 +65,11 @@ public class CollisionDetection {
 		boolean blocked= collisionMap.isTileBlocked(tileX,tileY);		
 		return blocked;
 	}
+
+
+
+	public boolean locationInBlock(Location location) {
+		
+		return isBlocked(location.getXpos(), location.getYpos());
+	}
 }

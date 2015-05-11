@@ -40,7 +40,7 @@ public class GamePlayer {
 		playerMovement = new PlayerMovement(playerInput, this, control.getCollisionDetection(), effectTrigger);
 		weapons = new WeaponInventar(this, control);
 
-		collisionShape=new Ellipse(0,0,0.25f,0.6f);
+		collisionShape=new Ellipse(0,0,0.18f,0.55f);
 		
 		attributes.getHealth().setHealthListener(new HealthListener() {
 			@Override

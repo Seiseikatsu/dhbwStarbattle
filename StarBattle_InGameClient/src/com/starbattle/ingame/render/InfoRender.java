@@ -61,8 +61,8 @@ public class InfoRender {
 			for (int i = 0; i < nr; i++) {
 				player = game.getGameCore().getPlayers().getPlayer(i);
 				Location l = player.getLocation();
-
-				drawDebug(g, i + "", player.getName() + " / Team: " + player.getTeam()+" / Points: "+player.getPoints().getPoints() + " @ " + l.getXpos() + " x "
+				int health=(int)( player.getHealth()*100);
+				drawDebug(g, i + "", player.getName() + " / Team: " + player.getTeam()+" / Points: "+player.getPoints().getPoints()+" H: "+health + " @ " + l.getXpos() + " x "
 						+ l.getYpos());
 
 			}

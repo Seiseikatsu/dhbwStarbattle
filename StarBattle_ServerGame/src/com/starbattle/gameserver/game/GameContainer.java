@@ -38,17 +38,17 @@ public class GameContainer {
 		gameUpdate = new GameConnection(this);
 		EffectTrigger effectTrigger = gameUpdate.createEffectTrigger();
 
-		// init battlefield
 		MapBorder mapBorder = serverMap.getMapBorder();
-		battleField = new BattleField(mapBorder,playerList,gameMode);
-
-		// create game control interface for player objects to control the game actions
+		// create game control interface for player objects to control the game
+		// actions
 		GameControl control = new GameControl();
 		control.setCollisionDetection(collisionDetection);
 		control.setEffectTrigger(effectTrigger);
 		control.setMapBorder(mapBorder);
+		// init battlefield
+		battleField = new BattleField(playerList, gameMode, control);
 		control.setProjectileEmitter(battleField.createEmitter());
-
+		
 		// init players
 		System.out.println("Load Players...");
 		playerList.setRespawnListener(new PlayerRespawnListener() {
@@ -89,7 +89,7 @@ public class GameContainer {
 					// inform game mode
 					gameMode.onFallingOutOfMap(player);
 				}
-			}		
+			}
 		}
 	}
 

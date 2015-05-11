@@ -16,10 +16,10 @@ public class BattleInitDebug {
 
 	public final static int GAME_ID = 0;
 
-	public static BattleInitialization createInit(PlayerList player, SendClientsConnection sendConnection) {
+	public static BattleInitialization createInit(String mapName,PlayerList player, SendClientsConnection sendConnection) {
 
 		BattleSettings settings = new BattleSettings();
-		settings.setMapName("testmap");
+		settings.setMapName(mapName);
 		settings.setGameMode(new TeamDeathMatch(100));
 
 		List<BattleParticipant> battleParticipants = new ArrayList<BattleParticipant>();
