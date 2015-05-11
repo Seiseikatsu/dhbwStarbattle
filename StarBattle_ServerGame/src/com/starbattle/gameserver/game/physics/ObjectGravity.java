@@ -27,12 +27,12 @@ public class ObjectGravity {
 	private boolean objectJumped=false;
 
 	public ObjectGravity(ObjectMovement objectMovement) {
-		setG_factor(GravityValues.ERDE);
+		setG_factor(GravityValues.ERDE.getGravity());
 		this.objectMovement = objectMovement;
 	}
 
-	public void setG_factor(GravityValues gravity) {
-		this.g_factor = gravity.getGravity();
+	public void setG_factor(float gravity) {
+		this.g_factor = gravity;
 	}
 
 	public void update(float delta) {

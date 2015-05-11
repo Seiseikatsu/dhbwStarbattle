@@ -148,4 +148,11 @@ public class GamePlayer {
 		return collisionShape;
 	}
 
+	public WeaponInventar getWeapons() {
+		return weapons;
+	}
+	
+	public PlayerMovement getPlayerMovement() {
+		return playerMovement;
+	}
 }

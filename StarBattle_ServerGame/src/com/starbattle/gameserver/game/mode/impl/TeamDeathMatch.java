@@ -1,5 +1,6 @@
 package com.starbattle.gameserver.game.mode.impl;
 
+import com.starbattle.gameserver.game.Team;
 import com.starbattle.gameserver.game.action.Damage;
 import com.starbattle.gameserver.game.item.GameItem;
 import com.starbattle.gameserver.game.mode.GameMode;
@@ -7,7 +8,6 @@ import com.starbattle.gameserver.player.GamePlayer;
 
 public class TeamDeathMatch extends GameMode {
 
-	private int pointLimit;
 	private int respawnTime = 5;
 
 	public TeamDeathMatch(int pointLimit) {
@@ -55,6 +55,11 @@ public class TeamDeathMatch extends GameMode {
 	@Override
 	public void onSuffocation(GamePlayer player) {
 		defaultKillPlayer(player, 1);
+	}
+
+	@Override
+	public Team[] initTeams(int players) {
+		return defaultTeamsInit(players);
 	}
 
 }

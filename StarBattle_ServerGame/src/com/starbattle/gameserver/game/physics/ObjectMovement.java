@@ -143,4 +143,8 @@ public class ObjectMovement {
 		return gravity.isObjectJumped();
 	}
 
+	public void setGravity(float gravity2) {
+		this.gravity.setG_factor(gravity2);
+	}
+
 }

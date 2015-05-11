@@ -56,22 +56,12 @@ public class GameInitializationFactory {
 	}
 
 	private void buildPlayerTeams() {
-		for (int i = 0; i < players.size(); i++) {
-			boolean teamGame = mode.isTeamMode();
-			Team team = null;
-			if (teamGame) {
-				// half of the players to team blue, other half to red
-				if (i % 2 == 0) {
-					team = Team.BLUE_TEAM;
-				} else {
-					team = Team.RED_TEAM;
-				}
-			} else {
-				team = Team.NO_TEAM;
-			}
+		int playerCount=players.size();
+		Team[] team = battleSettings.getMode().initTeams(playerCount);
+		for (int i = 0; i < playerCount; i++) {
 			PlayerConnection player = players.get(i);
 			String name=names.get(i);
-			battleParticipants.add(new BattleParticipant(player,name, team));
+			battleParticipants.add(new BattleParticipant(player,name, team[i]));
 		}
 	}
 }

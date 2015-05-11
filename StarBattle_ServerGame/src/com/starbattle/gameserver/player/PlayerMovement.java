@@ -3,6 +3,7 @@ package com.starbattle.gameserver.player;
 import com.starbattle.gameserver.game.EffectTrigger;
 import com.starbattle.gameserver.game.EffectTriggerFactory;
 import com.starbattle.gameserver.game.input.PlayerInput;
+import com.starbattle.gameserver.game.physics.GravityValues;
 import com.starbattle.gameserver.game.physics.Location;
 import com.starbattle.gameserver.game.physics.ObjectMovement;
 import com.starbattle.gameserver.game.physics.StandardMovement;
@@ -26,6 +27,12 @@ public class PlayerMovement {
 		this.playerInput = playerInput;
 		this.gamePlayer = player;
 		this.effectTrigger = effectTrigger;
+	}
+	
+	public void setPhysics(float gravity, int jumpsInAir)
+	{
+		objectMovement.setGravity(gravity);
+		standardMovement.setMaximumJumpsInAir(jumpsInAir);
 	}
 
 	public void update(float delta) {
@@ -80,4 +87,11 @@ public class PlayerMovement {
 		return objectMovement.getLocation();
 	}
 
+	public ObjectMovement getObjectMovement() {
+		return objectMovement;
+	}
+	
+	public StandardMovement getStandardMovement() {
+		return standardMovement;
+	}
 }

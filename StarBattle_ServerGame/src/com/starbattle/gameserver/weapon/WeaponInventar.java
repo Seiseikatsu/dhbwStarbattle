@@ -11,11 +11,16 @@ public class WeaponInventar {
 
 	private List<Weapon> weapons;
 	private int selectedWeapon = 0;
+	private boolean disableWeapons = false;
 
 	public WeaponInventar(GamePlayer player, GameControl gameControl) {
 		weapons = new ArrayList<Weapon>();
 		createStandardInventar(player, gameControl);
 
+	}
+
+	public void setDisableWeapons(boolean disableWeapons) {
+		this.disableWeapons = disableWeapons;
 	}
 
 	private void createStandardInventar(GamePlayer player, GameControl gameControl) {
@@ -71,9 +76,11 @@ public class WeaponInventar {
 
 	// fires current selected weapon
 	public void fireWeapon() {
-		Weapon weapon = weapons.get(selectedWeapon);
-		if (weapon.canFire()) {
-			weapon.fire();
+		if (!disableWeapons) {
+			Weapon weapon = weapons.get(selectedWeapon);
+			if (weapon.canFire()) {
+				weapon.fire();
+			}
 		}
 	}
 

@@ -27,8 +27,8 @@ public class GameQueue {
 			String displayName = displayNames.get(i);
 			factory.addPlayer(players.get(i), displayName);
 		}
-
-		factory.initGameMode(GameModes.TEAMDEATHMATCH, 10);
+		int pointLimit=10;
+		factory.initGameMode(mode, pointLimit);
 		factory.setMap("testmap");
 		return factory.build();
 	}

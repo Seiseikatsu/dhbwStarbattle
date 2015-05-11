@@ -8,12 +8,14 @@ import javax.jws.soap.SOAPBinding.ParameterStyle;
 import com.starbattle.gameserver.game.EffectTrigger;
 import com.starbattle.gameserver.game.Team;
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
+import com.starbattle.gameserver.game.physics.GravityValues;
 import com.starbattle.gameserver.main.BattleParticipant;
 import com.starbattle.gameserver.map.SpawnPoint;
 import com.starbattle.gameserver.map.SpawnPointList;
 import com.starbattle.gameserver.map.collision.CollisionDetection;
 import com.starbattle.gameserver.object.GameControl;
 import com.starbattle.gameserver.player.GamePlayer;
+import com.starbattle.gameserver.player.PlayerMovement;
 import com.starbattle.network.connection.objects.game.NP_PlayerData;
 
 public class PlayerList {
@@ -91,6 +93,13 @@ public class PlayerList {
 			SpawnPoint spawnPoint = spawnPoints.getRandomSpawnPoint(team);
 			
 			player.teleportTo(spawnPoint.getLocation());
+		}
+	}
+
+	public void setPhysics(float gravity, int jumpsInAir) {
+		for (GamePlayer player : players) {
+		PlayerMovement movement=player.getPlayerMovement();
+		movement.setPhysics(gravity, jumpsInAir);
 		}
 	}
 
