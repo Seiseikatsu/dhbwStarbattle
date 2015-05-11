@@ -1508,3 +1508,31 @@ Connection is broken: "session closed" [90067-176]
 	at com.esotericsoftware.kryonet.Server.update(Server.java:216)
 	at com.esotericsoftware.kryonet.Server.run(Server.java:356)
 	at java.lang.Thread.run(Unknown Source)
+05-11 10:50:15 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Verbindung ist unterbrochen: "session closed"
+Connection is broken: "session closed" [90067-176]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:344)
+	at org.h2.message.DbException.get(DbException.java:178)
+	at org.h2.message.DbException.get(DbException.java:154)
+	at org.h2.engine.Session.prepareLocal(Session.java:420)
+	at org.h2.engine.Session.prepareCommand(Session.java:384)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1188)
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:73)
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:276)
+	at com.starbattle.accounts.manager.impl.AccountManagerImpl.getFriendRelations(AccountManagerImpl.java:283)
+	at com.starbattle.server.manager.FriendsManager.updateFriendsMyOnlineStatus(FriendsManager.java:32)
+	at com.starbattle.server.manager.PlayerManager.logoutPlayer(PlayerManager.java:112)
+	at com.starbattle.server.manager.MainServerManager.clientDisconnected(MainServerManager.java:68)
+	at com.starbattle.server.manager.MainServerManager.access$0(MainServerManager.java:65)
+	at com.starbattle.server.manager.MainServerManager$1.onDisconnect(MainServerManager.java:43)
+	at com.starbattle.network.server.ServerConnectionController.disconnected(ServerConnectionController.java:82)
+	at com.starbattle.network.server.NetworkServer$2.disconnected(NetworkServer.java:33)
+	at com.esotericsoftware.kryonet.Server$1.disconnected(Server.java:55)
+	at com.esotericsoftware.kryonet.Connection.notifyDisconnected(Connection.java:220)
+	at com.esotericsoftware.kryonet.Connection.close(Connection.java:127)
+	at com.esotericsoftware.kryonet.Server.update(Server.java:216)
+	at com.esotericsoftware.kryonet.Server.run(Server.java:356)
+	at java.lang.Thread.run(Unknown Source)
+05-11 10:50:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Das Objekt wurde bereits geschlossen
+The object is already closed [90007-176]

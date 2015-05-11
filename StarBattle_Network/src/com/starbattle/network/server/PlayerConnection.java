@@ -7,6 +7,7 @@ public class PlayerConnection extends Connection{
 	public final static int IN_LOBBY=-1;
 	private String accountName=null;
 	private int gameID=IN_LOBBY;
+	private boolean inQueue;
 		
 	public String getAccountName() {
 		return accountName;
@@ -14,6 +15,14 @@ public class PlayerConnection extends Connection{
 	
 	public void setAccountName(String playerName) {
 		this.accountName = playerName;
+	}
+	
+	public void setInQueue(boolean inQueue) {
+		this.inQueue = inQueue;
+	}
+	
+	public boolean isInQueue() {
+		return inQueue;
 	}
 	
 	public boolean isPlayerRegistered()

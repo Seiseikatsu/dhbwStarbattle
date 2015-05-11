@@ -15,7 +15,7 @@ import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 
 public class InGameClient implements GameClientConnection {
 
-	public static boolean DEBUG_MODE = true;
+	public static boolean DEBUG_MODE = false;
 	private AppGameContainer gameContainer;
 	private GameStateContainer gameInit;
 	private GameclientSettings settings;

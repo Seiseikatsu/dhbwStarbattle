@@ -13,6 +13,7 @@ import com.starbattle.client.layout.DesignLabel;
 import com.starbattle.client.layout.VerticalLayout;
 import com.starbattle.client.layout.ViewModel;
 import com.starbattle.client.resource.ResourceLoader;
+import com.starbattle.network.connection.objects.NP_GameModesList;
 
 public class GameSettingsDisplay extends ViewModel{
 
@@ -24,7 +25,6 @@ public class GameSettingsDisplay extends ViewModel{
 	public GameSettingsDisplay()
 	{
 		initLayout();
-		initGameModes();
 	}
 	
 	
@@ -47,11 +47,17 @@ public class GameSettingsDisplay extends ViewModel{
 		view.add(header,BorderLayout.NORTH);
 	}
 	
-	private void initGameModes()
+	public void initGameModes(NP_GameModesList list)
 	{
-		addGameMode("3v3","Testmap");
-		addGameMode("5v5","Testmap");
-		addGameMode("10v10","Testmap");	
+		modes.clear();
+		content.getView().removeAll();
+		
+		for(int i=0; i<list.modeNames.length; i++)
+		{
+			String name=list.modeNames[i];
+			addGameMode(name, "testmap");
+		}
+		
 		//select first one so we dont have to manage a state where no mode is selected
 		modes.get(0).setSelected(true);
 	}

@@ -7,12 +7,12 @@ import com.starbattle.client.connection.listener.NetworkCommunctionListener;
 import com.starbattle.client.connection.listener.NetworkFriendListener;
 import com.starbattle.client.connection.listener.NetworkFriendRequestListener;
 import com.starbattle.client.connection.listener.NetworkGameListener;
+import com.starbattle.client.connection.listener.NetworkGameQueryListener;
 import com.starbattle.client.connection.listener.NetworkRegistrationListener;
 import com.starbattle.network.client.NetworkClient;
 import com.starbattle.network.client.SendServerConnection;
 import com.starbattle.network.connection.ConnectionListener;
 import com.starbattle.network.connection.objects.NP_ServerStop;
-
 
 public class NetworkConnection {
 
@@ -31,16 +31,19 @@ public class NetworkConnection {
 		client.setConnectionListener(new Listener());
 		client.connect(ip, tcp_port, udp_port);
 	}
-	
 
 	public void setNetworkCommunctionListener(NetworkCommunctionListener networkCommunctionListener) {
 		this.networkCommunctionListener = networkCommunctionListener;
 	}
 
+	public void setGameQueryListener(NetworkGameQueryListener networkGameQueryListener) {
+		networkObjectResolver.setQueryListener(networkGameQueryListener);
+	}
+
 	public void setGameListener(NetworkGameListener gameListener) {
 		this.networkObjectResolver.setGameListener(gameListener);
 	}
-	
+
 	public void setRegistrationListener(NetworkRegistrationListener listener) {
 		networkObjectResolver.setRegistrationListener(listener);
 	}
@@ -71,10 +74,9 @@ public class NetworkConnection {
 
 		@Override
 		public void onReceive(Connection connection, Object message) {
-			if(message instanceof NP_ServerStop)
-			{
-				//disocnnect
-				NP_ServerStop stop=(NP_ServerStop)message;
+			if (message instanceof NP_ServerStop) {
+				// disocnnect
+				NP_ServerStop stop = (NP_ServerStop) message;
 				networkConnectionListener.onDisconnect(stop.shutdown_Message);
 				return;
 			}

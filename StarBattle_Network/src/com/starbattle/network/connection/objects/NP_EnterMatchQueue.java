@@ -9,15 +9,17 @@ package com.starbattle.network.connection.objects;
  * these values => send empty object will cause the player to 
  * be matched in a completely random setting of a game.
  * 
+ * Warning: modeName=null will result into an exception!
+ * 
  * @author Roland
  *
  */
 
 public class NP_EnterMatchQueue {
 
-	private String modeName;
-	private int numberOfPlayers;
-	private String mapName;
+	public String modeName;
+	public int numberOfPlayers;
+	public String mapName;
 	
 	
 }
