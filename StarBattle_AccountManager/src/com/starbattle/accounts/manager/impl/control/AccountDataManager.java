@@ -39,6 +39,8 @@ public class AccountDataManager extends DataController {
 			count.where(AccountTable.NAME);
 			count.values(account.getName());
 			ResultSet results = count.execute(databaseControl);
+			results.next();
+			System.out.println("RS count: " + results.getInt(1));
 
 			if (results.getInt(1) > 0) {
 				return RegisterState.Accountname_Exists;
@@ -49,7 +51,7 @@ public class AccountDataManager extends DataController {
 			count.where(PlayerTable.NAME);
 			count.values(account.getDisplayName());
 			results = count.execute(databaseControl);
-
+			results.next();
 			if (results.getInt(1) > 0) {
 				return RegisterState.Displayname_Exists;
 			}

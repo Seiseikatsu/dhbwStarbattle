@@ -41,13 +41,23 @@ public class SqlInsertStatement extends SqlStatement {
 
 	public ResultSet execute(DatabaseControl databaseControl) throws SQLException {
 		Connection connection = databaseControl.getConnection();
+		PreparedStatement preparedStatement = connection.prepareStatement(statement);
+		for (int i = 0; i < values.length; i++) {
+			preparedStatement.setObject(i + 1, values[i]);
+		}
+		preparedStatement.execute();
+		return preparedStatement.getResultSet();
+	}
+	
+	public ResultSet execute(DatabaseControl databaseControl, boolean generatedKeys) throws SQLException {
+		Connection connection = databaseControl.getConnection();
 		PreparedStatement preparedStatement = connection.prepareStatement(statement,
 				PreparedStatement.RETURN_GENERATED_KEYS);
 		for (int i = 0; i < values.length; i++) {
 			preparedStatement.setObject(i + 1, values[i]);
 		}
 		preparedStatement.execute();
-		return preparedStatement.getResultSet();
+		return preparedStatement.getGeneratedKeys();
 	}
 
 }

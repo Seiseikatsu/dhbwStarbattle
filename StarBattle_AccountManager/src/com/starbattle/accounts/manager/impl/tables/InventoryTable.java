@@ -18,6 +18,6 @@ public enum InventoryTable {
 	
 	public static String getTableName()
 	{
-		return "INVENTORY";
+		return "INVENTAR";
 	}
 }
