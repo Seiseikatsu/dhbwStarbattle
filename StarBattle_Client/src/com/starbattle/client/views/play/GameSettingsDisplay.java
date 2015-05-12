@@ -51,12 +51,12 @@ public class GameSettingsDisplay extends ViewModel{
 	{
 		modes.clear();
 		content.getView().removeAll();
-		
-		for(int i=0; i<list.modeNames.length; i++)
+		/* TODO
+		for (int i=0; i<list.modeNames.length; i++)
 		{
 			String name=list.modeNames[i];
 			addGameMode(name, "testmap");
-		}
+		}*/
 		
 		//select first one so we dont have to manage a state where no mode is selected
 		modes.get(0).setSelected(true);

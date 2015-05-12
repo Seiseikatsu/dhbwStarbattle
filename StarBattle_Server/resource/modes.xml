@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<modeSettings>
+    <modes>
+        <maps>testmap</maps>
+        <mode>TEAMDEATHMATCH</mode>
+    </modes>
+    <modes>
+        <maps>testmap</maps>
+        <mode>DEATHMATCH</mode>
+    </modes> 
+</modeSettings>

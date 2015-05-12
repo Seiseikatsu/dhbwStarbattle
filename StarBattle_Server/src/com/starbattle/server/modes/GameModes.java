@@ -1,5 +1,8 @@
-package com.starbattle.server.game;
+package com.starbattle.server.modes;
 
+import javax.xml.bind.annotation.XmlEnum;
+
+@XmlEnum
 public enum GameModes {
 
 	TEAMDEATHMATCH("Team Deathmatch",true,"testmap",10),

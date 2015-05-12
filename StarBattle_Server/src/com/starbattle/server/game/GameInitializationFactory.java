@@ -10,6 +10,7 @@ import com.starbattle.gameserver.main.BattleInitialization;
 import com.starbattle.gameserver.main.BattleParticipant;
 import com.starbattle.gameserver.main.BattleSettings;
 import com.starbattle.network.server.PlayerConnection;
+import com.starbattle.server.modes.GameModes;
 
 public class GameInitializationFactory {
 

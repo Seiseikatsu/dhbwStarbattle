@@ -11,8 +11,5 @@ package com.starbattle.network.connection.objects;
 
 public class NP_GameModesList {
 
-	//general information which modes exist and how to match them
-	public String[] modeDisplayNames;
-	public String[] modeNames;
-		
+	public NP_GameModeEntry[] modes;	
 }

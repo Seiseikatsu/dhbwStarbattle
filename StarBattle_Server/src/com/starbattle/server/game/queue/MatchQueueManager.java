@@ -9,9 +9,9 @@ import com.starbattle.network.connection.objects.NP_EnterMatchQueue;
 import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 import com.starbattle.network.server.PlayerConnection;
 import com.starbattle.server.game.GameInitializationFactory;
-import com.starbattle.server.game.GameModes;
 import com.starbattle.server.game.GamePrepareConvertor;
 import com.starbattle.server.manager.GameManager;
+import com.starbattle.server.modes.GameModes;
 import com.starbattle.server.player.PlayerContainer;
 
 public class MatchQueueManager {

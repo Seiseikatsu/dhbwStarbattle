@@ -1,4 +1,5 @@
-package com.starbattle.server.game;
+package com.starbattle.server.modes;
+
 
 public class PlayableGameMode {
 

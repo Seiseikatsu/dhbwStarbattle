@@ -7,8 +7,8 @@ public enum ConsoleCommands {
 	CONNECTED("Lists all connected players with their account name"),
 	MODETYPES("Lists all GameMode-Types"),
 	GAMEMODES("Lists currently available Gamemodes in the lobby"),
-	ADDMODE("Adds a new GameMode-Setting to the Lobby with: GameMode, MapName, NumberOfPlayers"),
-	REMOVEMODE("Removes the GameMode from the lobby with given ID"),
+	RELOADMODES("Reloads modes from the GameMode-Setting"),
+	SAVEMODES("Saves the current GameMode-Settings into settings file"),
 	INFO("Information about running games and connected players");
 		
 	private String description;

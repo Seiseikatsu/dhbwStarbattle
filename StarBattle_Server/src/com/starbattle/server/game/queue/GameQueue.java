@@ -6,7 +6,7 @@ import java.util.List;
 import com.starbattle.gameserver.main.BattleInitialization;
 import com.starbattle.network.server.PlayerConnection;
 import com.starbattle.server.game.GameInitializationFactory;
-import com.starbattle.server.game.GameModes;
+import com.starbattle.server.modes.GameModes;
 
 public class GameQueue {
 

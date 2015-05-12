@@ -3,9 +3,9 @@ package com.starbattle.server.console;
 import java.util.List;
 import java.util.Set;
 
-import com.starbattle.server.game.GameModes;
-import com.starbattle.server.game.PlayableGameMode;
 import com.starbattle.server.main.StarbattleServer;
+import com.starbattle.server.modes.GameModes;
+import com.starbattle.server.modes.PlayableGameMode;
 
 public class CommandExecutor {
 
@@ -56,40 +56,17 @@ public class CommandExecutor {
 			break;
 		case MODETYPES:
 			for (GameModes modes : GameModes.values()) {
-				System.out.println( modes.name() + " (" + modes.getName() + ")");
+				System.out.println(modes.name() + " (" + modes.getName() + ")");
 			}
+			break;
+		case RELOADMODES:
+			server.getManager().getGameManager().getGameModes().loadModes();
+			break;
+		case SAVEMODES:
+			server.getManager().getGameManager().getGameModes().saveModes();
 			break;
 		case GAMEMODES:
-			System.out.println("ID / Mode / Map / Players");
-			List<PlayableGameMode> modes = server.getManager().getGameManager().getGameModes().getModes();
-			for (int i = 0; i < modes.size(); i++) {
-				PlayableGameMode mode = modes.get(i);
-				System.out.println(i + ": " + mode.getMode().name() + " " + mode.getMapFile() + " " + mode.getPlayer());
-			}
-			break;
-		case ADDMODE:
-			try {
-				if (hasParameter(3)) {
-					GameModes m = GameModes.valueOf(getParameter(0).getStringValue().toUpperCase());
-					String map = getParameter(1).getStringValue();
-					int players = getParameter(2).getIntValue();
-					PlayableGameMode newmode = new PlayableGameMode(m, map, players);
-					server.getManager().getGameManager().getGameModes().addMode(newmode);
-					System.out.println("Mode Added!");
-				}
-			} catch (Exception e) {
-			}
-			break;
-		case REMOVEMODE:
-			try {
-				if (hasParameter()) {
-					int nr = getParameter().getIntValue();
-					server.getManager().getGameManager().getGameModes().removeMode(nr);
-				}
-				System.out.println("Mode removed!");
-			} catch (Exception e) {
-				// TODO: handle exception
-			}
+			server.getManager().getGameManager().getGameModes().listModes();
 			break;
 		}
 	}
