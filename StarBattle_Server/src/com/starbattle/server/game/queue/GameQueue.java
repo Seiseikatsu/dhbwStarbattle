@@ -73,8 +73,8 @@ public class GameQueue {
 			}
 		}
 		if (playerCount > 0) {
-			if (playerCount != targetPlayerCount) {
-				// wrong player count!
+			if (playerCount > targetPlayerCount) {
+				// player wants a bigger game!
 				return false;
 			}
 		}
