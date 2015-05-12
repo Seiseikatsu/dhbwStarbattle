@@ -23,7 +23,9 @@ import com.starbattle.network.connection.objects.NP_RequestGameModes;
 
 public class PlayView extends ContentView {
 	public final static int VIEW_ID = 4;
-	private GameSettingsDisplay gameSettingsDisplay = new GameSettingsDisplay();
+
+	private GameModeDisplay gameModeDisplay = new GameModeDisplay();
+
 	private NetworkConnection networkConnection;
 	private DesignButton playButton = new DesignButton(PLAY);
 	private DesignButton cancelButton = new DesignButton("Back");
@@ -64,7 +66,7 @@ public class PlayView extends ContentView {
 				if (inQuery) {
 					cancelQuery();
 					networkConnection.getSendConnection().sendTCP(new NP_CancelMatchQueue());
-				} else {
+				} else {					
 					enterQuery();
 				}
 			}
@@ -75,7 +77,7 @@ public class PlayView extends ContentView {
 		bottomPanel.add(playButton);
 		view.add(bottomPanel, BorderLayout.SOUTH);
 		view.add(topPanel, BorderLayout.NORTH);
-		view.add(gameSettingsDisplay.getView(), BorderLayout.CENTER);
+		view.add(gameModeDisplay.getView(), BorderLayout.CENTER);
 
 	}
 
@@ -87,7 +89,8 @@ public class PlayView extends ContentView {
 	private void enterQuery() {
 		playButton.setText(CANCEL);
 		NP_EnterMatchQueue enter = new NP_EnterMatchQueue();
-		enter.modeName = "TEAMDEATHMATCH";
+		enter.modeName = gameModeDisplay.getSelectedMode();
+		enter.mapName=gameModeDisplay.getSelectedMap();
 		networkConnection.getSendConnection().sendTCP(enter);
 		inQuery = true;
 	}
@@ -114,7 +117,9 @@ public class PlayView extends ContentView {
 
 		@Override
 		public void receivedGameModes(NP_GameModesList modes) {
-			gameSettingsDisplay.initGameModes(modes);
+
+			gameModeDisplay.initGameModes(modes);
+
 		}
 
 		@Override

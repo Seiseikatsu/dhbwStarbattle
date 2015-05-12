@@ -5,7 +5,14 @@
         <mode>TEAMDEATHMATCH</mode>
     </modes>
     <modes>
+        <maps>newmap</maps> 
         <maps>testmap</maps>
         <mode>DEATHMATCH</mode>
     </modes> 
+    <modes>
+        <maps>debugmap</maps> 
+        <maps>newmap</maps>
+        <mode>CAPTURETHEFLAG</mode>
+    </modes> 
+    
 </modeSettings>

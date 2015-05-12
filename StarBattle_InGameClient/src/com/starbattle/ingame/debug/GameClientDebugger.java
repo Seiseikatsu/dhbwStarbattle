@@ -15,7 +15,7 @@ public class GameClientDebugger {
 		//player.addTestPlayer("Pibi", "Bobo");
 		String map="debugmap";
 		
-		InGameClient.DEBUG_MODE=true;
+		InGameClient.DEBUG_MODE=false;
 		GameDebugger debugger = new GameDebugger();
 		debugger.create(map,player);
 

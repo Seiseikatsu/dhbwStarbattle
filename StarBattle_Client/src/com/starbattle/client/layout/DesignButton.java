@@ -120,6 +120,14 @@ public class DesignButton extends JButton {
 				img = GUIDesign.button[buttonStyle].getScaledInstance(w, h, Image.SCALE_SMOOTH);
 			}
 			g.drawImage(img, 0, 0, null);
+			if(isSelected())
+			{
+				g.setColor(Color.BLACK);
+				g.drawRect(0,0,w-1,h-1);
+				g.setColor(Color.WHITE);
+				g.drawRect(1,1,w-3,h-3);
+				
+			}
 		}
 		super.paintComponent(g);
 
