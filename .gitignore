@@ -1,2 +1,4 @@
 *.trace.db
 *.orig
+*.lock.db
+*.tmp
