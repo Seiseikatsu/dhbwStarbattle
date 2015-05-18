@@ -1,9 +1,7 @@
 package com.starbattle.gameserver.map.collision;
 
-import org.newdawn.slick.geom.Line;
-import org.newdawn.slick.geom.Shape;
-
 import com.starbattle.gameserver.game.physics.Location;
+import com.starbattle.maploader.main.CollisionMap;
 
 public class CollisionDetection {
 

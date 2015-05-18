@@ -4,14 +4,15 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.starbattle.ingame.game.viewport.Viewport;
+import com.starbattle.maploader.main.MapLoadException;
+import com.starbattle.maploader.main.MapLoader;
 
 public class GameMap {
 
 	private final static String path = "resource/maps/";
-	public final static int TILE_SIZE=64;
+	public final static int TILE_SIZE = 64;
 	private TiledMap map;
 	private int gameLayerID;
-	
 
 	public GameMap() {
 
@@ -19,14 +20,16 @@ public class GameMap {
 
 	public void loadMap(String name) {
 		try {
-			//Warning: If resource not found, the client will crash (TiledMap doesnt checks by itself if the path is valid)
-			//TODO: check if file exists
-			map = new TiledMap(path + name + ".tmx");
-			gameLayerID = map.getLayerIndex("Game");
-			int w=map.getWidth();
-			int h=map.getHeight();
-			System.out.println("Loaded Map with " + map.getLayerCount() + " Layers [Size:"+w+"x"+h+"]");
-		} catch (SlickException e) {
+			MapLoader mapLoader = new MapLoader();
+			String file = path + name + ".tmx";
+
+			mapLoader.loadMap(file, false, new MapObjectLoader());
+			map = mapLoader.getMap();
+			gameLayerID = mapLoader.getGameLayerID();
+			int w = map.getWidth();
+			int h = map.getHeight();
+			System.out.println("Loaded Map with " + map.getLayerCount() + " Layers [Size:" + w + "x" + h + "]");
+		} catch (MapLoadException e) {
 			e.printStackTrace();
 		}
 	}
@@ -39,23 +42,21 @@ public class GameMap {
 
 	public void renderForeground(Viewport viewport) {
 		for (int i = gameLayerID + 1; i < map.getLayerCount(); i++) {
-		
+
 			map.render(viewport.getMapX(), viewport.getMapY(), i);
-	
+
 		}
 	}
 
 	public int getGameTileID(int x, int y) {
 		return map.getTileId(x, y, gameLayerID);
 	}
-	
-	public int getWidth()
-	{
+
+	public int getWidth() {
 		return map.getWidth();
 	}
-	
-	public int getHeight()
-	{
+
+	public int getHeight() {
 		return map.getHeight();
 	}
 

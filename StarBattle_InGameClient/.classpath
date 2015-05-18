@@ -22,5 +22,6 @@
 	<classpathentry kind="lib" path="/StarBattle_Server/bin"/>
 	<classpathentry kind="lib" path="/StarBattle_ServerGame/bin"/>
 	<classpathentry kind="lib" path="src/kryonet-2.21-all.jar"/>
+	<classpathentry kind="lib" path="/StarBattle_MapLoader/bin"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

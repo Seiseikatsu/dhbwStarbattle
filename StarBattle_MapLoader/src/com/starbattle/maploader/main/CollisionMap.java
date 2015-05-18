@@ -1,6 +1,5 @@
-package com.starbattle.gameserver.map.collision;
+package com.starbattle.maploader.main;
 
-import org.newdawn.slick.tiled.TiledMap;
 
 public class CollisionMap {
 

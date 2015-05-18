@@ -1,4 +1,4 @@
-package com.starbattle.gameserver.map;
+package com.starbattle.maploader.main;
 
 public enum GameTiles {
 
