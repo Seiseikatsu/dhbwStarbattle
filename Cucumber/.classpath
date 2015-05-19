@@ -27,5 +27,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/StarBattle_Network"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/StarBattle_Server"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/StarBattle_ServerGame"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/StarBattle_MapLoader"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

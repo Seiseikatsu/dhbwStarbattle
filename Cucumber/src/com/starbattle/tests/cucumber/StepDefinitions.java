@@ -19,6 +19,7 @@ import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.views.register.RegisterView;
 import com.starbattle.network.connection.objects.NP_StartAnswer;
 import com.starbattle.server.main.StarbattleServer;
+import com.starbattle.server.manager.MainServerManager;
 import com.starbattle.server.manager.PlayerManager;
 import com.starbattle.tests.TestUsersConfig;
 
@@ -41,8 +42,11 @@ public class StepDefinitions {
 		//start server
 		server=new StarbattleServer();
 
+		
 		//init db with debug users
-		AccountManager accountManager = server.getManager().getPlayerManager().getAccountManager();
+		MainServerManager manager = server.getManager();
+		PlayerManager playerManager = manager.getPlayerManager();
+		AccountManager accountManager =playerManager.getAccountManager();
 		TestAccountManagerImpl testAccountManager = new TestAccountManagerImpl(accountManager);
 
 		try {
@@ -60,7 +64,7 @@ public class StepDefinitions {
 //			e.printStackTrace();
 //		}
 		   
-		initServer=false;
+		initServer=true;
 		}
 		//set simulation parameters
 		ClientTestInterface.shutdownDelaySeconds=1f;
@@ -73,10 +77,8 @@ public class StepDefinitions {
 	public void tidyUp()
 	{
 		//shut down all applications from this test
-		
 		ClientTestInterface.shutdown();	
-		server.shutdown(null);
-
+//		server.shutdown(null);
 	}
 
 	
