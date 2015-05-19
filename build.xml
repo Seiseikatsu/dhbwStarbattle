@@ -1,0 +1,139 @@
+<project name="dhbwStarbattle" default="compile" basedir=".">
+<description>
+    Build dhbwStarbattle
+</description>
+
+<property name="src" location="src"/>
+<property name="build" location="build"/>
+<path id="libs">
+    <fileset dir="Tools" includes="**/*.jar" />
+</path>
+
+<path id="cucumber_libs">
+    <fileset dir="Cucumber/lib" includes="*.jar" />
+</path>
+
+
+<target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+    <mkdir dir="${build}/AccountManager"/>
+    <mkdir dir="${build}/Client"/>
+    <mkdir dir="${build}/ClientTestInterface"/>
+    <mkdir dir="${build}/Cucumber"/>
+    <mkdir dir="${build}/InGameClient"/>
+    <mkdir dir="${build}/Network"/>
+    <mkdir dir="${build}/MapLoader"/>
+    <mkdir dir="${build}/Server"/>
+    <mkdir dir="${build}/ServerGame"/>
+</target>
+
+<target name="compile" depends="init" description="compile the source " >
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac srcdir="StarBattle_AccountManager/src" destdir="${build}/AccountManager" classpathref="libs" />
+    <javac destdir="${build}/Network" classpathref="libs">
+        <src path="StarBattle_Network/src" />
+        <src path="KryoNet/src" />
+    </javac>
+    
+    <javac srcdir="StarBattle_MapLoader/src" destdir="${build}/MapLoader" classpathref="libs" />
+    
+    <javac srcdir="StarBattle_ServerGame/src" destdir="${build}/ServerGame" classpathref="libs">
+        <classpath>
+            <pathelement path="${build}/MapLoader" />
+            <pathelement path="${build}/Network" />
+        </classpath>
+    </javac>
+    
+    <javac srcdir="StarBattle_Server/src" destdir="${build}/Server" classpathref="libs">
+        <classpath>
+            <pathelement path="${build}/AccountManager" />
+            <pathelement path="${build}/Network" />
+            <pathelement path="${build}/ServerGame" />
+        </classpath>
+    </javac>
+    <copy file="StarBattle_Server/src/com/starbattle/server/console/output/IntroOutput.txt" tofile="${build}/Server/com/starbattle/server/console/output/IntroOutput.txt"/>
+    
+    
+    <javac destdir="${build}/InGameClient" classpathref="libs">
+        <src path="StarBattle_InGameClient/src" />
+        <src path="StarBattle_GameDebug/src" />
+        <classpath>
+            <pathelement path="${build}/GameDebug" />
+            <pathelement path="${build}/InGameClient" />
+            <pathelement path="${build}/MapLoader" />
+            <pathelement path="${build}/Network" />
+            <pathelement path="${build}/ServerGame" />
+        </classpath>
+    </javac>    
+    
+    <javac srcdir="StarBattle_Client/src" destdir="${build}/Client" classpathref="libs">
+        <classpath>
+            <pathelement path="${build}/InGameClient" />
+            <pathelement path="${build}/Network" />
+            <pathelement path="${build}/ServerGame" />
+        </classpath>
+    </javac>
+    <copy file="StarBattle_Client/client.properties" tofile="${build}/Client/client.properties"/>
+    <copy todir="${build}/Client/com/starbattle/client/resource">
+        <fileset dir="StarBattle_Client/src/com/starbattle/client/resource"/>
+    </copy>
+    
+    
+    <javac srcdir="StarBattle_Client_TestInterface/src" destdir="${build}/ClientTestInterface" classpathref="libs">
+        <classpath>
+            <pathelement path="${build}/Client" />
+            <pathelement path="${build}/InGameClient" />
+            <pathelement path="${build}/Network" />
+            <pathelement path="${build}/ServerGame" />
+        </classpath>
+    </javac>
+    <javac srcdir="Cucumber/src" destdir="${build}/Cucumber">
+        <classpath>
+            <path refid="libs"/>
+            <path refid="cucumber_libs"/>
+            <dirset dir="${build}" />
+        </classpath>
+    </javac>
+    <copy todir="${build}/Cucumber/com/starbattle/tests/cucumber/">
+        <fileset dir="Cucumber/src/com/starbattle/tests/cucumber/">
+            <include name="*.feature"/>
+        </fileset>
+    </copy>
+    <copy todir="${build}/Cucumber/resource">
+        <fileset dir="Cucumber/resource"/>
+    </copy>
+    <copy todir="${build}/Cucumber">
+        <file name="Cucumber/client.properties" />
+        <file name="Cucumber/StarBattle.h2.db" />
+    </copy>  
+</target>
+
+<target name="test" depends="compile">
+<junit fork="true" dir="${build}/Cucumber" printsummary="withOutAndErr" showoutput="yes">
+    <classpath>
+        <path refid="libs"/>
+        <path refid="cucumber_libs"/>
+        <dirset dir="${build}" />
+    </classpath>
+    
+    <formatter type="plain"/>
+    
+    <test name="com.starbattle.tests.cucumber.RunCukesTest"/>
+</junit>
+<!-- 
+CLIENT:
+java -cp ".;../InGameClient/;../Network;../ServerGame;../../Tools/lib/*" -Djava.library.path="../../Tools/natives" com.starbattle.client.main.StarBattleClient
+
+SERVER:
+java -cp ".;../Network;../../Tools/lib/*;../AccountManager;../ServerGame" com.starbattle.server.main.StarbattleServer
+
+Cucumber:
+java -cp ".;$libs;../../Tools/*;../../Tools/lib/*;../../Cucumber/lib/*" org.junit.runner.JUnitCore com.starbattle.tests.cucumber.RunCukesTest
+-->    
+</target>
+
+
+</project>

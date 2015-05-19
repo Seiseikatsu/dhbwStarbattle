@@ -6,22 +6,22 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="libs/ibxm.jar"/>
-	<classpathentry kind="lib" path="libs/jinput.jar"/>
-	<classpathentry kind="lib" path="libs/jnlp.jar"/>
-	<classpathentry kind="lib" path="libs/jogg-0.0.7.jar"/>
-	<classpathentry kind="lib" path="libs/jorbis-0.0.15.jar"/>
-	<classpathentry kind="lib" path="libs/lwjgl_util.jar"/>
-	<classpathentry kind="lib" path="libs/lwjgl.jar"/>
-	<classpathentry kind="lib" path="libs/slick.jar"/>
 	<classpathentry kind="lib" path="/StarBattle_Network/bin"/>
 	<classpathentry kind="lib" path="/KryoNet/bin"/>
-	<classpathentry kind="lib" path="src/jsonbeans-0.5.jar"/>
-	<classpathentry kind="lib" path="src/kryo-2.23.1-SNAPSHOT-all-debug.jar"/>
 	<classpathentry kind="lib" path="/StarBattle_Game_TestInterface/bin"/>
 	<classpathentry kind="lib" path="/StarBattle_Server/bin"/>
 	<classpathentry kind="lib" path="/StarBattle_ServerGame/bin"/>
-	<classpathentry kind="lib" path="src/kryonet-2.21-all.jar"/>
 	<classpathentry kind="lib" path="/StarBattle_MapLoader/bin"/>
+	<classpathentry kind="lib" path="/Tools/lib/ibxm.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/jinput.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/jnlp.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/jogg-0.0.7.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/jorbis-0.0.15.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/lwjgl.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/slick.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/jsonbeans-0.5.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/kryo-2.23.1-SNAPSHOT-all-debug.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/kryonet-2.21-all.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

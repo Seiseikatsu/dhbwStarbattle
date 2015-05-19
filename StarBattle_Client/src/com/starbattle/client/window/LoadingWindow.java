@@ -3,14 +3,11 @@ package com.starbattle.client.window;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.geom.AffineTransform;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.RepaintManager;
 
 import com.starbattle.client.resource.ResourceLoader;
 

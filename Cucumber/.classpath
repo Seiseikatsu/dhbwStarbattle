@@ -2,15 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
-	<classpathentry kind="lib" path="Cucumber_Libs/cucumber-core-1.1.8.jar"/>
-	<classpathentry kind="lib" path="Cucumber_Libs/cucumber-html-0.2.3.jar"/>
-	<classpathentry kind="lib" path="Cucumber_Libs/cucumber-java-1.1.8.jar"/>
-	<classpathentry kind="lib" path="Cucumber_Libs/cucumber-junit-1.1.8.jar"/>
-	<classpathentry kind="lib" path="Cucumber_Libs/cucumber-jvm-deps-1.0.3.jar"/>
-	<classpathentry kind="lib" path="Cucumber_Libs/gherkin-2.12.2.jar"/>
-	<classpathentry kind="lib" path="Cucumber_Libs/gherkin-jvm-deps-1.0.2.jar"/>
-	<classpathentry kind="lib" path="src/kryonet-2.21-all.jar"/>
-	<classpathentry kind="lib" path="h2-1.3.176.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="/StarBattle_AccountManager/bin" sourcepath="/StarBattle_AccountManager/src"/>
 	<classpathentry kind="lib" path="/StarBattle_Client/bin"/>
@@ -28,5 +19,14 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/StarBattle_Server"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/StarBattle_ServerGame"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/StarBattle_MapLoader"/>
+	<classpathentry kind="lib" path="/Tools/lib/h2-1.3.176.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/kryonet-2.21-all.jar"/>
+	<classpathentry kind="lib" path="lib/cucumber-core-1.1.8.jar"/>
+	<classpathentry kind="lib" path="lib/cucumber-html-0.2.3.jar"/>
+	<classpathentry kind="lib" path="lib/cucumber-java-1.1.8.jar"/>
+	<classpathentry kind="lib" path="lib/cucumber-junit-1.1.8.jar"/>
+	<classpathentry kind="lib" path="lib/cucumber-jvm-deps-1.0.3.jar"/>
+	<classpathentry kind="lib" path="lib/gherkin-2.12.2.jar"/>
+	<classpathentry kind="lib" path="lib/gherkin-jvm-deps-1.0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -9,14 +9,26 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="/StarBattle_Network/bin"/>
 	<classpathentry kind="lib" path="/StarBattle_InGameClient/bin"/>
-	<classpathentry kind="lib" path="libs/kryonet-2.21-all.jar"/>
-	<classpathentry kind="lib" path="libs/ibxm.jar"/>
-	<classpathentry kind="lib" path="libs/jinput.jar"/>
-	<classpathentry kind="lib" path="libs/jnlp.jar"/>
-	<classpathentry kind="lib" path="libs/jogg-0.0.7.jar"/>
-	<classpathentry kind="lib" path="libs/jorbis-0.0.15.jar"/>
-	<classpathentry kind="lib" path="libs/lwjgl_util.jar"/>
-	<classpathentry kind="lib" path="libs/lwjgl.jar"/>
-	<classpathentry kind="lib" path="libs/slick.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/ibxm.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/jinput.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Tools/natives"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Tools/lib/jnlp.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/jogg-0.0.7.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/jorbis-0.0.15.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/kryonet-2.21-all.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Tools/natives"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Tools/lib/slick.jar"/>
+	<classpathentry kind="lib" path="/Tools/lib/lwjgl_util.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="Tools/natives"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

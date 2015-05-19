@@ -4,11 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.sql.SQLException;
 
-import org.junit.AfterClass;
-
 import com.starbattle.accounts.manager.AccountException;
 import com.starbattle.accounts.manager.AccountManager;
-import com.starbattle.accounts.manager.impl.AccountManagerImpl;
 import com.starbattle.accounts.manager.impl.TestAccountManagerImpl;
 import com.starbattle.accounts.validation.LoginState;
 import com.starbattle.accounts.validation.RegisterState;
@@ -23,7 +20,6 @@ import com.starbattle.server.manager.MainServerManager;
 import com.starbattle.server.manager.PlayerManager;
 import com.starbattle.tests.TestUsersConfig;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

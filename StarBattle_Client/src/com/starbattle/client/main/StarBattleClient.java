@@ -48,7 +48,6 @@ public class StarBattleClient {
 	
 
 	public void initClient() {
-
 		// Create Loading Window
 		loadingWindow = new LoadingWindow();
 		loadingWindow.setMaxProgress(11);// max progress count
