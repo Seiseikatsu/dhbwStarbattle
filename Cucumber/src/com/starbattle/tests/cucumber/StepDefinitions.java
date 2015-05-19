@@ -43,7 +43,7 @@ public class StepDefinitions {
 
 		//init db with debug users
 		AccountManager accountManager = server.getManager().getPlayerManager().getAccountManager();
-		TestAccountManagerImpl testAccountManager = new TestAccountManagerImpl((AccountManagerImpl) accountManager);
+		TestAccountManagerImpl testAccountManager = new TestAccountManagerImpl(accountManager);
 
 		try {
 			testAccountManager.deleteDbValues();

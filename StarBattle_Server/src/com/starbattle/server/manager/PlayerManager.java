@@ -2,6 +2,7 @@ package com.starbattle.server.manager;
 
 import com.starbattle.accounts.manager.AccountException;
 import com.starbattle.accounts.manager.AccountManager;
+import com.starbattle.accounts.manager.impl.AccountManagerFacade;
 import com.starbattle.accounts.manager.impl.AccountManagerImpl;
 import com.starbattle.accounts.player.PlayerAccount;
 import com.starbattle.accounts.validation.LoginState;
@@ -23,9 +24,9 @@ public class PlayerManager {
 	private PlayerContainer playerContainer;
 	public final static String playerAlreadyLoginMessage="Player is already logged in!";
 	
-	public PlayerManager(PlayerContainer playerContainer) {
+	public PlayerManager(PlayerContainer playerContainer) throws AccountException {
 		this.playerContainer = playerContainer;
-		accountManager = new AccountManagerImpl();
+		accountManager = new AccountManagerFacade();
 		friendsManager = new FriendsManager(playerContainer, accountManager);
 	}
 

@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.starbattle.accounts.database.DatabaseConnection;
 import com.starbattle.accounts.manager.AccountException;
+import com.starbattle.accounts.manager.AccountManager;
 import com.starbattle.accounts.manager.TestAccountManager;
 import com.starbattle.accounts.player.FriendRelation;
 import com.starbattle.accounts.player.FriendRelationState;
@@ -15,10 +16,10 @@ import com.starbattle.accounts.validation.RegisterState;
 
 public class TestAccountManagerImpl implements TestAccountManager {
 
-	private AccountManagerImpl accountManagerImpl;
+	private AccountManager accountManagerImpl;
 
 	// TODO Auto-generated method stub
-	public TestAccountManagerImpl(AccountManagerImpl accountManagerImpl) {
+	public TestAccountManagerImpl(AccountManager accountManagerImpl) {
 		this.accountManagerImpl = accountManagerImpl;
 	}
 
@@ -29,29 +30,7 @@ public class TestAccountManagerImpl implements TestAccountManager {
 	 */
 	@Override
 	public void deleteDbValues() throws AccountException, SQLException {
-		DatabaseConnection dbc = accountManagerImpl.getDatabaseConnection();
-		Connection conn = dbc.getConnection();
-		PreparedStatement stmt;
-
-		String sqlReferentialFalse = "SET REFERENTIAL_INTEGRITY FALSE";
-		stmt = dbc.getConnection().prepareStatement(sqlReferentialFalse);
-		stmt.executeUpdate();
-		conn.commit();
-
-		String[] allTables = accountManagerImpl.getAllTables();
-
-		for (int i = 0; i < allTables.length; i++) {
-			System.out.println(allTables[i]);
-			String sqlTruncate = "TRUNCATE TABLE " + allTables[i];
-			stmt = dbc.getConnection().prepareStatement(sqlTruncate);
-			stmt.execute();
-		}
-		conn.commit();
-
-		String sqlReferentialTrue = "SET REFERENTIAL_INTEGRITY TRUE";
-		stmt = dbc.getConnection().prepareStatement(sqlReferentialTrue);
-		stmt.executeUpdate();
-		conn.commit();
+		accountManagerImpl.resetDB();
 	}
 
 	@Override

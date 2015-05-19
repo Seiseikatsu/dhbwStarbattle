@@ -23,7 +23,8 @@ public class SqlUpdateStatement extends SqlStatement {
 		for (int i = 0; i < values.length; i++) {
 			preparedStatement.setObject(1 + i, values[i]);
 		}
-		preparedStatement.execute();
+		print();
+		preparedStatement.executeUpdate();
 		return preparedStatement.getResultSet();
 	}
 	

@@ -491,6 +491,30 @@ public class AccountManagerImpl implements AccountManager {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public void resetDB() throws AccountException, SQLException {
+		PreparedStatement stmt;
+
+		String sqlReferentialFalse = "SET REFERENTIAL_INTEGRITY FALSE";
+		stmt = conn.prepareStatement(sqlReferentialFalse);
+		stmt.executeUpdate();
+		conn.commit();
+
+		for (int i = 0; i < allTables.length; i++) {
+			System.out.println(allTables[i]);
+			String sqlTruncate = "TRUNCATE TABLE " + allTables[i];
+			stmt = conn.prepareStatement(sqlTruncate);
+			stmt.execute();
+		}
+		conn.commit();
+
+		String sqlReferentialTrue = "SET REFERENTIAL_INTEGRITY TRUE";
+		stmt = conn.prepareStatement(sqlReferentialTrue);
+		stmt.executeUpdate();
+		conn.commit();
+		
+	}
 	
 	
 }

@@ -1,5 +1,6 @@
 package com.starbattle.accounts.manager;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.starbattle.accounts.player.PlayerAccount;
@@ -31,6 +32,7 @@ public interface AccountManager {
 	
 	public String getAccountName(String displayName) throws AccountException;
 	
+	public void resetDB() throws AccountException, SQLException;
 	
 		
 	/**

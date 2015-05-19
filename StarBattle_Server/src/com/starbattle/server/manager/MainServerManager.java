@@ -1,6 +1,7 @@
 package com.starbattle.server.manager;
 
 import com.esotericsoftware.kryonet.Connection;
+import com.starbattle.accounts.manager.AccountException;
 import com.starbattle.network.connection.ConnectionListener;
 import com.starbattle.network.connection.objects.NP_CancelMatchQueue;
 import com.starbattle.network.connection.objects.NP_ChatMessage;
@@ -32,7 +33,12 @@ public class MainServerManager {
 	public MainServerManager(NetworkServer server) {
 		this.server = server;
 		playerContainer = new PlayerContainer();
-		playerManager = new PlayerManager(playerContainer);
+		try {
+			playerManager = new PlayerManager(playerContainer);
+		} catch (AccountException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		gameManager = new GameManager();
 		matchQueueManager = new MatchQueueManager(gameManager,playerContainer);
 	}

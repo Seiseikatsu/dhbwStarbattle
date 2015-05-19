@@ -25,14 +25,13 @@ public class TestEnvironment {
 		ClientTestInterface.stepDelay = 0.5f;
 		client = ClientTestInterface.createNewTestClient();
 		accountManager = server.getManager().getPlayerManager().getAccountManager();
-		testAccountManager = new TestAccountManagerImpl((AccountManagerImpl) accountManager);
 
 		initDB();
 	}
 	
 	public void initDB()
 	{
-		testAccountManager = new TestAccountManagerImpl((AccountManagerImpl) accountManager);
+		testAccountManager = new TestAccountManagerImpl(accountManager);
 
 		try {
 			testAccountManager.deleteDbValues();

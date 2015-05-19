@@ -38,6 +38,7 @@ public class FriendDataManager extends DataController {
 			selectFriendAnswer.select(FriendTable.ACCOUNT_ID, FriendTable.STATUS);
 			selectFriendAnswer.from(FriendTable.class);
 			selectFriendAnswer.where(FriendTable.ACCOUNT_ID_FRIEND);
+			selectFriendAnswer.values(accountId);
 
 			ResultSet rsFriendAnswer = selectFriendAnswer.execute(databaseControl);
 
@@ -110,16 +111,24 @@ public class FriendDataManager extends DataController {
 			System.out.println("accountId : " + accountId + ", accountName: " + accountName);
 			
 			int accountIdFriend = getAccountIdForDisplayname(displayNameFriend);
+			accountNameFriend = getAccountNameForDisplayname(displayNameFriend);
 			System.out.println("accountId : " + accountIdFriend + ", accountName: " + accountNameFriend);
 			if (accept) {
 				SqlUpdateStatement update = new SqlUpdateStatement();
 				update.update(FriendTable.class);
 				update.set(FriendTable.STATUS);
-				update.setValue(2);
 				update.where(FriendTable.ACCOUNT_ID, FriendTable.ACCOUNT_ID_FRIEND);
-				update.whereValue(accountIdFriend, accountId);
+				update.whereValue(2, accountIdFriend, accountId);
 				
 				update.execute(databaseControl);
+			
+				SqlUpdateStatement update2 = new SqlUpdateStatement();
+				update2.update(FriendTable.class);
+				update2.set(FriendTable.STATUS);
+				update2.where(FriendTable.ACCOUNT_ID, FriendTable.ACCOUNT_ID_FRIEND);
+				update2.whereValue(2, accountId, accountIdFriend);
+				
+				update2.execute(databaseControl);
 			} else {
 				SqlDeleteStatement delete = new SqlDeleteStatement();
 				delete.from(FriendTable.class);

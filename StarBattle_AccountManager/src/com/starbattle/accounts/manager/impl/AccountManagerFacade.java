@@ -1,13 +1,18 @@
 package com.starbattle.accounts.manager.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
+import com.starbattle.accounts.database.DatabaseConnection;
 import com.starbattle.accounts.manager.AccountException;
 import com.starbattle.accounts.manager.AccountManager;
 import com.starbattle.accounts.manager.AccountUpdate;
 import com.starbattle.accounts.manager.impl.control.AccountCrud;
 import com.starbattle.accounts.manager.impl.control.AccountDataManager;
 import com.starbattle.accounts.manager.impl.control.FriendDataManager;
+import com.starbattle.accounts.manager.impl.control.ResetDBController;
 import com.starbattle.accounts.manager.impl.control.UtilDataManager;
 import com.starbattle.accounts.player.PlayerAccount;
 import com.starbattle.accounts.player.PlayerFriends;
@@ -21,6 +26,7 @@ public class AccountManagerFacade implements AccountManager {
 	private FriendDataManager friendDataManager;
 	private UtilDataManager utilDataManager;
 	private AccountCrud accountCrud;
+	private ResetDBController resetDBController;
 
 	public AccountManagerFacade() throws AccountException {
 		databaseControl = new DatabaseControl();
@@ -28,6 +34,7 @@ public class AccountManagerFacade implements AccountManager {
 		friendDataManager = new FriendDataManager(databaseControl);
 		utilDataManager = new UtilDataManager(databaseControl);
 		accountCrud = new AccountCrud(databaseControl);
+		resetDBController = new ResetDBController(databaseControl);
 	}
 
 	@Override
@@ -113,6 +120,11 @@ public class AccountManagerFacade implements AccountManager {
 	public String handleFriendRequest(String accountName, String displayNameFriend, boolean accept)
 			throws AccountException {
 		return friendDataManager.handleFriendRequest(accountName, displayNameFriend, accept);
+	}
+
+	@Override
+	public void resetDB() throws AccountException, SQLException {
+		resetDBController.resetDB();	
 	}
 
 }

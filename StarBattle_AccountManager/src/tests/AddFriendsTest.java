@@ -22,7 +22,6 @@ import com.starbattle.accounts.validation.RegisterState;
 public class AddFriendsTest {
 	static DatabaseConnection db;
 	static private PlayerAccount account1;
-	static private PlayerAccount account2;
 	static private PlayerAccount account3;
 	static private PlayerAccount account4;
 	private static AccountManagerFacade facade;
@@ -44,9 +43,9 @@ public class AddFriendsTest {
 			facade.registerAccount(account3);
 			facade.registerAccount(account4);
 			
-			assertTrue(facade.newFriendRequest("Geraldine1", "Sebastian1"));
-			assertTrue(facade.newFriendRequest("Geraldine1", "Roland1"));
-			assertTrue(facade.newFriendRequest("Roland1", "Sebastian1"));
+			assertTrue(facade.newFriendRequest("Geraldine1", "Sebi"));
+			assertTrue(facade.newFriendRequest("Geraldine1", "Rollii"));
+			assertTrue(facade.newFriendRequest("Roland1", "Sebi"));
 		} catch (AccountException e) {
 			e.printStackTrace();
 		}
@@ -55,9 +54,9 @@ public class AddFriendsTest {
 	
 	@Test
 	public void answerRequest() throws AccountException {
-		facade.handleFriendRequest("Geraldine1", "Sebastian1", true);
-		facade.handleFriendRequest("Geraldine1", "Roland1", true);
-		facade.handleFriendRequest("Roland1", "Sebastian1", false);
+		facade.handleFriendRequest("Geraldine1", "Sebi", true);
+		facade.handleFriendRequest("Geraldine1", "Rollii", true);
+		facade.handleFriendRequest("Roland1", "Sebi", false);
 		
 		List<FriendRelation> friends = new ArrayList<>();
 		
