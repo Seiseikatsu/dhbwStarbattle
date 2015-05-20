@@ -106,15 +106,15 @@
         <fileset dir="Cucumber/resource"/>
     </copy>
     <copy todir="${build}/Cucumber">
-    	<filelist>
-	    <file name="Cucumber/client.properties" />
-            <file name="Cucumber/StarBattle.h2.db" />
-	</filelist>
+    	<filelist dir="Cucumber">
+            <file name="client.properties" />
+            <file name="StarBattle.h2.db" />
+        </filelist>
     </copy>  
 </target>
 
 <target name="test" depends="compile">
-<junit fork="true" dir="${build}/Cucumber" printsummary="withOutAndErr" showoutput="yes">
+<junit fork="true" dir="${build}/Cucumber" printsummary="withOutAndErr" showoutput="yes" haltonfailure="yes">
     <classpath>
         <path refid="libs"/>
         <path refid="cucumber_libs"/>
