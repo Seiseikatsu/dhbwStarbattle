@@ -106,8 +106,10 @@
         <fileset dir="Cucumber/resource"/>
     </copy>
     <copy todir="${build}/Cucumber">
-        <file name="Cucumber/client.properties" />
-        <file name="Cucumber/StarBattle.h2.db" />
+    	<filelist>
+	    <file name="Cucumber/client.properties" />
+            <file name="Cucumber/StarBattle.h2.db" />
+	</filelist>
     </copy>  
 </target>
 
