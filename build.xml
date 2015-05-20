@@ -124,7 +124,7 @@
     <formatter type="plain"/>
     
     <test name="com.starbattle.tests.cucumber.RunCukesTest"/>
-    <test name="com.starbattle.tests.friends.FriendsTest"/>
+    <test name="com.starbattle.tests.friends.FriendsTests"/>
 </junit>
 <!-- 
 CLIENT:
