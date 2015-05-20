@@ -4,3 +4,6 @@ build
 *.orig
 *.lock.db
 *.tmp
+/junit2328779526522253205.properties
+/junit5986566832611406917.properties
+/TEST-com.starbattle.tests.cucumber.RunCukesTest.txt
