@@ -16,9 +16,9 @@ public class PlasmaGun extends Weapon {
 	public PlasmaGun(GamePlayer player, GameControl gameControl, ProjectileEmitter emitter) {
 		super(player, gameControl, emitter);
 
-		// 20 schuss, kurze schusspause zwischen schüssen
+		// 20 schuss, kurze schusspause zwischen schÃ¼ssen
 		init(20, 5);
-		// schüsse werden ständig automatisch neugeladen (damit man immer eine
+		// schÃ¼sse werden stÃ¤ndig automatisch neugeladen (damit man immer eine
 		// basis waffe hat mit munition)
 		setAutoReload(5);
 	}

@@ -25,7 +25,7 @@ public class SoundContainer {
 		loadSound("lazer");
 	}
 
-	// anzahl blöcke wie weit der spieler hören kann
+	// anzahl blÃ¶cke wie weit der spieler hÃ¶ren kann
 	private static float SOUND_HEAR_DISTANCE = 15;
 
 	// calcs sound volume from distance

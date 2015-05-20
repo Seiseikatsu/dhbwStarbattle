@@ -75,7 +75,7 @@ public class StandardMovement extends MovementType {
 				if (gravity.isInAir()) {
 					if (usedJumps <= maximumJumpsInAir) {
 
-						// mindest dealy bis nächster sprung gemacht werden kann
+						// mindest dealy bis nÃ¤chster sprung gemacht werden kann
 						if (gravity.getAirTime() > minimumJumpTime) {
 							movement.getGravity().cancelMovement();
 							movement.getGravity().jump(jumpSpeed);

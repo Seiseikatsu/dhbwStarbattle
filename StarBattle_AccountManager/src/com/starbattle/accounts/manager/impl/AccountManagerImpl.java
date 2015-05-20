@@ -229,7 +229,7 @@ public class AccountManagerImpl implements AccountManager {
 
 				MailService.sendMail(email, accountName, password);
 			} else {
-				System.out.println("email und passwort stimmen nicht überein");
+				System.out.println("email und passwort stimmen nicht Ã¼berein");
 			}
 
 		} catch (SQLException e) {

@@ -3,15 +3,15 @@ package com.starbattle.gameserver.game.physics;
 public class ObjectGravity {
 
 	/**
-	 * Verändert nicht die Sprunghöhe / Fallgeschwindigkeit, sondern nur über
+	 * VerÃ¤ndert nicht die SprunghÃ¶he / Fallgeschwindigkeit, sondern nur Ã¼ber
 	 * welchen Zeitrum sich diese strecken.
 	 * 
-	 * Bei niedrigen Werten geschieht die Bewgung langsamer, bei höheren
+	 * Bei niedrigen Werten geschieht die Bewgung langsamer, bei hÃ¶heren
 	 * schneller.
 	 * 
-	 * Der "echte" Wert müsste man wahrscheinlich abhängig von der
+	 * Der "echte" Wert mÃ¼sste man wahrscheinlich abhÃ¤ngig von der
 	 * Spielgeschwindigkeit ausrechnen. Einfacher ist es einen "guten"
-	 * Abzuschätzen, der gut zum Spielgeschehen und der Spielgeschwindigkeit
+	 * AbzuschÃ¤tzen, der gut zum Spielgeschehen und der Spielgeschwindigkeit
 	 * passt.
 	 * 
 	 * 
@@ -47,8 +47,8 @@ public class ObjectGravity {
 			lastValue = jumpY;
 			// update location
 
-			//maximale falldistanz pro schritt nicht größer als die feldgröße der map!
-			//ansonsten könnte man bei großen stürzen durch blöcke fallen und unendlich beschleunigt werden :(
+			//maximale falldistanz pro schritt nicht grÃ¶ÃŸer als die feldgrÃ¶ÃŸe der map!
+			//ansonsten kÃ¶nnte man bei groÃŸen stÃ¼rzen durch blÃ¶cke fallen und unendlich beschleunigt werden :(
 			if (Math.abs(yDelta) >= 1) {
 				float maxValue = 0.99f;
 				if (yDelta < 0) {
