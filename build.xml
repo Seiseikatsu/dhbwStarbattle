@@ -1,10 +1,26 @@
-<project name="dhbwStarbattle" default="compile" basedir=".">
+<project name="dhbwStarbattle" default="compile" basedir="." xmlns:sonar="antlib:org.sonar.ant">
 <description>
     Build dhbwStarbattle
 </description>
 
 <property name="src" location="src"/>
 <property name="build" location="build"/>
+	
+<!-- Define the Sonar properties -->
+<property name="sonar.projectKey" value="org.codehaus.sonar:example-java-ant" />
+<property name="sonar.projectName" value="Starbattle analyzed with the Sonar Ant Task" />
+<property name="sonar.projectVersion" value="1.0" />
+<property name="sonar.language" value="java" />
+<property name="sonar.sources" value="." />
+<property name="sonar.exclusions" value="**/Sql*Statement.java,build/**,KryoNet/**,Tools/**" />
+<property name="sonar.binaries" value="build" />
+<property name="sonar.sourceEncoding" value="UTF-8" />
+	
+<!-- Add your basic Sonar configuration below: sonar.jdbc.url, sonar.jdbc.username, etc. properties -->
+  <property name="sonar.jdbc.url" value="jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8" />
+  <property name="sonar.jdbc.username" value="sonar" />
+  <property name="sonar.jdbc.password" value="sonar" />
+
 <path id="libs">
     <fileset dir="Tools" includes="**/*.jar" />
 </path>
@@ -78,7 +94,9 @@
     </javac>
     <copy file="StarBattle_Client/client.properties" tofile="${build}/Client/client.properties"/>
     <copy todir="${build}/Client/com/starbattle/client/resource">
-        <fileset dir="StarBattle_Client/src/com/starbattle/client/resource"/>
+        <fileset dir="StarBattle_Client/src/com/starbattle/client/resource">
+            <exclude name="*.java"/>
+        </fileset>
     </copy>
     
     
@@ -103,7 +121,9 @@
         </fileset>
     </copy>
     <copy todir="${build}/Cucumber/resource">
-        <fileset dir="Cucumber/resource"/>
+        <fileset dir="Cucumber/resource">
+            <exclude name="*.java"/>
+        </fileset>
     </copy>
     <copy todir="${build}/Cucumber">
     	<filelist dir="Cucumber">
@@ -138,5 +158,20 @@ java -cp ".;$libs;../../Tools/*;../../Tools/lib/*;../../Cucumber/lib/*" org.juni
 -->    
 </target>
 
+
+
+<!-- ========= Define Sonar target ========= -->
+<target name="sonar" depends="compile">
+    <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml"> 
+        <!-- Update the following line, or put the "sonar-ant-task-*.jar" file in your "$HOME/.ant/lib" folder -->
+        <classpath>
+            <pathelement location="C:/sonar-ant-task-2.3.jar" />
+        </classpath> 
+    </taskdef>
+    
+    
+    <!-- Execute Sonar -->
+    <sonar:sonar />
+</target>
 
 </project>
