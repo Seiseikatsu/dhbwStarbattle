@@ -41,8 +41,9 @@ public class FriendDataManager extends DataController {
 			selectFriendAnswer.values(accountId);
 
 			ResultSet rsFriendAnswer = selectFriendAnswer.execute(databaseControl);
-
-			while (rsFriendRequester.next()) {
+			
+			
+			while (rsFriendRequester.next()) {	
 				int accountIDFriend = rsFriendRequester.getInt("account_id_friend");
 				int status = rsFriendRequester.getInt("status");
 				String accountNameFriend = getAccountNameForAccountID(accountIDFriend);
@@ -60,24 +61,24 @@ public class FriendDataManager extends DataController {
 			}
 
 			while (rsFriendAnswer.next()) {
-				int accountIDFriend = rsFriendAnswer.getInt("account_id");
-				int status = rsFriendAnswer.getInt("status");
-				String accountNameFriend = getAccountNameForAccountID(accountIDFriend);
-				String displayNameFriend = getDisplayNameForAccountID(accountIDFriend);
+				int accountIDFriend2 = rsFriendAnswer.getInt("account_id");
+				int status2 = rsFriendAnswer.getInt("status");
+				String accountNameFriend2 = getAccountNameForAccountID(accountIDFriend2);
+				String displayNameFriend2 = getDisplayNameForAccountID(accountIDFriend2);
 
-				if (status == 1) {
+				if (status2 == 1) {
 					// Pending
-					friends.addRelation(new FriendRelation(accountNameFriend, displayNameFriend,
+					friends.addRelation(new FriendRelation(accountNameFriend2, displayNameFriend2,
 							FriendRelationState.Pending));
 				} else {
 					// Friends
-					friends.addRelation(new FriendRelation(accountNameFriend, displayNameFriend,
+					friends.addRelation(new FriendRelation(accountNameFriend2, displayNameFriend2,
 							FriendRelationState.Friends));
 				}
 			}
 			return friends;
 		} catch (SQLException e) {
-			throw new AccountException("SQL Failure", e);
+			throw new AccountException("SQL Failure, in getFriendRelation", e);
 		}
 	}
 
@@ -99,7 +100,7 @@ public class FriendDataManager extends DataController {
 			insert.execute(databaseControl);
 
 		} catch (SQLException e) {
-			throw new AccountException("SQL Failure", e);
+			throw new AccountException("SQL Failure, in newFriendRequest", e);
 		}
 		return true;
 	}
@@ -108,11 +109,10 @@ public class FriendDataManager extends DataController {
 		String accountNameFriend = null;
 		try {
 			int accountId = getAccountIdForAccountname(accountName);
-			System.out.println("accountId : " + accountId + ", accountName: " + accountName);
 			
 			int accountIdFriend = getAccountIdForDisplayname(displayNameFriend);
 			accountNameFriend = getAccountNameForDisplayname(displayNameFriend);
-			System.out.println("accountId : " + accountIdFriend + ", accountName: " + accountNameFriend);
+			
 			if (accept) {
 				SqlUpdateStatement update = new SqlUpdateStatement();
 				update.update(FriendTable.class);
@@ -140,7 +140,7 @@ public class FriendDataManager extends DataController {
 			databaseControl.getConnection().commit();
 			accountNameFriend = getAccountNameForDisplayname(displayNameFriend);
 		} catch (SQLException e) {
-			throw new AccountException("SQL error");
+			throw new AccountException("SQL error, in handleFriendRequest");
 		}
 
 		return accountNameFriend;
