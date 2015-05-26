@@ -34,8 +34,7 @@ public class TestAccountManagerImpl implements TestAccountManager {
 	}
 
 	@Override
-	public void addTestAccount(String accountName, String displayName, String password, String email)
-			throws AccountException {
+	public void addTestAccount(String accountName, String displayName, String password, String email) throws AccountException {
 		PlayerAccount account = new PlayerAccount(accountName, displayName, password, email);
 		if (accountManagerImpl.canRegisterAccount(account) == RegisterState.Register_Ok) {
 			accountManagerImpl.registerAccount(account);
@@ -44,8 +43,7 @@ public class TestAccountManagerImpl implements TestAccountManager {
 	}
 
 	/**
-	 * Add Friend Relation row with state 0 (Friend) (Or edit value if row is
-	 * existing)
+	 * Add Friend Relation row with state 0 (Friend) (Or edit value if row is existing)
 	 */
 	@Override
 	public void setFriends(String accountNameSender, String displayNameReceiver) throws AccountException {
@@ -54,8 +52,7 @@ public class TestAccountManagerImpl implements TestAccountManager {
 	}
 
 	/**
-	 * Add Friend Relation row with state 1 (Request) (Or edit value if row is
-	 * existing)
+	 * Add Friend Relation row with state 1 (Request) (Or edit value if row is existing)
 	 */
 	@Override
 	public void setFriendRequest(String accountNameSender, String displayNameReceiver) throws AccountException {
@@ -65,10 +62,11 @@ public class TestAccountManagerImpl implements TestAccountManager {
 
 	/**
 	 * Return friend state value of the row
-	 * @return 
+	 * 
+	 * @return
 	 */
 	@Override
-	public  FriendRelationState getFriendState(String accountNameSender, String displayNameReceiver) throws AccountException {
+	public FriendRelationState getFriendState(String accountNameSender, String displayNameReceiver) throws AccountException {
 		List<FriendRelation> friendsList = accountManagerImpl.getFriendRelations(accountNameSender).getFriends();
 		for (FriendRelation friendRelation : friendsList) {
 			String disp = friendRelation.getDisplayName();
@@ -76,15 +74,9 @@ public class TestAccountManagerImpl implements TestAccountManager {
 				return friendRelation.getRelationState();
 			}
 			/*
-			 * if
-			 * ((accountNameSender.equalsIgnoreCase(friendRelation.getAccountName
-			 * ()) &&
-			 * displayNameReceiver.equalsIgnoreCase(friendRelation.getDisplayName
-			 * ()) || (accountNameSender
-			 * .equalsIgnoreCase(friendRelation.getDisplayName()) &&
-			 * displayNameReceiver
-			 * .equalsIgnoreCase(friendRelation.getAccountName())))) { return
-			 * friendRelation.getRelationState().getId(); }
+			 * if ((accountNameSender.equalsIgnoreCase(friendRelation.getAccountName ()) && displayNameReceiver.equalsIgnoreCase(friendRelation.getDisplayName ()) ||
+			 * (accountNameSender .equalsIgnoreCase(friendRelation.getDisplayName()) && displayNameReceiver .equalsIgnoreCase(friendRelation.getAccountName())))) {
+			 * return friendRelation.getRelationState().getId(); }
 			 */
 		}
 		throw new AccountException("No Relation between Players!");
