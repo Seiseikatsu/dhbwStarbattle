@@ -19,7 +19,23 @@ public class PasswordChecker {
 	}
 	
 	private  static boolean checkSpecialSign(char c){
-		return (c >= 32 && c <= 47) || (c >= 58 && c <= 64) || (c >= 91 && c <= 96) || (c >= 123 && c <= 126);
+		return checkAscii32To47(c) || checkAscii58To64(c) || checkAscii91To96(c) || checkAscii123To126(c);
+	}
+	
+	private  static boolean checkAscii32To47(char c){
+		return (c >= 32 && c <= 47);
+	}
+	
+	private  static boolean checkAscii58To64(char c){
+		return (c >= 58 && c <= 64);
+	}
+	
+	private  static boolean checkAscii91To96(char c){
+		return (c >= 91 && c <= 96);
+	}
+	
+	private  static boolean checkAscii123To126(char c){
+		return (c >= 123 && c <= 126);
 	}
 
 	private static boolean containsLowerCase(char[] pass) {
