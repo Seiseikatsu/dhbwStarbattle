@@ -214,8 +214,6 @@ public class AccountManagerImpl implements AccountManager {
                 stmt.execute();
 
                 MailService.sendMail(email, accountName, password);
-            } else {
-                System.out.println("email und passwort stimmen nicht überein");
             }
 
         } catch (SQLException e) {
@@ -352,15 +350,12 @@ public class AccountManagerImpl implements AccountManager {
             System.out.println("accountId : " + accountId + ", accountName: " + accountName);
 
             int accountIdFriend = getAccountIdForDisplayname(displayNameFriend);
-            System.out.println("accountId : " + accountIdFriend + ", accountName: " + accountNameFriend);
             if (accept) {
                 stmt = databaseConnection.getConnection().prepareStatement("UPDATE friends SET status = ? WHERE account_id = ? AND account_id_friend = ?");
-                System.out.println("UPDATE friends SET status = " + 2 + " WHERE account_id = " + accountIdFriend + " AND account_id_friend = " + accountId);
                 stmt.setInt(1, 2);
                 stmt.setInt(2, accountIdFriend);
                 stmt.setInt(3, accountId);
-                // stmt.executeUpdate();
-                System.out.println(stmt.executeUpdate());
+                stmt.executeUpdate();
             } else {
                 stmt = databaseConnection.getConnection().prepareStatement("DELETE FROM friends where account_id = ? AND account_id_friend = ?");
                 stmt.setInt(1, accountIdFriend);
@@ -406,7 +401,6 @@ public class AccountManagerImpl implements AccountManager {
         try {
             stmt = databaseConnection.getConnection().prepareStatement("SELECT display_name  from player where account_id = ? ");
             stmt.setInt(1, accountID);
-            ;
             ResultSet rs = stmt.executeQuery();
             rs.next();
             return rs.getString(1);
@@ -462,15 +456,12 @@ public class AccountManagerImpl implements AccountManager {
 
     @Override
     public void resetDB() throws AccountException, SQLException {
-        PreparedStatement stmt;
-
         String sqlReferentialFalse = "SET REFERENTIAL_INTEGRITY FALSE";
         stmt = conn.prepareStatement(sqlReferentialFalse);
         stmt.executeUpdate();
         conn.commit();
 
         for (int i = 0; i < allTables.length; i++) {
-            System.out.println(allTables[i]);
             String sqlTruncate = "TRUNCATE TABLE " + allTables[i];
             stmt = conn.prepareStatement(sqlTruncate);
             stmt.execute();
