@@ -1,6 +1,9 @@
 package com.starbattle.client.views.register.validate;
 
 public class PasswordChecker {
+	
+	private PasswordChecker(){
+	}
 
 	public static boolean isValid(String password) {
 		if(password.length() < 8)
@@ -23,19 +26,19 @@ public class PasswordChecker {
 	}
 	
 	private  static boolean checkAscii32To47(char c){
-		return (c >= 32 && c <= 47);
+		return c >= 32 && c <= 47;
 	}
 	
 	private  static boolean checkAscii58To64(char c){
-		return (c >= 58 && c <= 64);
+		return c >= 58 && c <= 64;
 	}
 	
 	private  static boolean checkAscii91To96(char c){
-		return (c >= 91 && c <= 96);
+		return c >= 91 && c <= 96;
 	}
 	
 	private  static boolean checkAscii123To126(char c){
-		return (c >= 123 && c <= 126);
+		return c >= 123 && c <= 126;
 	}
 
 	private static boolean containsLowerCase(char[] pass) {
