@@ -42,13 +42,16 @@ public class FriendDataManager extends DataController {
 
 			ResultSet rsFriendAnswer = selectFriendAnswer.execute(databaseControl);
 			
-			int accountIDFriend = rsFriendRequester.getInt("account_id_friend");
-			int status = rsFriendRequester.getInt("status");
-			String accountNameFriend = getAccountNameForAccountID(accountIDFriend);
-			String displayNameFriend = getDisplayNameForAccountID(accountIDFriend);
+			int accountIDFriend;
+			int status;
+			String accountNameFriend;
+			String displayNameFriend;
 			
 			while (rsFriendRequester.next()) {	
-				
+				accountIDFriend = rsFriendRequester.getInt("account_id_friend");
+				status = rsFriendRequester.getInt("status");
+				accountNameFriend = getAccountNameForAccountID(accountIDFriend);
+				displayNameFriend = getDisplayNameForAccountID(accountIDFriend);
 
 				if (status == 1) {
 					// Request
@@ -64,16 +67,16 @@ public class FriendDataManager extends DataController {
 			while (rsFriendAnswer.next()) {
 				accountIDFriend = rsFriendAnswer.getInt("account_id");
 				status = rsFriendAnswer.getInt("status");
-				String accountNameFriend2 = getAccountNameForAccountID(accountIDFriend);
-				String displayNameFriend2 = getDisplayNameForAccountID(accountIDFriend);
+				accountNameFriend = getAccountNameForAccountID(accountIDFriend);
+				displayNameFriend = getDisplayNameForAccountID(accountIDFriend);
 
 				if (status == 1) {
 					// Pending
-					friends.addRelation(new FriendRelation(accountNameFriend2, displayNameFriend2,
+					friends.addRelation(new FriendRelation(accountNameFriend, displayNameFriend,
 							FriendRelationState.Pending));
 				} else {
 					// Friends
-					friends.addRelation(new FriendRelation(accountNameFriend2, displayNameFriend2,
+					friends.addRelation(new FriendRelation(accountNameFriend, displayNameFriend,
 							FriendRelationState.Friends));
 				}
 			}
