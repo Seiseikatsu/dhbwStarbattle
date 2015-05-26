@@ -5,19 +5,19 @@ import java.util.List;
 
 public class PlayerFriends {
 
-	private List<FriendRelation> friends;
+    private List<FriendRelation> friends;
 
-	public PlayerFriends() {
+    public PlayerFriends() {
 
-		friends = new ArrayList<FriendRelation>();
+        friends = new ArrayList<FriendRelation>();
 
-	}
+    }
 
-	public void addRelation(FriendRelation friend) {
-		friends.add(friend);
-	}
+    public void addRelation(FriendRelation friend) {
+        friends.add(friend);
+    }
 
-	public List<FriendRelation> getFriends() {
-		return friends;
-	}
+    public List<FriendRelation> getFriends() {
+        return friends;
+    }
 }
