@@ -12,11 +12,14 @@ public class PasswordChecker {
 
 	private static boolean containsSpecialSign(char[] pass) {
 		for (char c : pass) {
-			if ((c >= 32 && c <= 47) || (c >= 58 && c <= 64)
-			 || (c >= 91 && c <= 96) || (c >= 123 && c <= 126))
+			if (checkSpecialSign(c))
 				return true;
 		}
 		return false;
+	}
+	
+	private  static boolean checkSpecialSign(char c){
+		return (c >= 32 && c <= 47) || (c >= 58 && c <= 64) || (c >= 91 && c <= 96) || (c >= 123 && c <= 126);
 	}
 
 	private static boolean containsLowerCase(char[] pass) {
