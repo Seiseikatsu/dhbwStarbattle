@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.starbattle.accounts.manager.AccountException;
-import com.starbattle.accounts.manager.AccountUpdate;
 import com.starbattle.accounts.manager.impl.DatabaseControl;
 import com.starbattle.accounts.manager.impl.sql.SqlCountStatement;
 import com.starbattle.accounts.manager.impl.tables.AccountTable;
@@ -40,7 +39,6 @@ public class AccountDataManager extends DataController {
 			count.values(account.getName());
 			ResultSet results = count.execute(databaseControl);
 			results.next();
-			System.out.println("RS count: " + results.getInt(1));
 
 			if (results.getInt(1) > 0) {
 				return RegisterState.Accountname_Exists;
@@ -57,7 +55,6 @@ public class AccountDataManager extends DataController {
 			}
 
 		} catch (SQLException e) {
-			// TODO Add internal error register state
 			e.printStackTrace();
 		}
 

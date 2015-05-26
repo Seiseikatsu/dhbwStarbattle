@@ -20,7 +20,7 @@ public abstract class DataController {
 	}
 	
 	public void close(){
-		
+		this.databaseControl.close();
 	};
 	
 	protected String getDisplayNameForAccountID(int accountID) throws AccountException {
@@ -34,13 +34,11 @@ public abstract class DataController {
 			rs.next();
 			return rs.getNString(1);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new AccountException("Failed to get Displayname for AccountId."); 
 		}
 	}
 
 	protected String getDisplayNameForAccountName(String accountName) throws AccountException {
-		//TODO: mittels SqlSelectJoinStatement generieren
 		try {
 			PreparedStatement stmt = databaseControl.getConnection().prepareStatement("SELECT display_name from player, account where account.account_id = player.account_id AND account.name= ? ");
 			stmt.setString(1, accountName);
@@ -76,7 +74,6 @@ public abstract class DataController {
 			rs.next();
 			return rs.getInt(1);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new AccountException("Failed to get AccountId for Accountname."); 
 		}
 	}
@@ -92,7 +89,6 @@ public abstract class DataController {
 			rs.next();
 			return rs.getInt(1);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new AccountException("Failed to get AccountId for Displayname."); 
 		}
 
@@ -109,7 +105,6 @@ public abstract class DataController {
 			rs.next();
 			return rs.getNString(1);
 		} catch (SQLException e) {
-			e.printStackTrace();
 			throw new AccountException("Failed to get AccountId for Accountname."); 
 		}
 	}
