@@ -15,6 +15,7 @@ import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.layout.DesignLabel;
 import com.starbattle.client.main.StarBattleClient;
 import com.starbattle.client.views.lobby.LobbyView;
+import com.starbattle.client.views.play.queue.WaitingView;
 import com.starbattle.client.window.ContentView;
 import com.starbattle.network.connection.objects.NP_CancelMatchQueue;
 import com.starbattle.network.connection.objects.NP_EnterMatchQueue;
@@ -33,7 +34,6 @@ public class PlayView extends ContentView {
 	public final static String PLAY = "Play";
 	public final static String CANCEL = "Cancel";
 
-	private boolean inQuery = false;
 
 	public PlayView(final NetworkConnection networkConnection) {
 		windowSize = StarBattleClient.windowSize;
@@ -63,12 +63,7 @@ public class PlayView extends ContentView {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				if (inQuery) {
-					cancelQuery();
-					networkConnection.getSendConnection().sendTCP(new NP_CancelMatchQueue());
-				} else {					
 					enterQuery();
-				}
 			}
 		});
 
@@ -81,18 +76,14 @@ public class PlayView extends ContentView {
 
 	}
 
-	private void cancelQuery() {
-		playButton.setText(PLAY);
-		inQuery = false;
-	}
 
 	private void enterQuery() {
-		playButton.setText(CANCEL);
+		openView(WaitingView.VIEW_ID);
+		
 		NP_EnterMatchQueue enter = new NP_EnterMatchQueue();
 		enter.modeName = gameModeDisplay.getSelectedMode();
 		enter.mapName=gameModeDisplay.getSelectedMap();
 		networkConnection.getSendConnection().sendTCP(enter);
-		inQuery = true;
 	}
 
 	@Override
@@ -124,7 +115,7 @@ public class PlayView extends ContentView {
 
 		@Override
 		public void receivedQueryCancel() {
-			cancelQuery();
+			openView(VIEW_ID);	
 		}
 
 	}

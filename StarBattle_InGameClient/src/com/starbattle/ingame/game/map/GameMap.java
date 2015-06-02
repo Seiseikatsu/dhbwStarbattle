@@ -4,6 +4,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.starbattle.ingame.game.viewport.Viewport;
+import com.starbattle.maploader.main.CollisionMap;
 import com.starbattle.maploader.main.MapLoadException;
 import com.starbattle.maploader.main.MapLoader;
 
@@ -13,7 +14,8 @@ public class GameMap {
 	public final static int TILE_SIZE = 64;
 	private TiledMap map;
 	private int gameLayerID;
-
+	private CollisionMap collisionMap;
+	
 	public GameMap() {
 
 	}
@@ -28,6 +30,7 @@ public class GameMap {
 			gameLayerID = mapLoader.getGameLayerID();
 			int w = map.getWidth();
 			int h = map.getHeight();
+			collisionMap=mapLoader.getCollisionMap();
 			System.out.println("Loaded Map with " + map.getLayerCount() + " Layers [Size:" + w + "x" + h + "]");
 		} catch (MapLoadException e) {
 			e.printStackTrace();
@@ -60,4 +63,7 @@ public class GameMap {
 		return map.getHeight();
 	}
 
+	public CollisionMap getCollisionMap() {
+		return collisionMap;
+	}
 }

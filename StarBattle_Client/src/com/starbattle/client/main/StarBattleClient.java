@@ -15,6 +15,7 @@ import com.starbattle.client.views.lobby.LobbyView;
 import com.starbattle.client.views.lobby.friends.AddFriendView;
 import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.views.play.PlayView;
+import com.starbattle.client.views.play.queue.WaitingView;
 import com.starbattle.client.views.profile.PlayerProfileView;
 import com.starbattle.client.views.register.RegisterView;
 import com.starbattle.client.views.reset.ResetPasswordView;
@@ -121,6 +122,9 @@ public class StarBattleClient {
 		window.addView(new ShopView(connection));
 		loadingWindow.loadProgress();
 		window.addView(new PlayerProfileView(connection));
+		loadingWindow.loadProgress();		
+		window.addView(new WaitingView(connection));
+		
 		loadingWindow.loadProgress();
 		// open login window
 		window.open(LoginView.VIEW_ID);

@@ -11,6 +11,7 @@ import com.starbattle.ingame.game.location.Location;
 import com.starbattle.ingame.game.map.GameMap;
 import com.starbattle.ingame.game.player.PlayerContainer;
 import com.starbattle.ingame.game.player.PlayerObject;
+import com.starbattle.maploader.main.CollisionMap;
 
 public class BulletsContainer {
 
@@ -18,6 +19,7 @@ public class BulletsContainer {
 	public final static int BORDER_SIZE = 10;
 	private List<BulletObject> bullets = new ArrayList<BulletObject>();
 	private Rectangle border;
+	private CollisionMap collisionMap;
 
 	public BulletsContainer() {
 
@@ -34,6 +36,14 @@ public class BulletsContainer {
 			BulletObject bullet = bullets.get(i);
 			bullet.update(delta);
 			Location pos = bullet.getLocation();
+
+			// remove bullets in walls
+			int bx = (int) Math.floor(pos.getXpos());
+			int by = (int) Math.floor(pos.getYpos());
+			if (collisionMap.isTileBlocked(bx, by)) {
+				bullets.remove(i);
+				continue;
+			}
 
 			if (!border.contains(pos.getXpos(), pos.getYpos())) {
 				// remove bullet because it is not more in visible area of map
@@ -54,6 +64,7 @@ public class BulletsContainer {
 		int w = map.getWidth() + BORDER_SIZE * 2;
 		int h = map.getHeight() + BORDER_SIZE * 2;
 		border = new Rectangle(-BORDER_SIZE, -BORDER_SIZE, w, h);
+		this.collisionMap = map.getCollisionMap();
 	}
 
 	public void removeBullet(int id) {

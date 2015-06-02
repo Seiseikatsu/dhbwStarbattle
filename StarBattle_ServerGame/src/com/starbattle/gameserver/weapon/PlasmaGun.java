@@ -20,7 +20,7 @@ public class PlasmaGun extends Weapon {
 		init(20, 5);
 		// schüsse werden ständig automatisch neugeladen (damit man immer eine
 		// basis waffe hat mit munition)
-		setAutoReload(5);
+		setAutoReload(50);
 	}
 
 	@Override

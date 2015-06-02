@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -16,6 +17,7 @@ import javax.swing.JTextArea;
 import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.layout.DesignLabel;
 import com.starbattle.client.main.error.ConnectionErrorListener;
+import com.starbattle.client.resource.ClientConfiguration;
 import com.starbattle.client.resource.ResourceLoader;
 import com.starbattle.client.window.ContentView;
 
@@ -28,6 +30,7 @@ public class ConnectionErrorView extends ContentView {
 
 	private JButton close = new DesignButton("Close");
 	private JButton reconnect = new DesignButton("Reconnect");
+	private JButton changeIP = new DesignButton("Change IP");
 	private static JTextArea errorInfo=new JTextArea();
 	
 	public ConnectionErrorView(ConnectionErrorListener connectionErrorListener) {
@@ -67,9 +70,25 @@ public class ConnectionErrorView extends ContentView {
 		errorInfo.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 		JPanel bot = new JPanel();
 		bot.add(reconnect);
+		bot.add(changeIP);
 		bot.add(close);
 		view.add(bot, BorderLayout.SOUTH);
 
+		changeIP.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				String ip=JOptionPane.showInputDialog("IP Address:",ClientConfiguration.get().get("server"));
+				if(ip!=null)
+				{
+				ClientConfiguration.get().setProperty("server", ip);
+				ClientConfiguration.saveProperties();
+				connectionErrorListener.tryReconnect();
+				}			
+			}
+		});
+		
 		reconnect.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

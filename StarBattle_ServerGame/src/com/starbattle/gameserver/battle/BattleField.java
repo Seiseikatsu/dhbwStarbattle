@@ -125,11 +125,13 @@ public class BattleField {
 				// check for map collision
 				Location location = projectile.getLocation();
 
+				
 				if (collisionDetection.locationInBlock(location)) {
 					// trim to wall edge location
 					destroy = true;
 				}
 
+				
 				// check for removing because of map border
 				if (destroy || !mapBorder.isInBorder(location)) {
 					int id = projectile.getId();
@@ -139,7 +141,7 @@ public class BattleField {
 					effect.source_id = id;
 					effect.xpos = location.getXpos();
 					effect.ypos = location.getYpos();
-					effectTrigger.triggerEffect(effect);
+				//	effectTrigger.triggerEffect(effect);
 					// remove
 					projectiles.remove(i);
 				}
