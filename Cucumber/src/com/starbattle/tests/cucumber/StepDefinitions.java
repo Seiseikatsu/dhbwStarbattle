@@ -31,13 +31,13 @@ public class StepDefinitions {
 	private static boolean initServer=false;
 		
 	@cucumber.api.java.Before	
-	public static void init()
+	public static void init() throws AccountException
 	{
 		if(initServer==false)
 		{
 		//start server
 		server=new StarbattleServer();
-
+		
 		
 		//init db with debug users
 		MainServerManager manager = server.getManager();
@@ -60,7 +60,7 @@ public class StepDefinitions {
 //			e.printStackTrace();
 //		}
 		   
-		initServer=true;
+	//	initServer=true;
 		}
 		//set simulation parameters
 		ClientTestInterface.shutdownDelaySeconds=1f;
@@ -74,7 +74,7 @@ public class StepDefinitions {
 	{
 		//shut down all applications from this test
 		ClientTestInterface.shutdown();	
-//		server.shutdown(null);
+		server.shutdown(null);
 	}
 
 	

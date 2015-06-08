@@ -19,7 +19,7 @@ public class TestEnvironment {
 	private AccountManager accountManager;
 	private TestAccountManager testAccountManager;
 
-	public TestEnvironment() {
+	public TestEnvironment() throws AccountException {
 		server = new StarbattleServer();
 		ClientTestInterface.shutdownDelaySeconds = 1f;
 		ClientTestInterface.stepDelay = 0.5f;

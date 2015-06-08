@@ -30,15 +30,11 @@ public class MainServerManager {
 	private GameManager gameManager;
 	private MatchQueueManager matchQueueManager;
 
-	public MainServerManager(NetworkServer server) {
+	public MainServerManager(NetworkServer server) throws AccountException {
 		this.server = server;
 		playerContainer = new PlayerContainer();
-		try {
-			playerManager = new PlayerManager(playerContainer);
-		} catch (AccountException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		playerManager = new PlayerManager(playerContainer);
+
 		gameManager = new GameManager();
 		matchQueueManager = new MatchQueueManager(gameManager,playerContainer);
 	}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.SocketAddress;
 
+import com.starbattle.accounts.manager.AccountException;
 import com.starbattle.network.connection.NetworkRegister;
 import com.starbattle.network.connection.objects.NP_ServerStop;
 import com.starbattle.network.server.NetworkServer;
@@ -13,7 +14,7 @@ import com.starbattle.server.manager.MainServerManager;
 
 public class StarbattleServer {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws AccountException {
 		new StarbattleServer();
 	}
 
@@ -21,7 +22,7 @@ public class StarbattleServer {
 	private MainServerManager manager;
 	private ServerConsoleControl consoleControl;
 
-	public StarbattleServer() {
+	public StarbattleServer() throws AccountException {
 		// Display Console output
 		System.out.println(TextFileReader.readTextFile("IntroOutput.txt"));
 
