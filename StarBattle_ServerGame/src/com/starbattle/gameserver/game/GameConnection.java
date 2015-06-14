@@ -16,13 +16,15 @@ public class GameConnection {
 
 	public GameConnection(GameContainer game) {
 		this.game = game;
+
 	}
 
 	public void playerConnected(String accountName) {
-
+		game.getPlayerList().getPlayerByAccount(accountName).setConnected(true);
 	}
 
 	public void playerDisonnected(String accountName) {
+		game.getPlayerList().getPlayerByAccount(accountName).setConnected(false);
 
 	}
 
@@ -46,7 +48,7 @@ public class GameConnection {
 
 		PlayerList players = game.getPlayerList();
 		GamePlayer player = players.getPlayerByAccount(accountName);
-		
+
 		player.processInput(data);
 	}
 

@@ -10,6 +10,7 @@ import com.starbattle.client.main.error.BugSplashDialog;
 import com.starbattle.client.main.error.ConnectionErrorListener;
 import com.starbattle.client.resource.ClientConfiguration;
 import com.starbattle.client.resource.GUIDesign;
+import com.starbattle.client.views.ClientViewFactory;
 import com.starbattle.client.views.error.ConnectionErrorView;
 import com.starbattle.client.views.lobby.LobbyView;
 import com.starbattle.client.views.lobby.friends.AddFriendView;
@@ -28,31 +29,29 @@ import com.starbattle.network.connection.NetworkRegister;
 public class StarBattleClient {
 
 	public static void main(String[] args) {
-		StarBattleClient client=new StarBattleClient();
+		StarBattleClient client = new StarBattleClient();
 		client.initClient();
 	}
-	
-	
+
 	private GameWindow window;
 	private NetworkConnection connection;
 	private LoadingWindow loadingWindow;
 	private boolean shutdown = false;
-	public static Dimension windowSize=new Dimension(1000,600);
+	public static Dimension windowSize = new Dimension(1000, 600);
 	public static InGameClientControl inGameClient;
-	
+
 	public StarBattleClient() {
-		//load needed resource for windows 
+		// load needed resource for windows
 		GUIDesign.load();
 		BugSplashDialog.init();
-	
+
 	}
-	
 
 	public void initClient() {
 		// Create Loading Window
 		loadingWindow = new LoadingWindow();
-		loadingWindow.setMaxProgress(11);// max progress count
-		Thread loadingWindowThread=new Thread(new Runnable() {		
+		loadingWindow.setMaxProgress(15);// max progress count
+		Thread loadingWindowThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				loadingWindow.open();
@@ -60,16 +59,14 @@ public class StarBattleClient {
 		});
 		loadingWindowThread.start();
 
-		//init client
-		
+		// init client
+
 		loadingWindow.loadProgress();
 
 		window = new GameWindow(null, "StarBattle Client");
 		ClientConfiguration.loadConfiguration();
 		loadingWindow.loadProgress();
 
-		
-		
 		// create network connection
 		connection = new NetworkConnection(new NetworkConnectionHandler());
 		loadingWindow.loadProgress();
@@ -78,10 +75,10 @@ public class StarBattleClient {
 		window.addView(new ConnectionErrorView(new ConnectionErrorHandler()));
 		loadingWindow.loadProgress();
 		try {
-			
-			String ip=ClientConfiguration.get().getProperty("server");
-			connection.start(ip, NetworkRegister.TCP_PORT,NetworkRegister.UDP_PORT);
-			inGameClient=new InGameClientControl(this);
+
+			String ip = ClientConfiguration.get().getProperty("server");
+			connection.start(ip, NetworkRegister.TCP_PORT, NetworkRegister.UDP_PORT);
+			inGameClient = new InGameClientControl(this);
 			loadingWindow.loadProgress();
 			openWindow();
 
@@ -104,34 +101,14 @@ public class StarBattleClient {
 	}
 
 	private void openWindow() {
-		// create views
-		window.addView(new LoginView(connection));
-		loadingWindow.loadProgress();
-		window.addView(new RegisterView(connection));
-		loadingWindow.loadProgress();
-		window.addView(new ResetPasswordView(connection));
-		loadingWindow.loadProgress();
-		window.addView(new LobbyView(connection));
-		loadingWindow.loadProgress();
-		window.addView(new PlayView(connection));
-		loadingWindow.loadProgress();
-		window.addView(new AddFriendView(connection));
-		loadingWindow.loadProgress();
-		window.addView(new SettingsView(connection));
-		loadingWindow.loadProgress();
-		window.addView(new ShopView(connection));
-		loadingWindow.loadProgress();
-		window.addView(new PlayerProfileView(connection));
-		loadingWindow.loadProgress();		
-		window.addView(new WaitingView(connection));
-		
-		loadingWindow.loadProgress();
+		// create views	
+		ClientViewFactory.initViews(window, connection, loadingWindow,inGameClient);
+
 		// open login window
 		window.open(LoginView.VIEW_ID);
 		loadingWindow.loadProgress();
 		loadingWindow.close();
 	}
-
 
 	// reacts if connection to server opened/closed
 	private class NetworkConnectionHandler implements NetworkConnectionListener {
@@ -144,9 +121,8 @@ public class StarBattleClient {
 		@Override
 		public void onDisconnect(String cause) {
 			if (!shutdown) {
-				if(cause!=null)
-				{
-					//display disconnect cause
+				if (cause != null) {
+					// display disconnect cause
 					BugSplashDialog.showMessage(cause);
 				}
 				loadingWindow.close();

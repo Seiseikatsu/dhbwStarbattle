@@ -16,9 +16,11 @@ public class GameQueue {
 	private String mapName;
 	private GameModes mode;
 	private GameStartListener gameStartListener;
-
-	public GameQueue(GameStartListener gameStartListener) {
+	private int id;
+	
+	public GameQueue(GameStartListener gameStartListener, int id) {
 		this.gameStartListener = gameStartListener;
+		this.id=id;
 	}
 
 	private BattleInitialization generateInitialization() {
@@ -43,6 +45,7 @@ public class GameQueue {
 		int index=players.indexOf(player);
 		if(index!=-1)
 		{
+			System.out.println("GameQueue: Player "+player.getAccountName()+" left Queue["+id+"] !");
 			players.remove(index);
 			displayNames.remove(index);
 		}
@@ -93,4 +96,12 @@ public class GameQueue {
 		this.targetPlayerCount = targetPlayerCount;
 	}
 
+	public int getId() {
+		return id;
+	}
+	
+	public int getPlayerCount()
+	{
+		return players.size();
+	}
 }

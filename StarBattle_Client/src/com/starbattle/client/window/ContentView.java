@@ -28,13 +28,11 @@ public abstract class ContentView {
 	
 	public void openView(int id)
 	{
-		onClosing();
 		listener.openView( id);
 	}
 	
 	public void openWindowView(int id)
 	{
-		onClosing();
 		listener.openWindowView(id);
 	}
 	

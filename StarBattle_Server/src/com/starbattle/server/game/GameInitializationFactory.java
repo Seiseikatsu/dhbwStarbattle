@@ -46,9 +46,10 @@ public class GameInitializationFactory {
 			break;
 		}
 
-		if (gameMode != null) {
-			battleSettings.setGameMode(gameMode);
+		if (gameMode == null) {
+			gameMode = new TeamDeathMatch(pointLimit);
 		}
+		battleSettings.setGameMode(gameMode);
 	}
 
 	public BattleInitialization build() {

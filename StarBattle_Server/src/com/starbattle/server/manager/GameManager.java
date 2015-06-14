@@ -10,6 +10,7 @@ import com.starbattle.gameserver.main.BattleResults;
 import com.starbattle.gameserver.main.BattleSettings;
 import com.starbattle.gameserver.main.StarbattleGame;
 import com.starbattle.gameserver.main.StarbattleGameControl;
+import com.starbattle.gameserver.player.GamePlayer;
 import com.starbattle.network.connection.objects.game.NP_GameUpdate;
 import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
 import com.starbattle.network.server.PlayerConnection;
@@ -57,6 +58,17 @@ public class GameManager {
 		}
 	}
 
+	public void playerExit(PlayerConnection player) {
+		int gameID = player.getGameID();
+		if (gameID != PlayerConnection.IN_LOBBY) {
+			StarbattleGame game = games.get(gameID);
+			boolean stopGame = game.playerDisconnected(player.getAccountName());
+			if (stopGame) {
+				removeGame(gameID);
+			}
+		}
+	}
+
 	public void playerReady(PlayerConnection player) {
 		int gameID = player.getGameID();
 		if (gameLoader.containsKey(gameID)) {
@@ -97,6 +109,8 @@ public class GameManager {
 			}
 		});
 		openGameThread.start();
+		System.out.println("GameManager: Open Game " + gameID);
+
 		return gameID;
 	}
 
@@ -119,8 +133,13 @@ public class GameManager {
 	}
 
 	private void removeGame(int id) {
+		// set all players free from the game
+		for (PlayerConnection player : games.get(id).getPlayers()) {
+			player.setGameID(PlayerConnection.IN_LOBBY);
+		}
 		gameLoader.remove(id);
 		games.remove(id);
+		System.out.println("GameManager: Remove Game " + id);
 	}
 
 	public void close() {

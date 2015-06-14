@@ -15,10 +15,14 @@ package com.starbattle.network.connection.objects;
  *
  */
 
+
+
 public class NP_EnterMatchQueue {
 
+	public final static int MODE_STANDARD=0,MODE_LONG=2,MODE_FAST=1;
+	
 	public String modeName;
-	public int numberOfPlayers;
+	public int searchMode;
 	public String mapName;
 	
 	

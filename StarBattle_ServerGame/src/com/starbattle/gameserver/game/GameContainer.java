@@ -104,4 +104,6 @@ public class GameContainer {
 	public ServerMap getServerMap() {
 		return serverMap;
 	}
+
+	
 }

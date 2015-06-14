@@ -15,6 +15,7 @@ import com.starbattle.client.layout.DesignButton;
 import com.starbattle.client.layout.DesignLabel;
 import com.starbattle.client.main.StarBattleClient;
 import com.starbattle.client.views.lobby.LobbyView;
+import com.starbattle.client.views.play.queue.CancelSearchListener;
 import com.starbattle.client.views.play.queue.WaitingView;
 import com.starbattle.client.window.ContentView;
 import com.starbattle.network.connection.objects.NP_CancelMatchQueue;
@@ -32,10 +33,12 @@ public class PlayView extends ContentView {
 	private DesignButton cancelButton = new DesignButton("Back");
 
 	public final static String PLAY = "Play";
-	public final static String CANCEL = "Cancel";
+	
+	private WaitingView waitingView;
+	
 
-
-	public PlayView(final NetworkConnection networkConnection) {
+	public PlayView(final NetworkConnection networkConnection, WaitingView waitingView) {
+		this.waitingView=waitingView;
 		windowSize = StarBattleClient.windowSize;
 		this.networkConnection = networkConnection;
 		networkConnection.setGameQueryListener(new QueryListener());
@@ -73,34 +76,49 @@ public class PlayView extends ContentView {
 		view.add(bottomPanel, BorderLayout.SOUTH);
 		view.add(topPanel, BorderLayout.NORTH);
 		view.add(gameModeDisplay.getView(), BorderLayout.CENTER);
+		
+		waitingView.setCancelSearchListener(new CancelSearchListener() {		
+			@Override
+			public void cancel() {
+				//send cancel
+				cancelQuery();
+							
+			}
+		});
 
 	}
 
+	private void cancelQuery()
+	{
+		NP_CancelMatchQueue cancel=new NP_CancelMatchQueue();
+		networkConnection.getSendConnection().sendTCP(cancel);
+	}
 
 	private void enterQuery() {
-		openView(WaitingView.VIEW_ID);
-		
+	
 		NP_EnterMatchQueue enter = new NP_EnterMatchQueue();
+		enter.searchMode=gameModeDisplay.getSearchMode();
 		enter.modeName = gameModeDisplay.getSelectedMode();
 		enter.mapName=gameModeDisplay.getSelectedMap();
 		networkConnection.getSendConnection().sendTCP(enter);
+	
+		waitingView.setSearchSettings(gameModeDisplay.getSelectedModeName(),enter.mapName);	
+		openView(WaitingView.VIEW_ID);
 	}
 
 	@Override
 	protected void initView() {
-		// request game mode list
+		// request game mode list on init
 		NP_RequestGameModes request = new NP_RequestGameModes();
 		networkConnection.getSendConnection().sendTCP(request);
 	}
 
 	@Override
 	protected void onClosing() {
-
 	}
 
 	@Override
 	public int getViewID() {
-
 		return VIEW_ID;
 	}
 
@@ -108,13 +126,12 @@ public class PlayView extends ContentView {
 
 		@Override
 		public void receivedGameModes(NP_GameModesList modes) {
-
 			gameModeDisplay.initGameModes(modes);
-
 		}
 
 		@Override
 		public void receivedQueryCancel() {
+			System.out.println("Received Query Cancel");
 			openView(VIEW_ID);	
 		}
 

@@ -15,6 +15,7 @@ import com.starbattle.network.connection.objects.NP_Register;
 import com.starbattle.network.connection.objects.NP_ResetEmail;
 import com.starbattle.network.connection.objects.NP_StartAnswer;
 import com.starbattle.network.server.PlayerConnection;
+import com.starbattle.server.game.queue.MatchQueueManager;
 import com.starbattle.server.player.PlayerContainer;
 
 public class PlayerManager {
@@ -22,11 +23,13 @@ public class PlayerManager {
 	private AccountManager accountManager;
 	private FriendsManager friendsManager;
 	private PlayerContainer playerContainer;
+	private MatchQueueManager matchQueueManager;
 	public final static String playerAlreadyLoginMessage="Player is already logged in!";
 	
-	public PlayerManager(PlayerContainer playerContainer) throws AccountException {
+	public PlayerManager(PlayerContainer playerContainer, MatchQueueManager matchQueueManager) throws AccountException {
 		this.playerContainer = playerContainer;
 		accountManager = new AccountManagerFacade();
+		this.matchQueueManager=matchQueueManager;
 		friendsManager = new FriendsManager(playerContainer, accountManager);
 	}
 
@@ -113,6 +116,8 @@ public class PlayerManager {
 			friendsManager.updateFriendsMyOnlineStatus(player.getAccountName(), false);
 			playerContainer.logoutPlayer(player.getAccountName());
 			System.out.println("Player logout: " + player.getAccountName());
+			//remove player from active queues
+			matchQueueManager.playerLeftQueue(player);
 		}
 	}
 

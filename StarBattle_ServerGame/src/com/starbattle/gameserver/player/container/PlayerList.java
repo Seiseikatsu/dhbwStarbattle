@@ -37,7 +37,7 @@ public class PlayerList {
 		System.out.println("Server: Added Player : " + participant.getAccountName());
 		int playerID = displayNames.size();
 		String playerName = participant.getDisplayName();
-		GamePlayer player = new GamePlayer(playerName, playerID,control);
+		GamePlayer player = new GamePlayer(playerName, playerID, control);
 		player.getAttributes().setTeam(participant.getTeam());
 		addPlayer(player, participant.getAccountName());
 	}
@@ -57,6 +57,15 @@ public class PlayerList {
 		}
 		int id = displayNames.get(userName);
 		return players.get(id);
+	}
+
+	public boolean isEveryoneDisconnected() {
+		for (GamePlayer player : players) {
+			if (player.isConnected()) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public GamePlayer getPlayerByAccount(String accountName) {
@@ -89,17 +98,17 @@ public class PlayerList {
 
 		for (GamePlayer player : players) {
 			Team team = player.getAttributes().getTeam();
-			System.out.println("Init Spawn: Player "+player.getAttributes().getPlayerName()+" / Team "+team);
+			System.out.println("Init Spawn: Player " + player.getAttributes().getPlayerName() + " / Team " + team);
 			SpawnPoint spawnPoint = spawnPoints.getRandomSpawnPoint(team);
-			
+
 			player.teleportTo(spawnPoint.getLocation());
 		}
 	}
 
 	public void setPhysics(float gravity, int jumpsInAir) {
 		for (GamePlayer player : players) {
-		PlayerMovement movement=player.getPlayerMovement();
-		movement.setPhysics(gravity, jumpsInAir);
+			PlayerMovement movement = player.getPlayerMovement();
+			movement.setPhysics(gravity, jumpsInAir);
 		}
 	}
 

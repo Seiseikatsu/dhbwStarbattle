@@ -20,6 +20,7 @@ public class MatchQueueManager {
 	private PlayerContainer playerContainer;
 	private GameStartListener gameLauncher;
 	private List<GameQueue> queues = new ArrayList<GameQueue>();
+	private int queueIdCounter;
 
 	public MatchQueueManager(GameManager gameManager, PlayerContainer playerContainer) {
 		this.gameManager = gameManager;
@@ -31,28 +32,28 @@ public class MatchQueueManager {
 	// ArrayList<PlayerConnection>();
 
 	private synchronized GameQueue createNewQueue(String mapName, int playerCount, GameModes mode) {
-		if (playerCount == 0) {
-			playerCount = mode.getDefaultPlayerCount();
-		}
 		if (mapName == null) {
 			mapName = mode.getDefaultMap();
 		}
-		GameQueue queue = new GameQueue(gameLauncher);
+		GameQueue queue = new GameQueue(gameLauncher,queueIdCounter++);
 		queue.setMapName(mapName);
 		queue.setMode(mode);
 		queue.setTargetPlayerCount(playerCount);
 		// add to queues
 		queues.add(queue);
+		System.out.println("GameQueue: Created new GameQueue["+queue.getId()+"] (Mode: "+mode.getName()+"  Map: "+mapName+"  Player:"+playerCount+")");
+		
 		return queue;
 	}
 
 	private synchronized GameQueue getMatchingQueue(NP_EnterMatchQueue settings) throws GameQueueException {
 		String mapName = settings.mapName;
-		int playerCount = settings.numberOfPlayers;
+		int playerCount;
 		String modeName = settings.modeName;
 		// try to map modeName to enum
 		try {
 			GameModes mode = GameModes.valueOf(modeName);
+			playerCount=mode.getPlayerCount(settings.searchMode);
 			// search trough all queues
 			for (GameQueue gameQueue : queues) {
 				if (gameQueue.matchesSearchSettings(mode, mapName, playerCount)) {
@@ -74,12 +75,14 @@ public class MatchQueueManager {
 		if (player.isInQueue() || player.getGameID() != PlayerConnection.IN_LOBBY) {
 			throw new GameQueueException("Player is not available!");
 		}
-
+		
+		
 		String displayName = playerContainer.getPlayer(player.getAccountName()).getDisplayName();
 		// find matching queue
 		GameQueue queue = getMatchingQueue(settings);
 		player.setInQueue(true);
 		// add player to queue
+		System.out.println("GameQueue: Player "+player.getAccountName()+" entered Queue["+queue.getId()+"]");
 		queue.addPlayer(player, displayName);
 	}
 
@@ -92,6 +95,8 @@ public class MatchQueueManager {
 		for (GameQueue queue : queues) {
 			queue.removePlayer(player);
 		}
+		//set player 
+		player.setInQueue(false);
 	}
 
 	private class GameLauncher implements GameStartListener {
@@ -101,7 +106,8 @@ public class MatchQueueManager {
 
 			// remove queue from list of current queues
 			queues.remove(invoker);
-
+			System.out.println("GameQueue: Queue["+invoker.getId()+"] is ready and game will start!");
+			
 			// create game prepare and start game
 			List<BattleParticipant> participants = init.getBattleParticipants();
 			int gameID = gameManager.openGame(init);
@@ -117,5 +123,19 @@ public class MatchQueueManager {
 			}
 		}
 
+	}
+	
+	public int getQueueCount()
+	{
+		return queues.size();
+	}
+	
+	public int getPlayerCount()
+	{
+		int pls=0;
+		for (GameQueue gameQueue : queues) {
+			pls+=gameQueue.getPlayerCount();
+		}
+		return pls;
 	}
 }

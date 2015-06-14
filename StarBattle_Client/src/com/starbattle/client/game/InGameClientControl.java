@@ -1,8 +1,13 @@
 package com.starbattle.client.game;
 
+import org.lwjgl.openal.AL;
+import org.lwjgl.opengl.Display;
+
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.connection.listener.NetworkGameListener;
 import com.starbattle.client.main.StarBattleClient;
+import com.starbattle.client.views.lobby.LobbyView;
+import com.starbattle.client.views.play.ingame.InGameView;
 import com.starbattle.ingame.debug.DebugSettings;
 import com.starbattle.ingame.main.GameClientException;
 import com.starbattle.ingame.main.InGameClient;
@@ -32,6 +37,9 @@ public class InGameClientControl {
 	}
 
 	public void openGame(final NP_PrepareGame gameInfo) {
+		//set client view
+		System.out.println("OPEN GAME!");
+		client.getWindow().getContent().showView(InGameView.VIEW_ID);
 	    Thread thread = new Thread(new Runnable() {
 
 			@Override
@@ -39,7 +47,9 @@ public class InGameClientControl {
 				try {
 					game = new InGameClient();
 					game.openInGameClient(settings, gameInfo, createSendConnection());
-
+					Display.destroy();
+					AL.destroy();
+					System.out.println("Closed Game");
 				} catch (GameClientException e) {
 					e.printStackTrace();
 				}
@@ -69,12 +79,12 @@ public class InGameClientControl {
 			@Override
 			public void receivedGameEnd(NP_GameEnd end) {
 				game.receivedObject(end);
+				closeGame();
 			}
 
 			@Override
 			public void receivedPrepareGame(NP_PrepareGame prepareGame) {
-				// open the ingame client and hide client
-				// client.getWindow().getWindow().dispose();
+	
 				openGame(prepareGame);
 				System.out.println("Received GamePreprare: "+prepareGame);
 			}
@@ -98,6 +108,8 @@ public class InGameClientControl {
 
 	public void closeGame() {
 		game.closeInGameClient();
+		//later change to game result screen
+		client.getWindow().getContent().showView(LobbyView.VIEW_ID);
 	}
 
 	public void reconnectedPlayer() {

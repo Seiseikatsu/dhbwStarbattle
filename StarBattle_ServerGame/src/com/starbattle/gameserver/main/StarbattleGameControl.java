@@ -1,5 +1,6 @@
 package com.starbattle.gameserver.main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.starbattle.gameserver.exceptions.ServerMapException;
@@ -74,13 +75,15 @@ public class StarbattleGameControl implements StarbattleGame {
 	}
 
 	@Override
-	public void playerDisconnected(String accountName) {
+	public boolean playerDisconnected(String accountName) {
 		if(game==null)
 		{
 			System.err.println("Game not init");
-			return;
+			return false;
 		}
 		game.getGameUpdate().playerDisonnected(accountName);
+		//check if everyone is disconnected
+		return game.getPlayerList().isEveryoneDisconnected();
 	}
 
 	@Override
@@ -94,10 +97,29 @@ public class StarbattleGameControl implements StarbattleGame {
 			battleParticipant.getConnection().sendTCP(object);
 		}
 	}
+	
+
+	@Override
+	public void sendToAllPlayersTCP(Object object) {
+		for (BattleParticipant battleParticipant : battleParticipants) {
+			battleParticipant.getConnection().sendTCP(object);
+		}
+	}
+
 
 	@Override
 	public boolean isRunning() {
 		return running;
+	}
+
+	@Override
+	public List<PlayerConnection> getPlayers() {
+		List<PlayerConnection> players=new ArrayList<PlayerConnection>();
+		for(BattleParticipant participant: battleParticipants)
+		{
+			players.add(participant.getConnection());
+		}
+		return players;
 	}
 
 

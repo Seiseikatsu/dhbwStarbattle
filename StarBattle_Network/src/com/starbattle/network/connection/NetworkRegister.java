@@ -58,6 +58,7 @@ public class NetworkRegister {
 		addNetworkClass(NP_ClientReady.class);
 		addNetworkClass(NP_PlayerData.class);
 		addNetworkClass(NP_GameModeEntry.class);
+		addNetworkClass(NP_ExitGame.class);
 
 		addNetworkClass(NP_GameModeEntry[].class);
 		addNetworkClass(NP_PlayerData[].class);

@@ -124,6 +124,11 @@ public class GameModeDisplay extends ViewModel {
 	public String getSelectedMode() {
 		return modeView.getSelectedValue().getMode();
 	}
+	
+	public String getSelectedModeName()
+	{
+		return modeView.getSelectedValue().getName();
+	}
 
 	public String getSelectedMap() {
 		return mapView.getSelectedValue();

@@ -1,7 +1,11 @@
 package com.starbattle.gameserver.main;
 
+
+import java.util.List;
+
 import com.starbattle.network.connection.objects.game.NP_GameUpdate;
 import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
+import com.starbattle.network.server.PlayerConnection;
 
 public interface StarbattleGame {
 
@@ -13,11 +17,15 @@ public interface StarbattleGame {
 	
 	public void playerConnected(String accountName);
 	
-	public void playerDisconnected(String accountName);
+	public boolean playerDisconnected(String accountName);
 	
 	public void updateGame(double delta);
 	
 	public void sendToAllPlayersUDP(Object object);
+	
+	public void sendToAllPlayersTCP(Object object);
+	
+	public List<PlayerConnection> getPlayers();
 	
 	public boolean isRunning();
 	

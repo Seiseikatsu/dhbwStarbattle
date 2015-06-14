@@ -32,7 +32,12 @@ public class CommandExecutor {
 			// shows info
 			int player = server.getManager().getPlayerContainer().getNumberOfPlayers();
 			int games = server.getManager().getGameManager().getNumberOfGames();
+			
+			int queues=server.getManager().getMatchQueueManager().getQueueCount();
+			int queuesPlayer=server.getManager().getMatchQueueManager().getPlayerCount();
+			
 			System.out.println("Connected Players: " + player);
+			System.out.println("Open Queues: "+queues+" ("+queuesPlayer+" Player)");
 			System.out.println("Running Games: " + games);
 			break;
 		case HELP:

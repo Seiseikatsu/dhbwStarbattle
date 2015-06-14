@@ -14,5 +14,8 @@
         <maps>newmap</maps>
         <mode>CAPTURETHEFLAG</mode>
     </modes> 
-    
+        <modes>
+        <maps>debugmap</maps> 
+        <mode>DEBUGMODE</mode>
+    </modes> 
 </modeSettings>

@@ -32,6 +32,7 @@ public class GamePlayer {
 	private EffectTrigger effectTrigger;
 	private WeaponInventar weapons;
 	private Shape collisionShape;
+	private boolean connected=true;
 
 	public GamePlayer(String playerName, int playerID, GameControl control) {
 		this.effectTrigger = control.getEffectTrigger();
@@ -53,6 +54,14 @@ public class GamePlayer {
 				effectTrigger.triggerEffect(effect);
 			}
 		});
+	}
+	
+	public void setConnected(boolean connected) {
+		this.connected = connected;
+	}
+	
+	public boolean isConnected() {
+		return connected;
 	}
 
 	public void processInput(NP_PlayerUpdate update) {

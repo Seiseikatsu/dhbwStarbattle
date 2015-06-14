@@ -6,6 +6,7 @@ import com.starbattle.network.connection.ConnectionListener;
 import com.starbattle.network.connection.objects.NP_CancelMatchQueue;
 import com.starbattle.network.connection.objects.NP_ChatMessage;
 import com.starbattle.network.connection.objects.NP_EnterMatchQueue;
+import com.starbattle.network.connection.objects.NP_ExitGame;
 import com.starbattle.network.connection.objects.NP_FriendRequest;
 import com.starbattle.network.connection.objects.NP_GameModesList;
 import com.starbattle.network.connection.objects.NP_HandleFriendRequest;
@@ -33,10 +34,10 @@ public class MainServerManager {
 	public MainServerManager(NetworkServer server) throws AccountException {
 		this.server = server;
 		playerContainer = new PlayerContainer();
-		playerManager = new PlayerManager(playerContainer);
-
 		gameManager = new GameManager();
 		matchQueueManager = new MatchQueueManager(gameManager,playerContainer);
+		playerManager = new PlayerManager(playerContainer,matchQueueManager);
+	
 	}
 
 	public ConnectionListener createListener() {
@@ -107,6 +108,8 @@ public class MainServerManager {
 		} else if(object instanceof NP_RequestGameModes){
 			NP_GameModesList modeList=gameManager.getGameModes().getModeList();
 			player.sendTCP(modeList);
+		} else if(object instanceof NP_ExitGame){
+			gameManager.playerExit(player);
 		}
 		
 	}
@@ -121,6 +124,10 @@ public class MainServerManager {
 
 	public GameManager getGameManager() {
 		return gameManager;
+	}
+	
+	public MatchQueueManager getMatchQueueManager() {
+		return matchQueueManager;
 	}
 
 	public void close() {

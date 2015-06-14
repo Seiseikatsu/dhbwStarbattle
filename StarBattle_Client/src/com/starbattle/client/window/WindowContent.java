@@ -44,6 +44,7 @@ public class WindowContent extends JPanel {
 
 	public void createView(ContentView view) {
 		int id = view.getViewID();
+		System.out.println("Added view : "+id+"  "+view.getClass().getSimpleName());
 		view.setViewChangeListener(contentViewChanger);
 		views.put(id, view);
 	}
@@ -79,6 +80,7 @@ public class WindowContent extends JPanel {
 
 	public void showView(ContentView view) {
 		currentView = view;
+		System.out.println("Show View "+view.getClass().getSimpleName());
 		view.open();
 		this.removeAll();
 		this.add(view.getView(), BorderLayout.CENTER);

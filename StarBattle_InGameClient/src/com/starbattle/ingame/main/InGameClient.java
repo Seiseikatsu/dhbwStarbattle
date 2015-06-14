@@ -59,6 +59,7 @@ public class InGameClient implements GameClientConnection {
 		gameInit = new GameStateContainer(manager, prepareGame);
 		try {
 			gameContainer = new AppGameContainer(gameInit);
+			gameContainer.setForceExit(false);//prevent game on close to call system.exit
 
 			this.settings = settings;
 			RenderSettings renderSettings=doGameSettings();
@@ -91,12 +92,9 @@ public class InGameClient implements GameClientConnection {
 	@Override
 	public void closeInGameClient() {
 		// kill game window
-		if (gameContainer != null) {
-			gameContainer.destroy();
-		}
-		if (manager != null) {
-			manager.closeGame();
-		}
+		gameContainer.exit();
+		manager.closeGame();
+	
 	}
 
 }

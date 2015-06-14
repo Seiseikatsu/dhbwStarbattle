@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="/Tools/lib/javax.mail-1.5.2.jar"/>
 	<classpathentry kind="lib" path="/Tools/lib/kryonet-2.21-all.jar"/>
 	<classpathentry kind="lib" path="/Tools/lib/slick.jar"/>
+	<classpathentry kind="lib" path="/StarBattle_MapLoader/bin"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
