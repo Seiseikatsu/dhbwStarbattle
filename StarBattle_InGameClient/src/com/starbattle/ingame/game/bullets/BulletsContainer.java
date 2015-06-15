@@ -7,6 +7,7 @@ import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
+import com.starbattle.ingame.game.TriggerEffectsProcessor;
 import com.starbattle.ingame.game.location.Location;
 import com.starbattle.ingame.game.map.GameMap;
 import com.starbattle.ingame.game.player.PlayerContainer;
@@ -20,9 +21,11 @@ public class BulletsContainer {
 	private List<BulletObject> bullets = new ArrayList<BulletObject>();
 	private Rectangle border;
 	private CollisionMap collisionMap;
+	private static int DELTA_STEPS = 5;
+	private TriggerEffectsProcessor triggerEffectsProcessor;
 
-	public BulletsContainer() {
-
+	public BulletsContainer(TriggerEffectsProcessor triggerEffectsProcessor) {
+		this.triggerEffectsProcessor=triggerEffectsProcessor;
 	}
 
 	public void spawnBullet(int id, Location location, BulletDesign design, float angle, float speed) {
@@ -31,23 +34,30 @@ public class BulletsContainer {
 		bullets.add(bullet);
 	}
 
-	public void update(float delta) {
-		for (int i = 0; i < bullets.size(); i++) {
-			BulletObject bullet = bullets.get(i);
-			bullet.update(delta);
-			Location pos = bullet.getLocation();
+	public void update(float deltaIn) {
 
-			// remove bullets in walls
-			int bx = (int) Math.floor(pos.getXpos());
-			int by = (int) Math.floor(pos.getYpos());
-			if (collisionMap.isTileBlocked(bx, by)) {
-				bullets.remove(i);
-				continue;
-			}
+		float delta = deltaIn / DELTA_STEPS;
+		for (int h = 0; h < DELTA_STEPS; h++) {
+			for (int i = 0; i < bullets.size(); i++) {
+				BulletObject bullet = bullets.get(i);
+				bullet.update(delta);
+				Location pos = bullet.getLocation();
 
-			if (!border.contains(pos.getXpos(), pos.getYpos())) {
-				// remove bullet because it is not more in visible area of map
-				bullets.remove(i);
+				// remove bullets in walls
+				int bx = (int) Math.floor(pos.getXpos());
+				int by = (int) Math.floor(pos.getYpos());
+				if (collisionMap.isTileBlocked(bx, by)) {
+					bullets.remove(i);
+					//trigger wallhit
+					triggerEffectsProcessor.showAnimation("WallHit", pos);			
+					continue;
+				}
+
+				if (!border.contains(pos.getXpos(), pos.getYpos())) {
+					// remove bullet because it is not more in visible area of
+					// map
+					bullets.remove(i);
+				}
 			}
 		}
 	}

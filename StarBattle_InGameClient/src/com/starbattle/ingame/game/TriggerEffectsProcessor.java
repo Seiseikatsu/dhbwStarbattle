@@ -65,8 +65,7 @@ public class TriggerEffectsProcessor {
 			playSound("hit", effectLocation);
 			break;
 		case REMOVE_BULLET:
-			showAnimation("WallHit", effectLocation);
-			
+			showAnimation("WallHit", effectLocation);			
 			gameCore.getBulletsContainer().removeBullet(source);
 			break;
 		}
@@ -74,24 +73,24 @@ public class TriggerEffectsProcessor {
 	
 
 
-	private void playSound(String name, Location soundLocation) {
+	public void playSound(String name, Location soundLocation) {
 		Location myLocation = gameCore.getPlayers().getMyPlayer().getLocation();
 		SoundContainer sounds = gameCore.getResourceContainer().getSounds();
 		float volume = sounds.getSoundVolume(myLocation, soundLocation);
 		sounds.playSound(name, volume);
 	}
 
-	private void fireBullet(BulletDesign design, Location location, float angle, float speed, int id) {
+	public void fireBullet(BulletDesign design, Location location, float angle, float speed, int id) {
 		BulletsContainer bullets = gameCore.getBulletsContainer();
 		bullets.spawnBullet(id,location, design, angle, speed);
 	}
 
-	private void showAnimation(String animation, Location location) {
+	public void showAnimation(String animation, Location location) {
 		ParticleContainer particleContainer = gameCore.getParticleContainer();
 		particleContainer.spawnEffect(animation, location);
 	}
 
-	private void showAnimation(String animation, Location location, float angle) {
+	public void showAnimation(String animation, Location location, float angle) {
 		ParticleContainer particleContainer = gameCore.getParticleContainer();
 		particleContainer.spawnEffect(animation, location, angle);
 	}

@@ -7,7 +7,7 @@ import com.starbattle.network.connection.objects.NP_EnterMatchQueue;
 @XmlEnum
 public enum GameModes {
 
-	TEAMDEATHMATCH("Team Deathmatch", true, "testmap", 4, 6, 8), DEATHMATCH("Deathmatch", false, "testmap", 3, 5, 7), CAPTURETHEFLAG(
+	TEAMDEATHMATCH("Team Deathmatch", true, "testmap", 4, 6, 8), DEATHMATCH("Deathmatch", false, "testmap", 2, 2, 3), CAPTURETHEFLAG(
 			"Capture the Flag", true, "testmap", 4, 6, 8),
 			DEBUGMODE("Debug Mode",false,"testmap",1,1,1);
 

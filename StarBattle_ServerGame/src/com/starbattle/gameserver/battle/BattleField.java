@@ -93,7 +93,7 @@ public class BattleField {
 				projectile.update(delta);
 				// check for collision with players
 				Shape collision = projectile.getCollisonShape();
-
+				boolean playerHit=false;
 				boolean destroy = false;
 				for (int h = 0; h < playerCount; h++) {
 
@@ -118,6 +118,7 @@ public class BattleField {
 							// do damage
 							gameMode.onTakingDamage(target, damage);
 							destroy = true;
+							playerHit=true;
 						}
 					}
 				}
@@ -136,12 +137,15 @@ public class BattleField {
 				if (destroy || !mapBorder.isInBorder(location)) {
 					int id = projectile.getId();
 					// trigger remove effect for clients
+					if(playerHit)
+					{
 					NP_TriggerEffect effect = new NP_TriggerEffect();
 					effect.effect_id = TriggerEffects.REMOVE_BULLET.ordinal();
 					effect.source_id = id;
 					effect.xpos = location.getXpos();
 					effect.ypos = location.getYpos();
-				//	effectTrigger.triggerEffect(effect);
+					effectTrigger.triggerEffect(effect);
+					}
 					// remove
 					projectiles.remove(i);
 				}

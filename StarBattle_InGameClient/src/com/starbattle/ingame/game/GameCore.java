@@ -24,7 +24,7 @@ import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 public class GameCore {
 
 	private ParticleContainer particleContainer = new ParticleContainer();
-	private BulletsContainer bulletsContainer = new BulletsContainer();
+	private BulletsContainer bulletsContainer;
 	private GameMap map = new GameMap();
 	private ResourceContainer resourceContainer;
 	private GameRender gameRender;
@@ -42,7 +42,7 @@ public class GameCore {
 		hudRender = new HudRender(resources);
 		gameRender = new GameRender(resources, this);
 		triggerEffectsProcessor = new TriggerEffectsProcessor(this);
-	
+		bulletsContainer= new BulletsContainer(triggerEffectsProcessor);
 	}
 	
 	public void setRenderSettings(RenderSettings renderSettings)
