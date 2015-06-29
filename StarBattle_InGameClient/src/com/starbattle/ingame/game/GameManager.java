@@ -1,72 +1,90 @@
 package com.starbattle.ingame.game;
 
+import org.lwjgl.openal.AL;
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.openal.SoundStore;
 
 import com.starbattle.ingame.game.input.PlayerInput;
 import com.starbattle.ingame.network.GameNetwork;
 import com.starbattle.ingame.network.SendUpdateListener;
 import com.starbattle.ingame.network.SendUpdateTimer;
 import com.starbattle.ingame.resource.ResourceContainer;
-import com.starbattle.network.client.SendServerListener;
 import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 
-public class GameManager {
+public class GameManager
+{
 
-	private GameCore gameCore;
-	private GameNetwork network;
-	private ResourceContainer resourceContainer;
-	private SendUpdateTimer sendUpdateTimer;
-	private String mapName;
-	private PlayerInput playerInput;
-	
-	public GameManager(GameNetwork network) {
-		this.network = network;
-		resourceContainer = new ResourceContainer();
-		gameCore = new GameCore(resourceContainer);
-	}
+    private GameCore gameCore;
+    private GameNetwork network;
+    private ResourceContainer resourceContainer;
+    private SendUpdateTimer sendUpdateTimer;
+    private String mapName;
+    private PlayerInput playerInput;
 
-	public void startingGame() {
-		// start send udp update timer
-		SendUpdateListener sendUpdateListener = new UdpUpdatesSender(this);
-		sendUpdateTimer = new SendUpdateTimer(sendUpdateListener);
-		sendUpdateTimer.start();
-	}
+    public GameManager(GameNetwork network)
+    {
+        this.network = network;
+        resourceContainer = new ResourceContainer();
+        gameCore = new GameCore(resourceContainer);
+    }
 
-	public GameCore getGameCore() {
-		return gameCore;
-	}
+    public void startingGame()
+    {
+        // start send udp update timer
+        SendUpdateListener sendUpdateListener = new UdpUpdatesSender(this);
+        sendUpdateTimer = new SendUpdateTimer(sendUpdateListener);
+        sendUpdateTimer.start();
+    }
 
-	public GameNetwork getNetwork() {
-		return network;
-	}
+    public GameCore getGameCore()
+    {
+        return gameCore;
+    }
 
-	public ResourceContainer getResourceContainer() {
-		return resourceContainer;
-	}
+    public GameNetwork getNetwork()
+    {
+        return network;
+    }
 
-	public String getMapName() {
-		return mapName;
-	}
+    public ResourceContainer getResourceContainer()
+    {
+        return resourceContainer;
+    }
 
-	public void initGame(NP_PrepareGame prepareGame) {
-		this.mapName = prepareGame.mapName;
-		System.out.println("Init Game:");
-		System.out.println("> Map Name: " + mapName);
-		gameCore.initPlayers(prepareGame);
-	}
+    public String getMapName()
+    {
+        return mapName;
+    }
 
-	public void closeGame() {
-		sendUpdateTimer.close();
-	}
+    public void initGame(NP_PrepareGame prepareGame)
+    {
+        this.mapName = prepareGame.mapName;
+        System.out.println("Init Game:");
+        System.out.println("> Map Name: " + mapName);
+        gameCore.initPlayers(prepareGame);
+    }
 
-	public void prepareInput(Input input) {
-		playerInput=new PlayerInput(input);
-		playerInput.init();
-		gameCore.setPlayerInput(playerInput);
-	}
+    public void closeGame() throws SlickException
+    {
+        sendUpdateTimer.close();
+        resourceContainer.destroy();
+        Display.destroy();
+        AL.destroy();
+        SoundStore.get().clear();
+    }
 
-	public PlayerInput getPlayerInput() {
-		return playerInput;
-	}
-	
+    public void prepareInput(Input input)
+    {
+        playerInput = new PlayerInput(input);
+        playerInput.init();
+        gameCore.setPlayerInput(playerInput);
+    }
+
+    public PlayerInput getPlayerInput()
+    {
+        return playerInput;
+    }
+
 }

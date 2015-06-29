@@ -46,9 +46,7 @@ public class InGameClientControl {
 			public void run() {
 				try {
 					game = new InGameClient();
-					game.openInGameClient(settings, gameInfo, createSendConnection());
-					Display.destroy();
-					AL.destroy();
+					game.openInGameClient(settings, gameInfo, createSendConnection());				
 					System.out.println("Closed Game");
 				} catch (GameClientException e) {
 					e.printStackTrace();

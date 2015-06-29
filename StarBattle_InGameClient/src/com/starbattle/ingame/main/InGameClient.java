@@ -93,8 +93,16 @@ public class InGameClient implements GameClientConnection {
 	public void closeInGameClient() {
 		// kill game window
 		gameContainer.exit();
-		manager.closeGame();
-	
+		try
+        {
+            manager.closeGame();
+        }
+        catch (SlickException e)
+        {
+            e.printStackTrace();
+            System.exit(0);
+        }
+		
 	}
 
 }

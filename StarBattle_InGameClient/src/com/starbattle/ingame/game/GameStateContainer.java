@@ -39,4 +39,9 @@ public class GameStateContainer extends StateBasedGame {
 		RenderResource.readScreenSize();
 	}
 
+	@Override
+	public boolean closeRequested()
+	{
+	    return false;
+	}
 }

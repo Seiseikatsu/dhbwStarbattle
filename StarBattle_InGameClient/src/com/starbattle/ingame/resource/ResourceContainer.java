@@ -19,24 +19,27 @@ public class ResourceContainer {
 	private ParticleGraphics particleGraphics=new ParticleGraphics();
 	private FontContainer fonts=new FontContainer();
 	private SoundContainer sounds=new SoundContainer();
+	private ResourceGarbageCollector resourceGarbageCollector=new ResourceGarbageCollector();
 
 	public ResourceContainer() {
 
 	}
 
 	public void loadResources() throws ResourceException {
-		fonts.loadFonts();
+		fonts.loadFonts(resourceGarbageCollector);
 		loadPlayerGraphics();
-		backgroundGraphics.load();
-		hudGraphics.load();
-		particleGraphics.load();
+		backgroundGraphics.load(resourceGarbageCollector);
+		hudGraphics.load(resourceGarbageCollector);
+		particleGraphics.load(resourceGarbageCollector);
 		loadWeaponGraphics();
-		sounds.loadSounds();
+		sounds.loadSounds(resourceGarbageCollector);
 	}
 
 	private void loadPlayerGraphics() throws ResourceException {
 		for (PlayerGraphics resource : PlayerGraphics.values()) {
-			playerGraphics.put(resource, new PlayerGraphicResource(resource.getFile()));
+		    PlayerGraphicResource res=new  PlayerGraphicResource(resource.getFile());
+		    resourceGarbageCollector.collect(res);
+			playerGraphics.put(resource,res );
 		}
 	}
 
@@ -47,9 +50,11 @@ public class ResourceContainer {
 			Image image;
 			try {
 				image = new Image(PATH + "weapons/" + file);
+				resourceGarbageCollector.collect(image);
 				SpriteSheet sprites=new SpriteSheet(image, image.getWidth(), resource.getSpriteHeight());
+				resourceGarbageCollector.collect(sprites);
 				weaponGraphics.put(resource, sprites);
-
+				
 			} catch (SlickException e) {
 				e.printStackTrace();
 				throw new ResourceException("Could not load Weapon Image: " + file);
@@ -85,4 +90,9 @@ public class ResourceContainer {
 	public SoundContainer getSounds() {
 		return sounds;
 	}
+
+    public void destroy() throws SlickException
+    {
+       resourceGarbageCollector.tidyUp();
+    }
 }

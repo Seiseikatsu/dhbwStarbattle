@@ -14,10 +14,10 @@ public class ParticleGraphics {
 
 	}
 
-	public void load() throws ResourceException {
+	public void load(ResourceGarbageCollector resourceGarbageCollector) throws ResourceException {
 
 		plasmaBall = loadImage("plasmaBall.png");
-
+		resourceGarbageCollector.collect(plasmaBall);
 	}
 
 	private Image loadImage(String name) throws ResourceException {

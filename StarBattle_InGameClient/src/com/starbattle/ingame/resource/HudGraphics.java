@@ -16,11 +16,15 @@ public class HudGraphics {
 
 	}
 
-	public void load() throws ResourceException {
+	public void load(ResourceGarbageCollector resourceGarbageCollector) throws ResourceException {
 
 		airHUD = loadImage("airBar.png");
 		cursor = loadImage("cursor.png");
 		medals = new SpriteSheet(loadImage("medals.png"), 32, 32);
+		
+		resourceGarbageCollector.collect(airHUD);
+		resourceGarbageCollector.collect(cursor);
+		resourceGarbageCollector.collect(medals);
 	}
 
 	private Image loadImage(String name) throws ResourceException {

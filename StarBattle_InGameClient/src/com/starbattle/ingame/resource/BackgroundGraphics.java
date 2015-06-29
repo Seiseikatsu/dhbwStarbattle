@@ -14,10 +14,10 @@ public class BackgroundGraphics {
 
 	}
 
-	public void load() throws ResourceException {
+	public void load(ResourceGarbageCollector resourceGarbageCollector) throws ResourceException {
 
 		spaceBackground = loadImage("space_background.jpg");
-
+		resourceGarbageCollector.collect(spaceBackground);
 	}
 
 	private Image loadImage(String name) throws ResourceException {

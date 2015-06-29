@@ -21,11 +21,15 @@ public class FontContainer {
 		
 	}
 	
-	public void loadFonts() throws ResourceException
+	public void loadFonts(ResourceGarbageCollector resourceGarbageCollector) throws ResourceException
 	{
 		mediumText=loadFont("TAHOMA.TTF", Font.BOLD, 20);
 		bigText=loadFont("TAHOMA.TTF", Font.BOLD, 35);
 		tinyText=loadFont("TAHOMA.TTF", Font.PLAIN, 14);
+		
+		resourceGarbageCollector.collect(bigText);
+		resourceGarbageCollector.collect(mediumText);
+		resourceGarbageCollector.collect(tinyText);
 	}
 	
 	private TrueTypeFont loadFont(String name, int style, int size)
