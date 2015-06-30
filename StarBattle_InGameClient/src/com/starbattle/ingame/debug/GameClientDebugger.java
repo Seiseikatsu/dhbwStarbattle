@@ -12,21 +12,23 @@ public class GameClientDebugger {
 		PlayerList player = new PlayerList();
 		player.addTestPlayer("TimoTester", "SuperTimo");
 		player.addTestPlayer("HansHelfer", "SuperHans");
-		//player.addTestPlayer("Pibi", "Bobo");
-		String map="debugmap";
-		
-		InGameClient.DEBUG_MODE=true;
+		// player.addTestPlayer("Pibi", "Bobo");
+		String map = "debugmap";
+
+		InGameClient.DEBUG_MODE = true;
 		GameDebugger debugger = new GameDebugger();
-		debugger.create(map,player);
+		debugger.create(map, player);
 
 	}
 
 	public static void main(String[] args) {
+
 		try {
 			new GameClientDebugger();
 		} catch (GameClientException e) {
 			e.printStackTrace();
 		}
+
 	}
 
 }

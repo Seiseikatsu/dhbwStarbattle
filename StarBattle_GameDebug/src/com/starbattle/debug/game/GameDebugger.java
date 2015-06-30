@@ -44,6 +44,9 @@ public class GameDebugger {
 		clients.openClients(setup, new SendToServer());	
 		server.startGame(init);
 	}
+	
+	
+
 
 	private class SendToServer implements GameSendConnection {
 

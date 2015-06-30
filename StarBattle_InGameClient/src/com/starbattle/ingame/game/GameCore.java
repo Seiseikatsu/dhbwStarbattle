@@ -23,7 +23,7 @@ import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 
 public class GameCore {
 
-	private ParticleContainer particleContainer = new ParticleContainer();
+	private ParticleContainer particleContainer;
 	private BulletsContainer bulletsContainer;
 	private GameMap map = new GameMap();
 	private ResourceContainer resourceContainer;
@@ -38,6 +38,7 @@ public class GameCore {
 	
 	public GameCore(ResourceContainer resources) {
 		this.resourceContainer = resources;
+		particleContainer=new ParticleContainer(resourceContainer.getGarbageCollector());
 		playerWatcher=new PlayerWatcher(players);
 		hudRender = new HudRender(resources);
 		gameRender = new GameRender(resources, this);
@@ -56,7 +57,7 @@ public class GameCore {
 	}
 
 	public void loadMap(String mapName) {
-		map.loadMap(mapName);
+		map.loadMap(mapName,resourceContainer.getGarbageCollector());
 		//set bulletscontainer border to remove bullets
 		bulletsContainer.createBorder(map);
 	}

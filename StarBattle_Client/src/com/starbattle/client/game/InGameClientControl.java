@@ -14,6 +14,7 @@ import com.starbattle.ingame.main.InGameClient;
 import com.starbattle.ingame.network.GameClientConnection;
 import com.starbattle.ingame.network.GameSendConnection;
 import com.starbattle.ingame.settings.GameclientSettings;
+import com.starbattle.network.connection.objects.NP_ExitGame;
 import com.starbattle.network.connection.objects.game.NP_GameEnd;
 import com.starbattle.network.connection.objects.game.NP_GameException;
 import com.starbattle.network.connection.objects.game.NP_GameStart;
@@ -27,33 +28,54 @@ public class InGameClientControl {
 	private boolean gameOpen;
 	private NetworkConnection networkConnection;
 	private StarBattleClient client;
+	private Thread clientThread;
+	private NP_PrepareGame gameInfo;
+	private boolean startGame = false;
+	
+	
+	public InGameClientControl(StarBattleClient clientt) {
 
-	public InGameClientControl(StarBattleClient client) {
-
-		this.client = client;
+		this.client = clientt;
 		this.networkConnection = client.getConnection();
 		networkConnection.setGameListener(createReceiveListener());
 		settings = new DebugSettings();
-	}
-
-	public void openGame(final NP_PrepareGame gameInfo) {
-		//set client view
-		System.out.println("OPEN GAME!");
-		client.getWindow().getContent().showView(InGameView.VIEW_ID);
-	    Thread thread = new Thread(new Runnable() {
+		Thread clientThread = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				try {
-					game = new InGameClient();
-					game.openInGameClient(settings, gameInfo, createSendConnection());				
-					System.out.println("Closed Game");
+
+					while (true) {
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						if (startGame) {
+							startGame = false;
+							game = new InGameClient();
+							game.openInGameClient(settings, gameInfo, createSendConnection());
+							System.out.println("Closed Game");		
+							//open lobby view
+							client.getWindow().getContent().showView(LobbyView.VIEW_ID);
+							//send server I quit the game
+							client.getConnection().getSendConnection().sendTCP(new NP_ExitGame());
+						}
+					}
 				} catch (GameClientException e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		thread.start();		
+		clientThread.start();
+	}
+
+	public void openGame(final NP_PrepareGame gameInfo) {
+		// set client view
+		System.out.println("OPEN GAME!");
+		client.getWindow().getContent().showView(InGameView.VIEW_ID);
+		this.gameInfo=gameInfo;
+		startGame=true;
 	}
 
 	private NetworkGameListener createReceiveListener() {
@@ -77,14 +99,13 @@ public class InGameClientControl {
 			@Override
 			public void receivedGameEnd(NP_GameEnd end) {
 				game.receivedObject(end);
-				closeGame();
 			}
 
 			@Override
 			public void receivedPrepareGame(NP_PrepareGame prepareGame) {
-	
+
 				openGame(prepareGame);
-				System.out.println("Received GamePreprare: "+prepareGame);
+				System.out.println("Received GamePreprare: " + prepareGame);
 			}
 		};
 	}
@@ -102,12 +123,6 @@ public class InGameClientControl {
 				networkConnection.getSendConnection().sendTCP(tcp);
 			}
 		};
-	}
-
-	public void closeGame() {
-		game.closeInGameClient();
-		//later change to game result screen
-		client.getWindow().getContent().showView(LobbyView.VIEW_ID);
 	}
 
 	public void reconnectedPlayer() {

@@ -14,8 +14,6 @@ public interface GameClientConnection {
 	public void connectionLost();
 	
 	public void reconnected();
-	
-	public void closeInGameClient();
-		
+
 	
 }

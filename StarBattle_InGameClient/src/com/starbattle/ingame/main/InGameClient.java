@@ -1,5 +1,7 @@
 package com.starbattle.ingame.main;
 
+import org.lwjgl.openal.AL;
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -21,7 +23,8 @@ public class InGameClient implements GameClientConnection {
 	private GameclientSettings settings;
 	private GameNetwork network;
 	private GameManager manager;
-
+	
+	
 	public InGameClient() {
 
 	}
@@ -48,6 +51,8 @@ public class InGameClient implements GameClientConnection {
 		gameContainer.setShowFPS(DEBUG_MODE);
 		return renderSettings;
 	}
+	
+
 
 	@Override
 	public void openInGameClient(GameclientSettings settings, NP_PrepareGame prepareGame, GameSendConnection send)
@@ -70,10 +75,11 @@ public class InGameClient implements GameClientConnection {
 			e.printStackTrace();
 			throw new GameClientException("Failed to init Game");
 		}
+
 	}
 
 	@Override
-	public void receivedObject(Object object) {
+	public void receivedObject(Object object) {		
 		network.receiveObject(object);
 	}
 
@@ -89,20 +95,5 @@ public class InGameClient implements GameClientConnection {
 		gameContainer.resume();
 	}
 
-	@Override
-	public void closeInGameClient() {
-		// kill game window
-		gameContainer.exit();
-		try
-        {
-            manager.closeGame();
-        }
-        catch (SlickException e)
-        {
-            e.printStackTrace();
-            System.exit(0);
-        }
-		
-	}
 
 }

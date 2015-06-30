@@ -4,6 +4,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
 import com.starbattle.ingame.game.viewport.Viewport;
+import com.starbattle.ingame.resource.ResourceGarbageCollector;
 import com.starbattle.maploader.main.CollisionMap;
 import com.starbattle.maploader.main.MapLoadException;
 import com.starbattle.maploader.main.MapLoader;
@@ -17,10 +18,10 @@ public class GameMap {
 	private CollisionMap collisionMap;
 	
 	public GameMap() {
-
+		
 	}
 
-	public void loadMap(String name) {
+	public void loadMap(String name, ResourceGarbageCollector resourceGarbageCollector) {
 		try {
 			MapLoader mapLoader = new MapLoader();
 			String file = path + name + ".tmx";
@@ -32,6 +33,11 @@ public class GameMap {
 			int h = map.getHeight();
 			collisionMap=mapLoader.getCollisionMap();
 			System.out.println("Loaded Map with " + map.getLayerCount() + " Layers [Size:" + w + "x" + h + "]");
+			
+			for(int i=0; i<map.getTileSetCount(); i++)
+			{
+				resourceGarbageCollector.collect(map.getTileSet(i).tiles);
+			}
 		} catch (MapLoadException e) {
 			e.printStackTrace();
 		}

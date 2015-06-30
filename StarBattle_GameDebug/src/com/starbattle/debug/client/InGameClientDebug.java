@@ -19,9 +19,7 @@ public class InGameClientDebug {
 		client.openInGameClient(new DebugSettings(), setup, sendConnection);
 	}
 
-	public void close() {
-		client.closeInGameClient();
-	}
+
 
 	public void receiveObject(Object object) {
 		client.receivedObject(object);

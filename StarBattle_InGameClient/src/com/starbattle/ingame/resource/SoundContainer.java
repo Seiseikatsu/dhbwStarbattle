@@ -31,11 +31,10 @@ public class SoundContainer
     public void loadSounds(ResourceGarbageCollector resourceGarbageCollector) throws ResourceException
     {
         this.resourceGarbageCollector = resourceGarbageCollector;
-        loadSound("hit");
+       loadSound("hit");
         loadSound("jump");
         loadSound("explosion");
         loadSound("lazer");
-
     }
 
     // anzahl blöcke wie weit der spieler hören kann

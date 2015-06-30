@@ -31,6 +31,7 @@ public class OpenAlClear
             //stop and detach any buffers at this source
             detachBuffer(source);
         }
+        
         buf.flip();
         AL10.alDeleteSources(buf);
         int exc = AL10.alGetError();

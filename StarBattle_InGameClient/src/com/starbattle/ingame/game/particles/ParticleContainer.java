@@ -7,6 +7,7 @@ import org.newdawn.slick.Graphics;
 import com.starbattle.ingame.game.location.Location;
 import com.starbattle.ingame.game.viewport.Viewport;
 import com.starbattle.ingame.render.RenderSettings;
+import com.starbattle.ingame.resource.ResourceGarbageCollector;
 
 public class ParticleContainer {
 
@@ -14,16 +15,16 @@ public class ParticleContainer {
 	private int count;
 	private RenderSettings renderSettings;
 
-	public ParticleContainer() {
+	public ParticleContainer(ResourceGarbageCollector rgc) {
 
 		// effects.put("Splash", new ParticleEffect("test"));
 		// effects.put("Splash2", new ParticleEffect("test2"));
-		effects.put("Air", new ParticleEffect("testAir"));
-		effects.put("JumpEffect", new ParticleEffect("jumpEffect"));
-		effects.put("PlasmaGun", new ParticleEffect("shotPlasmaGun"));
-		effects.put("Death", new ParticleEffect("death"));
-		effects.put("Damage", new ParticleEffect("test"));
-		effects.put("WallHit", new ParticleEffect("wallHit"));
+		effects.put("Air", new ParticleEffect("testAir",rgc));
+		effects.put("JumpEffect", new ParticleEffect("jumpEffect",rgc));
+		effects.put("PlasmaGun", new ParticleEffect("shotPlasmaGun",rgc));
+		effects.put("Death", new ParticleEffect("death",rgc));
+		effects.put("Damage", new ParticleEffect("test",rgc));
+		effects.put("WallHit", new ParticleEffect("wallHit",rgc));
 		
 	}
 

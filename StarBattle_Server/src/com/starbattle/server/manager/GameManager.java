@@ -61,6 +61,7 @@ public class GameManager {
 	public void playerExit(PlayerConnection player) {
 		int gameID = player.getGameID();
 		if (gameID != PlayerConnection.IN_LOBBY) {
+			player.setGameID(PlayerConnection.IN_LOBBY);
 			StarbattleGame game = games.get(gameID);
 			boolean stopGame = game.playerDisconnected(player.getAccountName());
 			if (stopGame) {

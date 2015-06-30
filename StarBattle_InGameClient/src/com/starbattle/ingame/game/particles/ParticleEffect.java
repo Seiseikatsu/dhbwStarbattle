@@ -11,13 +11,14 @@ import org.newdawn.slick.particles.ParticleSystem;
 
 import com.starbattle.ingame.game.location.Location;
 import com.starbattle.ingame.game.viewport.Viewport;
+import com.starbattle.ingame.resource.ResourceGarbageCollector;
 
 public class ParticleEffect {
 	private static final String path = "resource/particles/";
 	private ParticleSystem system;
 	private ArrayList<ParticleSystem> entities = new ArrayList<ParticleSystem>();
 
-	public ParticleEffect(String xml) {
+	public ParticleEffect(String xml, ResourceGarbageCollector resourceGarbageCollector) {
 		try {
 			system = ParticleIO.loadConfiguredSystem(path + xml + ".xml");
 			for (int i = 0; i < system.getEmitterCount(); i++) {
@@ -26,8 +27,10 @@ public class ParticleEffect {
 				String image = emitter.imageName;
 				if (image != null) {
 					emitter.setImageName(path + "/images/" + image);
+						
 				}
 			}
+			resourceGarbageCollector.collect(system);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

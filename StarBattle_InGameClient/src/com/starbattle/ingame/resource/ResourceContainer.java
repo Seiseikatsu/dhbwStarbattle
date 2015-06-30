@@ -95,4 +95,8 @@ public class ResourceContainer {
     {
        resourceGarbageCollector.tidyUp();
     }
+
+	public ResourceGarbageCollector getGarbageCollector() {
+		return resourceGarbageCollector;
+	}
 }

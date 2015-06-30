@@ -42,6 +42,15 @@ public class GameStateContainer extends StateBasedGame {
 	@Override
 	public boolean closeRequested()
 	{
-	    return false;
+		try
+        {
+            manager.closeGame();
+        }
+        catch (SlickException e)
+        {
+            e.printStackTrace();
+            System.exit(0);
+        }
+	    return true;
 	}
 }

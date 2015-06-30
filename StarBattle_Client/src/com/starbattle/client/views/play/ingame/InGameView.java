@@ -25,6 +25,8 @@ public class InGameView extends ContentView {
 
 		JPanel center = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		center.add(cancel);
+		
+		/* DONT CLOSE FROM INSIDE => GAME CLIENT CANT START AGAIN
 		view.add(center, BorderLayout.CENTER);
 
 		cancel.addActionListener(new ActionListener() {
@@ -37,7 +39,7 @@ public class InGameView extends ContentView {
 				NP_ExitGame exit = new NP_ExitGame();
 				connection.getSendConnection().sendTCP(exit);
 			}
-		});
+		});*/
 	}
 
 	@Override

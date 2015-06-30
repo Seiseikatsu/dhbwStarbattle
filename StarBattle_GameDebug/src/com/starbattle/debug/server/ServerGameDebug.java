@@ -82,4 +82,9 @@ public class ServerGameDebug {
 		updateLoop.start();
 	}
 
+	public void close() {
+		gameLoop.stop();
+		updateLoop.stop();
+	}
+
 }
