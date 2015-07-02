@@ -18,6 +18,7 @@ import com.starbattle.network.connection.objects.game.NP_PrepareGame;
 public class InGameClient implements GameClientConnection {
 
 	public static boolean DEBUG_MODE = false;
+	public static boolean GAME_ENDED=false;
 	private AppGameContainer gameContainer;
 	private GameStateContainer gameInit;
 	private GameclientSettings settings;
@@ -57,7 +58,7 @@ public class InGameClient implements GameClientConnection {
 	@Override
 	public void openInGameClient(GameclientSettings settings, NP_PrepareGame prepareGame, GameSendConnection send)
 			throws GameClientException {
-
+		GAME_ENDED=false;
 		// create game state container
 		network = new GameNetwork(send);
 		manager = new GameManager(network);
@@ -70,7 +71,9 @@ public class InGameClient implements GameClientConnection {
 			RenderSettings renderSettings=doGameSettings();
 			manager.getGameCore().setRenderSettings(renderSettings);
 			// start
+			System.out.println("///Opened");
 			gameContainer.start();
+			System.out.println("///Closed");
 		} catch (SlickException e) {
 			e.printStackTrace();
 			throw new GameClientException("Failed to init Game");
@@ -93,6 +96,11 @@ public class InGameClient implements GameClientConnection {
 	public void reconnected() {
 		// resume game
 		gameContainer.resume();
+	}
+
+	@Override
+	public boolean gameEnded() {
+		return GAME_ENDED;
 	}
 
 

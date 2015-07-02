@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 import com.starbattle.ingame.game.states.BattleState;
+import com.starbattle.ingame.game.states.GameEndState;
 import com.starbattle.ingame.game.states.LoadingState;
 import com.starbattle.ingame.network.GameNetwork;
 import com.starbattle.ingame.render.RenderResource;
@@ -33,15 +34,20 @@ public class GameStateContainer extends StateBasedGame {
 	public void initStatesList(GameContainer container) throws SlickException {
 		addState(new LoadingState(manager,prepareGame));
 		addState(new BattleState(manager));
+		addState(new GameEndState(this));
 		
 		Input input = container.getInput();
 		manager.prepareInput(input);
 		RenderResource.readScreenSize();
 	}
-
-	@Override
-	public boolean closeRequested()
+	
+	public GameManager getManager() {
+		return manager;
+	}
+	
+	public void closeGame()
 	{
+		System.out.println("Game is Closing now...");
 		try
         {
             manager.closeGame();
@@ -51,6 +57,12 @@ public class GameStateContainer extends StateBasedGame {
             e.printStackTrace();
             System.exit(0);
         }
+	}
+
+	@Override
+	public boolean closeRequested()
+	{
+		closeGame();
 	    return true;
 	}
 }

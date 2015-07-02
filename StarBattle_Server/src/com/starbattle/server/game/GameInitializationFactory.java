@@ -6,6 +6,7 @@ import java.util.List;
 import com.starbattle.gameserver.game.Team;
 import com.starbattle.gameserver.game.mode.GameMode;
 import com.starbattle.gameserver.game.mode.impl.DeathMatch;
+import com.starbattle.gameserver.game.mode.impl.DebugMode;
 import com.starbattle.gameserver.game.mode.impl.TeamDeathMatch;
 import com.starbattle.gameserver.main.BattleInitialization;
 import com.starbattle.gameserver.main.BattleParticipant;
@@ -45,6 +46,9 @@ public class GameInitializationFactory {
 			gameMode=new DeathMatch(pointLimit);
 			break;
 		case CAPTURETHEFLAG:
+			break;
+		case DEBUGMODE:
+			gameMode=new DebugMode();
 			break;
 		}
 

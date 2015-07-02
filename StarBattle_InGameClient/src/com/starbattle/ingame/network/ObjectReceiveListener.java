@@ -8,6 +8,8 @@ public interface ObjectReceiveListener
 	public void updateGame(NP_GameUpdate message);
 
 	public void startGame();
+	
+	public void endGame();
 
 	
 }

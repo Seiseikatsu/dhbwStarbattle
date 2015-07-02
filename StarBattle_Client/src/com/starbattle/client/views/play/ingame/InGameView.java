@@ -1,6 +1,7 @@
 package com.starbattle.client.views.play.ingame;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 import com.starbattle.client.connection.NetworkConnection;
 import com.starbattle.client.game.InGameClientControl;
 import com.starbattle.client.layout.DesignButton;
+import com.starbattle.client.layout.DesignLabel;
 import com.starbattle.client.window.ContentView;
 import com.starbattle.network.connection.objects.NP_ExitGame;
 
@@ -22,13 +24,18 @@ public class InGameView extends ContentView {
 	public InGameView(final NetworkConnection connection, final InGameClientControl inGameClientControl) {
 
 		view.setLayout(new BorderLayout());
+	
+		
 
 		JPanel center = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		center.add(cancel);
-		
-		/* DONT CLOSE FROM INSIDE => GAME CLIENT CANT START AGAIN
+		center.setBackground(new Color(150, 150, 150));
+		center.add(new DesignLabel("Game running!", Color.ORANGE, 25));
 		view.add(center, BorderLayout.CENTER);
 
+		/* center.add(cancel);
+		
+		DONT CLOSE FROM INSIDE => GAME CLIENT CANT START AGAIN
+	
 		cancel.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

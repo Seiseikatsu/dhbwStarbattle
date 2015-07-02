@@ -5,6 +5,7 @@ import com.starbattle.gameserver.exceptions.ServerMapException;
 import com.starbattle.gameserver.game.action.Damage;
 import com.starbattle.gameserver.game.mode.GameMode;
 import com.starbattle.gameserver.game.mode.PlayerRespawnListener;
+import com.starbattle.gameserver.main.BattleEndListener;
 import com.starbattle.gameserver.main.BattleInitialization;
 import com.starbattle.gameserver.main.BattleParticipant;
 import com.starbattle.gameserver.map.MapBorder;
@@ -64,11 +65,12 @@ public class GameContainer {
 
 	}
 
-	public void startGame() {
+	public void startGame(BattleEndListener battleEndListener) {
 		// set spawn location for players
 		playerList.initSpawn(serverMap.getSpawnPoints());
-		// start game mode
+		// start game mode	
 		gameMode.onGameInit(this);
+		gameMode.setBattleEndListener(battleEndListener);
 		System.out.println("GameContainer started!");
 	}
 

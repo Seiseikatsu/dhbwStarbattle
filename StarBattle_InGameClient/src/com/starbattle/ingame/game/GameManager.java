@@ -65,6 +65,14 @@ public class GameManager
         System.out.println("> Map Name: " + mapName);
         gameCore.initPlayers(prepareGame);
     }
+    
+    public void partialClose() throws SlickException
+    {
+        sendUpdateTimer.close();
+        resourceContainer.destroy();
+        AL.destroy();
+        SoundStore.get().clear();
+    }
 
     public void closeGame() throws SlickException
     {

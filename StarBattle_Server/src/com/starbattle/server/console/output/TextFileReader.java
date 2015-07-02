@@ -9,11 +9,11 @@ import java.net.URL;
 public class TextFileReader {
 
 	public static String readTextFile(String name) {
-		URL url = TextFileReader.class.getResource("/com/starbattle/server/console/output/" + name);
+//		URL url = TextFileReader.class.getResource("/resource/" + name);
 		String text = null;
 		BufferedReader br = null;
 		try {
-			br = new BufferedReader(new FileReader(url.getFile()));
+			br = new BufferedReader(new FileReader("resource/"+name));
 
 			StringBuilder sb = new StringBuilder();
 			String line = br.readLine();

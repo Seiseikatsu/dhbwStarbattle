@@ -24,7 +24,7 @@ public class BattleState extends BasicGameState {
 	}
 
 	@Override
-	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+	public void enter(GameContainer container,final StateBasedGame game) throws SlickException {
 
 		super.enter(container, game);
 		// set mouse cursor
@@ -41,6 +41,12 @@ public class BattleState extends BasicGameState {
 			@Override
 			public void startGame() {
 				//no function, game already running
+			}
+
+			@Override
+			public void endGame() {
+				//end game
+				game.enterState(GameStates.END_STATE.ordinal());
 			}
 		});
 		manager.getGameCore().start();

@@ -14,6 +14,7 @@ import com.starbattle.ingame.main.InGameClient;
 import com.starbattle.ingame.network.GameClientConnection;
 import com.starbattle.ingame.network.GameSendConnection;
 import com.starbattle.ingame.settings.GameclientSettings;
+import com.starbattle.network.connection.objects.NP_BattleResults;
 import com.starbattle.network.connection.objects.NP_ExitGame;
 import com.starbattle.network.connection.objects.game.NP_GameEnd;
 import com.starbattle.network.connection.objects.game.NP_GameException;
@@ -31,6 +32,8 @@ public class InGameClientControl {
 	private Thread clientThread;
 	private NP_PrepareGame gameInfo;
 	private boolean startGame = false;
+	
+	public static int PLAYER_ID;
 	
 	
 	public InGameClientControl(StarBattleClient clientt) {
@@ -56,10 +59,13 @@ public class InGameClientControl {
 							game = new InGameClient();
 							game.openInGameClient(settings, gameInfo, createSendConnection());
 							System.out.println("Closed Game");		
-							//open lobby view
+							if(!game.gameEnded())//only if the game didnt end itself 
+							{
+							//open lobby view						
 							client.getWindow().getContent().showView(LobbyView.VIEW_ID);
 							//send server I quit the game
 							client.getConnection().getSendConnection().sendTCP(new NP_ExitGame());
+							}
 						}
 					}
 				} catch (GameClientException e) {
@@ -73,6 +79,7 @@ public class InGameClientControl {
 	public void openGame(final NP_PrepareGame gameInfo) {
 		// set client view
 		System.out.println("OPEN GAME!");
+		PLAYER_ID=gameInfo.playerID;
 		client.getWindow().getContent().showView(InGameView.VIEW_ID);
 		this.gameInfo=gameInfo;
 		startGame=true;
@@ -87,7 +94,7 @@ public class InGameClientControl {
 			}
 
 			@Override
-			public void receivedGameStart(NP_GameStart start) {
+			public void receivedGameStart(NP_GameStart start) {				
 				game.receivedObject(start);
 			}
 
@@ -98,15 +105,18 @@ public class InGameClientControl {
 
 			@Override
 			public void receivedGameEnd(NP_GameEnd end) {
+				System.out.println("-------------> GaemEnd");
 				game.receivedObject(end);
+				
 			}
 
 			@Override
 			public void receivedPrepareGame(NP_PrepareGame prepareGame) {
-
+				
 				openGame(prepareGame);
 				System.out.println("Received GamePreprare: " + prepareGame);
 			}
+
 		};
 	}
 

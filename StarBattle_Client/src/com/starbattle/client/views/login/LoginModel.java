@@ -32,8 +32,8 @@ public class LoginModel extends ViewModel {
 		username=new DesignTextField(19, 16f,textfieldListener);
 		
 		//debug
-		username.setText("TimoTester");
-		password.setText("Timotest#1");
+		//username.setText("TimoTester");
+	//	password.setText("Timotest#1");
 		
 		username.setName("Login_Name");
 		password.setName("Login_Password");

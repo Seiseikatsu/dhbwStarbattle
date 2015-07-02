@@ -15,5 +15,6 @@ public interface GameClientConnection {
 	
 	public void reconnected();
 
+	public boolean gameEnded();
 	
 }

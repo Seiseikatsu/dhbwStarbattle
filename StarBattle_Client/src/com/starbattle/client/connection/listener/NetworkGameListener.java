@@ -1,5 +1,6 @@
 package com.starbattle.client.connection.listener;
 
+import com.starbattle.network.connection.objects.NP_BattleResults;
 import com.starbattle.network.connection.objects.game.NP_GameUpdate;
 import com.starbattle.network.connection.objects.game.NP_GameEnd;
 import com.starbattle.network.connection.objects.game.NP_GameStart;
@@ -18,6 +19,5 @@ public interface NetworkGameListener {
 	public void receivedGameException(NP_GameException exception);
 
 	public void receivedPrepareGame(NP_PrepareGame object);
-	
-	
+
 }

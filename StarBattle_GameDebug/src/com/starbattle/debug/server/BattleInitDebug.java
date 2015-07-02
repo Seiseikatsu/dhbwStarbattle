@@ -5,7 +5,8 @@ import java.util.List;
 
 import com.starbattle.debug.game.PlayerList;
 import com.starbattle.gameserver.game.Team;
-import com.starbattle.gameserver.game.mode.impl.TeamDeathMatch;
+import com.starbattle.gameserver.game.mode.impl.DeathMatch;
+import com.starbattle.gameserver.game.mode.impl.DebugMode;
 import com.starbattle.gameserver.main.BattleInitialization;
 import com.starbattle.gameserver.main.BattleParticipant;
 import com.starbattle.gameserver.main.BattleSettings;
@@ -20,7 +21,7 @@ public class BattleInitDebug {
 
 		BattleSettings settings = new BattleSettings();
 		settings.setMapName(mapName);
-		settings.setGameMode(new TeamDeathMatch(100));
+		settings.setGameMode(new DebugMode());
 
 		List<BattleParticipant> battleParticipants = new ArrayList<BattleParticipant>();
 
@@ -37,6 +38,7 @@ public class BattleInitDebug {
 			} else {
 				team = Team.RED_TEAM;
 			}
+			team=Team.NO_TEAM;
 			BattleParticipant bp = new BattleParticipant(connection, name, team);
 			battleParticipants.add(bp);
 		}

@@ -101,7 +101,10 @@ public class BattleField {
 					if (target.isAlive()) {
 						// check if enemies
 						GamePlayer source = projectile.getSource();
-
+						if(target==source)
+						{
+							continue;
+						}
 						if (source != null) {
 							Team targetTeam = target.getAttributes().getTeam();
 							Team sourceTeam = source.getAttributes().getTeam();

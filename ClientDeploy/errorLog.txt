@@ -1,39 +1,26 @@
-[info] Module Name: C:\Workspaces\git\dhbwStarbattle\ClientDeploy\StarBattle.exe
-[info] Module INI: C:\Workspaces\git\dhbwStarbattle\ClientDeploy\StarBattle.ini
-[info] Module Dir: C:\Workspaces\git\dhbwStarbattle\ClientDeploy\
-[info] INI Dir: C:\Workspaces\git\dhbwStarbattle\ClientDeploy\
+[info] Module Name: D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\StarBattle.exe
+[info] Module INI: D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\StarBattle.ini
+[info] Module Dir: D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\
+[info] INI Dir: D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\
 [info] Configured vm.location: (null)
 [info] Found VM: C:\Program Files (x86)\Java\jre7\bin\client\jvm.dll
 [info] Expanding Classpath: *.jar
-[info] Expanding Classpath: C:\Workspaces\git\dhbwStarbattle\ClientDeploy/StarBattle.jar
+[info] Expanding Classpath: D:\Workspaces\Git\dhbwStarbattle\ClientDeploy/StarBattle.jar
 [info] Expanding Classpath: libs/*.jar
-[info] Expanding Classpath: C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs/ibxm.jar
-[info] Expanding Classpath: C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs/jinput.jar
-[info] Expanding Classpath: C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs/jnlp.jar
-[info] Expanding Classpath: C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs/jogg-0.0.7.jar
-[info] Expanding Classpath: C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs/jorbis-0.0.15.jar
-[info] Expanding Classpath: C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs/kryonet-2.21-all.jar
-[info] Expanding Classpath: C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs/lwjgl.jar
-[info] Expanding Classpath: C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs/lwjgl_util.jar
-[info] Expanding Classpath: C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs/slick.jar
-[info] Generated Classpath: C:\Workspaces\git\dhbwStarbattle\ClientDeploy\StarBattle.jar;C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs\ibxm.jar;C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs\jinput.jar;C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs\jnlp.jar;C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs\jogg-0.0.7.jar;C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs\jorbis-0.0.15.jar;C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs\kryonet-2.21-all.jar;C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs\lwjgl.jar;C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs\lwjgl_util.jar;C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs\slick.jar
+[info] Expanding Classpath: D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs/ibxm.jar
+[info] Expanding Classpath: D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs/jinput.jar
+[info] Expanding Classpath: D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs/jnlp.jar
+[info] Expanding Classpath: D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs/jogg-0.0.7.jar
+[info] Expanding Classpath: D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs/jorbis-0.0.15.jar
+[info] Expanding Classpath: D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs/kryonet-2.21-all.jar
+[info] Expanding Classpath: D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs/lwjgl.jar
+[info] Expanding Classpath: D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs/lwjgl_util.jar
+[info] Expanding Classpath: D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs/slick.jar
+[info] Generated Classpath: D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\StarBattle.jar;D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs\ibxm.jar;D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs\jinput.jar;D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs\jnlp.jar;D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs\jogg-0.0.7.jar;D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs\jorbis-0.0.15.jar;D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs\kryonet-2.21-all.jar;D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs\lwjgl.jar;D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs\lwjgl_util.jar;D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs\slick.jar
 [info] VM Args:
-[info] vmarg.0=-Djava.library.path=C:\Workspaces\git\dhbwStarbattle\ClientDeploy\/natives
-[info] vmarg.1=-Djava.class.path=C:\Workspaces\git\dhbwStarbattle\ClientDeploy\StarBattle.jar;C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs\ibxm.jar;C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs\jinput.jar;C:\Workspaces\git\dhbwStarbattle\ClientDeploy\libs\jnlp.ja
+[info] vmarg.0=-Djava.library.path=D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\/natives
+[info] vmarg.1=-Djava.class.path=D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\StarBattle.jar;D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs\ibxm.jar;D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs\jinput.jar;D:\Workspaces\Git\dhbwStarbattle\ClientDeploy\libs\jnlp.ja
 [info] Registering natives for Native class
 [warn] Could not find Native class
-java.io.IOException: Unable to connect to: localhost/127.0.0.1:18400
-	at com.esotericsoftware.kryonet.TcpConnection.connect(TcpConnection.java:92)
-	at com.esotericsoftware.kryonet.Client.connect(Client.java:149)
-	at com.esotericsoftware.kryonet.Client.connect(Client.java:110)
-	at com.starbattle.network.client.NetworkClient.connect(NetworkClient.java:61)
-	at com.starbattle.client.connection.NetworkConnection.start(NetworkConnection.java:32)
-	at com.starbattle.client.main.StarBattleClient.initClient(StarBattleClient.java:83)
-	at com.starbattle.client.main.StarBattleClient.main(StarBattleClient.java:31)
-Caused by: java.net.ConnectException: Connection refused: no further information
-	at sun.nio.ch.SocketChannelImpl.checkConnect(Native Method)
-	at sun.nio.ch.SocketChannelImpl.finishConnect(Unknown Source)
-	at sun.nio.ch.SocketAdaptor.connect(Unknown Source)
-	at com.esotericsoftware.kryonet.TcpConnection.connect(TcpConnection.java:77)
-	... 6 more
 [info] Application exited (0).
+AL lib: (EE) alc_cleanup: 1 device not closed

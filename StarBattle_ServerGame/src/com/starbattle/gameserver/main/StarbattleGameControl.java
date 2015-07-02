@@ -45,7 +45,7 @@ public class StarbattleGameControl implements StarbattleGame {
 		} catch (ServerMapException e) {
 			e.printStackTrace();
 		}
-		game.startGame();
+		game.startGame(battleEndListener);
 		running=true;
 	}
 
@@ -94,7 +94,10 @@ public class StarbattleGameControl implements StarbattleGame {
 	@Override
 	public void sendToAllPlayersUDP(Object object) {
 		for (BattleParticipant battleParticipant : battleParticipants) {
+			if(battleParticipant.getConnection().isConnected())
+			{
 			battleParticipant.getConnection().sendTCP(object);
+			}
 		}
 	}
 	
@@ -102,7 +105,10 @@ public class StarbattleGameControl implements StarbattleGame {
 	@Override
 	public void sendToAllPlayersTCP(Object object) {
 		for (BattleParticipant battleParticipant : battleParticipants) {
+			if(battleParticipant.getConnection().isConnected())
+			{
 			battleParticipant.getConnection().sendTCP(object);
+			}
 		}
 	}
 

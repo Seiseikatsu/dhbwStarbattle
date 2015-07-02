@@ -74,7 +74,7 @@ public class GamePoints {
 	public GamePlayer getPlayerWithMostPoints()
 	{
 		GamePlayer pl=null;
-		int p=0;
+		int p=Integer.MIN_VALUE;
 		for(int i=0; i<players.getPlayers().size(); i++)
 		{
 			GamePlayer player=players.getPlayer(i);

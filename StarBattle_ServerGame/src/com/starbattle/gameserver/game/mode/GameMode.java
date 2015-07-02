@@ -4,6 +4,8 @@ import com.starbattle.gameserver.game.GameContainer;
 import com.starbattle.gameserver.game.Team;
 import com.starbattle.gameserver.game.action.Damage;
 import com.starbattle.gameserver.game.physics.GravityValues;
+import com.starbattle.gameserver.main.BattleEndListener;
+import com.starbattle.gameserver.main.BattleResults;
 import com.starbattle.gameserver.map.SpawnPoint;
 import com.starbattle.gameserver.map.SpawnPointList;
 import com.starbattle.gameserver.player.GamePlayer;
@@ -15,16 +17,16 @@ public abstract class GameMode implements GameModeInterface {
 	protected SpawnPointList spawnPointList;
 	protected float airLose = 0.01f;
 	protected int pointLimit;
-	protected GameEndListener gameEndListener;
-	protected float gravity=GravityValues.ERDE.getGravity();
-	protected int jumpsInAir=1;
-	
+	private BattleEndListener battleEndListener;
+	protected float gravity = GravityValues.ERDE.getGravity();
+	protected int jumpsInAir = 1;
+
 	public GameMode() {
 
 	}
 
-	public void setGameEndListener(GameEndListener gameEndListener) {
-		this.gameEndListener = gameEndListener;
+	public void setBattleEndListener(BattleEndListener battleEndListener) {
+		this.battleEndListener = battleEndListener;
 	}
 
 	@Override
@@ -32,20 +34,25 @@ public abstract class GameMode implements GameModeInterface {
 		this.game = game;
 		this.spawnPointList = game.getServerMap().getSpawnPoints();
 		this.points = new GamePoints(game.getPlayerList());
-		game.getPlayerList().setPhysics(gravity,jumpsInAir);
+		game.getPlayerList().setPhysics(gravity, jumpsInAir);
 	}
 
 	protected void endGame(Team winnerTeam) {
-		gameEndListener.teamWon(winnerTeam);
+		BattleResults results = new BattleResults(game.getPlayerList());
+		results.teamWon(winnerTeam);
+		battleEndListener.battleEnd(results);
 	}
 
 	protected void endGame(GamePlayer winnerPlayer) {
-		gameEndListener.playerWon(winnerPlayer);
+
+		BattleResults results = new BattleResults(game.getPlayerList());
+		results.playerWon(winnerPlayer);
+		battleEndListener.battleEnd(results);
 	}
 
 	protected void endGame() {
-		// just end, no winner
-		gameEndListener.noContest();
+		BattleResults results = new BattleResults(game.getPlayerList());
+		battleEndListener.battleEnd(results);
 	}
 
 	protected void defaulTeamEndCheck(int pointLimit) {

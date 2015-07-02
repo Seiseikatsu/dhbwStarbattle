@@ -8,6 +8,7 @@ import com.starbattle.client.views.login.LoginView;
 import com.starbattle.client.views.play.PlayView;
 import com.starbattle.client.views.play.ingame.InGameView;
 import com.starbattle.client.views.play.queue.WaitingView;
+import com.starbattle.client.views.play.results.BattleResultsView;
 import com.starbattle.client.views.profile.PlayerProfileView;
 import com.starbattle.client.views.register.RegisterView;
 import com.starbattle.client.views.reset.ResetPasswordView;
@@ -20,7 +21,7 @@ public abstract class ClientViewFactory {
 
 	public static void initViews(GameWindow window, NetworkConnection connection, LoadingWindow loadingWindow, InGameClientControl inGameClientControl) {
 		WaitingView waitingView = null;
-		for (int i = 0; i < 11; i++) {
+		for (int i = 0; i < 12; i++) {
 			switch (i) {
 			case 0:
 
@@ -64,6 +65,9 @@ public abstract class ClientViewFactory {
 				break;
 			case 10:
 				window.addView(new InGameView(connection,inGameClientControl));
+				break;
+			case 11:
+				window.addView(new BattleResultsView(connection));
 				break;
 			}
 

@@ -1,10 +1,12 @@
 package com.starbattle.client.connection;
 
+import com.starbattle.client.connection.listener.NetworkBattleResultsListener;
 import com.starbattle.client.connection.listener.NetworkFriendListener;
 import com.starbattle.client.connection.listener.NetworkFriendRequestListener;
 import com.starbattle.client.connection.listener.NetworkGameListener;
 import com.starbattle.client.connection.listener.NetworkGameQueryListener;
 import com.starbattle.client.connection.listener.NetworkRegistrationListener;
+import com.starbattle.network.connection.objects.NP_BattleResults;
 import com.starbattle.network.connection.objects.NP_CancelMatchQueue;
 import com.starbattle.network.connection.objects.NP_ChatException;
 import com.starbattle.network.connection.objects.NP_ChatMessage;
@@ -27,11 +29,17 @@ public class NetworkObjectResolver {
 	private NetworkFriendRequestListener friendRequestListener;
 	private NetworkGameListener gameListener;
 	private NetworkGameQueryListener queryListener;
+	private NetworkBattleResultsListener battleResultsListener;
 
 	public NetworkObjectResolver() {
 
 	}
 
+	
+	public void setBattleResultsListener(NetworkBattleResultsListener battleResultsListener) {
+		this.battleResultsListener = battleResultsListener;
+	}
+	
 	public void setQueryListener(NetworkGameQueryListener queryListener) {
 		this.queryListener = queryListener;
 	}
@@ -85,6 +93,8 @@ public class NetworkObjectResolver {
 			queryListener.receivedGameModes((NP_GameModesList) object);
 		} else if (object instanceof NP_CancelMatchQueue) {
 			queryListener.receivedQueryCancel();
+		} else if(object instanceof NP_BattleResults){
+			battleResultsListener.receivedBattleResults((NP_BattleResults)object);
 		}
 
 	}

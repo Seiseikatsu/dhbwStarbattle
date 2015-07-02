@@ -1,0 +1,4 @@
+
+java  -jar StarBattleServer.jar
+
+

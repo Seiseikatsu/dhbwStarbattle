@@ -11,9 +11,11 @@ import com.starbattle.gameserver.main.BattleSettings;
 import com.starbattle.gameserver.main.StarbattleGame;
 import com.starbattle.gameserver.main.StarbattleGameControl;
 import com.starbattle.gameserver.player.GamePlayer;
+import com.starbattle.network.connection.objects.game.NP_GameEnd;
 import com.starbattle.network.connection.objects.game.NP_GameUpdate;
 import com.starbattle.network.connection.objects.game.NP_PlayerUpdate;
 import com.starbattle.network.server.PlayerConnection;
+import com.starbattle.server.game.BattleResultsUtil;
 import com.starbattle.server.modes.GameModeContainer;
 
 public class GameManager {
@@ -97,6 +99,13 @@ public class GameManager {
 					@Override
 					public void battleEnd(BattleResults results) {
 
+						//send game end to players
+						NP_GameEnd end=new NP_GameEnd();				
+						game.sendToAllPlayersTCP(end);
+						
+						//send battle results to all players
+						game.sendToAllPlayersTCP(BattleResultsUtil.generateResults(results));
+						
 						removeGame(gameID);
 					}
 				});

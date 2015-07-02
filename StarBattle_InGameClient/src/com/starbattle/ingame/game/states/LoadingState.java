@@ -40,7 +40,7 @@ public class LoadingState extends BasicGameState {
 	}
 
 	@Override
-	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+	public void enter(GameContainer container, final StateBasedGame game) throws SlickException {
 		super.enter(container, game);
 
 		// listen for game start from server
@@ -54,6 +54,12 @@ public class LoadingState extends BasicGameState {
 			@Override
 			public void startGame() {
 				openGame = true;
+			}
+
+			@Override
+			public void endGame() {
+				//end game
+				game.enterState(GameStates.END_STATE.ordinal());
 			}
 		});
 	}
