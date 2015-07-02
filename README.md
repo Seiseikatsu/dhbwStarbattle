@@ -37,8 +37,7 @@ created and updates display-data.
 
 ### StarBattle_MapEditor
 
-The MapEditor project contains the map editor standalone. Game designers can create, save and
-edit maps with this tool. Maps will be exported as mapfiles and delivered to the master server.
+Deprecated: We switched to the TileD Map Editor!
 
 ### StarBattle_Network
 
@@ -59,13 +58,25 @@ creates a game server for every existing game. The gameserver collects all data 
 currently playing in this game. With a game loop and send-scheduler it sends updates to its clients based
 on their viewport.
 
+### StarBattle_Client_TestInterface
+
+Our own testinginterface for the client. With this tool you can write tests for gui and network very easy.
+
+### StarBattle_Game_TestInterface
+
+Written to test the IngameClient and GameServer, without using the client and server application. It simulates
+a simple network connection between both instances and therefore you can test much faster.
+
+### StarBattle_MapLoader
+
+The Map-Loading-Interface every component uses, that wants to load the TileD-Maps for the game.
+(Server needs the map to retrieve game logic, client for render purpose)
 
 ## Used Libraries
 
 - Slick2D (InGame Client Engine)
 - KryoNet (Serialization Network)
-
-
+- H2O DB
 
 
 
